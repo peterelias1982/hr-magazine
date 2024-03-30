@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('hasComments');
             $table->boolean('hasSource');
             $table->boolean('hasYoutubeLink');
+            $table->boolean('hasAuthor');
             $table->timestamps();
         });
     }

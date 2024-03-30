@@ -42,9 +42,7 @@
  <!--Mahitab added this file on 19/3/2024-->
  <script src="{{asset('admin/js/welcome-txt.js')}}"></script>
  <script src="{{asset('admin/js/table-pagination.js')}}"></script>
- {{-- <script src="{{asset('admin/js/edit_form.js')}}"></script> --}}
  <script src="{{asset('admin/js/add-event.js')}}"></script>
  <script src="{{asset('admin/js/maps.js')}}"></script>
  <script src="{{asset('admin/js/edit.js')}}"></script>
  <script src="{{asset('admin/js/stylingTags.js')}}"></script>
- <script src="{{asset('admin/js/edit_form.js')}}"></script>

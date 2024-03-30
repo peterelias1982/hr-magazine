@@ -22,6 +22,7 @@ class ArticleCategory extends Model
         'hasComments',
         'hasSource',
         'hasYoutubeLink',
+        'hasAuthor'
 
     ];
 

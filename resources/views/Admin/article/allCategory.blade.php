@@ -1,15 +1,18 @@
 @extends('Admin.layouts.master')
 @section('Content')
 <div class="content-wrapper">
+  @if(session('success'))
+      <h2>{{session('success')}}</h2>
+  @endif
     <div class="row py-3 justify-content-between align-items-center">
       <h2 class="fw-bold col-lg-auto">Categories</h2>
       <div class="col-lg-auto">
         <!-- Search Bar start -->
         <div class="search-bar">
-          <form action="">
+          <form  action="{{URL::CURRENT()}}" method="GET" >
             <div class="row g-1 justify-content-lg-end justify-content-start">
               <div class="col-4 col-lg-5 form-floating">
-                <input type="text" class="form-control" id="title">
+                <input type="text" class="form-control" id="title" name="Catergory">
                 <label for="title">Category</label>
               </div>
               <button class="col-auto btn border-0 btn-md" type="submit">
@@ -39,11 +42,15 @@
                   </tr>
                 </thead>
                 <tbody>
+                  @foreach($Categories as $Category)
                   <tr>
                     <td>
-                      <form action="">
+                      <form id="ArticleCategory{{$Category->id}}" action="{{route('categories.update',[$Category->slug,$Category->id])}}" method="POST">
+                        @csrf
+                        @method("PUT")
                         <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                          <input type="text" class="custom-input d-inline-block" value="test category 1" disabled="">
+                          <input type="text" class="custom-input d-inline-block" value="{{$Category->articleCategoryName}}" disabled="" 
+                            name="articleCategoryName">
                           <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
                           <button type="submit" class="btn btn-primary btn-xs invisible">
                             Submit
@@ -58,83 +65,45 @@
                       <div class="d-flex">
                         <div class="form-check form-check-flat form-check-primary mx-2">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" disabled="">Has Comment
+                            <input type="checkbox" class="form-check-input" disabled=""
+                             @checked($Category->hasComments) name="hasComments" form="ArticleCategory{{$Category->id}}">Has Comment
                           <i class="input-helper"></i></label>
                         </div>
                         <div class="form-check form-check-flat form-check-primary mx-2">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" disabled="">
+                            <input type="checkbox" class="form-check-input" disabled="" 
+                            @checked($Category->hasYoutubeLink) name="hasYoutubeLink" form="ArticleCategory{{$Category->id}}">
                             Has YouTube
                           <i class="input-helper"></i></label>
                         </div>
                         <div class="form-check form-check-flat form-check-primary mx-2">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" checked="" disabled="">
+                            <input type="checkbox" class="form-check-input"  disabled=""
+                            @checked($Category->hasSource) name="hasSource" form="ArticleCategory{{$Category->id}}">
                             Has Source
                           <i class="input-helper"></i></label>
                         </div>
                         <div class="form-check form-check-flat form-check-primary mx-2">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" checked="" disabled="">
+                            <input type="checkbox" class="form-check-input" disabled="" 
+                            @checked($Category->hasAuthor)  name="hasAuthor" form="ArticleCategory{{$Category->id}}">
                             Has Author
                           <i class="input-helper"></i></label>
                         </div>
                       </div>
                     </td>
                     <td class="py-2">
-                      <button type="button" class="btn btn-danger btn-xs delete">
-                        Delete
-                      </button>
+                      <form action="{{route('categories.destroy',[$Category->slug])}}" method="POST">
+                        @csrf
+                          @method("delete")
+                            <button type="submit" class="btn btn-danger btn-xs delete" >
+                              Delete
+                            </button>
+                       </form>
                     </td>
                   </tr>
-                  <tr>
-                    <td>
-                      <form action="">
-                        <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                          <input type="text" class="custom-input d-inline-block" value="test category 1" disabled="">
-                          <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                          <button type="submit" class="btn btn-primary btn-xs invisible">
-                            Submit
-                          </button>
-                          <button type="cancel" class="btn btn-light btn-xs invisible">
-                            Cancel
-                          </button>
-                        </div>
-                      </form>
-                    </td>
-                    <td>
-                      <div class="d-flex">
-                        <div class="form-check form-check-flat form-check-primary mx-2">
-                          <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" disabled="">Has Comment
-                          <i class="input-helper"></i></label>
-                        </div>
-                        <div class="form-check form-check-flat form-check-primary mx-2">
-                          <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" disabled="">
-                            Has YouTube
-                          <i class="input-helper"></i></label>
-                        </div>
-                        <div class="form-check form-check-flat form-check-primary mx-2">
-                          <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" checked="" disabled="">
-                            Has Source
-                          <i class="input-helper"></i></label>
-                        </div>
-                        <div class="form-check form-check-flat form-check-primary mx-2">
-                          <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" checked="" disabled="">
-                            Has Author
-                          <i class="input-helper"></i></label>
-                        </div>
-                      </div>
-                    </td>
-                    <td class="py-2">
-                      <button type="button" class="btn btn-danger btn-xs delete">
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
+                  @endforeach
+               
                 </tbody>
               </table>
           </div>
