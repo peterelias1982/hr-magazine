@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('image');
             $table->text('content');
             $table->foreignId('category_id')->references('id')->on('article_categories')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             // $table->foreignId('user_id')  // Use foreignId() for Laravel conventions
             // ->constrained('users')  // Constrained method for both table name and foreign key creation
             // ->onDelete('set null')  // Set related_table_id to NULL on deletion
