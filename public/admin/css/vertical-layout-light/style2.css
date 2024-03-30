@@ -1,0 +1,42 @@
+/* Table pagination */
+.content {
+  margin: 20px;
+}
+
+.pagination {
+  text-align: end;
+  margin-top: 20px;
+  float: right;
+}
+
+.pagination button {
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border: 1px solid #ddd;
+  margin: 0 4px;
+  border-radius: 10px;
+}
+
+.hidden {
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.pagination button.active {
+  background-color: #010101;
+  color: white;
+  border: 1px solid #010101;
+}
+
+
+
+
+
+
