@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title')->index();
-            $table->string('slug');
+            $table->string('slug')->unique();
             $table->date('from')->index();
             $table->date('to');
             $table->string('image');
@@ -23,8 +23,9 @@ return new class extends Migration
             $table->string('state');
             $table->string('postalCode');
             $table->string('country');
-            $table->decimal('latitude', 10, 7);
-            $table->decimal('longitude', 10, 7);
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
+            $table->text('googleMapLink')->nullable();
             $table->text('description');
             $table->text('speakers');
             $table->timestamps();

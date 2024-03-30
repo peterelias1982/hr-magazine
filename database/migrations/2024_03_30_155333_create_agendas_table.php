@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('agendas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
-            $table->longText('content');
+            $table->foreignId('event_id')->references('id')->on('events')
+            ->onDelete('cascade')->onUpdate('cascade');
+            $table->string('topic');
             $table->time('from');
             $table->time('to');
             $table->text('speakers');

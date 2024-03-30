@@ -9,7 +9,7 @@ use Spatie\Sluggable\SlugOptions;
 
 class Event extends Model
 {
-    use HasFactory,HasSlug;
+    use HasFactory, HasSlug;
 
     public function getSlugOptions() : SlugOptions
     {
@@ -35,6 +35,7 @@ class Event extends Model
         ];
 
     public function agenda(){
-        return $this->hasOne(Agenda::class);
+        return $this->hasMany(Agenda::class);
     }
+
 }

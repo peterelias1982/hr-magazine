@@ -20,4 +20,5 @@ class Agenda extends Model
     public function event(){
         return $this->belongsTo(Event::class);
     }
+
 }
