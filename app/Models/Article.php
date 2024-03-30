@@ -14,9 +14,9 @@ use App\Models\Tag;
 
 class Article extends Model
 {
-    use HasFactory,HasSlug;
+    use HasFactory, HasSlug;
 
-    protected $fillable=[
+    protected $fillable = [
         'title',
         'slug',
         'image',
@@ -25,34 +25,42 @@ class Article extends Model
         'user_id',
         'author_id',
         'approved',
-        'articleable_type',
-        'articleable_id',
+        // no need to add type and id in fillable, fillable means the data that will be added manually, 
+        //like slug is added automatically there is no need to add it into fillable, 
+        //so as to morph relation is handled automatically 
+        // 'articleable_type',   
+        // 'articleable_id',
     ];
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
             ->saveSlugsTo('slug');
     }
 
-    public function articleable(){
+    public function articleable()
+    {
         return $this->morphto();
     }
 
-    public function articleCategory(){
+    public function articleCategory()
+    {
         return $this->belongsTo(ArticleCategory::class);
     }
 
-    public function sourceArticle(){
+    public function sourceArticle()
+    {
         return $this->hasMany(SourceArticle::class);
     }
 
-    public function youtubeLink(){
+    public function youtubeLink()
+    {
         return $this->hasMany(YoutubeLink::class);
     }
 
-    public function articleComment(){
+    public function articleComment()
+    {
         return $this->hasMany(articleComment::class);
     }
 
@@ -64,11 +72,10 @@ class Article extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-}
+    }
 
-public function author()
-{
-    return $this->belongsTo(Author::class);
-}
-
+    public function author()
+    {
+        return $this->belongsTo(Author::class);
+    }
 }

@@ -8,7 +8,8 @@ use Thiagoprz\CompositeKey\HasCompositeKey;
 
 class ArticleTag extends Model
 {
-    use HasFactory,HasCompositeKey;
+    use HasFactory;
+    use HasCompositeKey;
 
     protected $primaryKey = ['article_id', 'tag_id'];
 
