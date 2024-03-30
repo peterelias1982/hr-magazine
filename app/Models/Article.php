@@ -23,9 +23,10 @@ class Article extends Model
         'content',
         'category_id',
         'user_id',
+        'author_id',
         'approved',
-        // 'articleable_type',
-        // 'articleable_id',
+        'articleable_type',
+        'articleable_id',
     ];
 
     public function getSlugOptions() : SlugOptions
@@ -35,9 +36,9 @@ class Article extends Model
             ->saveSlugsTo('slug');
     }
 
-    // public function articleable(){
-    //     return $this->morphto();
-    // }
+    public function articleable(){
+        return $this->morphto();
+    }
 
     public function articleCategory(){
         return $this->belongsTo(ArticleCategory::class);
@@ -65,5 +66,9 @@ class Article extends Model
         return $this->belongsTo(User::class);
 }
 
+public function author()
+{
+    return $this->belongsTo(Author::class);
+}
 
 }

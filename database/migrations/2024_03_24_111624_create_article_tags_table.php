@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('article_tags', function (Blueprint $table) {
-            $table->id();
+            // $table->unsignedBigInteger('id');
+            $table->primary(['article_id', 'tag_id'], 'id'); //create composite key
             $table->foreignId('tag_id')->references('id')->on('tags')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('article_id')->references('id')->on('articles')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

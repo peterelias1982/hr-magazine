@@ -16,4 +16,8 @@ class Author extends Model
 
         return $this->morphOne(User::class,"userable");
     }
+
+    public function article(){
+        return $this->hasMany(Article::class);
+    }
 }
