@@ -1,0 +1,39 @@
+/* Styles for the form groups to add spacing and potential background */
+.form-group-group {
+    margin-bottom: 20px; 
+    padding: 15px;
+    background-color: #f9f9f9; 
+    border-radius: 5px; 
+  }
+
+.form-group {
+    margin-bottom: 30px; 
+}
+.form-group input[type="file"] {
+  padding-top: 10px; 
+  padding-bottom: 10px; 
+} 
+
+.tag label {
+  margin-bottom: 0;
+  margin-left: 0.3rem;
+}
+
+
+.form-group-group .form-group textarea {
+  min-height: 150px; /* Set the minimum height in pixels */
+}
+
+/* Styling for the tags container */
+.tags-scrollable-container {
+  max-height: 200px; 
+  overflow-x: auto; 
+  overflow-y: auto; 
+  border: 0.5px solid #e2e5e9;
+  padding: 10px;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, auto) 125px repeat(3, auto) 125px repeat(2, auto); 
+  grid-auto-rows: 35px; /* Set row height */
+  gap: 15px; /* Set gap between tags */
+}
