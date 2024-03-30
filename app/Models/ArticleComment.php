@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Article;
 use App\Models\User;
 
-class articleComment extends Model
+class ArticleComment extends Model
 {
     use HasFactory;
 
@@ -23,9 +23,9 @@ class articleComment extends Model
         return $this->belongsTo(Article::class);
     }
 
-//     public function articles(){
-//         return $this->morphMany(Article::class,'articleable');
-// }
+    public function articles(){
+        return $this->morphMany(Article::class,'articleable');
+}
 
     public function user(){
         return $this->belongsTo(User::class);
