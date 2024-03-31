@@ -45,7 +45,7 @@
                   @foreach($Categories as $Category)
                   <tr>
                     <td>
-                      <form id="ArticleCategory{{$Category->id}}" action="{{route('categories.update',[$Category->slug,$Category->id])}}" method="POST">
+                      <form id="ArticleCategory{{$Category->id}}" action="{{route('categories.update',[$Category->slug])}}" method="POST">
                         @csrf
                         @method("PUT")
                         <div class="position-relative input-parent d-inline-block" onclick="edit(this)">

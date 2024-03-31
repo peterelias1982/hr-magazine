@@ -8,6 +8,7 @@ use App\Models\ArticleCategory;
 use Dflydev\DotAccessData\Data;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\CategoryArticleRequest;
+use App\Http\Requests\updateCategoryArticleRequest;
 
 class ArticleCategoryController extends Controller
 {
@@ -49,7 +50,7 @@ class ArticleCategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryArticleRequest $request,$slug,$id)
+    public function update(updateCategoryArticleRequest $request,$slug)
     {
         $CategoryArticle=ArticleCategory::where("slug",$slug);
         $data["articleCategoryName"]=$request["articleCategoryName"];
