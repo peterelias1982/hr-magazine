@@ -4,7 +4,7 @@ use App\Http\Controllers\ArticleCategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('Admin.jobs.jobDetails');
+    return view('Admin.index');
 });
 
 Route::group(['prefix'=>"Admin"],function(){
@@ -15,7 +15,6 @@ Route::group(['prefix'=>"Admin"],function(){
             Route::post("/","store")->name('store');
             Route::put("/{slug}/{id}","update")->name('update');
             Route::delete("/{slug}","destroy")->name('destroy');
-            
         });
     });
 });
