@@ -1,6 +1,7 @@
 let inputs = document.querySelectorAll("input");
 let selects = document.querySelectorAll('select');
 let textareas = document.querySelectorAll('textarea');
+
 let userPicIcon = document.getElementById("user_pic_change_icon");
 let companyPicIcon = document.getElementById("company_pic_change_icon");
 let articlePicIcon = document.getElementById("article_change_icon");
@@ -20,13 +21,12 @@ let eventPicInput = document.getElementById("event_pic_input");
 let tagDivs = document.querySelectorAll('.tag')
 
 let form_edit = false;
-let editButton = document.getElementById("edit_user_button")
+let edit_button = document.getElementById("edit_user_button");
 
-if(editButton) {
+if(edit_button) {
     editForm()
 
-    document
-        .getElementById("edit_user_button")
+    edit_button
         .addEventListener("click", function () {
             form_edit = !form_edit;
             editForm()
@@ -79,7 +79,6 @@ if(editButton) {
                     reader.readAsDataURL(file);
 
                     reader.onload = function (e) {
-                        console.log("uploaded");
                         userPic.src = e.target.result;
                     };
                 });
@@ -163,7 +162,6 @@ if(editButton) {
                     reader.readAsDataURL(file);
 
                     reader.onload = function (e) {
-                        console.log("uploaded");
                         articlePic.src = e.target.result;
                     };
                 });
@@ -206,8 +204,6 @@ if(editButton) {
             if (tagDivs) {
                 tagDivs.forEach(div => {
                     checkbox = div.querySelector('.tag-checkbox')
-                    console.log(checkbox)
-                    console.log(checkbox.checked)
                     if (checkbox.checked) {
                         div.classList.remove('d-none')
                     } else {
