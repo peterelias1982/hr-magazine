@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleCategory;
+use App\Models\Author;
+use App\Models\User;
+use App\Models\Tag;
 use App\Models\ArticleComment;
 use App\Models\SourceArticle;
 use App\Models\YoutubeLink;
@@ -21,7 +25,12 @@ class ArticleController extends Controller
      */
     public function index()
     {
-       
+        // $article=Article::get();
+        // return view('admin.article.articleDetails',compact('article'));
+
+        $articles = Article::with(['articleComments', 'sourceArticles', 'youtubeLinks', 'articleCategories' ,'authors','tags'])
+        ->get();
+        return view('admin.article.articleDetails', compact('articles'));
         
     }
 
@@ -30,7 +39,11 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        
+        $articleCategories = ArticleCategory::all(["articleCategoryName"]);
+        $authors = User::select('id', 'name')->get();
+        $tags = Tag::all(['tagName']);
+
+        return view("Admin.article.addArticle", compact('articleCategories', 'authors', 'tags'));;
     }
 
     /**
