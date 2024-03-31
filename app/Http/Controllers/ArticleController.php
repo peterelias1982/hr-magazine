@@ -3,16 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleComment;
+use App\Models\SourceArticle;
+use App\Models\YoutubeLink;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
+use App\Traits\Common;
+use Illuminate\Http\Response;
+
 
 class ArticleController extends Controller
 {
+    use Common;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+       
+        
     }
 
     /**
@@ -20,13 +30,13 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreArticleRequest $request)
     {
         //
     }
@@ -50,7 +60,7 @@ class ArticleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article)
+    public function update(UpdateArticleRequest $request, Article $article)
     {
         //
     }

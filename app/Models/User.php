@@ -5,14 +5,23 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 // use Illuminate\Database\Eloquent\Model;
+Relation::morphMap([
+    "Job_Seeker"=>"App\Models\JobSeeker",
+    "Admin"=>Admin::class,
+    "Author"=>Author::class,
+    "Employer"=>"App\Models\Employer",
+]);
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,HasSlug;
+    use HasFactory;
+    use Notifiable;
+    use HasSlug;
 
     /**
      * The attributes that are mass assignable.
@@ -27,8 +36,8 @@ class User extends Authenticatable
         "position",
         "slug",
         "mobile",
-        "userable_type",
-        "userable_id",
+        // "userable_type",
+        // "userable_id",
         "active",
         
     ];

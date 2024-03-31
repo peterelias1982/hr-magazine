@@ -13,7 +13,8 @@
           <p class="card-description">
             Add a new Article to the Dashboard
           </p>
-          <form class="forms-sample" id="article-create" enctype="multipart/form-data">
+          <form action="{{route('articles.store')}}" method="POST" class="forms-sample" id="article-create" enctype="multipart/form-data">
+            @csrf
             <!-- Group 1: Title, Image, and Content -->
             <div class="form-group-group">
               <div class="form-group">
