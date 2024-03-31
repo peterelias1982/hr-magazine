@@ -1,6 +1,6 @@
 @extends('Admin.layouts.master')
 @section('Content')
-<form class="forms-sample" id="event-create" method="post" action="{{ route('events.store') }}" enctype="multipart/form-data">
+<form class="forms-sample" id="event-create">
 @csrf
     <div class="content-wrapper">
       <h2 class="pt-5 fw-bold">Add Event</h2>
