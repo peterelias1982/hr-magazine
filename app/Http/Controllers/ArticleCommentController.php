@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\articleComment;
+use App\Models\ArticleComment;
 use Illuminate\Http\Request;
 
-class articleCommentController extends Controller
+class ArticleCommentController extends Controller
 {
     /**
      * Display a listing of the resource.

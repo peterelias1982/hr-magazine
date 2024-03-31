@@ -22,7 +22,7 @@ return new class extends Migration
             // $table->foreignId('parentComment')->constrained('article_comments')->onDelete('cascade')->onUpdate('cascade'); // Use constrained() for parentComment
 
             $table->foreignId('parentComment')->references('id')->on('article_comments')->onDelete('cascade')->onUpdate('cascade')->nullable();
-            $table->foreignId('article_id')->references('id')->on('article_categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('article_id')->references('id')->on('articles')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }
