@@ -15,14 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('title')->index();
             $table->string('slug')->unique();
-            $table->date('from')->index();
-            $table->date('to');
+            $table->date('fromDate')->index();
+            $table->date('toDate');
             $table->string('image');
-            $table->tinyInteger('streetNo');
-            $table->string('city')->index();
-            $table->string('state');
-            $table->string('postalCode');
-            $table->string('country');
+            $table->text('address')->index();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
             $table->text('googleMapLink')->nullable();

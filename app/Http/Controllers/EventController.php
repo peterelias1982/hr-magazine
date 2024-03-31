@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Agenda;
+use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\UpdateEventRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Traits\Common;
 
 class EventController extends Controller
 {
@@ -12,7 +17,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        $events = Event::get();
+        $agendas = Agenda::get();
+        return view('Admin.event',compact('events','agendas'));
     }
 
     /**
@@ -20,15 +27,35 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        $events = Event::get();
+        $agendas = Agenda::get();
+        return view('Admin.event.addEvent',compact('events','agendas'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreEventRequest $request)
     {
-        //
+        // $events = Event::get();
+        // $data = $request->validate([
+        //     'title'=>'required|string|max:100',
+        //     'price'=>'required|numeric',
+        //     'content'=>'required|string',
+        //     'luggage'=>'required|integer',
+        //     'doors'=>'required|integer',
+        //     'passengers'=>'required|integer',
+        //     'image' => 'required|mimes:png,jpg,jpeg|max:2048',
+        //     'category_id'=>'required',
+        // ], $messages);
+
+        // $fileName = $this->uploadFile($request->image, 'assets/admin/images');    
+        // $data['image'] = $fileName;
+
+        // $data['active'] = isset($request->active);
+        // Car::create($data);
+        // Alert::success('Added Car','Car added successfully!');
+        // return redirect ('admin/cars');
     }
 
     /**

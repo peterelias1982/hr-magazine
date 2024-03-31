@@ -20,16 +20,13 @@ class Event extends Model
 
     protected $fillable = [
         'title',
-        'from',
-        'to',
+        'fromDate',
+        'toDate',
         'image',
-        'streetNo',
-        'city',
-        'state',
-        'postalCode',
-        'country',
+        'address',
         'latitude',
         'longitude',
+        'googleMapLink',
         'description',
         'speakers',
         ];

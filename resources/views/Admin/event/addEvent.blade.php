@@ -1,6 +1,7 @@
 @extends('Admin.layouts.master')
 @section('Content')
-<form class="forms-sample" id="event-create">
+<form class="forms-sample" id="event-create" method="post" action="{{ route('events.store') }}" enctype="multipart/form-data">
+@csrf
     <div class="content-wrapper">
       <h2 class="pt-5 fw-bold">Add Event</h2>
       <div class="row py-3">
@@ -52,7 +53,7 @@
                 <div class="row justify-content-between mb-2">
                     <label for="map" class="form-label pt-2 col-lg-3">Location Map</label>
                     <div class="col-lg-8 d-flex justify-content-end">
-                    <input type="text" id="searchInput" placeholder="e.g. cairo" class="form-control d-inline-block w-75">
+                    <input type="text" id="searchInput" placeholder="e.g. cairo" name="googleMapLink" class="form-control d-inline-block w-75">
                     <button id="searchButton" class="btn btn-dark  btn-sm">
                       Search
                     </button>
@@ -85,7 +86,7 @@
               border: 30px solid white;
             ">
             <div class="card-body">
-              <h4 class="card-title">Sechedual Event-Agenda</h4>
+              <h4 class="card-title">Schedule Event-Agenda</h4>
               <!-- Event Agenda Section -->
               <div class="form-group">
                 <label for="event-agenda">Scheduling Event</label>
@@ -119,16 +120,16 @@
                       <tbody>
                         <tr class="day_1">
                           <td>
-                            <input type="text" class="form-control" name="topic[1][]" placeholder="Topic">
+                            <input type="text" class="form-control" name="topic" placeholder="Topic">
                           </td>
                           <td>
-                            <input type="time" class="form-control" name="from_time[1][]">
+                            <input type="time" class="form-control" name="fromTime">
                           </td>
                           <td>
-                            <input type="time" class="form-control" name="to_time[1][]">
+                            <input type="time" class="form-control" name="toTime">
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="speaker[1][]" placeholder="Speaker">
+                            <input type="text" class="form-control" name="speaker" placeholder="Speaker">
                           </td>
                           <td>
                             <button type="button" class="btn btn-danger btn-sm remove-row">

@@ -23,18 +23,21 @@ class StoreEventRequest extends FormRequest
     {
         return [
             'title'=>'required|max:255',
-            'from'=>'required|date',
-            'to'=>'required|date',
+            'fromDate'=>'required|date',
+            'toDate'=>'required|date',
             'image' => 'required|mimes:png,jpg,jpeg|max:2048',
-            'streetNo'=>'required|integer',
-            'city'=>'required|max:100',
-            'state'=>'required|max:100',
-            'postalCode'=>'required|max:20',
-            'country'=>'required|max:100',
-            'latitude'=>'required|decimal',
-            'longitude'=>'required|decimal',
+            'address'=>'required',
+            'latitude'=>'sometimes|decimal',
+            'longitude'=>'sometimes|decimal',
+            'longitude'=>'sometimes|decimal',
+            'googleMapLink'=>'sometimes',
             'description'=>'required',
             'speakers'=>'required',
+            'event_id'=>'required',
+            'topic'=>'required|max:255',
+            'fromTime'=>'required|time',
+            'toTime'=>'required|time',
+            'speaker'=>'required|max:255',
         ];
     }
 }

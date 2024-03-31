@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Event;
 
 class Agenda extends Model
 {
@@ -11,10 +12,10 @@ class Agenda extends Model
 
     protected $fillable = [
         'event_id',
-        'content',
-        'from',
-        'to',
-        'speakers',
+        'topic',
+        'fromTime',
+        'toTime',
+        'speaker',
         ];
     
     public function event(){

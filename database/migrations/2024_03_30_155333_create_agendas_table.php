@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('event_id')->references('id')->on('events')
             ->onDelete('cascade')->onUpdate('cascade');
             $table->string('topic');
-            $table->time('from');
-            $table->time('to');
-            $table->text('speakers');
+            $table->time('fromTime');
+            $table->time('toTime');
+            $table->string('speaker');
             $table->timestamps();
         });
     }
