@@ -401,3 +401,7 @@
   </div>
 </div>
 @endsection
+@section('js')
+<script src="{{asset('admin/js/edit_form.js')}}"></script>
+
+@endsection

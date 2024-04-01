@@ -166,3 +166,7 @@ Quos consectetur blanditiis dolore quisquam aliquam in minus omnis iusto, nam, q
   </div>
 </div>
 @endsection
+@section('js')
+<script src="{{asset('admin/js/edit_form.js')}}"></script>
+
+@endsection
