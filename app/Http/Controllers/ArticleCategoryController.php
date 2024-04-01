@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Article;
-use Illuminate\Http\Request;
-use App\Models\ArticleCategory;
-use Dflydev\DotAccessData\Data;
-use Illuminate\Support\Facades\Session;
 use App\Http\Requests\CategoryArticleRequest;
-use App\Http\Requests\updateCategoryArticleRequest;
+use App\Models\ArticleCategory;
 
 class ArticleCategoryController extends Controller
 {
@@ -17,13 +12,13 @@ class ArticleCategoryController extends Controller
      */
     public function index()
     {
-        $query=ArticleCategory::Query();
-        $request=Request();
-        if($search=$request->Catergory){
-            $query->where("articleCategoryName","LIKE","%$search%");
+        $query = ArticleCategory::Query();
+        $request = Request();
+        if ($search = $request->catergory) {
+            $query->where("articleCategoryName", "LIKE", "%$search%");
         }
-        $Categories=$query->get();
-        return view("Admin.article.allCategory",compact('Categories'));
+        $categories = $query->get();
+        return view("Admin.article.allCategory", compact('categories'));
     }
 
     /**
@@ -39,26 +34,19 @@ class ArticleCategoryController extends Controller
      */
     public function store(CategoryArticleRequest $request)
     {
-        $data["articleCategoryName"]=$request["articleCategoryName"];
-        $data['hasComments']=isset($request['hasComments']);
-        $data['hasSource']=isset($request['hasSource']);
-        $data['hasYoutubeLink']=isset($request['hasYoutubeLink']);
-        $data['hasAuthor']=isset($request['hasAuthor']);
+      
+       $data=$this->prepareData($request);
         ArticleCategory::create($data);
-        return redirect()->back();
+        return redirect()->route('categories.index');
     }
     /**
      * Update the specified resource in storage.
      */
-    public function update(updateCategoryArticleRequest $request,$slug)
+    public function update(CategoryArticleRequest $request, $slug)
     {
-        $CategoryArticle=ArticleCategory::where("slug",$slug);
-        $data["articleCategoryName"]=$request["articleCategoryName"];
-        $data['hasComments']=isset($request['hasComments']);
-        $data['hasSource']=isset($request['hasSource']);
-        $data['hasYoutubeLink']=isset($request['hasYoutubeLink']);
-        $data['hasAuthor']=isset($request['hasAuthor']);
-        $CategoryArticle->update($data);
+        $categoryArticle = ArticleCategory::where("slug", $slug)->first();
+       $data=$this->prepareData($request);
+        $categoryArticle->update($data);
         return redirect()->back();
     }
     /**
@@ -66,9 +54,16 @@ class ArticleCategoryController extends Controller
      */
     public function destroy($slug)
     {
+        ArticleCategory::where("slug", $slug)->delete();
+        return redirect()->back();
+    }
+    private function prepareData($request){
 
-        ArticleCategory::where("slug",$slug)->delete();
-        //  Session::flash('success', 'Deleted: ' . $slug . ' done sucessfuly!');
-         return redirect()->back();
+        $data["articleCategoryName"] = $request["articleCategoryName"];
+        $data['hasComments'] = isset($request['hasComments']);
+        $data['hasSource'] = isset($request['hasSource']);
+        $data['hasYoutubeLink'] = isset($request['hasYoutubeLink']);
+        $data['hasAuthor'] = isset($request['hasAuthor']);
+        return $data;
     }
 }

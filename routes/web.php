@@ -7,7 +7,7 @@ Route::get('/', function () {
     return view('Admin.article.addArticle');
 });
 
-Route::group(['prefix'=>"Admin"],function(){
+Route::group(['prefix'=>"admin"],function(){
     Route::group(['prefix'=>"articles"],function(){
         Route::group(['prefix'=>"categories","controller"=>ArticleCategoryController::class,"as"=>"categories."],function(){
             Route::get("/create","create")->name('create');
