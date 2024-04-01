@@ -1,5 +1,7 @@
 <?php
 
+
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\AgendaController;
@@ -17,6 +19,6 @@ Route::prefix('events')->group(function () {
     Route::get('/',[EventController::class,'index'])->name('events.index');
     Route::get('/{slug}',[EventController::class,'show'])->name('events.show');
     Route::put('/{slug}',[EventController::class,'update'])->name('events.update');
-    Route::get('/{slug}',[EventController::class,'destroy'])->name('events.destroy');
+    Route::delete('/{slug}',[EventController::class,'destroy'])->name('events.destroy');
 
 });

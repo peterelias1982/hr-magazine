@@ -16,8 +16,9 @@ class Agenda extends Model
         'fromTime',
         'toTime',
         'speaker',
+        'dayNumber'
         ];
-    
+
     public function event(){
         return $this->belongsTo(Event::class);
     }

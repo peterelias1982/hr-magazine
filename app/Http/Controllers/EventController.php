@@ -6,20 +6,22 @@ use App\Models\Event;
 use App\Models\Agenda;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Traits\Common;
 
 class EventController extends Controller
 {
+    use Common;
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $events = Event::get();
-        $agendas = Agenda::get();
-        return view('Admin.event',compact('events','agendas'));
+        return view('Admin.event.allEvent', compact('events'));
     }
 
     /**
@@ -27,9 +29,50 @@ class EventController extends Controller
      */
     public function create()
     {
-        $events = Event::get();
-        $agendas = Agenda::get();
-        return view('Admin.event.addEvent',compact('events','agendas'));
+        return view('Admin.event.addEvent');
+    }
+
+    private function prepareData(array $data)
+    {
+//      Event data
+        $imageName = $this->uploadFile($data['image'], 'admin/images/articles&event');
+        $eventData = [
+            'title' => $data['title'],
+            'fromDate' => Carbon::parse($data['fromDate'])->format('Y-m-d'),
+            'toDate' => Carbon::parse($data['toDate'])->format('Y-m-d'),
+            'image' => $imageName,
+            'streetNo' => $data['streetNo'],
+            'streetName' => $data['streetName'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'postalCode' => $data['postalCode'],
+            'country' => $data['country'],
+            'latitude' => $data['latitude'],
+            'longitude' => $data['longitude'],
+            'googleMapLink' => $data['googleMapLink'],
+            'description' => $data['description'],
+            'speakers' => $data['speakers'],
+        ];
+//      Agenda Rows
+        $agendaData = [];
+
+        for ($i = 1, $dayCount = count($data['topic']); $i <= $dayCount; $i++) {
+            for ($j = 0, $rows = count($data['topic'][$i]); $j < $rows; $j++) {
+                $agendaData[] = [
+                    'dayNumber' => $i,
+                    'topic' => $data['topic'][$i][$j],
+                    'fromTime' => $data['fromTime'][$i][$j],
+                    'toTime' => $data['toTime'][$i][$j],
+                    'speaker' => $data['speaker'][$i][$j],
+                ];
+            }
+        }
+
+        return [
+            'eventData' => $eventData,
+            'agendaData' => $agendaData,
+        ];
+
     }
 
     /**
@@ -37,40 +80,15 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        
-        $data = $request;
-        $fromDateDB = \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('fromDate')->format('Y-m-d'));
-        $toDateDB = \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('toDate')->format('Y-m-d'));
-        
-        Event::create([
-            'title'=>$request->title,
-            'fromDate'=>$request->$fromDateDB,
-            'toDate'=>$request->$toDateDB,
-            'image'=>$request->image,
-            'streetNo'=>$request->streetNo,
-            'streetName'=>$request->streetName,
-            'city'=>$request->city,
-            'state'=>$request->state,
-            'postalCode'=>$request->postalCode,
-            'country'=>$request->country,
-            'latitude'=>$request->latitude,
-            'longitude'=>$request->longitude,
-            'googleMapLink'=>$request->googleMapLink,
-            'description'=>$request->description,
-            'speakers'=>$request->speakers,
-        ]);
+        $data = $this->prepareData($request->all());
+        $event = Event::create($data['eventData']);
 
-        $fileName = $this->uploadFile($request->image, 'admin/images/articles&event');    
-        $data['image'] = $fileName;
+        foreach ($data['agendaData'] as $agendaRow) {
+            $agendaRow['event_id'] = $event->id;
+            Agenda::create($agendaRow);
+        }
 
-        Agenda::create([            
-            'event_id'=>$request->event_id,
-            'topic'=>$request->topic,
-            'fromTime'=>$request->fromTime,
-            'toTime'=>$request->toTime,
-            'speaker'=>$request->speaker,
-        ]);
-        return redirect ('admin/events/');
+        return redirect()->route('admin.events.index');
     }
 
     /**

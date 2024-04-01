@@ -19,6 +19,7 @@ return new class extends Migration
             $table->time('fromTime');
             $table->time('toTime');
             $table->string('speaker');
+            $table->integer('dayNumber');
             $table->timestamps();
         });
     }

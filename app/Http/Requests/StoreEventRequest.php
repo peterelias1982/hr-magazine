@@ -32,11 +32,16 @@ class StoreEventRequest extends FormRequest
             'state'=>'required|max:255',
             'postalCode'=>'required|max:255',
             'country'=>'required|max:255',
-            'latitude'=>'required_without:googleMapLink|decimal',
-            'longitude'=>'required_without:googleMapLink|required_with:latitude|decimal',
-            'googleMapLink'=>'required_without:googleMapLink:longitude,latitude',
+            'latitude'=>'required_without:googleMapLink',
+            'longitude'=>'required_without:googleMapLink|required_with:latitude',
+            'googleMapLink'=>'required_if:latitude,NULL|required_if:longitude,NULL',
             'description'=>'required',
             'speakers'=>'required',
+//            agenda validation
+            'topic'=>'required|array',
+            'fromTime'=>'required|array',
+            'toTime'=>'required|array',
+            'speaker'=>'required|array',
         ];
     }
 }
