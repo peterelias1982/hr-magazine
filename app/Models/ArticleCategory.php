@@ -15,6 +15,8 @@ class ArticleCategory extends Model
 {
     use HasFactory,HasSlug;
 
+    protected $table = "article_categories";
+
     protected $fillable = [
 
         'articleCategoryName',
@@ -25,7 +27,7 @@ class ArticleCategory extends Model
 
     ];
 
-   
+
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
