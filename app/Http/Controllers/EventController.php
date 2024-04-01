@@ -37,25 +37,40 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        // $events = Event::get();
-        // $data = $request->validate([
-        //     'title'=>'required|string|max:100',
-        //     'price'=>'required|numeric',
-        //     'content'=>'required|string',
-        //     'luggage'=>'required|integer',
-        //     'doors'=>'required|integer',
-        //     'passengers'=>'required|integer',
-        //     'image' => 'required|mimes:png,jpg,jpeg|max:2048',
-        //     'category_id'=>'required',
-        // ], $messages);
+        
+        $data = $request;
+        $fromDateDB = \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('fromDate')->format('Y-m-d'));
+        $toDateDB = \Carbon\Carbon::createFromFormat('m/d/Y', $request->input('toDate')->format('Y-m-d'));
+        
+        Event::create([
+            'title'=>$request->title,
+            'fromDate'=>$request->$fromDateDB,
+            'toDate'=>$request->$toDateDB,
+            'image'=>$request->image,
+            'streetNo'=>$request->streetNo,
+            'streetName'=>$request->streetName,
+            'city'=>$request->city,
+            'state'=>$request->state,
+            'postalCode'=>$request->postalCode,
+            'country'=>$request->country,
+            'latitude'=>$request->latitude,
+            'longitude'=>$request->longitude,
+            'googleMapLink'=>$request->googleMapLink,
+            'description'=>$request->description,
+            'speakers'=>$request->speakers,
+        ]);
 
-        // $fileName = $this->uploadFile($request->image, 'assets/admin/images');    
-        // $data['image'] = $fileName;
+        $fileName = $this->uploadFile($request->image, 'admin/images/articles&event');    
+        $data['image'] = $fileName;
 
-        // $data['active'] = isset($request->active);
-        // Car::create($data);
-        // Alert::success('Added Car','Car added successfully!');
-        // return redirect ('admin/cars');
+        Agenda::create([            
+            'event_id'=>$request->event_id,
+            'topic'=>$request->topic,
+            'fromTime'=>$request->fromTime,
+            'toTime'=>$request->toTime,
+            'speaker'=>$request->speaker,
+        ]);
+        return redirect ('admin/events/');
     }
 
     /**
@@ -89,4 +104,5 @@ class EventController extends Controller
     {
         //
     }
+
 }

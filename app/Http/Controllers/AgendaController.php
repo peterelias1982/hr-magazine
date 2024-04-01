@@ -2,8 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use App\Models\Agenda;
+use App\Http\Requests\StoreAgendaRequest;
+use App\Http\Requests\UpdateAgendaRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Traits\Common;
 
 class AgendaController extends Controller
 {

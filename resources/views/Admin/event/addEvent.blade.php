@@ -1,6 +1,6 @@
 @extends('Admin.layouts.master')
 @section('Content')
-<form class="forms-sample" id="event-create">
+<form class="forms-sample" id="event-create" method="post" action="{{ route('admin.events.store') }}" enctype="multipart/form-data">
 @csrf
     <div class="content-wrapper">
       <h2 class="pt-5 fw-bold">Add Event</h2>
@@ -14,33 +14,53 @@
               </p>
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+                <input type="text" class="form-control" id="title" name="title" value="{{old('title')}}" placeholder="Title">
               </div>
               <div class="form-group">
                 <label for="fromDate">From</label>
-                <input type="date" class="form-control" id="fromDate" name="fromDate" placeholder="">
+                <input type="date" class="form-control" id="fromDate" name="fromDate" value="{{old('fromDate')}}" placeholder="">
               </div>
               <div class="form-group">
                 <label for="toDate">To</label>
-                <input type="date" class="form-control" id="toDate" name="toDate" placeholder="">
+                <input type="date" class="form-control" id="toDate" name="toDate" value="{{old('toDate')}}" placeholder="">
               </div>
               <div class="form-group">
                 <label for="" class="form-label">Image</label>
                 <input type="file" class="form-control" id="image" name="image">
               </div>
               <div class="form-group">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                <label for="streetNo" class="form-label">Street Number</label>
+                <input type="text" class="form-control" id="streetNo" name="streetNo" value="{{old('streetNo')}}" placeholder="street Number">
+              </div>
+              <div class="form-group">
+                <label for="streetName" class="form-label">Street Name</label>
+                <input type="text" class="form-control" id="streetName" name="streetName" value="{{old('streetName')}}" placeholder="street Name">
+              </div>
+              <div class="form-group">
+                <label for="city" class="form-label">City</label>
+                <input type="text" class="form-control" id="city" name="city" value="{{old('city')}}" placeholder="City">
+              </div>
+              <div class="form-group">
+                <label for="state" class="form-label">State</label>
+                <input type="text" class="form-control" id="state" name="state" value="{{old('state')}}" placeholder="State">
+              </div>
+              <div class="form-group">
+                <label for="postalCode" class="form-label">Postal Code</label>
+                <input type="text" class="form-control" id="postalCode" name="postalCode" value="{{old('postalCode')}}" placeholder="Postal Code">
+              </div>
+              <div class="form-group">
+                <label for="country" class="form-label">Country</label>
+                <input type="text" class="form-control" id="country" name="country" value="{{old('country')}}" placeholder="Country">
               </div>
               <div class="form-group">
                 <label for="speakers" class="form-label">Speakers</label>
-                <input type="text" class="form-control" id="speakers" name="speakers" placeholder="Speakers">
+                <input type="text" class="form-control" id="speakers" name="speakers" value="{{old('speakers')}}" placeholder="Speakers">
               </div>
               
               <div class="form-group">
                 <label for="description" class="form-label">Description
                 </label>
-                <textarea class="form-control" id="description" name="description" form="event-create" placeholder="Description" style="height: 6rem"></textarea>
+                <textarea class="form-control" id="description" name="description" form="event-create" placeholder="Description" style="height: 6rem">{{old('description')}}</textarea>
               </div>
             </div>
           </div>
@@ -53,7 +73,7 @@
                 <div class="row justify-content-between mb-2">
                     <label for="map" class="form-label pt-2 col-lg-3">Location Map</label>
                     <div class="col-lg-8 d-flex justify-content-end">
-                    <input type="text" id="searchInput" placeholder="e.g. cairo" name="googleMapLink" class="form-control d-inline-block w-75">
+                    <input type="text" id="searchInput" placeholder="e.g. cairo" class="form-control d-inline-block w-75">
                     <button id="searchButton" class="btn btn-dark  btn-sm">
                       Search
                     </button>
@@ -63,16 +83,22 @@
                 <div class="form-group mt-2">
                   <label class="form-label">
                     Latitude
-                  </label>
-                  
-                    <input name="latitude" id="lat" form="edit-event" class="form-control" value="30.0444">
-                  
+                  </label>                  
+                    <input name="latitude" id="lat" form="edit-event" class="form-control" value="{{old('latitude')}}">              
                 </div>
+
                 <div class="form-group">
                   <label class="form-label">
                     Longitude
                   </label>
-                    <input name="longitude" id="long" form="edit-event" class="form-control" value="31.2357">
+                    <input name="longitude" id="long" form="edit-event" class="form-control" value="{{old('longitude')}}">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">
+                    Google Map Link
+                  </label>
+                    <input name="googleMapLink" id="long" form="edit-event" class="form-control" value="{{old('googleMapLink')}}" placeholder="Google Map Link">
                 </div>
               </div>
             </div>
@@ -105,7 +131,7 @@
                         position: sticky;
                         left: 0;
                       ">
-                      Day 1
+                     Day 1
                     </h4>
                     <table class="table table-responsive" id="agenda-table-day-1">
                       <thead>
@@ -120,16 +146,16 @@
                       <tbody>
                         <tr class="day_1">
                           <td>
-                            <input type="text" class="form-control" name="topic" placeholder="Topic">
+                            <input type="text" class="form-control" name="topic" value="{{old('topic')}}" placeholder="Topic">
                           </td>
                           <td>
-                            <input type="time" class="form-control" name="fromTime">
+                            <input type="time" class="form-control" name="fromTime" value="{{old('fromTime')}}">
                           </td>
                           <td>
-                            <input type="time" class="form-control" name="toTime">
+                            <input type="time" class="form-control" name="toTime" value="{{old('toTime')}}">
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="speaker" placeholder="Speaker">
+                            <input type="text" class="form-control" name="speaker" value="{{old('speaker')}}" placeholder="Speaker">
                           </td>
                           <td>
                             <button type="button" class="btn btn-danger btn-sm remove-row">
@@ -145,11 +171,10 @@
                   </div>
                 </div>
               </div>
-
               <button type="submit" class="btn btn-primary me-2" form="event-create">
                 Submit
               </button>
-              <button class="btn btn-light" form="event-create">
+              <a href="{{ route('admin.events.create') }}"><button class="btn btn-light" form="event-create">
                 Cancel
               </button>
             </div>
@@ -158,4 +183,4 @@
       </div>
     </div>
   </form>
-@endsection
+  @endsection

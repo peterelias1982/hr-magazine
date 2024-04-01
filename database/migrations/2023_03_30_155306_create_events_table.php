@@ -18,7 +18,12 @@ return new class extends Migration
             $table->date('fromDate')->index();
             $table->date('toDate');
             $table->string('image');
-            $table->text('address')->index();
+            $table->integer('streetNo');
+            $table->string('streetName');
+            $table->string('city')->index();
+            $table->string('state');
+            $table->string('postalCode');
+            $table->string('country');
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
             $table->text('googleMapLink')->nullable();
