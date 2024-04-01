@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryArticleRequest;
 use App\Models\ArticleCategory;
-use Illuminate\Http\Request;
 
 class ArticleCategoryController extends Controller
 {
@@ -12,7 +12,13 @@ class ArticleCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $query = ArticleCategory::Query();
+        $request = Request();
+        if ($search = $request->catergory) {
+            $query->where("articleCategoryName", "LIKE", "%$search%");
+        }
+        $categories = $query->get();
+        return view("Admin.article.allCategory", compact('categories'));
     }
 
     /**
@@ -20,46 +26,44 @@ class ArticleCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view("Admin.article.addCategory");
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryArticleRequest $request)
     {
-        //
+      
+       $data=$this->prepareData($request);
+        ArticleCategory::create($data);
+        return redirect()->route('categories.index');
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(ArticleCategory $articleCategory)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ArticleCategory $articleCategory)
-    {
-        //
-    }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, ArticleCategory $articleCategory)
+    public function update(CategoryArticleRequest $request, $slug)
     {
-        //
+        $categoryArticle = ArticleCategory::where("slug", $slug)->first();
+       $data=$this->prepareData($request);
+        $categoryArticle->update($data);
+        return redirect()->back();
     }
-
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ArticleCategory $articleCategory)
+    public function destroy($slug)
     {
-        //
+        ArticleCategory::where("slug", $slug)->delete();
+        return redirect()->back();
+    }
+    private function prepareData($request){
+
+        $data["articleCategoryName"] = $request["articleCategoryName"];
+        $data['hasComments'] = isset($request['hasComments']);
+        $data['hasSource'] = isset($request['hasSource']);
+        $data['hasYoutubeLink'] = isset($request['hasYoutubeLink']);
+        $data['hasAuthor'] = isset($request['hasAuthor']);
+        return $data;
     }
 }
