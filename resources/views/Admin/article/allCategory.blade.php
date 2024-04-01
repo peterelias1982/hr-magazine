@@ -12,7 +12,7 @@
           <form  action="{{URL::CURRENT()}}" method="GET" >
             <div class="row g-1 justify-content-lg-end justify-content-start">
               <div class="col-4 col-lg-5 form-floating">
-                <input type="text" class="form-control" id="title" name="Catergory">
+                <input type="text" class="form-control" id="title" name="catergory">
                 <label for="title">Category</label>
               </div>
               <button class="col-auto btn border-0 btn-md" type="submit">
@@ -42,7 +42,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($Categories as $Category)
+                  @foreach($categories as $Category)
                   <tr>
                     <td>
                       <form id="ArticleCategory{{$Category->id}}" action="{{route('categories.update',[$Category->slug])}}" method="POST">
