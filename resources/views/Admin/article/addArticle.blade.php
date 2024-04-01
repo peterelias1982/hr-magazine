@@ -13,20 +13,30 @@
           <p class="card-description">
             Add a new Article to the Dashboard
           </p>
-          <form class="forms-sample" id="article-create" enctype="multipart/form-data">
+          <form action="{{route('articles.store')}}" method="POST" class="forms-sample" id="article-create" enctype="multipart/form-data">
+            @csrf
             <!-- Group 1: Title, Image, and Content -->
             <div class="form-group-group">
               <div class="form-group">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+                <input type="text" class="form-control" id="title" name="title" placeholder="Title" value={{old('title')}}>
+                @error('title')
+                {{ $message }}
+               @enderror
               </div>
               <div class="form-group">
                 <label for="image">Image</label>
                 <input type="file" class="form-control" id="image" name="image" placeholder="Image" accept="image/*">
+                @error('image')
+                {{ $message }}
+            @enderror
               </div>
               <div class="form-group">
                 <label for="content">Content</label>
-                <textarea class="form-control" id="content" name="content" placeholder="Add Text Here --- "></textarea>
+                <textarea class="form-control" id="content" name="content" placeholder="Add Text Here --- " value={{old('content')}}></textarea>
+                @error('content')
+                 {{ $message }}
+                 @enderror
               </div>
             </div>
             <!-- Group 2: Tags and Category -->
@@ -35,8 +45,17 @@
                 <label>Tags</label>
                 <!-- Placeholder for tags checkboxes -->
                 <div class="tags-scrollable-container" id="tags-container">
-                  <div class="badge-dark p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag"><input type="checkbox" name="tags[]" id="tag-Alps" class="tag-checkbox"> #<label for="tag-Alps">Alps</label></div>
-                  <div class="badge-warning p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag"><input type="checkbox" name="tags[]" id="tag-Austria" class="tag-checkbox"> #<label for="tag-Austria">Austria</label></div>
+
+                  @foreach ($articleTags as $articleTag)
+                  <div class="badge-dark p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag">
+                    <input type="checkbox" name="tagName" value="{{ $articleTag->id }}" id="tag-{{ $articleTag->id }}" class="tag-checkbox">  #<label for="tag-{{ $articleTag->id }}" @checked(old('tagName'))>{{ $articleTag->tagName }}</label>  </div>
+                    {{-- <input type="checkbox" name="tagName" id="tag-Alps" class="tag-checkbox"> #<label for="tag-Alps" @checked(old('tagName'))>{{ $tags->tagName }}</label></div> --}}
+                   @endforeach
+                   @error('tagName')
+                   {{ $message }}
+                  @enderror
+                   {{-- <div class="badge-dark p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag"><input type="checkbox" name="tags[]" id="tag-Alps" class="tag-checkbox"> #<label for="tag-Alps">Alps</label></div> --}}
+                   {{-- <div class="badge-warning p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag"><input type="checkbox" name="tags[]" id="tag-Austria" class="tag-checkbox"> #<label for="tag-Austria">Austria</label></div>
                   <div class="badge-success p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag"><input type="checkbox" name="tags[]" id="tag-France" class="tag-checkbox"> #<label for="tag-France">France</label></div>
                   <div class="badge-warning p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag"><input type="checkbox" name="tags[]" id="tag-Germany" class="tag-checkbox"> #<label for="tag-Germany">Germany</label></div>
                   <div class="badge-primary p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag"><input type="checkbox" name="tags[]" id="tag-London" class="tag-checkbox"> #<label for="tag-London">London</label></div>
@@ -61,18 +80,23 @@
                   <div class="badge-dark p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag"><input type="checkbox" name="tags[]" id="tag-Circus" class="tag-checkbox"> #<label for="tag-Circus">Circus</label></div>
                   <div class="badge-dark p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag"><input type="checkbox" name="tags[]" id="tag-Cafes" class="tag-checkbox"> #<label for="tag-Cafes">Cafes</label></div>
                   <div class="badge-dark p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag"><input type="checkbox" name="tags[]" id="tag-Fog" class="tag-checkbox"> #<label for="tag-Fog">Fog</label></div>
-                  <div class="badge-dark p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag"><input type="checkbox" name="tags[]" id="tag-Flowers" class="tag-checkbox"> #<label for="tag-Flowers">Flowers</label></div>
+                  <div class="badge-dark p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag"><input type="checkbox" name="tags[]" id="tag-Flowers" class="tag-checkbox"> #<label for="tag-Flowers">Flowers</label></div> --}}
                 </div>
                 <!--End of tags-->
               </div>
               <div class="form-group">
                 <label for="category">Category</label>
-                <select class="form-control" id="category" name="category">
+                <select class="form-control" id="category" name="category_id">
                   <!-- Category options -->
-                  <option value="News">News</option>
-                  <option value="Technology">Technology</option>
+                  @foreach ($articleCategories as $articleCategory)
+                  <option value="{{ $articleCategory->id}}"@selected(old('articleCategory_id') == $articleCategory->id)>{{$articleCategory->articleCategoryName }}</option>
+                  @endforeach
+                  @error('category_id')
+                  {{ $message }}
+                 @enderror
+                  {{-- <option value="Technology">Technology</option>
                   <option value="Entertaiment">Entertaiment</option>
-                  <option value="Economy">Economy</option>
+                  <option value="Economy">Economy</option> --}}
                 </select>
               </div>
             </div>
@@ -80,27 +104,67 @@
             <div class="form-group-group">
               <div class="form-group">
                 <label for="source-name">Source name</label>
-                <input type="text" class="form-control" id="source-name" name="source-name" placeholder="Source name">
+                <input type="text" class="form-control" id="source-name" name="sourceName" placeholder="Source name">
+                @error('sourceName')
+                  {{ $message }}
+                 @enderror
               </div>
               <div class="form-group">
                 <label for="source-link">Source link</label>
-                <input type="text" class="form-control" id="source-link" name="source-link" placeholder="Source link">
+                <input type="text" class="form-control" id="source-link" name="sourceLink" placeholder="Source link">
+                @error('sourceLink')
+                  {{ $message }}
+                 @enderror
               </div>
             </div>
             <!-- Group 4: Author -->
             <div class="form-group-group">
               <div class="form-group">
                 <label for="author">Author</label>
-                <select class="form-control" id="author" name="author">
+                <select class="form-control" id="author" name="author_id">
+                  {{-- @if (Auth::check() && Auth::user()->hasRole('author')) {  <option value="{{ Auth::user()->id }}" selected>{{ Auth::user()->name }}</option> } @else
+                  @foreach ($authors as $author)
+                    <option value="{{ $author->id }}" @if (old('author_id') == $author->id || (isset($article) && $article->author->id == $author->id)) selected @endif>{{ $author->name }}</option>
+                  @endforeach
+                @endif
+                @error('author_id')
+                  {{ $message }}
+                @enderror --}}
                   <!-- Example of authors -->
-                  <option value="Author1">Author1</option>
-                  <option value="Author2">Author2</option>
+                  @foreach ($authors as $author ) 
+                  <option value="{{$author->id}}" @selected(old('author_id') == $author->id)>{{$author->name}}
+                  </option> 
+                  @endforeach
+                  {{-- <option value="{{ $author->id }}" 
+                    @if (old('author_id') == $author->id || (isset($article) && $article->author->id == $author->id))
+                        selected
+                    @endif
+                >
+                {{ $author->name }}
+              </option>
+                    @endforeach --}}
+
+                    {{-- @foreach ($authors as $author )
+                    <option value="{{ $author->id }}"  @selected(old('author_id') == $author->id)>
+                      @if ($author->user_id === $user->id){
+                        {{ $author->name }}
+                      }
+                      @endif
+                      @endforeach --}}
+
+
+                   
+
+                    @error('author_id')
+                  {{ $message }}
+                 @enderror
+                  {{-- <option value="Author2">Author2</option>
                   <option value="Author1">Author3</option>
                   <option value="Author2">Author4</option>
                   <option value="Author1">Author5</option>
                   <option value="Author2">Author6</option>
                   <option value="Author1">Author7</option>
-                  <option value="Author2">Author8</option>
+                  <option value="Author2">Author8</option> --}}
                   <!-- Add more authors as needed -->
                 </select>
               </div>
@@ -109,14 +173,17 @@
             <div class="form-group-group">
               <div class="form-group">
                 <label for="youTube-link">YouTube link</label>
-                <input type="text" class="form-control" id="youTube-link" name="youTube-link" placeholder="YouTube link">
+                <input type="text" class="form-control" id="youTube-link" name="youtubeLink" placeholder="YouTube link">
+                @error('youtubeLink')
+                {{ $message }}
+                 @enderror
               </div>
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-primary me-2" form="article-create">
                 Submit
               </button>
-              <button class="btn btn-light" form="admin-create">
+              <button class="btn btn-light" form="admin-create"  onclick="window.location.href='{{route('articles.index')}}'">
                 Cancel
               </button>
             </div>

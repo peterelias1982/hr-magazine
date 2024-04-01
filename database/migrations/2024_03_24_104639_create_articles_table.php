@@ -26,7 +26,7 @@ return new class extends Migration
             // $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('set null');
             $table->foreignId('author_id')->references('id')->on('authors')->onDelete('restrict')->onUpdate('restrict');
             $table->boolean('approved')->default(1);
-            $table->morphs('articleable');
+            $table->nullableMorphs('articleable');
             $table->timestamps();
         });
     }

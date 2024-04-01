@@ -6,7 +6,7 @@
     <div class="col-lg-auto">
       <!-- Search Bar start -->
       <div class="search-bar">
-        <form action="">
+        <form action="{{route('articles.store')}}"  method="GET">
           <div class="row g-1 justify-content-lg-end justify-content-start">
             <div class="col-4 col-lg-2 form-floating">
               <input type="text" class="form-control" id="title">
@@ -22,11 +22,16 @@
             </div>
             <div class="col-4 col-lg-2 form-floating">
               <select class="form-control bg-white">
-                <option>-</option>
-                <option>categroy #1</option>
+                
+                @foreach ($articleCategories as $articleCategory)
+                
+                <option value="{{ $articleCategory->id}}"@selected(old('articleCategory_id') == $articleCategory->id)>{{$articleCategory->articleCategoryName }}</option>
+                
+                {{-- <option>categroy #1</option>
                 <option>categroy #2</option>
                 <option>categroy #3</option>
-                <option>categroy #4</option>
+                <option>categroy #4</option> --}}
+                @endforeach
               </select>
               <label for="date">Select Category</label>
             </div>
@@ -44,7 +49,7 @@
                 </label>
               </div>
             </div>
-            <button class="col-auto btn border-0 btn-md" type="submit">
+            <button class="col-auto btn border-0 btn-md" type="submit" href="articles/{articles->slug}" >
               <i class="icon-search fs-5"></i>
             </button>
           </div>
@@ -71,12 +76,14 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ($articles as $article)
                 <tr>
                   <td>
-                    <a href="article_details.html" class="link-primary text-decoration-none">title 1</a>
+                    <a href="articles/{article->slug}" class="link-primary text-decoration-none">{{ $article->title }}</a>
                   </td>
-                  <td>Author 1</td>
-                  <td>category 1</td>
+                  {{-- <td>{{ $article->auther->name }}</td> --}}
+                  {{-- <td>{{ User::find($article->authors_id)->name }}</td> --}}
+                  {{-- <td>{{ $article->articleCategory->articleCategoryName }}</td> --}}
                   <td class="p-1">
                     <div class="d-flex flex-wrap">
                       <span class="badge-warning p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center">#tag1</span><span class="badge-info p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center">#tag1</span><span class="badge-info p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center">#tag1</span>
@@ -86,7 +93,8 @@
                   </td>
                   <td>✔️</td>
                 </tr>
-                <tr>
+                @endforeach
+                {{-- <tr>
                   <td>
                     <a href="article_details.html" class="link-primary text-decoration-none">title 1</a>
                   </td>
@@ -170,7 +178,7 @@
                     </div>
                   </td>
                   <td>✔️</td>
-                </tr>
+                </tr> --}}
               </tbody>
             </table>
         </div>
