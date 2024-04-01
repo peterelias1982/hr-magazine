@@ -9,15 +9,30 @@ use App\Models\User;
 class Author extends Model
 {
     use HasFactory;
+    
+    protected $table = 'authors';
 
     protected $fillable=["image","approved","bio","description","user_id"];
+    
+    public function userAuthor(){
+        return $this->belongsTo(User::class,'user_id', 'id');
+    }
+    
     
     function user(){
 
         return $this->morphOne(User::class,"userable");
     }
 
+    
+
     public function article(){
         return $this->hasMany(Article::class);
     }
+
+    public function articles(){
+        return $this->morphMany(Article::class,'articleable');
+    }
+
+    
 }

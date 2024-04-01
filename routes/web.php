@@ -24,3 +24,7 @@ Route::prefix('admin')->group(function(){
     Route::delete('articles/{slug}',[ArticleController::class,'destroy'])->name('articles.destroy');
     });
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

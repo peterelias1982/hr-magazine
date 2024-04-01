@@ -23,6 +23,8 @@ class User extends Authenticatable
     use Notifiable;
     use HasSlug;
 
+    // protected $table = [ 'users'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -34,7 +36,7 @@ class User extends Authenticatable
         'email',
         'password',
         "position",
-        "slug",
+        // "slug",
         "mobile",
         // "userable_type",
         // "userable_id",
@@ -76,8 +78,12 @@ class User extends Authenticatable
         return $this->hasMany(articleComment::class);
     }
 
-    public function article(){
+    public function articleUser(){
         return $this->hasMany(Article::class);
+    }
+
+    public function autherUser(){
+        return $this->hasOne(Article::class,'id','user_id');
     }
 
     function userable(){
@@ -88,4 +94,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(SocialMedia::class);
     }
+
+   
 }
