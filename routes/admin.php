@@ -4,7 +4,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\AgendaController;
 
 //Auth::routes(['verify'=>true]);
 //we will add ->middleware('verified') after prefix('events') later on for user verification

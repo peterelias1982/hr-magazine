@@ -94,9 +94,11 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show(Event $event, string $id)
     {
-        //
+        $event = Event::with('Agenda')->first();
+        // return dd($event);
+        return view('Admin.event.eventDetails',compact('event'));
     }
 
     /**

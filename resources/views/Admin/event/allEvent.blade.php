@@ -50,8 +50,8 @@
                                            class="link-primary text-decoration-none">{{$event->title}}</a>
                                     </td>
                                     <td>{{\Illuminate\Support\Str::limit($event->description, 100, $end='...')}}</td>
-                                    <td>{{$event->country}}, {{$event->state}}, {{$event->city}}
-                                        , {{$event->streetName}}</td>
+                                    <td>{{$event->streetNo}} {{$event->streetName}}, {{$event->city}}, {{$event->state}}, 
+                                        {{$event->country}}</td>
                                     <td class="text-danger">{{ \Carbon\Carbon::parse($event->fromDate)->format('d/m/Y')}}</td>
                                     <td class="text-danger">{{ \Carbon\Carbon::parse($event->toDate)->format('d/m/Y')}}</td>
                                 </tr>

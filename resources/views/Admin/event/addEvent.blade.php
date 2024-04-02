@@ -288,20 +288,32 @@
                                             <tbody>
                                             <tr class="day_1">
                                                 <td>
-                                                    <input type="text" class="form-control" name="topic"
-                                                           value="" placeholder="Topic">
+                                                    <input type="text" class="form-control" name="topic[0]"
+                                                           value="{{old('topic.0')}}" placeholder="Topic">
+                                                    @error('topic.0')
+                                                        <small><code>{{$message}}</code></small>
+                                                    @enderror
                                                 </td>
                                                 <td>
-                                                    <input type="time" class="form-control" name="fromTime"
-                                                           value="">
+                                                    <input type="time" class="form-control" name="fromTime[0]"
+                                                           value="{{old('fromTime.0')}}">
+                                                    @error('fromTime.0')
+                                                        <small><code>{{$message}}</code></small>
+                                                    @enderror
                                                 </td>
                                                 <td>
-                                                    <input type="time" class="form-control" name="toTime"
-                                                           value="">
+                                                    <input type="time" class="form-control" name="toTime[0]"
+                                                           value="{{old('toTime.0')}}">
+                                                    @error('toTime.0')
+                                                        <small><code>{{$message}}</code></small>
+                                                    @enderror
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="speaker"
-                                                           value="" placeholder="Speaker">
+                                                    <input type="text" class="form-control" name="speaker[0]"
+                                                           value="{{old('speaker.0')}}" placeholder="Speaker">
+                                                    @error('speaker.0')
+                                                        <small><code>{{$message}}</code></small>
+                                                    @enderror
                                                 </td>
                                                 <td>
                                                     <button type="button" class="btn btn-danger btn-sm remove-row">
