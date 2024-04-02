@@ -14,7 +14,6 @@ class Tag extends Model
 
     protected $fillable=[
         'tagName',
-        'slug',
     ];
 
     public function getSlugOptions() : SlugOptions
