@@ -55,7 +55,10 @@ class ArticleController extends Controller
         $article->tags()->attach($tagsAttachments);
 
         foreach ($articleables as $articleable) {
-            $article->articleable()->save($articleable);
+            $articleable['article_id'] = $article->id;
+
+            $articleable->save();
+            $articleable->articles()->save($article);
         }
 
         return redirect()->route('articles.index');
@@ -65,11 +68,11 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        $articles = Article::findOrFail($id);
+        $articles = Article::where('slug', $slug)->first();
         $articleCategories = ArticleCategory::get();
-        $authors = Author::get();
+        $authors = User::where('userable_type', Author::class)->select(['id', 'name'])->get();
         $articleTags = ArticleTag::get();
         $sourceArticles = SourceArticle::get();
         $youtubeLinks = YoutubeLink::get();
@@ -105,28 +108,31 @@ class ArticleController extends Controller
     {
         $fileName = $this->uploadFile($data["image"], 'assets/images/');
 
-        $articleData =[
+        $articleData = [
             'title' => $data['title'],
             'image' => $fileName,
             'content' => $data['content'],
             'category_id' => $data['category_id'],
-            'user_id' => $data['user_id']?? null,
-            'author_id' => $data['author_id']?? null,
+            'user_id' => $data['user_id'] ?? null,
+            'author_id' => $data['author_id'] ?? null,
         ];
 
-        $tagsAttachments = $data['tags_id']?? [];
+        $tagsAttachments = $data['tags_id'] ?? [];
 
         $articleables = [];
 
-        foreach($data['articleable']??[] as $key => $articleable) {
-            if($key === 'source') {
+        foreach ($data['articleable'] ?? [] as $key => $articleable) {
+            if ($key === 'source') {
                 $articleables[] = new SourceArticle([
                     'sourceName' => $articleable['name'],
                     'sourceLink' => $articleable['link'],
+                    'category_id' => $data['category_id'],
+
                 ]);
-            } elseif($key === 'youtubeLink') {
+            } elseif ($key === 'youtubeLink') {
                 $articleables[] = new YoutubeLink([
                     'youtubeLink' => $articleable,
+                    'category_id' => $data['category_id'],
                 ]);
             }
         }
