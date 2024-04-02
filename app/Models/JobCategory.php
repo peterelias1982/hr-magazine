@@ -7,12 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
+/**
+ * @method static create(array $data)
+ */
 class JobCategory extends Model
 {
     use HasFactory,HasSlug;
 
-    protected $fillable=["category","slug"];
-    
+    protected $fillable=[
+        "category",
+        "slug",
+        ];
+
+
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()

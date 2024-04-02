@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use App\Models\Article;
 
 class Tag extends Model
 {
@@ -24,8 +24,9 @@ class Tag extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function articleTag()    // i used articles word in morph relation
+    public function ArticleTag(): BelongsToMany    // i used articles word in morph relation
     {
-        return $this->belongsToMany(Article::class);
+        return $this
+            ->belongsToMany(Article::class);
     }
 }
