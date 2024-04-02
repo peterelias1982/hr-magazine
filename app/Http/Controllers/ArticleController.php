@@ -27,6 +27,7 @@ class ArticleController extends Controller
     {
         $articles = Article::get();
         $articleCategories = ArticleCategory::get();
+
         return view("Admin.article.allArticle", compact(['articles', 'articleCategories']));
     }
 
@@ -35,8 +36,9 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $authors = User::where('userable_type', Author::class)->select(['id', 'name'])->get();
-        $articleCategories = ArticleCategory::select(['id', 'articleCategoryName', 'hasAuthor', 'hasSource', 'hasYoutubeLink'])->get();
+        $authors = Author::get();
+        $articleCategories = ArticleCategory::select(
+            ['id', 'articleCategoryName', 'hasAuthor', 'hasSource', 'hasYoutubeLink'])->get();
         $articleTags = Tag::select('id', 'tagName')->get();
 
         return view("Admin.article.addArticle", compact(['articleCategories', 'articleTags', 'authors']));;
@@ -56,9 +58,7 @@ class ArticleController extends Controller
 
         foreach ($articleables as $articleable) {
             $articleable['article_id'] = $article->id;
-
             $articleable->save();
-            $articleable->articles()->save($article);
         }
 
         return redirect()->route('articles.index');
@@ -70,29 +70,38 @@ class ArticleController extends Controller
      */
     public function show(string $slug)
     {
-        $articles = Article::where('slug', $slug)->first();
+        $article = Article::where('slug', $slug)->first();
         $articleCategories = ArticleCategory::get();
-        $authors = User::where('userable_type', Author::class)->select(['id', 'name'])->get();
-        $articleTags = ArticleTag::get();
-        $sourceArticles = SourceArticle::get();
-        $youtubeLinks = YoutubeLink::get();
-        return view('admin.article.articleDetails', compact('articles', 'articleCategories', 'authors', 'articleTags', 'sourceArticles', 'youtubeLinks'));
-    }
+        $authors = Author::get();
+        $articleTags = Tag::get();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Article $article)
-    {
-        //
+        $sourceArticle = SourceArticle::where('article_id', $article->id)->first();
+        $youtubeLink = YoutubeLink::where('article_id', $article->id)->first();
+
+        return view('admin.article.articleDetails', compact('article', 'articleCategories', 'authors', 'articleTags', 'sourceArticle', 'youtubeLink'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateArticleRequest $request, Article $article)
+    public function update(UpdateArticleRequest $request, string $slug)
     {
-        //
+        [$articleData, $tagsAttachments, $articleables] =
+            $this->prepareData($request->all());
+
+        $article_id = Article::where('slug', $slug)->update($articleData);
+        $article = Article::where('id', $article_id)->first();
+
+        $article->tags()->sync($tagsAttachments);
+
+        foreach ($articleables as $articleable) {
+            $articleable['article_id'] = $article_id;
+            $articleable->save();
+        }
+
+        return redirect()->route('articles.index');
+
+
     }
 
     /**
@@ -101,35 +110,39 @@ class ArticleController extends Controller
     public function destroy(string $id)
     {
         Article::where('id', $id)->delete();    // softdelete
-        return redirect('admin/allArticle');
+        return redirect()->route('articles.index');
     }
 
     private function prepareData(array $data)
     {
-        $fileName = $this->uploadFile($data["image"], 'assets/images/');
-
         $articleData = [
             'title' => $data['title'],
-            'image' => $fileName,
             'content' => $data['content'],
             'category_id' => $data['category_id'],
             'user_id' => $data['user_id'] ?? null,
             'author_id' => $data['author_id'] ?? null,
         ];
 
+        if($data["image"]?? false) {
+            $fileName = $this->uploadFile($data["image"], 'assets/images/');
+            $articleData['image'] = $fileName;
+        }
+
         $tagsAttachments = $data['tags_id'] ?? [];
+
+        $category = ArticleCategory::where('id', $data['category_id'])->first();
 
         $articleables = [];
 
         foreach ($data['articleable'] ?? [] as $key => $articleable) {
-            if ($key === 'source') {
+            if ($key === 'source' && $category->hasSourec) {
                 $articleables[] = new SourceArticle([
                     'sourceName' => $articleable['name'],
                     'sourceLink' => $articleable['link'],
                     'category_id' => $data['category_id'],
 
                 ]);
-            } elseif ($key === 'youtubeLink') {
+            } elseif ($key === 'youtubeLink' && $category->hasYoutubeLink) {
                 $articleables[] = new YoutubeLink([
                     'youtubeLink' => $articleable,
                     'category_id' => $data['category_id'],

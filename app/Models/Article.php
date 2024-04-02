@@ -4,21 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use App\Models\ArticleCategory;
-use App\Models\SourceArticle;
-use App\Models\YoutubeLink;
-use App\Models\ArticleComment;
-use App\Models\Tag;
-
-
-Relation::morphMap([
-    'ArticleComment' => ArticleComment::class,
-    'SourceArticle' => SourceArticle::class,
-    'YoutubeLink' => YoutubeLink::class,
-]);
 
 class Article extends Model
 {
@@ -41,10 +28,6 @@ class Article extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function articleable()
-    {
-        return $this->morphto();
-    }
 
     public function articleCategory()
     {
@@ -53,12 +36,12 @@ class Article extends Model
 
     public function sourceArticle()
     {
-        return $this->hasMany(SourceArticle::class);
+        return $this->hasOne(SourceArticle::class);
     }
 
     public function youtubeLink()
     {
-        return $this->hasMany(YoutubeLink::class);
+        return $this->hasOne(YoutubeLink::class);
     }
 
     public function articleComment()

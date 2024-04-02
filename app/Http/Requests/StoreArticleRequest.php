@@ -34,7 +34,7 @@ class StoreArticleRequest extends FormRequest
             'articleable' => ['sometimes', 'array', new ArticleAttachesRule($category)],
             'tags_id'  => 'sometimes|array',
             'user_id' => 'nullable',
-            'author_id' => Rule::requiredIf(fn() => $category['hasAuthor']),
+            'author_id' => Rule::requiredIf(fn() => $category? $category['hasAuthor'] : false),
         ];
     }
 }
