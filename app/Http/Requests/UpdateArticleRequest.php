@@ -27,14 +27,14 @@ class UpdateArticleRequest extends FormRequest
         $category =  ArticleCategory::where('id', $this->category_id)->first();
 
         return [
-            'title' => 'required|string|max:255|unique:articles,title',
+            'title' => "required|string|max:255|unique:articles,title,{$this->slug},slug",
             'image' => 'sometimes|mimes:jpeg,png,jpg|max:2048',
             'content' => 'required|string',
             'category_id' => 'required|exists:article_categories,id',
             'articleable' => ['sometimes', 'array', new ArticleAttachesRule($category)],
             'tags_id'  => 'sometimes|array',
             'user_id' => 'nullable',
-            'author_id' => Rule::requiredIf(fn() => $category['hasAuthor']),
+            'author_id' => Rule::requiredIf(fn() => $category? $category['hasAuthor'] : false),
         ];
     }
 }

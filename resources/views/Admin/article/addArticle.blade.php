@@ -1,14 +1,5 @@
 @extends('Admin.layouts.master')
 @section('Content')
-    @error('author_id')
-    {{ $message }}
-    @enderror
-    @error('articleable[youtubeLink]')
-    {{ $message }}
-    @enderror
-    @error('articleable[source][name]')
-    {{ $message }}
-    @enderror
     <div class="content-wrapper">
         <div class="row py-3 justify-content-between align-items-center">
             <!-- <h2 class="fw-bold col-lg-auto">Add Article</h2>-->
@@ -32,7 +23,7 @@
                                     <input type="text" class="form-control" id="title" name="title" placeholder="Title"
                                            value={{old('title')}}>
                                     @error('title')
-                                    {{ $message }}
+                                    <small><code>{{ $message }}</code></small>
                                     @enderror
                                 </div>
                                 <div class="form-group">
@@ -40,15 +31,15 @@
                                     <input type="file" class="form-control" id="image" name="image" placeholder="Image"
                                            accept="image/*">
                                     @error('image')
-                                    {{ $message }}
+                                    <small><code>{{ $message }}</code></small>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="content">Content</label>
                                     <textarea class="form-control" id="content" name="content" style="height: 10rem"
-                                              placeholder="Add Text Here --- "  >{{old('content')}}</textarea>
+                                              placeholder="Add Text Here --- ">{{old('content')}}</textarea>
                                     @error('content')
-                                    {{ $message }}
+                                    <small><code>{{ $message }}</code></small>
                                     @enderror
                                 </div>
                             </div>
@@ -63,7 +54,7 @@
                                                 class="badge-dark p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag">
                                                 <input type="checkbox" name="tags_id[]" value="{{ $articleTag->id }}"
                                                        id="tag-{{ $articleTag->id }}" class="tag-checkbox"> #<label
-                                                    for="tag-{{ $articleTag->id }}" @checked(old('tagName'))>{{ $articleTag->tagName }}</label>
+                                                    for="tag-{{ $articleTag->id }}" >{{ $articleTag->tagName }}</label>
                                             </div>
                                         @endforeach
 
@@ -77,10 +68,12 @@
                                         <!-- Category options -->
                                         @foreach ($articleCategories as $articleCategory)
                                             <option
-                                                value="{{ $articleCategory->id}}">{{$articleCategory->articleCategoryName }}</option>
+                                                value="{{ $articleCategory->id}}"
+                                                @selected(old('category_id') == $articleCategory->id)
+                                            >{{$articleCategory->articleCategoryName }}</option>
                                         @endforeach
                                         @error('category_id')
-                                        {{ $message }}
+                                        <small><code>{{ $message }}</code></small>
                                         @enderror
                                     </select>
                                 </div>
@@ -89,18 +82,23 @@
                             <div class="form-group-group" id="source-section">
                                 <div class="form-group">
                                     <label for="source-name">Source name</label>
-                                    <input type="text" class="form-control" id="source-name" name="articleable[source][name]"
-                                           placeholder="Source name">
+                                    <input type="text" class="form-control" id="source-name"
+                                           name="articleable[source][name]"
+                                           placeholder="Source name"
+                                           value="{{old('articleable.source.name')}}"
+                                    >
                                     @error('articleable[source][name]')
-                                    {{ $message }}
+                                    <small><code>{{ $message }}</code></small>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="source-link">Source link</label>
-                                    <input type="text" class="form-control" id="source-link" name="articleable[source][link]"
+                                    <input type="text" class="form-control" id="source-link"
+                                           name="articleable[source][link]"
+                                           value="{{old('articleable.source.link')}}"
                                            placeholder="Source link">
                                     @error('articleable[source][link]')
-                                    {{ $message }}
+                                    <small><code>{{ $message }}</code></small>
                                     @enderror
                                 </div>
                             </div>
@@ -113,11 +111,11 @@
                                         <option value="">_</option>
                                         @foreach ($authors as $author )
                                             <option
-                                                value="{{$author->id}}">{{$author->name}}
+                                                value="{{$author->id}}" @selected($author->id == old('author_id'))>{{$author->userAuthor->name}}
                                             </option>
                                         @endforeach
                                         @error('author_id')
-                                        {{ $message }}
+                                        <small><code><small><code>{{ $message }}</code></small></code></small>
                                         @enderror
                                     </select>
                                 </div>
@@ -126,10 +124,11 @@
                             <div class="form-group-group" id="youtube-section">
                                 <div class="form-group">
                                     <label for="youTube-link">YouTube link</label>
-                                    <input type="text" class="form-control" id="youTube-link" name="articleable[youtubeLink]"
-                                           placeholder="YouTube link">
+                                    <input type="text" class="form-control" id="youTube-link"
+                                           name="articleable[youtubeLink]"
+                                           placeholder="YouTube link" value="{{old('articleable.youtubeLink')}}">
                                     @error('articleable[youtubeLink]')
-                                    {{ $message }}
+                                    <small><code>{{ $message }}</code></small>
                                     @enderror
                                 </div>
                             </div>
@@ -149,82 +148,11 @@
             </div>
         </div>
     </div>
-
+@endsection
+@section('js')
     <script>
         const categories = {!! $articleCategories !!};
-
-        const author = document.getElementById('author-section');
-        const source = document.getElementById('source-section');
-        const youtube = document.getElementById('youtube-section');
-
-        let categoryData = null;
-
-        for(var i=0; i < categories.length ; i++) {
-            if(categories[i]['id'] == document.getElementById('category').value) {
-                categoryData = categories[i]
-                break
-            }
-        }
-
-        changeFormDisplay(categoryData);
-
-        document.getElementById('category').addEventListener('change', function(cat) {
-            for(var i=0; i < categories.length ; i++)
-            {
-                if(categories[i]['id'] == cat.target.value) {
-                    categoryData = categories[i]
-                    break
-                }
-            }
-
-            changeFormDisplay(categoryData);
-        });
-
-        function changeFormDisplay(data) {
-            function disableInputs() {
-                author.classList.add('d-none');
-                source.classList.add('d-none');
-                youtube.classList.add('d-none');
-
-                author.querySelectorAll('input, select, textarea').forEach(function(elem){
-                    elem.disabled = true
-                });
-                source.querySelectorAll('input, select, textarea').forEach(function(elem){
-                    elem.disabled = true
-                });
-                youtube.querySelectorAll('input, select, textarea').forEach(function(elem){
-                    elem.disabled = true
-                });
-            }
-
-            if(data) {
-                disableInputs();
-
-                if(data['hasAuthor']) {
-                    author.classList.remove('d-none');
-                    author.querySelectorAll('input, select, textarea').forEach(function(elem){
-                        elem.disabled = false
-                    });
-                }
-
-                if(data['hasYoutubeLink']) {
-                    youtube.classList.remove('d-none');
-                    youtube.querySelectorAll('input, select, textarea').forEach(function(elem){
-                        elem.disabled = false
-                    });
-                }
-
-                if(data['hasSource']) {
-                    source.classList.remove('d-none');
-                    source.querySelectorAll('input, select, textarea').forEach(function(elem){
-                        elem.disabled = false
-                    });
-                }
-
-            } else {
-                disableInputs();
-            }
-        }
-
+    </script>
+    <script src="{{asset('admin/js/articleCategories.js')}}">
     </script>
 @endsection
