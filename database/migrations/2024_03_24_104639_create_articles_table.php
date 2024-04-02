@@ -18,9 +18,10 @@ return new class extends Migration
             $table->string('image');
             $table->text('content');
             $table->foreignId('category_id')->references('id')->on('article_categories')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            // $table->foreignId('user_id')->nullable()->constrained('users')->onUpdate('cascade')->onDelete('set null');
-            $table->foreignId('author_id')->references('id')->on('authors')->onDelete('restrict')->onUpdate('restrict');
+
+            $table->foreignId('user_id')->nullable()->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('author_id')->nullable()->references('id')->on('authors')->onDelete('restrict')->onUpdate('restrict');
+
             $table->boolean('approved')->default(1);
             // $table->nullableMorphs('articleable');
             $table->timestamps();

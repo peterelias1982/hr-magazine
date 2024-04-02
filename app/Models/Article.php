@@ -14,6 +14,7 @@ use App\Models\ArticleComment;
 use App\Models\Tag;
 
 
+
 // Relation::morphMap([
 //     'ArticleComment' => ArticleComment::class,
 //     'SourceArticle' => SourceArticle::class,
@@ -21,24 +22,25 @@ use App\Models\Tag;
 
 // ]);
 
+Relation::morphMap([
+    'ArticleComment' => ArticleComment::class,
+    'SourceArticle' => SourceArticle::class,
+    'YoutubeLink' => YoutubeLink::class,
+]);
+
+
 class Article extends Model
 {
     use HasFactory, HasSlug;
 
     protected $fillable = [
         'title',
-        // 'slug',
         'image',
         'content',
         'category_id',
         'user_id',
         'author_id',
         'approved',
-        // no need to add type and id in fillable, fillable means the data that will be added manually, 
-        //like slug is added automatically there is no need to add it into fillable, 
-        //so as to morph relation is handled automatically 
-        // 'articleable_type',   
-        // 'articleable_id',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -55,7 +57,7 @@ class Article extends Model
 
     public function articleCategory()
     {
-        return $this->belongsTo(ArticleCategory::class);
+        return $this->belongsTo(ArticleCategory::class, 'category_id', 'id');
     }
 
     public function sourceArticle()
@@ -75,7 +77,7 @@ class Article extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'article_tags','article_id', 'tag_id');
     }
 
     public function user()

@@ -19,58 +19,20 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Dflydev\DotAccessData\Data;
 
-
-
-
-
-
-
 class ArticleController extends Controller
 {
     use Common;
-    
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        
-        // $articleCategories = ArticleCategory::all(["articleCategoryName"]);
-        // $authors = User::select('id', 'name')->get();
-        // $users = User::all();
-        // $author = Author::all();  // Or retrieve the author object as needed
-        // $userName = $author->user->name;  // Access user name through the relationship
-        // $user = User::where('id', $author->user_id)->first();
-        // $user = User::select('name');
-        // if ($user->isEmpty()) {
-        //     $user = []; // Set to an empty array to avoid errors in the view
-        //   }
-        // $userName = $user !== null ? $user->name : 'User Not Found';  // Provide a default value or handle the case where the user is not found
-        // $articles=Article::get();
-        // $articleCategories = ArticleCategory::get();
-        // return view('admin.article.allArticle',compact('articles', 'articleCategories'));
 
+        $articles = Article::get();
+        $articleCategories = ArticleCategory::get();
+        return view("Admin.article.allArticle", compact(['articles', 'articleCategories']));
 
-        // $articles = Article::with(['articleComment', 'sourceArticle', 'youtubeLink', 'articleCategory' ,'author','tags'])
-        // ->get();
-        // return view('admin.article.allArticle',compact('articles', 'articleCategories', 'authors', 'tags','sourceArticles', 'youtubeLinks'));
-
-        // $query=Article::Query();
-        // $request=Request();
-        // if($search=$request->article){
-        //     $query->where("article","LIKE","%$search%");
-        // }
-        // $articles=$query->get();
-        // // $articleCategories=$query->get();
-        // return view("Admin.article.allArticle",compact('articles'));
-        //   $articles = Article::with('otherRelationships')->get();
-
-
-        $articles=Article::get();
-        $articleCategories = ArticleCategory::all(["articleCategoryName"]);
-         
-        return view("Admin.article.allArticle",compact('articles','articleCategories'));
-        
     }
 
     /**
@@ -78,43 +40,15 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        // $authors = Auth::user()->id ? User::select('id', 'name')->get() : Author::all();
-        // if ($authors !== null) {
-        //     $authors = collect([$authors->only('id', 'name')]);  // Create a collection with relevant data
-        //   } else {
-        //     $authors = Author::all();
-        //   }
-        // $authors = Auth::user()->id ? User::select('id', 'name')->get() : Author::all();
-        // if ($authors !== null) {
-        //     $authors = collect([$authors->only('id', 'name')]);  // Create a collection with relevant data
-        //   } else {
-        //     $authors = Author::all();
-        //   }
-//           $authors = Author::all();
 
-// if ($authors !== null && count($authors) > 0) {
-//   // Access author properties (e.g., $authors[0]->id) if there are results
-//   $authors = User::select('id', 'name')->get();
-//   // No authors found (user not authenticated or no users)
-//   $authors = [];  // Set to an empty array
-// }
-        
-       
-        
-        // $authors = User::select('id', 'name')->get();
-
-        // $authors = Author::all();
-        // if ($authors !== null){
-        //     $authors_name = $authors->user->name;
-        // }
-
-
-        $authors = Author::all();
-        
-        $articleCategories = ArticleCategory::all(["articleCategoryName"]);
+        $authors = User::where('userable_type', Author::class)->select(['id', 'name'])->get();
+        $articleCategories = ArticleCategory::select(['id', 'articleCategoryName', 'hasAuthor', 'hasSource', 'hasYoutubeLink'])->get();
         $articleTags = Tag::select('id', 'tagName')->get();
 
-        return view("Admin.article.addArticle", compact('articleCategories','articleTags','authors'));;
+        return view("Admin.article.addArticle", compact(['articleCategories', 'articleTags', 'authors']));;
+        // $articleTags = Tag::select('id', 'tagName')->get();
+
+        // return view("Admin.article.addArticle", compact(['articleCategories', 'articleTags', 'authors']));;
     }
 
     /**
@@ -122,37 +56,36 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        dd($request);
-        $data = $request;
-       //use method from traits called uploadFile
-       $fileName = $this->uploadFile($request->image, 'assets/images');
-       $data['image'] = $fileName;
-       $data['approved'] = isset($request->approved);
-       $article =Article::create($data);
+        [$articleData, $tagsAttachments, $articleables] =
+        $this->prepareData($request->all());
 
-       // Handle morph relation if applicable
-    //    if ($request->has('articleable_type') && $request->has('articleable_id')) {
-    //     $articleable = $data['articleable_type']::find($data['articleable_id']);
-    //     if ($articleable) {
-    //         $article->articleable()->associate($articleable);
-    //         $article->save();
-    //     }
-    // }
-       return redirect('admin/allArticle');
-    
+        $article = Article::create($articleData);
+
+        $article->tags()->attach($tagsAttachments);
+
+        foreach ($articleables as $articleable) {
+            $articleable['article_id'] = $article->id;
+
+            $articleable->save();
+            $articleable->articles()->save($article);
+        }
+
+        return redirect()->route('articles.index');
+
     }
+
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $slug)
     {
-        $articles = Article::findOrFail($id);
+        $articles = Article::where('slug', $slug)->first();
         $articleCategories = ArticleCategory::get();
-        $authors = Author::get();
+        $authors = User::where('userable_type', Author::class)->select(['id', 'name'])->get();
         $articleTags = ArticleTag::get();
         $sourceArticles = SourceArticle::get();
         $youtubeLinks = YoutubeLink::get();
-        return view('admin.article.articleDetails', compact('articles', 'articleCategories', 'authors', 'articleTags','sourceArticles', 'youtubeLinks'));
+        return view('admin.article.articleDetails', compact('articles', 'articleCategories', 'authors', 'articleTags', 'sourceArticles', 'youtubeLinks'));
     }
 
     /**
@@ -178,5 +111,42 @@ class ArticleController extends Controller
     {
         Article::where('id', $id)->delete();    // softdelete
         return redirect('admin/allArticle');
+    }
+
+    private function prepareData(array $data)
+    {
+        $fileName = $this->uploadFile($data["image"], 'assets/images/');
+
+        $articleData = [
+            'title' => $data['title'],
+            'image' => $fileName,
+            'content' => $data['content'],
+            'category_id' => $data['category_id'],
+            'user_id' => $data['user_id'] ?? null,
+            'author_id' => $data['author_id'] ?? null,
+        ];
+
+        $tagsAttachments = $data['tags_id'] ?? [];
+
+        $articleables = [];
+
+        foreach ($data['articleable'] ?? [] as $key => $articleable) {
+            if ($key === 'source') {
+                $articleables[] = new SourceArticle([
+                    'sourceName' => $articleable['name'],
+                    'sourceLink' => $articleable['link'],
+                    'category_id' => $data['category_id'],
+
+                ]);
+            } elseif ($key === 'youtubeLink') {
+                $articleables[] = new YoutubeLink([
+                    'youtubeLink' => $articleable,
+                    'category_id' => $data['category_id'],
+                ]);
+            }
+        }
+
+        return [$articleData, $tagsAttachments, $articleables];
+
     }
 }

@@ -1,31 +1,28 @@
 <?php
 
 namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use App\Models\Article;
-use App\Models\SourceArticle;
-use App\Models\YoutubeLink;
-
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ArticleCategory extends Model
 {
     use HasFactory,HasSlug;
 
+    protected $table = "article_categories";
+
     protected $fillable = [
 
         'articleCategoryName',
-        'slug',
         'hasComments',
         'hasSource',
         'hasYoutubeLink',
+        'hasAuthor'
 
     ];
 
-   
+
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()

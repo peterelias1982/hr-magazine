@@ -16,7 +16,6 @@ class SourceArticle extends Model
         'sourceLink',
         'category_id',
         'article_id',
-        
     ];
 
 

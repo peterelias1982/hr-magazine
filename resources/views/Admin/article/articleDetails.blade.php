@@ -4,7 +4,11 @@
   <div class="d-sm-flex align-items-center justify-content-between border-bottom py-1">
     <h2 class="fw-bold col-lg-auto">Article Details</h2>
     <div class="btn-wrapper">
+<<<<<<< HEAD
       <a href="{{ route('articles.destroy', $article->slug) }}" class="btn btn-sm" style="color: #ed2708"><i class="icon-trash"></i> Delete Article</a>
+=======
+      <a href="{{route('articles.destroy', $article->slug)}}" class="btn btn-sm" style="color: #ed2708"><i class="icon-trash"></i> Delete Article</a>
+>>>>>>> 2bd46d93841b4194a90c382953ae5bd36ed6932d
     </div>
   </div>
   <div class="pt-4">
@@ -128,7 +132,7 @@
                     <!--End of tags-->
                   </div>
                   <div class="form-group col-lg-4">
-                    
+
                     <p class="card-text lh-1 mt-2">Category  <i class="mdi mdi-bookmark-box-multiple-outline"></i></p>
                     <p class="card-text lh-1">
                     <select id="category" name="category" class="form-control bg-transparent text-black fs-xxs border-0" style="outline: none;" disabled="">
@@ -161,4 +165,8 @@
     </div>
   </div>
 </div>
+@endsection
+@section('js')
+<script src="{{asset('admin/js/edit_form.js')}}"></script>
+
 @endsection
