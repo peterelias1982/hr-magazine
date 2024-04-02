@@ -4,7 +4,7 @@
   <div class="d-sm-flex align-items-center justify-content-between border-bottom py-1">
     <h2 class="fw-bold col-lg-auto">Article Details</h2>
     <div class="btn-wrapper">
-      <a href="#" class="btn btn-sm" style="color: #ed2708"><i class="icon-trash"></i> Delete Article</a>
+      <a href="{{ route('articles.destroy', $article->slug) }}" class="btn btn-sm" style="color: #ed2708"><i class="icon-trash"></i> Delete Article</a>
     </div>
   </div>
   <div class="pt-4">
@@ -30,7 +30,7 @@
                       </div>
                     </div>
                     <div class="row py-1">
-                      <p class="card-text fw-bold lh-1">Title</p>
+                      <p class="card-text fw-bold lh-1">{{ $articles->title }}</p>
                       <p class="card-text lh-1">
                         <input name="title" form="edit-article" class="w-100 border-0 text-black" value="Lorem ipsum dolor sit amet." disabled="">
                       </p>
@@ -38,11 +38,7 @@
                     <div class="row py-1">
                       <p class="card-text fw-bold lh-1">Content</p>
                       <p class="card-text lh-1">
-                        <textarea name="content" form="edit-article" class="form-control p-0 pe-5 border-0 bg-transparent" style="height: 15rem" disabled="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur quia at corrupti eaque dolores error placeat inventore eius veritatis hic ipsam, deleniti sed voluptatibus libero omnis quos, voluptas commodi dolorem! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt voluptatum dignissimos animi autem qui, tempore quae ipsa distinctio provident in, unde fugiat dicta earum odio sit veniam corporis at asperiores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum quibusdam assumenda eos non modi, voluptatem aperiam quod ut consequatur odio, hic quaerat nam sit, tempore dolor. Fuga corporis ea quis.
-Eveniet repellat ad voluptatum quaerat, nihil, iure facere, voluptatem at consectetur tempore commodi eaque ipsam maxime dolor delectus soluta quas laudantium numquam nemo assumenda! Qui at in odit aspernatur aut.
-Veniam quas perferendis laboriosam nulla, qui in dolorum, omnis iusto quis voluptatem, sapiente excepturi consequuntur? Praesentium earum ducimus sequi ab nemo enim et dicta ipsa magnam, totam provident dolores corrupti.
-Quo dolores ut deleniti consequatur, quidem saepe amet a expedita voluptatem perferendis quisquam, quas fuga, iusto quasi rem nihil earum ipsum odit necessitatibus? Obcaecati soluta ut omnis quasi similique dolorem.
-Quos consectetur blanditiis dolore quisquam aliquam in minus omnis iusto, nam, quibusdam similique sunt, eius sapiente quam dignissimos quaerat numquam rem! Ullam ipsa maiores ad tenetur, nostrum eaque illo dolores.
+                        <textarea name="content" form="edit-article" class="form-control p-0 pe-5 border-0 bg-transparent" style="height: 15rem" disabled="">{{ $articles->content }}
                         </textarea>
                       </p>
                     </div>

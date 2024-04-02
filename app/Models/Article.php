@@ -14,12 +14,12 @@ use App\Models\ArticleComment;
 use App\Models\Tag;
 
 
-Relation::morphMap([
-    'ArticleComment' => ArticleComment::class,
-    'SourceArticle' => SourceArticle::class,
-    'YoutubeLink' => YoutubeLink::class,
+// Relation::morphMap([
+//     'ArticleComment' => ArticleComment::class,
+//     'SourceArticle' => SourceArticle::class,
+//     'YoutubeLink' => YoutubeLink::class,
 
-]);
+// ]);
 
 class Article extends Model
 {
@@ -48,10 +48,10 @@ class Article extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function articleable()
-    {
-        return $this->morphto();
-    }
+    // public function articleable()
+    // {
+    //     return $this->morphto();
+    // }
 
     public function articleCategory()
     {

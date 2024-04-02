@@ -49,7 +49,7 @@
                 </label>
               </div>
             </div>
-            <button class="col-auto btn border-0 btn-md" type="submit" href="articles/{articles->slug}" >
+            <button class="col-auto btn border-0 btn-md" type="submit" href="{{ route('articles.show' , $articles->slug) }}" >
               <i class="icon-search fs-5"></i>
             </button>
           </div>
@@ -79,7 +79,7 @@
                 @foreach ($articles as $article)
                 <tr>
                   <td>
-                    <a href="articles/{article->slug}" class="link-primary text-decoration-none">{{ $article->title }}</a>
+                    <a href="{{ route('articles.show' , $article->slug) }}" class="link-primary text-decoration-none">{{ $article->title }}</a>
                   </td>
                   {{-- <td>{{ $article->auther->name }}</td> --}}
                   {{-- <td>{{ User::find($article->authors_id)->name }}</td> --}}

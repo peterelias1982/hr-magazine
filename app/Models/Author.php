@@ -30,9 +30,9 @@ class Author extends Model
         return $this->hasMany(Article::class);
     }
 
-    public function articles(){
-        return $this->morphMany(Article::class,'articleable');
-    }
+    // public function articles(){
+    //     return $this->morphMany(Article::class,'articleable');
+    // }
 
     
 }

@@ -63,11 +63,12 @@ class ArticleController extends Controller
         // $articles=$query->get();
         // // $articleCategories=$query->get();
         // return view("Admin.article.allArticle",compact('articles'));
+        //   $articles = Article::with('otherRelationships')->get();
 
 
         $articles=Article::get();
         $articleCategories = ArticleCategory::all(["articleCategoryName"]);
-
+         
         return view("Admin.article.allArticle",compact('articles','articleCategories'));
         
     }
