@@ -14,4 +14,7 @@ class JobSeeker extends Model
     function user(){
         return $this->morphOne(User::class,"userable");
     }
+    public function jobDetail(){
+        return $this->belongsToMany(JobDetail::class, $table= 'job_applieds', $foreignPivotKey='jobSeeker_id', $relatedPivotKey='jobDetail_id');
+    }
 }

@@ -62,6 +62,10 @@ class User extends Authenticatable
             ->generateSlugsFrom('name')
             ->saveSlugsTo('slug');
     }
+    public function getRouteKeyName()
+     {
+         return 'slug';
+    }
 
     public function articleComment(){
         return $this->hasMany(articleComment::class);
@@ -71,7 +75,7 @@ class User extends Authenticatable
         return $this->hasMany(Article::class);
     }
 
-    function userable(){
+    public function userable(){
         return $this->morphTo();
     }
 
@@ -79,4 +83,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(SocialMedia::class);
     }
+public function employer(){
+    return $this->hasOne(Employer::class);
+}
 }

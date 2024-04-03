@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\JobDetail;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreJobsRequest;
+use App\Http\Requests\UpdateJobsRequest;
+use App\Models\Employer;
+use App\Models\JobCategory;
 
 class JobDetailController extends Controller
 {
@@ -12,54 +16,41 @@ class JobDetailController extends Controller
      */
     public function index()
     {
-        //
+        $jobs=JobDetail::with(['Employer'=> function ($query) {$query->select('id', 'user_id');},
+            'jobCategory' => function ($query) {$query->select('id', 'category');},
+            'jobSeeker' => function ($query) { $query->select('user_id');},])->get();
+        
+        
+      return view('Admin.jobs.alljobs',compact('jobs'));
+    
+      //return dd( $emps);
+        return $jobs->toJson() ;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+   
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
+    /*
      * Display the specified resource.
      */
-    public function show(JobDetail $jobDetail)
+    public function show(JobDetail $jobDetail, string $slug)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(JobDetail $jobDetail)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, JobDetail $jobDetail)
-    {
-        //
+        $jobdetail=JobDetail::where('slug', $slug)
+        ->with(['jobCategory','Employer','jobSeeker'])->first();
+    
+        //return dd($jobdetail);
+        //return $jobdetail->toJson();
+        return view('Admin.jobs.jobDetails', compact('jobdetail'));
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JobDetail $jobDetail)
+    public function destroy(JobDetail $jobDetail, Request $request)
     {
-        //
+        $slug=$request->slug;
+        
+        JobDetail::where('slug',$slug)->delete();
+        return redirect('/admin/jobs/jobs/')->with('deleted', 'the job is deleted!');
+        
     }
 }

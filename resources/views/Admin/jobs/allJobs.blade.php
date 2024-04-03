@@ -6,7 +6,7 @@
       <div class="col-lg-auto">
         <!-- Search Bar start -->
         <div class="search-bar">
-          <form action="">
+          <form action="{{route('jobs.index')}}">
             <div class="row g-1 justify-content-lg-end justify-content-start">
               <div class="col-6 col-lg-3 form-floating">
                 <input type="text" class="form-control" id="title">
@@ -19,10 +19,9 @@
               <div class="col-6 col-lg-3 form-floating">
                 <select class="form-control bg-white">
                   <option>-</option>
-                  <option>categroy #1</option>
-                  <option>categroy #2</option>
-                  <option>categroy #3</option>
-                  <option>categroy #4</option>
+                  @foreach($jobs as $job )
+                  <option>{{$job->jobCategory->category}}</option>
+                  @endforeach 
                 </select>
                 <label for="date">Select Category</label>
               </div>
@@ -35,13 +34,22 @@
         <!-- Search Bar ends -->
       </div>
     </div>
-
+    @if(Session::has('delete'))
+                                    <div class="alert alert-success" role="alert">
+                                        {{Session::get('delete')}}
+                                        @php
+                                          Session::forget('delete')
+                                        @endphp
+									</div>
+@endif
     <div class="col-lg-12 grid-margin stretch-card">
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Jobs Table</h4>
           <p class="card-description">List of all <code>Jobs</code></p>
           <div class="table-responsive content">
+          
+
             <table class="table table-striped">
               <thead>
                 <tr>
@@ -52,126 +60,25 @@
                 </tr>
               </thead>
               <tbody>
+                 @foreach($jobs as $job )
+                
+                 
                 <tr>
                   <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
+                    <a href="jobs/{{$job->slug}}" class="link-primary text-decoration-none">{{$job->title}}</a>
                   </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr>
+                  
                   <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
+                  {{$job->Employer->userrel->name}}
+                    </td>
+                   
+                  <td>{{$job->jobCategory->category}}</td>
+                  
+                  <td>{{$job->jobSeeker->count()}}</td>
+                 
                 </tr>
-                <tr>
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr class="hidden">
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr class="hidden">
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr class="hidden">
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr class="hidden">
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
-                <tr class="hidden">
-                  <td>
-                    <a href="job-details.html" class="link-primary text-decoration-none">HR</a>
-                  </td>
-                  <td>Name</td>
-                  <td>Category1</td>
-                  <td>111</td>
-                </tr>
+              
+               @endforeach
               </tbody>
             </table>
           <div class="pagination"><button class="active">1</button><button>2</button></div></div>

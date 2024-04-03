@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Employer extends Model
 {
@@ -15,7 +16,13 @@ class Employer extends Model
     // function users(){
     //     return $this->belongsTo(User::class);
     // }
-    function user(){
-        return $this->morphOne(User::class,"userable");
+    public function jobDetail():HasMany{
+        return $this->hasMany(JobDetail::class);
+       }
+      public function userrel(){
+            return $this->belongsTo(User::class, 'user_id');
+       }
+    public function user(){
+        return $this->morphOne(User::class,'userable');
     }
 }
