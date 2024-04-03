@@ -12,21 +12,31 @@
         <div class="card-body">
           <h4 class="card-title">Tag Form</h4>
           <p class="card-description">Add a new article tag</p>
-          <form class="forms-sample" id="tag-form">
-            <div class="form-group">
-              <label for="exampleInputEmail2" class="col-sm-3 col-form-label">Tag</label>
-              <div class="col-sm-9">
-                <input type="email" class="form-control" id="exampleInputEmail2" placeholder="tag name" form="tag-form">
-              </div>
-            </div>
+            <form class="forms-sample" id="tag-form" method="POST" action="{{ route('admin.tags.store') }}">
+                @csrf
+                <div class="form-group">
+                    <label for="tag" class="col-sm-3 col-form-label">Tag</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="tag" name="tagName" placeholder="Tag name">
+                    </div>
+                </div>
 
-            <button type="submit" class="btn btn-primary me-2" form="tag-form">
-              Submit
-            </button>
-            <button class="btn btn-light" form="tag-form">
-              Cancel
-            </button>
-          </form>
+
+                <div class="form-group">
+                    <label for="slug" class="col-sm-3 col-form-label">Slug</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="slug" name="slug" placeholder="Slug">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary me-2">
+                    Submit
+                </button>
+                <button type="reset" class="btn btn-light">
+                    Cancel
+                </button>
+            </form>
+
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Throwable;
 
 class TagController extends Controller
 {
@@ -34,7 +35,7 @@ class TagController extends Controller
             return redirect()
                 ->route('Admin.article.allTag')
                 ->with('success', 'Tag Added Successfully');
-        } catch (\Throwable $exception) {
+        } catch (Throwable $exception) {
             return redirect()
                 ->back()
                 ->withErrors(['error' => 'Error adding tag: ' . $exception->getMessage()]);
@@ -68,9 +69,9 @@ class TagController extends Controller
 
     public function destroy(Tag $tags)
     {
-        $tags = Tag::where('slug', $tags->slug)->get();
+     //   $tags = Tag::where('slug', $tags->slug)->get();
         $tags->delete();
-        return redirect('admin/job/categories')
+        return redirect('admin/tags')
             ->with('success', 'Category is deleted successfully.');
     }
 }
