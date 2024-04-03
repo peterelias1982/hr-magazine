@@ -94,9 +94,9 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event, string $id)
+    public function show(Event $event, string $slug)
     {
-        $event = Event::with('Agenda')->first();
+        $event = Event::with('Agenda')->where('slug', $slug)->first();
         // return dd($event);
         return view('Admin.event.eventDetails',compact('event'));
     }
@@ -104,25 +104,40 @@ class EventController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Event $event)
+    public function edit(Event $event, string $slug)
     {
-        //
+        $event = Event::with('Agenda')->where('slug', $slug)->first();
+        return view('Admin.event.editEvent',compact('event'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Event $event)
+    public function update(UpdateEventRequest $request, string $slug)
     {
-        //
+        $event = Event::where('slug', $slug)->first();
+        $data=$this->prepareData($request);
+        
+        if ($request->hasFile('image')) {
+            $imageName = $this->uploadFile($request->file('image'), 'admin/images/articles&event');
+            $event->image = $imageName;
+            // Delete the old image if it exists
+            if (!empty($request->oldImage)) {
+                unlink(public_path("admin/images/articles&event/" . $request->oldImage));
+            }
+        }
+        $event->update($data);
+        // dd($request);
+        return redirect()->route('admin.events.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event)
+    public function destroy(Event $event, string $slug)
     {
-        //
+        Event::with('Agenda')->where('slug', $slug)->delete();
+        return redirect()->route('admin.events.index');
     }
 
 }

@@ -9,7 +9,9 @@
   </div>
     <div class="pt-4">
       <div class="row">
-        <form id="edit-event">
+        <form id="edit-event" action="{{route('admin.events.update',$event->slug)}}" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="_token" value="{{ csrf_token() }}" >
+    		@method('put')
         <div class="col-12 d-flex flex-column">
           <div class="row flex-grow">
             <div class="col-12 grid-margin stretch-card">
@@ -28,27 +30,54 @@
                           Event Details
                         </h3>
                         <div class="col-auto">
-                        <a href="editEvent/{{ $event->slug }}"><i class="mdi mdi-lead-pencil text-muted btn btn-sm fs-5" id="edit_user_button"></i>
+                          <i class="mdi mdi-lead-pencil text-muted btn btn-sm fs-5" id="edit_user_button"></i>
                         </div>
                       </div>
                       <div class="row py-1">
                         <p class="card-text fw-bold lh-1">Title</p>
                         <p class="card-text lh-1">
                           <input name="title" form="edit-event" class="w-100 border-0 text-black" value="{{$event->title}}" disabled="">
+                          @error('title')
+                          {{$message}}
+                          @enderror
                         </p>
                       </div>
                       <div class="row py-1">
                         <p class="card-text fw-bold lh-1">Due date</p>
                         <p class="card-text lh-1">
                           <input name="fromDate" form="edit-event" type="text" id="fromDate" class="border-0 text-black" value="{{ \Carbon\Carbon::parse($event->fromDate)->format('d/m/Y') }}" disabled="">
+                          @error('fromDate')
+                          {{$message}}
+                          @enderror
                           –
                           <input name="toDate" form="edit-event" type="text" id="toDate" class="border-0 text-black" value="{{ \Carbon\Carbon::parse($event->toDate)->format('d/m/Y') }}" disabled="">
+                          @error('toDate')
+                          {{$message}}
+                          @enderror
                         </p>
                       </div>
                       <div class="row py-1">
                         <p class="card-text fw-bold lh-1">Address</p>
                         <p class="card-text lh-1">
                           <input name="address" form="edit-event" class="w-100 border-0 text-black" value="{{$event->streetNo}} {{$event->streetName}}, {{$event->city}}, {{$event->state}}, {{$event->postalCode}}, {{$event->country}}" disabled="">
+                          @error('streetNo')
+                          {{$message}}
+                          @enderror
+                          @error('streetName')
+                          {{$message}}
+                          @enderror
+                          @error('city')
+                          {{$message}}
+                          @enderror
+                          @error('state')
+                          {{$message}}
+                          @enderror
+                          @error('postalCode')
+                          {{$message}}
+                          @enderror
+                          @error('country')
+                          {{$message}}
+                          @enderror
                         </p>
                       </div>
                       <div class="row py-1">
@@ -58,6 +87,9 @@
                         <p class="card-text lh-1">
                           <textarea name="description" form="edit-event" class="w-100 p-0 pe-5 border-0 bg-transparent text-black" style="height: 3.5rem" disabled="">{{$event->description}}
                         </textarea>
+                        @error('description')
+                          {{$message}}
+                          @enderror
                         </p>
                       </div>
 
@@ -65,6 +97,9 @@
                         <p class="card-text fw-bold lh-1">Speakers</p>
                         <p class="card-text lh-1">
                           <input name="speakers" form="edit-event" class="w-100 border-0 text-black" value="{{$event->speakers}}" disabled="">
+                          @error('speakers')
+                          {{$message}}
+                          @enderror
                         </p>
                       </div>
                     </div>
