@@ -14,7 +14,7 @@ class TagController extends Controller
     }
     public function create()
     {
-        return view('Admin.article.addTag', compact('tags'));
+        return view('Admin.article.addTag');
     }
 
     public function store(Request $request)
