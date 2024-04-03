@@ -33,13 +33,20 @@
             <tr>
               <td class="fw-bold w-25" rowspan="100">Tags</td>
                 <td>
-                  <form action="">
+                <tbody>
+                @foreach($tags as $tag)
+                    <tr>
+                        <td>
+                  <form  action="{{ route('admin.tags.update.slug', $tag->slug) }}" method="POST">
+                      @csrf
+                      @method('PATCH')
                     <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                      <input type="text" class="custom-input d-inline-block" value="tag1" disabled="">
+                      <input type="text" class="custom-input d-inline-block" value="{{ $tag->tagName }}"  disabled="">
                       <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
                       <button type="submit" class="btn btn-primary btn-xs invisible">
                         Submit
                       </button>
+
                       <button type="cancel" class="btn btn-light btn-xs invisible">
                         Cancel
                       </button>
@@ -47,242 +54,15 @@
                   </form>
                 </td>
                 <td class="py-2">
-                  <button type="button" class="btn btn-danger btn-xs delete">
-                    Delete
-                  </button>
+                    <form action="{{ route('admin.tags.update', $tag->id) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-xs delete">Delete</button>
                 </td>
-            </tr>
-            <tr>
-              <td>
-                <form action="">
-                  <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                    <input type="text" class="custom-input d-inline-block" value="tag1" disabled="">
-                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                    <button type="submit" class="btn btn-primary btn-xs invisible">
-                      Submit
-                    </button>
-                    <button type="cancel" class="btn btn-light btn-xs invisible">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </td>
-              <td class="py-2">
-                <button type="button" class="btn btn-danger btn-xs delete">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <form action="">
-                  <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                    <input type="text" class="custom-input d-inline-block" value="tag1" disabled="">
-                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                    <button type="submit" class="btn btn-primary btn-xs invisible">
-                      Submit
-                    </button>
-                    <button type="cancel" class="btn btn-light btn-xs invisible">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </td>
-              <td class="py-2">
-                <button type="button" class="btn btn-danger btn-xs delete">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <form action="">
-                  <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                    <input type="text" class="custom-input d-inline-block" value="tag1" disabled="">
-                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                    <button type="submit" class="btn btn-primary btn-xs invisible">
-                      Submit
-                    </button>
-                    <button type="cancel" class="btn btn-light btn-xs invisible">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </td>
-              <td class="py-2">
-                <button type="button" class="btn btn-danger btn-xs delete">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <form action="">
-                  <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                    <input type="text" class="custom-input d-inline-block" value="tag1" disabled="">
-                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                    <button type="submit" class="btn btn-primary btn-xs invisible">
-                      Submit
-                    </button>
-                    <button type="cancel" class="btn btn-light btn-xs invisible">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </td>
-              <td class="py-2">
-                <button type="button" class="btn btn-danger btn-xs delete">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <form action="">
-                  <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                    <input type="text" class="custom-input d-inline-block" value="tag1" disabled="">
-                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                    <button type="submit" class="btn btn-primary btn-xs invisible">
-                      Submit
-                    </button>
-                    <button type="cancel" class="btn btn-light btn-xs invisible">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </td>
-              <td class="py-2">
-                <button type="button" class="btn btn-danger btn-xs delete">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <form action="">
-                  <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                    <input type="text" class="custom-input d-inline-block" value="tag1" disabled="">
-                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                    <button type="submit" class="btn btn-primary btn-xs invisible">
-                      Submit
-                    </button>
-                    <button type="cancel" class="btn btn-light btn-xs invisible">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </td>
-              <td class="py-2">
-                <button type="button" class="btn btn-danger btn-xs delete">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <form action="">
-                  <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                    <input type="text" class="custom-input d-inline-block" value="tag1" disabled="">
-                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                    <button type="submit" class="btn btn-primary btn-xs invisible">
-                      Submit
-                    </button>
-                    <button type="cancel" class="btn btn-light btn-xs invisible">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </td>
-              <td class="py-2">
-                <button type="button" class="btn btn-danger btn-xs delete">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <form action="">
-                  <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                    <input type="text" class="custom-input d-inline-block" value="tag1" disabled="">
-                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                    <button type="submit" class="btn btn-primary btn-xs invisible">
-                      Submit
-                    </button>
-                    <button type="cancel" class="btn btn-light btn-xs invisible">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </td>
-              <td class="py-2">
-                <button type="button" class="btn btn-danger btn-xs delete">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <form action="">
-                  <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                    <input type="text" class="custom-input d-inline-block" value="tag1" disabled="">
-                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                    <button type="submit" class="btn btn-primary btn-xs invisible">
-                      Submit
-                    </button>
-                    <button type="cancel" class="btn btn-light btn-xs invisible">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </td>
-              <td class="py-2">
-                <button type="button" class="btn btn-danger btn-xs delete">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <form action="">
-                  <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                    <input type="text" class="custom-input d-inline-block" value="tag1" disabled="">
-                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                    <button type="submit" class="btn btn-primary btn-xs invisible">
-                      Submit
-                    </button>
-                    <button type="cancel" class="btn btn-light btn-xs invisible">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </td>
-              <td class="py-2">
-                <button type="button" class="btn btn-danger btn-xs delete">
-                  Delete
-                </button>
-              </td>
-            </tr>
-            <tr class="hidden">
-              <td>
-                <form action="">
-                  <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                    <input type="text" class="custom-input d-inline-block" value="tag1" disabled="">
-                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                    <button type="submit" class="btn btn-primary btn-xs invisible">
-                      Submit
-                    </button>
-                    <button type="cancel" class="btn btn-light btn-xs invisible">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-              </td>
-              <td class="py-2">
-                <button type="button" class="btn btn-danger btn-xs delete">
-                  Delete
-                </button>
-              </td>
-            </tr>
+                    </tr>
+                @endforeach
+                </tbody>
+
           </thead>
         </table>
       <div class="pagination"><button class="active">1</button><button>2</button></div></div>

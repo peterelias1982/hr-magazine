@@ -32,6 +32,7 @@
                 <button type="submit" class="btn btn-primary me-2">
                     Submit
                 </button>
+{{--                <a href="{{ route('admin.article.allTag') }}" class="btn btn-light">Cancel</a>--}}
                 <button type="reset" class="btn btn-light">
                     Cancel
                 </button>

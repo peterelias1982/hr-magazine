@@ -25,7 +25,7 @@ Route::group(['prefix'=>"admin"],function(){
             Route::get('/',  'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/', 'store')->name('store');
-            Route::put('/{slug}', 'update')->name('update');
+            Route::patch('/{slug}', 'update')->name('update');
             Route::delete('/{slug}',  'destroy')->name('destroy');
         });
 
@@ -35,7 +35,7 @@ Route::group(['prefix'=>"admin"],function(){
             Route::get('/',  'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/', 'store')->name('store');
-            Route::put('/{slug}', 'update')->name('update');
+            Route::patch('/{slug}', 'update')->name('update');
             Route::delete('/{slug}',  'destroy')->name('destroy');
         });
 

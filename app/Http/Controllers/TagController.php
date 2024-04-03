@@ -54,17 +54,17 @@ class TagController extends Controller
         $tags = Tag::where('slug', $tags->slug)->get();
         return view('Admin.article.allTag', compact('tags' ));
     }
-    public function update(Request $request, Tag $tags)
+    public function update(Request $request, Tag $tags, $slug)
     {
-        $validated = $request->validate([
-            'tagName' => 'required|min:3|max:50',
-            'slug'=>'required|string|max:255|unique:Tag,slug,'.$tags->id,
-        ]);
 
-        $tags->update($validated);
+        $tag = Tag::where('slug', $slug)->first();
+        $tag->update([
+        'tagName' => $request->input('tagName'),
+            'slug' => $request->input('slug'),
+        ]);
         return redirect()
-            ->route('admin.article.allTag', $tags->id)
-            ->with('message', 'Edited successfully!');
+            ->route('admin.article.allTag')
+            ->with('message', 'Tag updated successfully!');
     }
 
     public function destroy(Tag $tags)
