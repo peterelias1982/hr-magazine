@@ -107,7 +107,7 @@ class EventController extends Controller
     public function edit(Event $event, string $slug)
     {
         $event = Event::with('Agenda')->where('slug', $slug)->first();
-        return view('Admin.event.editEvent',compact('event'));
+        return view('Admin.event.eventDetails',compact('event'));
     }
 
     /**
@@ -115,8 +115,8 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, string $slug)
     {
-        $event = Event::where('slug', $slug)->first();
-        $data=$this->prepareData($request);
+        $event = Event::with('Agenda')->where('slug', $slug)->first();
+        $data = $request->validated();
         
         if ($request->hasFile('image')) {
             $imageName = $this->uploadFile($request->file('image'), 'admin/images/articles&event');

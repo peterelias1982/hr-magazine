@@ -341,5 +341,16 @@
                 </div>
             </form>
         </div>
+        <script>
+            let agendaValues = {
+                '1': {
+                    'data': [
+                        ['test1', '10:00', '10:30', 'test1'],
+                        ['test2', '11:00', '11:30', 'test2']
+                    ],
+                }
+
+            }
+        </script>
 
 @endsection
