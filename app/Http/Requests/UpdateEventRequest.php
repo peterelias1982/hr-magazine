@@ -34,6 +34,7 @@ class UpdateEventRequest extends FormRequest
             'country'=>'required|max:255',
             'latitude' => [
                 'required_if:googleMapLink,Null',
+                'required_with:longitude',
                 'numeric', 
                 'regex:/^[-+]?(90(\.0+)?|[0-8]?\d(\.\d+)?)$/',
                 'nullable',
