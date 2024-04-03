@@ -3,32 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobCategory;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Exception;
-use Throwable;
-use function Webmozart\Assert\Tests\StaticAnalysis\string;
+use Illuminate\Support\Facades\Validator;
 
 class JobCategoryController extends Controller
 {
-
     public function index()
     {
-        try {
-            $categories = JobCategory::all();
-            return view('admin.jobs.allCategory', compact('categories'));
-        } catch (Throwable $exception) {
-            return redirect()->back()
-                ->withErrors(['error' => 'Error adding category'. $exception->getMessage()]);
-}
+        $categories = JobCategory::all();
+        return view('admin.jobs.allCategory', compact('categories'));
     }
 
     public function create()
     {
-        return view('Admin.jobs.addCategory');
+        return view('admin.jobs.addCategory');
     }
 
-    public function store(Request $request, $validator)
+    public function store(Request $request)
     {
         $data = $request->validate([
             'category' => 'required|string|max:255',
@@ -39,53 +30,48 @@ class JobCategoryController extends Controller
             'slug.unique' => 'The slug already exists. Please choose a different one.',
         ]);
 
-        if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
-        }
-
         try {
             JobCategory::create($data);
-            return view('admin.jobs.allCategory')
+            return redirect()
+                ->route('categories.index')
                 ->with('success', 'Category Added Successfully');
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             return redirect()
                 ->back()
-                ->withErrors(['error' => 'Error adding category'. $exception->getMessage()]);
+                ->withErrors(['error' => 'Error adding category: ' . $exception->getMessage()]);
         }
     }
 
     public function show(JobCategory $jobCategory)
     {
-
-        $categories = JobCategory::findBySlug( string('slug') );
-
-        return view('jobCategories.show', compact('jobCategory', 'categories'));
+        $categories = JobCategory::where('slug', $jobCategory->slug)->get();
+        return view('admin.jobs.allCategory', compact('jobCategory', 'categories'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(JobCategory $jobCategory)
     {
-        //
+        $categories = JobCategory::where('slug', $jobCategory->slug)->get();
+        return view('admin.jobs.allCategory', compact('jobCategory', 'categories'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, JobCategory $jobCategory)
     {
-        //
+        $validated = $request->validate([
+            'category' => 'required|min:3|max:50',
+            'slug'=>'required|string|max:255|unique:job_categories,slug,'.$jobCategory->id,
+        ]);
+
+        $jobCategory->update($validated);
+        return redirect()
+            ->route('admin.jobs.allCategory', $jobCategory->id)
+            ->with('message', 'Edited successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(JobCategory $jobCategory)
     {
-        //
+        $categories = JobCategory::where('slug', $jobCategory->slug)->get();
+        $categories->delete();
+        return redirect('admin/job/categories')
+            ->with('success', 'Category is deleted successfully.');
     }
 }
