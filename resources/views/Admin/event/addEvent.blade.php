@@ -288,30 +288,30 @@
                                             <tbody>
                                             <tr class="day_1">
                                                 <td>
-                                                    <input type="text" class="form-control" name="topic[0]"
-                                                           value="{{old('topic.0')}}" placeholder="Topic">
-                                                    @error('topic.0')
+                                                    <input type="text" class="form-control" name="topic[1][]"
+                                                           value="{{old('topic.1.0')}}" placeholder="Topic">
+                                                    @error('topic.1.0')
                                                         <small><code>{{$message}}</code></small>
                                                     @enderror
                                                 </td>
                                                 <td>
-                                                    <input type="time" class="form-control" name="fromTime[0]"
-                                                           value="{{old('fromTime.0')}}">
-                                                    @error('fromTime.0')
+                                                    <input type="time" class="form-control" name="fromTime[1][]"
+                                                           value="{{old('fromTime.1.0')}}">
+                                                    @error('fromTime.1.0')
                                                         <small><code>{{$message}}</code></small>
                                                     @enderror
                                                 </td>
                                                 <td>
-                                                    <input type="time" class="form-control" name="toTime[0]"
-                                                           value="{{old('toTime.0')}}">
-                                                    @error('toTime.0')
+                                                    <input type="time" class="form-control" name="toTime[1][]"
+                                                           value="{{old('toTime.1.0')}}">
+                                                    @error('toTime.1.0')
                                                         <small><code>{{$message}}</code></small>
                                                     @enderror
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="speaker[0]"
+                                                    <input type="text" class="form-control" name="speaker[1][]"
                                                            value="{{old('speaker.0')}}" placeholder="Speaker">
-                                                    @error('speaker.0')
+                                                    @error('speaker.1.0')
                                                         <small><code>{{$message}}</code></small>
                                                     @enderror
                                                 </td>
@@ -341,16 +341,4 @@
                 </div>
             </form>
         </div>
-        <script>
-            let agendaValues = {
-                '1': {
-                    'data': [
-                        ['test1', '10:00', '10:30', 'test1'],
-                        ['test2', '11:00', '11:30', 'test2']
-                    ],
-                }
-
-            }
-        </script>
-
 @endsection

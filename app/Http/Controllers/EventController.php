@@ -32,15 +32,62 @@ class EventController extends Controller
         return view('Admin.event.addEvent');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreEventRequest $request)
+    {
+        $data = $this->prepareData($request->all());
+
+        $event = Event::create($data['eventData']);
+        $event->agenda()->saveMany($data['agendaData']);
+
+        return redirect()->route('admin.events.index');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Event $event, string $slug)
+    {
+        $event = Event::with('Agenda')->where('slug', $slug)->first();
+        return view('Admin.event.eventDetails',compact('event'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateEventRequest $request, string $slug)
+    {
+        $data = $this->prepareData($request->all());
+
+//      update event data
+        $event = Event::where('slug', $slug)->first();
+        $event->update($data['eventData']);
+
+//      update agenda data
+        $event->agenda()->delete();
+        $event->agenda()->saveMany($data['agendaData']);
+
+        return redirect()->route('admin.events.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Event $event, string $slug)
+    {
+        Event::where('slug', $slug)->delete();
+        return redirect()->route('admin.events.index');
+    }
+
     private function prepareData(array $data)
     {
 //      Event data
-        $imageName = $this->uploadFile($data['image'], 'admin/images/articles&event');
         $eventData = [
             'title' => $data['title'],
             'fromDate' => Carbon::parse($data['fromDate'])->format('Y-m-d'),
             'toDate' => Carbon::parse($data['toDate'])->format('Y-m-d'),
-            'image' => $imageName,
             'streetNo' => $data['streetNo'],
             'streetName' => $data['streetName'],
             'city' => $data['city'],
@@ -53,18 +100,24 @@ class EventController extends Controller
             'description' => $data['description'],
             'speakers' => $data['speakers'],
         ];
+
+        if(isset($data['image'])) {
+            $imageName = $this->uploadFile($data['image'], 'admin/images/articles&event');
+            $eventData['image'] = $imageName;
+        }
+
 //      Agenda Rows
         $agendaData = [];
 
         for ($i = 1, $dayCount = count($data['topic']); $i <= $dayCount; $i++) {
             for ($j = 0, $rows = count($data['topic'][$i]); $j < $rows; $j++) {
-                $agendaData[] = [
+                $agendaData[] = new Agenda([
                     'dayNumber' => $i,
                     'topic' => $data['topic'][$i][$j],
                     'fromTime' => $data['fromTime'][$i][$j],
                     'toTime' => $data['toTime'][$i][$j],
                     'speaker' => $data['speaker'][$i][$j],
-                ];
+                ]);
             }
         }
 
@@ -73,71 +126,6 @@ class EventController extends Controller
             'agendaData' => $agendaData,
         ];
 
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreEventRequest $request)
-    {
-        $data = $this->prepareData($request->all());
-        $event = Event::create($data['eventData']);
-
-        foreach ($data['agendaData'] as $agendaRow) {
-            $agendaRow['event_id'] = $event->id;
-            Agenda::create($agendaRow);
-        }
-
-        return redirect()->route('admin.events.index');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Event $event, string $slug)
-    {
-        $event = Event::with('Agenda')->where('slug', $slug)->first();
-        // return dd($event);
-        return view('Admin.event.eventDetails',compact('event'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Event $event, string $slug)
-    {
-        $event = Event::with('Agenda')->where('slug', $slug)->first();
-        return view('Admin.event.eventDetails',compact('event'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateEventRequest $request, string $slug)
-    {
-        $event = Event::with('Agenda')->where('slug', $slug)->first();
-        $data = $request->validated();
-        
-        if ($request->hasFile('image')) {
-            $imageName = $this->uploadFile($request->file('image'), 'admin/images/articles&event');
-            $event->image = $imageName;
-            // Delete the old image if it exists
-            if (!empty($request->oldImage)) {
-                unlink(public_path("admin/images/articles&event/" . $request->oldImage));
-            }
-        }
-        $event->update($data);
-        // dd($request);
-        return redirect()->route('admin.events.index');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Event $event, string $slug)
-    {
-        Event::with('Agenda')->where('slug', $slug)->delete();
-        return redirect()->route('admin.events.index');
     }
 
 }

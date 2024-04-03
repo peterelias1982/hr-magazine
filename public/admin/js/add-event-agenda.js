@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                   </div>`;
 
-    if(agendaValues[`${dayNumber}`]) {
+    if(typeof agendaValues !== 'undefined' && agendaValues[`${dayNumber}`]) {
       agendaValues[`${dayNumber}`]['data'].forEach((item) => {
         dayBoxHtml += `
         <tr class="day_${dayNumber}">
