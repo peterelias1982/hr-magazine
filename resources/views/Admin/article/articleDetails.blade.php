@@ -144,6 +144,8 @@
                                                 <input type="url" name="articleable[youtubeLink]" form="edit-article"
                                                        class="w-100 border-0 text-primary"
                                                        value="{{$article->YoutubeLink?->youtubeLink}}" disabled="">
+                                                       {{-- <input type="hidden" name="articleable[youtubeLink]" value="" id="youTubeLinkInput"/> --}}
+                                                       
                                                 @error('articleable[youtubeLink]')
                                                 <small><code>{{ $message }}</code></small>
                                                 @enderror
