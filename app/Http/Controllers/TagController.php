@@ -21,8 +21,8 @@ class TagController extends Controller
     {
 
         $data = $request->validate([
-            'tagName' => 'required|string|max:255',
-            'slug'=>'required|string|max:255|unique:job_categories,slug',
+            'tagName' => 'required|string|max:255|unique:Tag',
+            'slug'=>'required|string|max:255|unique:Tag,slug',
         ], [
             'tagName.required' => 'You have to enter the name of the tagName.',
             'slug.required' => 'You have to enter the name of the slug.',
@@ -57,7 +57,7 @@ class TagController extends Controller
     {
         $validated = $request->validate([
             'tagName' => 'required|min:3|max:50',
-            'slug'=>'required|string|max:255|unique:job_categories,slug,'.$tags->id,
+            'slug'=>'required|string|max:255|unique:Tag,slug,'.$tags->id,
         ]);
 
         $tags->update($validated);
