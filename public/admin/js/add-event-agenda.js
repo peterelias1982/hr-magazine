@@ -75,8 +75,8 @@ document.addEventListener("DOMContentLoaded", function () {
         <td><input type="time" class="form-control" name="toTime[${dayNumber}][]" value="${item[2]}"></td>
         <td><input type="text" class="form-control" name="speaker[${dayNumber}][]" placeholder="Speaker" value="${item[3]}"></td>
         <td>
-            <button type="button" class="btn btn-danger btn-sm remove-row" onclick="removeRow(this)">-</button>
-            <button type="button" class="btn btn-info btn-sm" onclick="addRowToDay(${dayNumber}, this)">+</button>
+            <button type="button" class="btn btn-danger btn-sm remove-row" onclick="removeRow(this)" >-</button>
+            <button type="button" class="btn btn-info btn-sm add-row" onclick="addRowToDay(${dayNumber}, this)" >+</button>
         </td>
         </tr>`;
       })
@@ -88,8 +88,8 @@ document.addEventListener("DOMContentLoaded", function () {
       <td><input type="time" class="form-control" name="toTime[${dayNumber}][]"></td>
       <td><input type="text" class="form-control" name="speaker[${dayNumber}][]" placeholder="Speaker"></td>
       <td>
-          <button type="button" class="btn btn-danger btn-sm remove-row" onclick="removeRow(this)">-</button>
-          <button type="button" class="btn btn-info btn-sm" onclick="addRowToDay(${dayNumber}, this)">+</button>
+          <button type="button" class="btn btn-danger btn-sm remove-row" onclick="removeRow(this)" >-</button>
+          <button type="button" class="btn btn-info btn-sm add-row" onclick="addRowToDay(${dayNumber}, this)">+</button>
       </td>
       </tr>`;
     }
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <td><input type="text" class="form-control" name="speaker[${dayNumber}][]" placeholder="Speaker"></td>
                 <td>
                     <button type="button" class="btn btn-danger btn-sm remove-row" onclick="removeRow(this)">-</button>
-                    <button type="button" class="btn btn-info btn-sm" onclick="addRowToDay(${dayNumber}, this)">+</button>
+                    <button type="button" class="btn btn-info btn-sm add-row" onclick="addRowToDay(${dayNumber}, this)">+</button>
                 </td>
             </tr>
         `;
