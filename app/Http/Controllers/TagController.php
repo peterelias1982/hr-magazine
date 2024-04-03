@@ -7,59 +7,70 @@ use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $tags = Tag::all();
+        return view('Admin.article.allTag', compact('tags'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('Admin.article.addTag', compact('tags'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+
+        $data = $request->validate([
+            'tagName' => 'required|string|max:255',
+            'slug'=>'required|string|max:255|unique:job_categories,slug',
+        ], [
+            'tagName.required' => 'You have to enter the name of the tagName.',
+            'slug.required' => 'You have to enter the name of the slug.',
+            'slug.unique' => 'The slug already exists. Please choose a different one.',
+        ]);
+
+        try {
+            Tag::create($data);
+            return redirect()
+                ->route('Admin.article.allTag')
+                ->with('success', 'Tag Added Successfully');
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->back()
+                ->withErrors(['error' => 'Error adding tag: ' . $exception->getMessage()]);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Tag $tag)
+
+    public function show(Tag $tags)
     {
-        //
+        $tags = Tag::where('slug', $tags->slug)->get();
+        return view('Admin.article.allTag', compact('tags' ));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Tag $tag)
+    public function edit(Tag $tags)
     {
-        //
+        $tags = Tag::where('slug', $tags->slug)->get();
+        return view('Admin.article.allTag', compact('tags' ));
+    }
+    public function update(Request $request, Tag $tags)
+    {
+        $validated = $request->validate([
+            'tagName' => 'required|min:3|max:50',
+            'slug'=>'required|string|max:255|unique:job_categories,slug,'.$tags->id,
+        ]);
+
+        $tags->update($validated);
+        return redirect()
+            ->route('admin.article.allTag', $tags->id)
+            ->with('message', 'Edited successfully!');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Tag $tag)
+    public function destroy(Tag $tags)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Tag $tag)
-    {
-        //
+        $tags = Tag::where('slug', $tags->slug)->get();
+        $tags->delete();
+        return redirect('admin/job/categories')
+            ->with('success', 'Category is deleted successfully.');
     }
 }
