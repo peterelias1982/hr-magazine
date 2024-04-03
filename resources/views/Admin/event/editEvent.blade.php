@@ -137,10 +137,10 @@
               <tbody>
 <tr class="day_1">
 @foreach($event->agenda as $agenda)
-<td><input type="text" class="form-control" name="topic[0]" placeholder="Topic" value="{{ $agenda['topic[0]'] }}"></td>
-<td><input type="time" class="form-control" name="from_time[0]" value="{{ $agenda['fromTime'] }}"></td>
-<td><input type="time" class="form-control" name="to_time[0]" value="{{ $agenda['toTime'] }}"></td>
-<td><input type="text" class="form-control" name="speaker[0]" placeholder="Speaker" value="{{ $agenda['speaker'] }}"></td>
+<td><input type="text" class="form-control" name="topic" placeholder="Topic" value="{{ $agenda['topic'] }}"></td>
+<td><input type="time" class="form-control" name="from_time" value="{{ $agenda['fromTime'] }}"></td>
+<td><input type="time" class="form-control" name="to_time" value="{{ $agenda['toTime'] }}"></td>
+<td><input type="text" class="form-control" name="speaker" placeholder="Speaker" value="{{ $agenda['speaker'] }}"></td>
 <td>
   <button type="button" class="btn btn-danger btn-sm remove-row" onclick="removeRow(this)">-</button>
   <button type="button" class="btn btn-info btn-sm" onclick="addRowToDay(1, this)">+</button>
