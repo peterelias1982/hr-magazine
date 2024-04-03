@@ -53,5 +53,6 @@
     <!-- container-scroller -->
 
    @include("Admin.include.footerJs")
+   @yield('js')
   </body>
 </html>
