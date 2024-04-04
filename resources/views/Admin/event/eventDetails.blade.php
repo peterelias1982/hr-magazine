@@ -22,7 +22,7 @@
                                     <div class="card-body">
                                         <div class="row align-items-center">
                                             <div class="col-lg-4 col-6 position-relative" id="change-pic">
-                                                <input type="file" name="event_image" id="event_pic_input"
+                                                <input type="file" name="image" id="event_pic_input"
                                                        form="edit-event" class="opacity-0 border-0" disabled="">
                                                 <img src="{{ asset('admin/images/articles&event/'.$event->image) }}"
                                                      class="img-fluid" id="event_pic" name="image">
