@@ -22,19 +22,16 @@ class TagController extends Controller
     {
 
         $data = $request->validate([
-            'tagName' => 'required|string|max:255|unique:Tag',
-            'slug'=>'required|string|max:255|unique:Tag,slug',
-        ], [
-            'tagName.required' => 'You have to enter the name of the tagName.',
-            'slug.required' => 'You have to enter the name of the slug.',
-            'slug.unique' => 'The slug already exists. Please choose a different one.',
+            'tagName' => 'required|string|max:255|unique:tags,tagName',
         ]);
 
         try {
             Tag::create($data);
+
             return redirect()
-                ->route('Admin.article.allTag')
+                ->route('tags.index')
                 ->with('success', 'Tag Added Successfully');
+
         } catch (Throwable $exception) {
             return redirect()
                 ->back()
@@ -42,36 +39,23 @@ class TagController extends Controller
         }
     }
 
-
-    public function show(Tag $tags)
-    {
-        $tags = Tag::where('slug', $tags->slug)->get();
-        return view('Admin.article.allTag', compact('tags' ));
-    }
-
-    public function edit(Tag $tags)
-    {
-        $tags = Tag::where('slug', $tags->slug)->get();
-        return view('Admin.article.allTag', compact('tags' ));
-    }
-    public function update(Request $request, Tag $tags, $slug)
+    public function update(Request $request,  $slug)
     {
 
-        $tag = Tag::where('slug', $slug)->first();
-        $tag->update([
-        'tagName' => $request->input('tagName'),
-            'slug' => $request->input('slug'),
+        $tag = Tag::where('slug', $slug)->update([
+            'tagName' => $request->input('tagName'),
         ]);
+
         return redirect()
-            ->route('admin.article.allTag')
+            ->route('tags.index')
             ->with('message', 'Tag updated successfully!');
     }
 
-    public function destroy(Tag $tags)
+    public function destroy($slug)
     {
-     //   $tags = Tag::where('slug', $tags->slug)->get();
-        $tags->delete();
-        return redirect('admin/tags')
+        Tag::where('slug', $slug)->delete();
+
+        return redirect()->route('tags.index')
             ->with('success', 'Category is deleted successfully.');
     }
 }
