@@ -6,7 +6,7 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Article Category</h4>
-          <p class="card-description">Add a new article category</p>
+          <p class="card-description">Add a new job category</p>
           <form class="forms-sample">
             <div class="form-group">
               <label for="exampleInputUsername1">Name</label>

@@ -37,11 +37,11 @@
                 @foreach($tags as $tag)
                     <tr>
                         <td>
-                  <form  action="{{ route('admin.tags.update.slug', $tag->slug) }}" method="POST">
+                  <form  action="{{ route('tags.update', $tag->slug) }}" method="POST">
                       @csrf
-                      @method('PATCH')
+                      @method('PUT')
                     <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                      <input type="text" class="custom-input d-inline-block" value="{{ $tag->tagName }}"  disabled="">
+                      <input type="text" class="custom-input d-inline-block" value="{{ $tag->tagName }}"  disabled="" />
                       <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
                       <button type="submit" class="btn btn-primary btn-xs invisible">
                         Submit
@@ -58,6 +58,7 @@
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-xs delete">Delete</button>
+                    </form>
                 </td>
                     </tr>
                 @endforeach
