@@ -34,8 +34,9 @@ class UpdateArticleRequest extends FormRequest
             'articleable' => ['sometimes', 'array', new ArticleAttachesRule($category)],
             'tags_id'  => 'sometimes|array',
             'user_id' => 'nullable',
+            'approved' => 'sometimes',
             'author_id' => Rule::requiredIf(fn() => $category? $category['hasAuthor'] : false),
-            
+
         ];
     }
 }

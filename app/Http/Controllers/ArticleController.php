@@ -47,10 +47,7 @@ class ArticleController extends Controller
             ['id', 'articleCategoryName', 'hasAuthor', 'hasSource', 'hasYoutubeLink'])->get();
         $articleTags = Tag::select('id', 'tagName')->get();
 
-        return view("Admin.article.addArticle", compact(['articleCategories', 'articleTags', 'authors']));;
-        // $articleTags = Tag::select('id', 'tagName')->get();
-
-        // return view("Admin.article.addArticle", compact(['articleCategories', 'articleTags', 'authors']));;
+        return view("Admin.article.addArticle", compact(['articleCategories', 'articleTags', 'authors']));
     }
 
     /**
@@ -75,8 +72,8 @@ class ArticleController extends Controller
     }
 
     /**
-     * Display the specified resource.😊    
-     * 
+     * Display the specified resource.😊
+     *
      */
     public function show(string $slug)
     {
@@ -104,8 +101,11 @@ class ArticleController extends Controller
 
         $article->tags()->sync($tagsAttachments);
 
+        SourceArticle::where('article_id', $article_id)->delete();
+        YoutubeLink::where('article_id', $article_id)->delete();
+
         foreach ($articleables as $articleable) {
-            $articleable['article_id'] = $article_id;
+            $articleable['article_id'] = $article->id;
             $articleable->save();
         }
 
@@ -119,7 +119,7 @@ class ArticleController extends Controller
      */
     public function destroy(string $id)
     {
-        Article::where('id', $id)->delete();    // softdelete
+        Article::where('id', $id)->delete();
         return redirect()->route('articles.index');
     }
 
@@ -131,6 +131,7 @@ class ArticleController extends Controller
             'category_id' => $data['category_id'],
             'user_id' => $data['user_id'] ?? null,
             'author_id' => $data['author_id'] ?? null,
+            'approved'  => isset($data['approved']),
         ];
 
         if($data["image"]?? false) {
@@ -145,7 +146,7 @@ class ArticleController extends Controller
         $articleables = [];
 
         foreach ($data['articleable'] ?? [] as $key => $articleable) {
-            if ($key === 'source' && $category->hasSourec) {
+            if ($key === 'source' && $category->hasSource) {
                 $articleables[] = new SourceArticle([
                     'sourceName' => $articleable['name'],
                     'sourceLink' => $articleable['link'],
@@ -169,7 +170,7 @@ class ArticleController extends Controller
     // $articleCategories = ArticleCategory::get();
     //  $articleCategories = ArticleCategory::with('article')->get();
 
-    
+
     $articles = Article::query(); // Start with a base query
     $articleCategories = ArticleCategory::all();
 
@@ -209,8 +210,8 @@ class ArticleController extends Controller
                               ->where('article_categories.id', $categoryId);
     }
 
-    
-    
+
+
 
 
     // Approved Filter (if checkbox selected)
