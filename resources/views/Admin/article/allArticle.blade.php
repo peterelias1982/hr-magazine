@@ -80,7 +80,7 @@
                                             <a href="{{route('articles.show', $article->slug)}}"
                                                class="link-primary text-decoration-none">{{ $article->title }}</a>
                                         </td>
-                                        <td>{{ $article->author?->userAuthor?->name?? '_'  }}</td>
+                                        <td>{{ $article->author?->userAuthor?->slug?? '_'  }}</td>
                                         <td>{{ $article->articleCategory->articleCategoryName  }}</td>
                                         <td class="p-1">
                                             <div class="d-flex flex-wrap">

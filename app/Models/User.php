@@ -32,12 +32,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'firstName',
+        'secondName',
+        'gender',
         'email',
         'password',
         "position",
         "mobile",
         "active",
+        
     ];
 
     /**
@@ -80,7 +83,7 @@ class User extends Authenticatable
         return $this->hasMany(Article::class);
     }
 
-    public function autherUser()
+    public function authorUser()
     {
         return $this->hasOne(Article::class, 'id', 'user_id');
     }

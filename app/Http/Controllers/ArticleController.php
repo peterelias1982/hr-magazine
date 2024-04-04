@@ -166,11 +166,14 @@ class ArticleController extends Controller
 
     public function index(Request $request)
 {
-    $articleCategories = ArticleCategory::get();
+    // $articleCategories = ArticleCategory::get();
     //  $articleCategories = ArticleCategory::with('article')->get();
 
     
     $articles = Article::query(); // Start with a base query
+    $articleCategories = ArticleCategory::all();
+
+    $selectedCategoryId = $request->input('category_id');
 
     // Apply filters based on user input
     $title = $request->get('title'); // Assuming title search
@@ -230,7 +233,7 @@ class ArticleController extends Controller
         return view("Admin.article.allArticle", compact(['articles', 'articleCategories']));
 }
 
-// }
+}
 
 // public function index(Request $request)
 // {
@@ -288,4 +291,61 @@ class ArticleController extends Controller
 
 //     return view('Admin.article.allArticle', compact('articles','articleCategories'));
 // }
-}
+// public function index(Request $request)
+// {
+//     $articleCategories=ArticleCategory::get();
+//     // Eager loading with related models
+//     $articles = Article::query()->with([
+//         'category' => function ($query) { // Eager load category with articleCategoryName
+//             $query->select('id', 'articleCategoryName'); // Select specific columns
+//         },
+//         'author' => function ($query) { // Eager load author with name from user table (assuming one-to-one)
+//             $query->select('name'); // Select specific column
+//         },
+//         'tags' => function ($query) { // Eager load tags with tagName (many-to-many)
+//             // No additional query needed
+//         },
+//     ]);
+
+//     // Apply filters based on user input
+//     $title = $request->get('title');
+//     $tagName = $request->get('tagName');
+//     $author = $request->get('author'); // Assuming author search by name
+//     $categoryId = $request->get('articleCategory_id');
+//     $approved = $request->has('status') && $request->get('status') === 'approved';
+//     $declined = $request->has('status') && $request->get('status') === 'declined';
+
+//     // Title Search
+//     if (!empty($title)) {
+//         $articles->where('title', 'like', "%{$title}%");
+//     }
+
+//     // tagName Search
+//     if (!empty($tagName)) {
+//         $articles->whereHas('tags', function ($query) use ($tagName) {
+//             $query->where('name', 'like', "%{$tagName}%");
+//         });
+//     }
+
+//     // Author Search (assuming search by name)
+//     if (!empty($author)) {
+//         $articles->whereHas('author', function ($query) use ($author) {
+//             $query->where('name', 'like', "%{$author}%");
+//         });
+//     }
+
+//     // Category Filter
+//     if ($categoryId !== null) {
+//         $articles->where('category_id', $categoryId);
+//     }
+
+//     // Approved/Declined Filter
+//     $articles->where('approved', $approved ? 1 : ($declined ? 0 : null));
+
+//     $articles = $articles->paginate(10);
+
+//     // Pass articles, categories, and other data to the view
+//     return view("Admin.article.allArticle", compact(['articles', 'articleCategories']));
+// }
+
+// }
