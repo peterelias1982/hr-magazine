@@ -26,14 +26,14 @@
                         <div class="col-12 grid-margin stretch-card">
                             <div class="card card-rounded">
                                 <div class="card-body">
-                                    <div class="row">
+                                    <div class="row align-items-center">
                                         <div class="col-lg-4 col-6 position-relative" id="change-pic">
                                             <input type="file" name="image" id="article_pic_input"
                                                    form="edit-article" class="opacity-0 border-0" disabled=""
                                             >
                                             <img src="{{asset('assets/images/'.$article->image)}}" class="img-fluid"
                                                  id="article_pic">
-                                            <i class="mdi mdi-link-variant-plus fs-4 position-absolute bottom-0 end-0 translate-middle btn btn-sm d-none"
+                                            <i class="mdi mdi-link-variant-plus fs-4 position-absolute bottom-0 end-0 translate-middle btn btn-sm d-none bg-white rounded"
                                                id="article_change_icon"></i>
                                         </div>
                                         <div class="col-lg-8 d-flex flex-column justify-content-around">
@@ -145,7 +145,7 @@
                                                        class="w-100 border-0 text-primary"
                                                        value="{{$article->YoutubeLink?->youtubeLink}}" disabled="">
                                                        {{-- <input type="hidden" name="articleable[youtubeLink]" value="" id="youTubeLinkInput"/> --}}
-                                                       
+
                                                 @error('articleable[youtubeLink]')
                                                 <small><code>{{ $message }}</code></small>
                                                 @enderror
