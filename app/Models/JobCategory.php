@@ -14,6 +14,7 @@ class JobCategory extends Model
 {
     use HasFactory,HasSlug;
 
+
     protected $fillable=[
         "category",
         "slug",

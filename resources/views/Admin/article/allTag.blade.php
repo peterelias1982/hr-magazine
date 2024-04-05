@@ -43,6 +43,9 @@
                                               id="editForm_{{$tag->id}}">
                                             @csrf
                                             @method('PUT')
+                                            @if(session('success'))
+                                                <h2>{{session('success')}}</h2>
+                                            @endif
                                             <td>
                                                 <div class="position-relative input-parent d-inline-block"
                                                      onclick="edit(this)">
@@ -78,33 +81,11 @@
 
                                 </thead>
                             </table>
-                            <div class="pagination">
-                                <button class="active">1</button>
-                                <button>2</button>
-                            </div>
+
                         </div>
                     </div>
-<<<<<<< HEAD
-                  </form>
-                </td>
-                <td class="py-2">
-                    <form action="{{ route('admin.tags.update', $tag->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-xs delete">Delete</button>
-                    </form>
-                </td>
-                    </tr>
-                @endforeach
-                </tbody>
-
-          </thead>
-        </table>
-      <div class="pagination"><button class="active">1</button><button>2</button></div></div>
-=======
                 </div>
             </div>
         </div>
->>>>>>> ebebc6ebbbeb9dfc6b7f2a6633e78e3af37b64ba
     </div>
 @endsection

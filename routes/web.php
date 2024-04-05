@@ -29,12 +29,13 @@ Route::group(['prefix'=>"admin"],function(){
     });
 
 
-        Route::group(['prefix' => 'jobCategories',"controller"=>JobCategoryController::class,"as"=>"jobsCategories."], function () {
+        Route::group(['prefix' => 'jobCategory',"controller"=>JobCategoryController::class,"as"=>"jobCategory."], function () {
             Route::get('/',  'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/', 'store')->name('store');
-            Route::patch('/{slug}', 'update')->name('update');
+            Route::put('/{slug}', 'update')->name('update');
             Route::delete('/{slug}',  'destroy')->name('destroy');
         });
+
 
 });

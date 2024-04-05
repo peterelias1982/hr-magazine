@@ -23,17 +23,14 @@ class JobCategoryController extends Controller
     {
         $data = $request->validate([
             'category' => 'required|string|max:255',
-            'slug'=>'required|string|max:255|unique:job_categories,slug',
         ], [
             'category.required' => 'You have to enter the name of the category.',
-            'slug.required' => 'You have to enter the name of the slug.',
-            'slug.unique' => 'The slug already exists. Please choose a different one.',
         ]);
 
         try {
             JobCategory::create($data);
             return redirect()
-                ->route('categories.index')
+                ->route('jobCategory.index')
                 ->with('success', 'Category Added Successfully');
         } catch (\Throwable $exception) {
             return redirect()
@@ -42,36 +39,38 @@ class JobCategoryController extends Controller
         }
     }
 
-    public function show(JobCategory $jobCategory)
+
+    public function edit(JobCategory $jobCategory , $slug)
     {
         $categories = JobCategory::where('slug', $jobCategory->slug)->get();
-        return view('admin.jobs.allCategory', compact('jobCategory', 'categories'));
+        return view('admin/jobCategory', compact('jobCategory', 'categories'));
     }
 
-    public function edit(JobCategory $jobCategory)
+    public function update(Request $request, JobCategory $jobCategory , $slug)
     {
-        $categories = JobCategory::where('slug', $jobCategory->slug)->get();
-        return view('admin.jobs.allCategory', compact('jobCategory', 'categories'));
-    }
-
-    public function update(Request $request, JobCategory $jobCategory)
-    {
+        $jobCategory = JobCategory::where("slug", $slug)->firstOrFail();
         $validated = $request->validate([
             'category' => 'required|min:3|max:50',
-            'slug'=>'required|string|max:255|unique:job_categories,slug,'.$jobCategory->id,
         ]);
 
         $jobCategory->update($validated);
         return redirect()
-            ->route('admin.jobs.allCategory', $jobCategory->id)
-            ->with('message', 'Edited successfully!');
+            ->back()
+            ->with('success', 'Category Edited Successfully');
     }
 
-    public function destroy(JobCategory $jobCategory)
+    public function destroy(JobCategory $jobCategory, $slug): \Illuminate\Http\RedirectResponse
     {
-        $categories = JobCategory::where('slug', $jobCategory->slug)->get();
-        $categories->delete();
-        return redirect('admin/job/categories')
-            ->with('success', 'Category is deleted successfully.');
+        try {
+            $jobCategory = JobCategory::where("slug", $slug)->firstOrFail();
+            $jobCategory->delete();
+            //ddd($slug);
+            return redirect()
+                ->back()
+                ->with('success', 'Category is deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error deleting category: ' . $e->getMessage());
+        }
     }
+
 }
