@@ -70,7 +70,7 @@ class User extends Authenticatable
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom(['firstName', 'secondName'])
             ->saveSlugsTo('slug');
     }
 
