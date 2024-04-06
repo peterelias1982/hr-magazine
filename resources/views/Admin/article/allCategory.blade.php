@@ -45,11 +45,11 @@
                   @foreach($categories as $Category)
                   <tr>
                     <td>
-                      <form id="ArticleCategory{{$Category->id}}" action="{{route('categories.update',[$Category->slug])}}" method="POST">
+                      <form id="ArticleCategory{{$Category->id}}" action="{{route('articleCategories.update',[$Category->slug])}}" method="POST">
                         @csrf
                         @method("PUT")
                         <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                          <input type="text" class="custom-input d-inline-block" value="{{$Category->articleCategoryName}}" disabled="" 
+                          <input type="text" class="custom-input d-inline-block" value="{{$Category->articleCategoryName}}" disabled=""
                             name="articleCategoryName">
                           <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
                           <button type="submit" class="btn btn-primary btn-xs invisible">
@@ -71,7 +71,7 @@
                         </div>
                         <div class="form-check form-check-flat form-check-primary mx-2">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" disabled="" 
+                            <input type="checkbox" class="form-check-input" disabled=""
                             @checked($Category->hasYoutubeLink) name="hasYoutubeLink" form="ArticleCategory{{$Category->id}}">
                             Has YouTube
                           <i class="input-helper"></i></label>
@@ -85,7 +85,7 @@
                         </div>
                         <div class="form-check form-check-flat form-check-primary mx-2">
                           <label class="form-check-label">
-                            <input type="checkbox" class="form-check-input" disabled="" 
+                            <input type="checkbox" class="form-check-input" disabled=""
                             @checked($Category->hasAuthor)  name="hasAuthor" form="ArticleCategory{{$Category->id}}">
                             Has Author
                           <i class="input-helper"></i></label>
@@ -93,7 +93,7 @@
                       </div>
                     </td>
                     <td class="py-2">
-                      <form action="{{route('categories.destroy',[$Category->slug])}}" method="POST">
+                      <form action="{{route('articleCategories.destroy',[$Category->slug])}}" method="POST">
                         @csrf
                           @method("delete")
                             <button type="submit" class="btn btn-danger btn-xs delete" >
@@ -103,7 +103,7 @@
                     </td>
                   </tr>
                   @endforeach
-               
+
                 </tbody>
               </table>
           </div>

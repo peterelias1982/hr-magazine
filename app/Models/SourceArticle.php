@@ -16,7 +16,6 @@ class SourceArticle extends Model
         'sourceLink',
         'category_id',
         'article_id',
-        
     ];
 
 
@@ -29,7 +28,7 @@ class SourceArticle extends Model
         return $this->belongsTo(Article::class);
     }
 
-    public function articles(){
-        return $this->morphMany(Article::class,'articleable');
-         }
+    // public function articles(){
+    //     return $this->morphMany(Article::class,'articleable');
+    //      }
 }

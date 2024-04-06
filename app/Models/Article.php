@@ -6,11 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use App\Models\ArticleCategory;
-use App\Models\sourceArticle;
-use App\Models\youtubeLink;
-use App\Models\articleComment;
-use App\Models\Tag;
 
 class Article extends Model
 {
@@ -18,18 +13,12 @@ class Article extends Model
 
     protected $fillable = [
         'title',
-        // 'slug',
         'image',
         'content',
         'category_id',
         'user_id',
         'author_id',
         'approved',
-        // no need to add type and id in fillable, fillable means the data that will be added manually, 
-        //like slug is added automatically there is no need to add it into fillable, 
-        //so as to morph relation is handled automatically 
-        // 'articleable_type',   
-        // 'articleable_id',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -39,24 +28,20 @@ class Article extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function articleable()
-    {
-        return $this->morphto();
-    }
 
     public function articleCategory()
     {
-        return $this->belongsTo(ArticleCategory::class);
+        return $this->belongsTo(ArticleCategory::class, 'category_id', 'id');
     }
 
     public function sourceArticle()
     {
-        return $this->hasMany(SourceArticle::class);
+        return $this->hasOne(SourceArticle::class);
     }
 
     public function youtubeLink()
     {
-        return $this->hasMany(YoutubeLink::class);
+        return $this->hasOne(YoutubeLink::class);
     }
 
     public function articleComment()
@@ -66,7 +51,7 @@ class Article extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'article_tags','article_id', 'tag_id');
     }
 
     public function user()

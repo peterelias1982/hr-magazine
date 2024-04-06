@@ -7,7 +7,7 @@
           <div class="card-body">
             <h4 class="card-title">Article Category</h4>
             <p class="card-description">Add a new article category</p>
-            <form class="forms-sample" action="{{route('categories.store')}}" method="POST">
+            <form class="forms-sample" action="{{route('articleCategories.store')}}" method="POST">
               @csrf
               <div class="form-group">
                 <label for="exampleInputUsername1">Name</label>
@@ -16,7 +16,7 @@
                 <p style="color: red">{{$message}}</p>
                 @enderror
               </div>
-            
+
               <div class="form-check form-check-flat form-check-primary">
                 <label class="form-check-label">
                   <input type="checkbox" class="form-check-input" name="hasAuthor" @checked(old('hasAuthor'))>
@@ -26,7 +26,7 @@
                 <p style="color: red">{{$message}}</p>
                 @enderror
               </div>
-             
+
               <div class="form-check form-check-flat form-check-primary">
                 <label class="form-check-label">
                   <input type="checkbox" class="form-check-input" name="hasSource" @checked(old('hasSource'))>
