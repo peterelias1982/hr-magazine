@@ -9,14 +9,15 @@ use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-
 // use Illuminate\Database\Eloquent\Model;
-Relation::morphMap([
-    "Job_Seeker" => "App\Models\JobSeeker",
-    "Admin" => Admin::class,
-    "Author" => Author::class,
-    "Employer" => "App\Models\Employer",
-]);
+
+
+// Relation::morphMap([
+//     "Job_Seeker" => "App\Models\JobSeeker",
+//     "Admin" => Admin::class,
+//     "Author" => Author::class,
+//     "Employer" => "App\Models\Employer",
+// ]);
 
 class User extends Authenticatable
 {
@@ -88,10 +89,10 @@ class User extends Authenticatable
         return $this->hasOne(Article::class, 'id', 'user_id');
     }
 
-    function userable()
-    {
-        return $this->morphTo();
-    }
+    // function userable()
+    // {
+    //     return $this->morphTo();
+    // }
 
     public function socialMedia()
     {

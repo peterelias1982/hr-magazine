@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('mobile')->nullable();
             $table->string('position')->default('user');
             $table->boolean('active')->default(1);
-            $table->nullableMorphs('userable');
+            // $table->nullableMorphs('userable');
             $table->timestamps();
         });
 

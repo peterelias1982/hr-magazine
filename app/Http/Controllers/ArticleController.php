@@ -233,8 +233,102 @@ class ArticleController extends Controller
 //     // return view("Admin.article.allArticle", compact('articles'));
         return view("Admin.article.allArticle", compact(['articles', 'articleCategories']));
 }
-
 }
+
+// public function index(Request $request)
+//     {
+//         $articleCategories = ArticleCategory::all();
+//         $tags = Tag::all();
+//         $authors = Author::all();
+
+//         $query = Article::query();
+
+//         // Filter by title
+//         if ($request->has('title')) {
+//             $query->where('title', 'like', '%' . $request->input('title') . '%');
+//         }
+
+//         // Filter by tag
+//         if ($request->has('tagName')) {
+//             $query->whereHas('tags', function ($q) use ($request) {
+//                 $q->where('name', 'like', '%' . $request->input('tagName') . '%');
+//             });
+//         }
+
+//         // Filter by author
+//         if ($request->has('author')) {
+//             $query->whereHas('author', function ($q) use ($request) {
+//                 $q->where('name', 'like', '%' . $request->input('author') . '%');
+//             });
+//         }
+
+//         // Filter by category
+//         if ($request->has('categoryId')) {
+//             $query->where('category_id', $request->input('categoryId'));
+//         }
+
+//         // Filter by status
+//         if ($request->has('status')) {
+//             $status = $request->input('status');
+//             if ($status === 'approved') {
+//                 $query->where('approved', true);
+//             } elseif ($status === 'declined') {
+//                 $query->where('approved', false);
+//             }
+//         }
+
+//         $articles = $query->get();
+
+//         return view('Admin.article.allArticle', compact('articles', 'articleCategories', 'tags', 'authors'));
+//     }
+// }
+
+// public function index(Request $request)
+// {
+//     $articleCategories = ArticleCategory::all();
+
+//     $query = Article::query();
+
+//     // Filter by title
+//     if ($request->has('title')) {
+//         $query->where('title', 'like', '%' . $request->input('title') . '%');
+//     }
+
+//     // Filter by tag
+//     if ($request->has('tagName')) {
+//         $query->whereHas('tags', function ($q) use ($request) {
+//             $q->where('name', 'like', '%' . $request->input('tagName') . '%');
+//         });
+//     }
+
+//     // Filter by author
+//     if ($request->has('author')) {
+//         $query->whereHas('author', function ($q) use ($request) {
+//             $q->where('name', 'like', '%' . $request->input('author') . '%');
+//         });
+//     }
+
+//     // Filter by category
+//     if ($request->has('categoryId')) {
+//         $query->where('category_id', $request->input('categoryId'));
+//     }
+
+//     // Filter by status
+//     if ($request->has('status')) {
+//         if ($request->input('status') === 'approved') {
+//             $query->where('approved', true);
+//         } elseif ($request->input('status') === 'declined') {
+//             $query->where('approved', false);
+//         }
+//     }
+
+//     $articles = $query->paginate(10);
+
+//     return view('Admin.article.allArticle', compact('articles', 'articleCategories'));
+// }
+
+
+// }
 
 // public function index(Request $request)
 // {

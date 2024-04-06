@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('deadline');
             $table->longText('content');
             $table->string('email');
+            $table->string('careerLevel');
             // $table->foreignId('category_id')->references('id')->on('job_categories')->onDelete('set null')->onUpdate('cascade');
             $table->foreignId('category_id')->references('id')->on('job_categories')->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('employer_id')->references('id')->on('employers')->onDelete('cascade')->onUpdate('cascade');
