@@ -4,6 +4,8 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleCategoryController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\AdminController;
+
 
 Route::get('/', function () {
     return view('Admin.article.addArticle');
@@ -33,6 +35,17 @@ Route::group(['prefix' => "admin"], function () {
         Route::put('articles/{slug}', 'update')->name('update');
         Route::delete('articles/{slug}', 'destroy')->name('destroy');
         
+    });
+
+
+    Route::group(['prefix' => "users"], function () {
+        Route::group(['prefix' => "admins", "controller" => AdminController::class, "as" => "admins."], function () {
+            Route::get("/create", "create")->name('create');
+            Route::get("/", "index")->name('index');
+            Route::post("/", "store")->name('store');
+            Route::put("/{slug}", "update")->name('update');
+            Route::delete("/{slug}", "destroy")->name('destroy');
+        });
     });
 });
 

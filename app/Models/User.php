@@ -38,9 +38,9 @@ class User extends Authenticatable
         'gender',
         'email',
         'password',
-        "position",
-        "mobile",
-        "active",
+        'position',
+        'mobile',
+        'active',
         
     ];
 
