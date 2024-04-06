@@ -99,5 +99,20 @@ class User extends Authenticatable
         return $this->belongsToMany(SocialMedia::class);
     }
 
+    public function adminUser()
+    {
+        return $this->hasOne(Article::class, 'id', 'user_id');
+    }
+
+    public function jobSeekerUser()
+    {
+        return $this->hasOne(Article::class, 'id', 'user_id');
+    }
+    public function employerUser()
+    {
+        return $this->hasOne(Employer::class, 'id','user_id');
+
+    }
+
 
 }

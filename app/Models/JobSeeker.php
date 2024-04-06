@@ -14,4 +14,8 @@ class JobSeeker extends Model
     // function user(){
     //     return $this->morphOne(User::class,"userable");
     // }
+    
+    public function userJobSeeker() {
+        return $this->belongsTo(User::class,'user_id','id');
+          }
 }

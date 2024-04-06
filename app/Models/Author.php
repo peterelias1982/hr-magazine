@@ -26,11 +26,11 @@ class Author extends Model
     }
 
 
-    function user()
-    {
+    // function user()
+    // {
 
-        return $this->morphOne(User::class, "userable");
-    }
+    //     return $this->morphOne(User::class, "userable");
+    // }
 
 
     public function article()
