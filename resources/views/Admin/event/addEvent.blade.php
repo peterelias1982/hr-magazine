@@ -310,7 +310,7 @@
                                                 </td>
                                                 <td>
                                                     <input type="text" class="form-control" name="speaker[1][]"
-                                                           value="{{old('speaker.0')}}" placeholder="Speaker">
+                                                           value="{{old('speaker.1.0')}}" placeholder="Speaker">
                                                     @error('speaker.1.0')
                                                         <small><code>{{$message}}</code></small>
                                                     @enderror

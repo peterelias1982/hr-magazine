@@ -54,10 +54,10 @@ class StoreEventRequest extends FormRequest
             'fromTime'=>'required|array',
             'toTime'=>'required|array',
             'speaker'=>'required|array',
-            'topic.*'=>'required|max:255',
-            'fromTime.*'=>'required',
-            'toTime.*'=>'required',
-            'speaker.*'=>'required|max:255',
+            'topic.*.*'=>'required|max:255',
+            'fromTime.*.*'=>'required',
+            'toTime.*.*'=>'required',
+            'speaker.*.*'=>'required|max:255',
         ];
     }
 
@@ -66,10 +66,10 @@ class StoreEventRequest extends FormRequest
         return[
             'latitude.regex'=>'Latitude value should be between -90 and +90',
             'longitude.regex'=>'Longitude value should be between -180 and +180',
-            'topic.*.required'=>'Topic is required',
-            'fromTime.*.required'=>'From (Time) is required',
-            'toTime.*.required'=>'To (Time) is required',
-            'speaker.*.required'=>'Speaker is required',
+            'topic.*.*.required'=>'Topic is required',
+            'fromTime.*.*.required'=>'From (Time) is required',
+            'toTime.*.*.required'=>'To (Time) is required',
+            'speaker.*.*.required'=>'Speaker is required',
         ];
     }
 }
