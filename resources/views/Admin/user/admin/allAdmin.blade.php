@@ -6,16 +6,16 @@
       <div class="col-lg-auto">
         <!-- Search Bar start -->
         <div class="search-bar">
-          <form action="">
+          <form action="{{ route('admins.index') }}" method="GET">
             <div
               class="row g-1 justify-content-lg-end justify-content-start"
             >
               <div class="col-6 col-lg-3 form-floating">
-                <input type="text" class="form-control" id="title" />
-                <label for="title">Username</label>
+                <input type="text" class="form-control" id="title" name="slug"/>
+                <label for="title">User Name</label>
               </div>
               <div class="col-6 col-lg-3 form-floating">
-                <input type="text" class="form-control" id="title" />
+                <input type="text" class="form-control" id="title" name="email"/>
                 <label for="title">Email</label>
               </div>
               <div class="col-4 col-lg-2 d-flex flex-column justify-content-center">
@@ -75,19 +75,23 @@
                   </tr>
                 </thead>
                 <tbody>
+                   @foreach ($admins as $admin)
+                     
+                  
                   <tr>
                     <td>
                       <a
-                        href="user_info.html"
+                      href="{{ $admin->user ? route('admins.show', $admin->user->slug) : '#' }}" 
                         class="link-primary text-decoration-none"
-                        >Herman Beck</a>
+                        >{{$admin->user?->userAdmin?->slug?? '_' }}</a>
                     </td>
-                    <td>herman@example.com</td>
-                    <td>(555) 123-4567</td>
-                    <td>Manager</td>
-                    <td>✔️</td>
+                    {{-- <td>{{ $admin->user?->email }}</td>
+                    <td>{{ $admin->user?->mobile }}</td>
+                    <td>{{ $admin->user?->position }}</td>
+                    <td>{{$admin->user?->active? '✔️':'❌'}}</td> --}}
                   </tr>
-                  <tr>
+                   @endforeach
+                  {{-- <tr>
                     <td>
                       <a
                         href="user_info.html"
@@ -158,7 +162,7 @@
                     <td>(555) 567-8901</td>
                     <td>Analyst</td>
                     <td>❌</td>
-                  </tr>
+                  </tr> --}}
                 </tbody>
               </table>
             </div>

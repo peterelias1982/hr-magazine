@@ -19,6 +19,7 @@
                             <div class="col-4 col-lg-2 form-floating">
                                 <input type="text" class="form-control" id="date" name="author">
                                 <label for="date">Author</label>
+                               
                             </div>
                             <div class="col-4 col-lg-2 form-floating">
                                 <select class="form-control bg-white" name="categoryId">
@@ -49,6 +50,12 @@
                             <button class="col-auto btn border-0 btn-md" type="submit" href="#">
                                 <i class="icon-search fs-5"></i>
                             </button>
+                            @if (session('warning'))
+                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                  {{ session('warning') }}
+                                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                              @endif
                         </div>
                     </form>
                 </div>

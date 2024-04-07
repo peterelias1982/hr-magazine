@@ -13,9 +13,18 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-       return view('Admin.user.admin.allAdmin');
+        
+        
+        $admins = Admin::query();
+        // $users= User::all();
+        // return view('Admin.user.admin.allAdmin', compact(['users','admins']));
+
+        // $admins = Admin::with(['userAdmin'])->get();
+        // dd($admins);
+        return view('Admin.user.admin.allAdmin', compact(['admins']));
+       
     }
 
     /**
@@ -50,7 +59,7 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Admin $admin)
+    public function show(string $slug)
     {
         //
     }

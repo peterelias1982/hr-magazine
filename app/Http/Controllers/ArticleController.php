@@ -174,12 +174,15 @@ class ArticleController extends Controller
     $articles = Article::query(); // Start with a base query
     $articleCategories = ArticleCategory::all();
 
-    $selectedCategoryId = $request->input('category_id');
+    $selectedCategoryId = $request->get('categoryId');
 
     // Apply filters based on user input
     $title = $request->get('title'); // Assuming title search
-    $tagName = $request->get('tagName');  // Assuming tagName search
-    $categoryId = $request->get('category_id');
+    // $tagName = $request->get('tagName');  // Assuming tagName search
+    $tagName = $request->input('tagName');
+    // $categoryId = $request->get('category_id');
+    // $author = $request->get('author');  
+    $author = $request->input('author');
     $approved = $request->has('status') && $request->get('status') === 'approved';
     $declined = $request->has('status') && $request->get('status') === 'declined';
 
@@ -192,11 +195,40 @@ class ArticleController extends Controller
     if (!empty($tagName)) {
         // Assuming you have a many-to-many relationship between articles and tagNames
         $articles = $articles->whereHas('tags', function ($query) use ($tagName) {
-            $query->where('name', 'like', "%{$tagName}%");
+            $query->where('tagName', 'like', "%{$tagName}%");
         });
     }
 
-    // Category Filter (if selected)
+    if (!empty($author)) {
+        // Assuming you have a one-to-many relationship between articles and author
+        // $articles = $articles->whereHas('author', function ($query) use ($author) {
+        //     $query->where('user_id', 'like', "%{$author}%");
+
+        // $articles = $articles->join('authors',)
+        $author=Author::with('userAuthor')
+                      ->select(['authors.id'])
+                      ->whereHas('userAuthor',function($q) use ($author){
+                          $q->where('slug','LIKE' , "%{$author}%") ;
+                        })->first()->id ?? null;       
+                        if ($author !== null) {
+                            $articles = $articles->where('author_id', $author);
+                        } else {
+                            // Handle missing author (e.g., display a message or redirect)
+                            // You can access $author here to show a user-friendly message
+                            return redirect()->back()->with('warning', "Author not found.");
+                        }
+                    }           
+        
+        // $articles=$articles->where('author_id',$author);
+
+        // $articles = $articles->whereHas('author', function ($query) use ($author) {
+        //     $query->where('name', 'like', "%{$author}%");
+        // });
+  
+        
+    
+
+        // Category Filter (if selected)
     // if ($categoryId !== null) {
     //     $articles->where('category_id', $categoryId);
     // }
@@ -205,10 +237,15 @@ class ArticleController extends Controller
     //     $articles = $articles->whereHas('articleCategory', function ($query) use ($categoryId) {
     //         $query->where('id', $categoryId); // Assuming category is a related model with an id
     //     });
-    if ($categoryId !== null) {
+    if ($selectedCategoryId !== null) {
+        
         $articles = $articles->join('article_categories', 'articles.category_id', '=', 'article_categories.id')
-                              ->where('article_categories.id', $categoryId);
-    }
+                              ->where('article_categories.id', $selectedCategoryId);
+   
+                            }
+
+    
+    
 
 
 
