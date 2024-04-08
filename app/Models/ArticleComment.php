@@ -23,9 +23,9 @@ class ArticleComment extends Model
         return $this->belongsTo(Article::class);
     }
 
-    public function articles(){
-        return $this->morphMany(Article::class,'articleable');
-}
+//     public function articles(){
+//         return $this->morphMany(Article::class,'articleable');
+// }
 
     public function user(){
         return $this->belongsTo(User::class);

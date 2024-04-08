@@ -15,7 +15,11 @@ class Employer extends Model
     // function users(){
     //     return $this->belongsTo(User::class);
     // }
-    function user(){
-        return $this->morphOne(User::class,"userable");
-    }
+    // function user(){
+    //     return $this->morphOne(User::class,"userable");
+    // }
+
+    public function userEmployer() {
+        return $this->belongsTo(User::class,'user_id','id');
+          }
 }

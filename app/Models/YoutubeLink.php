@@ -25,7 +25,7 @@ class YoutubeLink extends Model
         return $this->belongsTo(Article::class);
     }
 
-    public function articles(){
-        return $this->morphMany(Article::class,'articleable');
-}
+//     public function articles(){
+//         return $this->morphMany(Article::class,'articleable');
+// }
 }

@@ -13,7 +13,11 @@ class Admin extends Model
 
     protected $fillable=["user_id"];
     
-    function user(){
-        return $this->morphOne(User::class,"user");
-    }
+    // function user(){
+    //     return $this->morphOne(User::class,"user");
+    // }
+
+    public function userAdmin() {
+        return $this->belongsTo(User::class,'user_id','id');
+          }
 }

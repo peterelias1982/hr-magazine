@@ -50,7 +50,6 @@ class ArticleCategoryController extends Controller
                 ->route('articleCategories.index')
                 ->with(['messages' => ['error' => ['Error creating category: ' . $exception->getMessage()]]]);
         }
-
     }
 
     /**

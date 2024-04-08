@@ -10,14 +10,37 @@ class Author extends Model
 {
     use HasFactory;
 
-    protected $fillable=["image","approved","bio","description","user_id"];
-    
-    function user(){
+    protected $table = 'authors';
 
-        return $this->morphOne(User::class,"userable");
+    protected $fillable = [
+        "image",
+        "approved",
+        "bio",
+        "description",
+        "user_id"
+    ];
+
+    public function userAuthor()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function article(){
+
+    // function user()
+    // {
+
+    //     return $this->morphOne(User::class, "userable");
+    // }
+
+
+    public function article()
+    {
         return $this->hasMany(Article::class);
     }
+
+    // public function articles(){
+    //     return $this->morphMany(Article::class,'articleable');
+    // }
+
+
 }
