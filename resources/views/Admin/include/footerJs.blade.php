@@ -46,3 +46,4 @@
  <script src="{{asset('admin/js/maps.js')}}"></script>
  <script src="{{asset('admin/js/edit.js')}}"></script>
  <script src="{{asset('admin/js/stylingTags.js')}}"></script>
+<script src="{{asset('admin/js/toast.js')}}"></script>

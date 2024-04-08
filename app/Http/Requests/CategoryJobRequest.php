@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TagArticleRequest extends FormRequest
+class CategoryJobRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class TagArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tagName' => "required|string|max:255|unique:tags,tagName,{$this->slug},slug",
+            'category' => "required|string|max:255|unique:job_categories,category,{$this->slug},slug",
         ];
     }
 }

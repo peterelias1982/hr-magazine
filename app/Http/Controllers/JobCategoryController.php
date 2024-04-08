@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryJobRequest;
 use App\Models\JobCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
+use Throwable;
 
 class JobCategoryController extends Controller
 {
     public function index()
     {
-        $categories = JobCategory::all();
-        return view('admin.jobs.allCategory', compact('categories'));
+        $query = JobCategory::Query();
+        if ($search = Request()->catergory) {
+            $query->where("category", "LIKE", "%$search%");
+        }
+        $categories = $query->get();
+
+        $messages = $this->getMessages();
+
+        return view("Admin.jobs.allCategory", compact('categories', 'messages'));
     }
 
     public function create()
@@ -19,58 +28,60 @@ class JobCategoryController extends Controller
         return view('admin.jobs.addCategory');
     }
 
-    public function store(Request $request)
+    public function store(CategoryJobRequest $request)
     {
-        $data = $request->validate([
-            'category' => 'required|string|max:255',
-        ], [
-            'category.required' => 'You have to enter the name of the category.',
-        ]);
-
         try {
-            JobCategory::create($data);
+            JobCategory::create([
+                'category' => $request['category'],
+            ]);
+
             return redirect()
-                ->route('jobCategory.index')
-                ->with('success', 'Category Added Successfully');
-        } catch (\Throwable $exception) {
+                ->route('jobCategories.index')
+                ->with(['messages' => ['success' => ['Category created Successfully']]]);
+        } catch (Throwable $exception) {
             return redirect()
-                ->back()
-                ->withErrors(['error' => 'Error adding category: ' . $exception->getMessage()]);
+                ->route('jobCategories.index')
+                ->with(['messages' => ['error' => ['Error creating category: ' . $exception->getMessage()]]]);
         }
     }
 
-
-    public function edit(JobCategory $jobCategory , $slug)
+    public function update(CategoryJobRequest $request, $slug)
     {
-        $categories = JobCategory::where('slug', $jobCategory->slug)->get();
-        return view('admin/jobCategory', compact('jobCategory', 'categories'));
-    }
+        try {
+            $categoryJob = JobCategory::where("slug", $slug)->first();
+            $categoryJob->update([
+                'category' => $request['category'],
+            ]);
 
-    public function update(Request $request, JobCategory $jobCategory , $slug)
-    {
-        $jobCategory = JobCategory::where("slug", $slug)->firstOrFail();
-        $validated = $request->validate([
-            'category' => 'required|min:3|max:50',
-        ]);
-
-        $jobCategory->update($validated);
-        return redirect()
-            ->back()
-            ->with('success', 'Category Edited Successfully');
+            return redirect()
+                ->route('jobCategories.index')
+                ->with(['messages' => ['success' => ['Category updated Successfully']]]);
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('jobCategories.index')
+                ->with(['messages' => ['error' => ['Error updating category: ' . $exception->getMessage()]]]);
+        }
     }
 
     public function destroy(JobCategory $jobCategory, $slug): \Illuminate\Http\RedirectResponse
     {
         try {
-            $jobCategory = JobCategory::where("slug", $slug)->firstOrFail();
-            $jobCategory->delete();
-            //ddd($slug);
+            JobCategory::where('slug', $slug)->delete();
+
             return redirect()
-                ->back()
-                ->with('success', 'Category is deleted successfully.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Error deleting category: ' . $e->getMessage());
+                ->route('jobCategories.index')
+                ->with(['messages' => ['success' => ['Category deleted Successfully']]]);
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('jobCategories.index')
+                ->with(['messages' => ['error' => ['Error deleting category: ' . $exception->getMessage()]]]);
         }
+    }
+
+    private function getMessages(): string
+    {
+        // check for messages if any
+        return json_encode(Session::get('messages'));
     }
 
 }

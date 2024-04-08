@@ -6,10 +6,10 @@
             <div class="col-lg-auto">
                 <!-- Search Bar start -->
                 <div class="search-bar">
-                    <form action="">
+                    <form>
                         <div class="row g-1 justify-content-lg-end justify-content-start">
                             <div class="col-4 col-lg-5 form-floating">
-                                <input type="text" class="form-control" id="title">
+                                <input type="text" class="form-control" id="title" name="tagName" value="{{old('tagName')}}">
                                 <label for="title">Tag</label>
                             </div>
                             <button class="col-auto btn border-0 btn-md" type="submit">
@@ -43,9 +43,6 @@
                                               id="editForm_{{$tag->id}}">
                                             @csrf
                                             @method('PUT')
-                                            @if(session('success'))
-                                                <h2>{{session('success')}}</h2>
-                                            @endif
                                             <td>
                                                 <div class="position-relative input-parent d-inline-block"
                                                      onclick="edit(this)">
@@ -53,6 +50,9 @@
                                                            name="tagName"
                                                            form="editForm_{{$tag->id}}"
                                                            value="{{ $tag->tagName }}" disabled="">
+                                                    @error('tagName')
+                                                    {{$message}}
+                                                    @enderror
                                                     <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
                                                     <button type="submit" class="btn btn-primary btn-xs invisible"
                                                             form="editForm_{{$tag->id}}">
@@ -71,7 +71,8 @@
                                             <form action="{{ route('tags.destroy', $tag->slug)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-xs delete">Delete
+                                                <button type="submit" class="btn btn-danger btn-xs delete"
+                                                        onclick="alert('Are you sure you want to delete?')">Delete
                                                 </button>
                                             </form>
                                         </td>

@@ -1,6 +1,26 @@
 @extends('Admin.layouts.master')
 @section('Content')
     <div class="content-wrapper">
+        <div class="row py-3 justify-content-between align-items-center">
+            <h2 class="fw-bold col-lg-auto">Categories</h2>
+            <div class="col-lg-auto">
+                <!-- Search Bar start -->
+                <div class="search-bar">
+                    <form action="{{URL::CURRENT()}}" method="GET">
+                        <div class="row g-1 justify-content-lg-end justify-content-start">
+                            <div class="col-4 col-lg-5 form-floating">
+                                <input type="text" class="form-control" id="title" name="catergory">
+                                <label for="title">Category</label>
+                            </div>
+                            <button class="col-auto btn border-0 btn-md" type="submit">
+                                <i class="icon-search fs-5"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <!-- Search Bar ends -->
+            </div>
+        </div>
         <div class="row">
             <div class="">
                 <div class="card">
@@ -18,43 +38,43 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-
-                                @if(session('success'))
-                                    <h2>{{session('success')}}</h2>
-                                @endif
                                 @foreach($categories as $category)
                                     <tr>
-                                        <td class="py-2">
-                                            <div>
-                                                <form id="editForm_{{$category->id}}"
-                                                      action="{{ route('jobCategory.update', $category->slug) }}" method="POST" >
-                                                    @csrf
-                                                    @method('PUT')
-
-                                                    <div class="position-relative input-parent d-inline-block" onclick="edit(this)">
-                                                        <input name="category" type="text" class="custom-input d-inline-block"
-                                                               value="{{ $category->category }}"
-                                                               form="editForm_{{$category->id}}" />
-                                                        <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
-                                                        <button type="submit" class="btn btn-primary btn-xs invisible">
-                                                            Submit
-                                                        </button>
-                                                        <button type="cancel" class="btn btn-light btn-xs invisible">
-                                                            Cancel
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </td>
                                         <td>
-                                            <form action="{{ route('jobCategory.destroy', $category->slug)}}" method="POST">
+                                            <form id="JobCategory{{$category->id}}"
+                                                  action="{{route('jobCategories.update',[$category->slug])}}"
+                                                  method="POST">
                                                 @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-xs delete">Delete</button>
+                                                @method("PUT")
+                                                <div class="position-relative input-parent d-inline-block"
+                                                     onclick="edit(this)">
+                                                    <input type="text" class="custom-input d-inline-block"
+                                                           value="{{$category->category}}" disabled=""
+                                                           name="category">
+                                                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
+                                                    <button type="submit" class="btn btn-primary btn-xs invisible">
+                                                        Submit
+                                                    </button>
+                                                    <button type="cancel" class="btn btn-light btn-xs invisible">
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </td>
+                                        <td class="py-2">
+                                            <form action="{{route('jobCategories.destroy',[$category->slug])}}"
+                                                  method="POST">
+                                                @csrf
+                                                @method("delete")
+                                                <button type="submit" class="btn btn-danger btn-xs delete"
+                                                        onclick="alert('Are you sure you want to delete?')">
+                                                    Delete
+                                                </button>
                                             </form>
                                         </td>
                                     </tr>
                                 @endforeach
+
                                 </tbody>
                             </table>
                         </div>
