@@ -41,7 +41,7 @@
     <link rel="stylesheet" href="{{asset('admin/css/vertical-layout-light/style.css')}}" />
     <link rel="stylesheet" href="{{asset('admin/css/vertical-layout-light/style2.css')}}" />
     <link rel="stylesheet" href="{{asset('admin/css/custom-add-article.css')}}" />
-    
+
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -54,6 +54,10 @@
       crossorigin=""
     ></script>
 
+    <script>
+        const messages = JSON.parse('<?= $messages?? '' ?>');
+
+    </script>
 
     <!-- endinject -->
   </head>

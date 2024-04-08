@@ -1,16 +1,3 @@
-<!-- End custom js for this page-->
-<script>
-    let agendaValues = {
-        '1': {
-            'data': [
-                ['test1', '10:00', '10:30', 'test1'],
-                ['test2', '11:00', '11:30', 'test2']
-            ],
-        }
-
-    }
-</script>
-
 <!-- plugins:js -->
 
 <script src="{{asset('admin/vendors/js/vendor.bundle.base.js')}}"></script>
@@ -47,3 +34,5 @@
 <script src="{{asset('admin/js/edit.js')}}"></script>
 <script src="{{asset('admin/js/stylingTags.js')}}"></script>
 <script src="{{asset('admin/js/edit_form.js')}}"></script>
+<script src="{{asset('admin/js/toast.js')}}"></script>
+
