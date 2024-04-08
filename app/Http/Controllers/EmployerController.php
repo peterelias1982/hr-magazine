@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployerController extends Controller
 {
@@ -12,7 +13,22 @@ class EmployerController extends Controller
      */
     public function index()
     {
-        //
+        $users = DB::table('employers')->join('users', 'users.id', '=', 'employers.user_id');
+        $request = Request();
+        if ($search = $request->name) {
+           $users->where('users.firstName', "LIKE", "%$search%");
+        }
+        if ($search = $request->email) {
+            $users->where("users.email", "LIKE", "%$search%");
+        }
+        if ($request->active) {
+            $users->where("users.active", "=", 1);
+        } 
+        if ($request->blocked) {
+            $users->where("users.active", "=", 0);
+        }
+        $employer = $users->get();
+        return view('Admin.user.employer.allEmployer',compact('employer'));
     }
 
     /**
