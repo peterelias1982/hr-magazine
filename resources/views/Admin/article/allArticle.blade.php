@@ -6,7 +6,7 @@
             <div class="col-lg-auto">
                 <!-- Search Bar start -->
                 <div class="search-bar">
-                    <form action="{{route('articles.index')}}" method="GET">
+                    <form action="" method="GET">
                         <div class="row g-1 justify-content-lg-end justify-content-start">
                             <div class="col-4 col-lg-2 form-floating">
                                 <input type="text" class="form-control" id="title" name="title">
@@ -25,7 +25,7 @@
                                     <option value="">_</option>
                                     @foreach ($articleCategories as $articleCategory)
                                         <option
-                                                value="{{ $articleCategory->id}}"@selected(old('articleCategory_id') === $articleCategory->id)>{{$articleCategory->articleCategoryName }}</option>
+                                            value="{{ $articleCategory->id}}" @selected(old('articleCategory_id') === $articleCategory->id)>{{$articleCategory->articleCategoryName }}</option>
                                     @endforeach
                                 </select>
                                 <label for="date">Select Category</label>
@@ -61,7 +61,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Articles Table</h4>
-                        <p class="card-description">List of all <code><a href="{{ route('articles.index') }}" class="article-link">Articles</a></code></p>
+                        <p class="card-description">List of all <code><a href="{{ route('articles.index') }}"
+                                                                         class="article-link">Articles</a></code></p>
                         <div class="table-responsive content">
                             <table class="table table-striped">
                                 <thead>
@@ -80,7 +81,7 @@
                                             <a href="{{route('articles.show', $article->slug)}}"
                                                class="link-primary text-decoration-none">{{ $article->title }}</a>
                                         </td>
-                                        <td>{{ $article->author?->userAuthor?->slug?? '_'  }}</td>
+                                        <td>{{ $article->author?->userAuthor?->firstName . ' ' . $article->author?->userAuthor?->secondName?? '_'  }}</td>
                                         <td>{{ $article->articleCategory->articleCategoryName  }}</td>
                                         <td class="p-1">
                                             <div class="d-flex flex-wrap">
@@ -99,5 +100,5 @@
                 </div>
             </div>
         </div>
-      </div> 
+    </div>
 @endsection

@@ -37,12 +37,12 @@ Route::group(['prefix' => "admin"], function () {
     });
 
     Route::group(["prefix" => 'articles', "controller" => ArticleController::class, "as" => "articles."], function () {
-        Route::get('/articles', 'index')->name('index');
-        Route::get('articles/create', 'create')->name('create');
-        Route::post('articles/', 'store')->name('store');
-        Route::get('articles/{slug}', 'show')->name('show');
-        Route::put('articles/{slug}', 'update')->name('update');
-        Route::delete('articles/{slug}', 'destroy')->name('destroy');
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{slug}', 'show')->name('show');
+        Route::put('/{slug}', 'update')->name('update');
+        Route::delete('/{slug}', 'destroy')->name('destroy');
 
     });
 

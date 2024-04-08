@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             toast += `
                 <div class="toast" role="status" aria-live="polite" aria-atomic="true" data-bs-delay="3000">
                     <div class="toast-header">
-                        <img src='../images/success-icon.svg' alt="sucess message" width="20px">
+                        <img src='../images/success-icon.svg' alt="sucess" width="20px">
                         <strong class="me-auto ps-1">Sucess</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 toast += `
                 <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
                     <div class="toast-header">
-                        <img src='../images/warning-icon.svg' alt="error message">
+                        <img src='../images/warning-icon.svg' alt="error">
                         <strong class="me-auto ps-1">Error</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
