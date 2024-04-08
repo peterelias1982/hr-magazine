@@ -50,9 +50,9 @@
                             <button class="col-auto btn border-0 btn-md" type="submit" href="#">
                                 <i class="icon-search fs-5"></i>
                             </button>
-                            @if (session('warning'))
+                            @if (session('alert'))
                                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                  {{ session('warning') }}
+                                  {{ session('alert') }}
                                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                 </div>
                               @endif

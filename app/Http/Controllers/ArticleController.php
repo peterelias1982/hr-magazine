@@ -215,7 +215,7 @@ class ArticleController extends Controller
                         } else {
                             // Handle missing author (e.g., display a message or redirect)
                             // You can access $author here to show a user-friendly message
-                            return redirect()->back()->with('warning', "Author not found.");
+                            return redirect()->back()->with('alert', "Author not found.");
                         }
                     }           
         
@@ -243,14 +243,7 @@ class ArticleController extends Controller
                               ->where('article_categories.id', $selectedCategoryId);
    
                             }
-
-    
-    
-
-
-
-
-
+                                
     // Approved Filter (if checkbox selected)
     if ($approved) {
         $articles->where('approved', 1); // Assuming approved is stored as a boolean (1/0)

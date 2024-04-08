@@ -101,7 +101,7 @@ class User extends Authenticatable
 
     public function adminUser()
     {
-        return $this->hasOne(Article::class, 'id', 'user_id');
+        return $this->hasOne(Article::class);
     }
 
     public function jobSeekerUser()

@@ -81,14 +81,16 @@
                   <tr>
                     <td>
                       <a
-                      href="{{ $admin->user ? route('admins.show', $admin->user->slug) : '#' }}" 
+                      href="{{route('admins.show', $admin->userAdmin->slug)}}" 
                         class="link-primary text-decoration-none"
-                        >{{$admin->user?->userAdmin?->slug?? '_' }}</a>
+                        >
+                        {{$admin->userAdmin->slug}}
+                      </a>
                     </td>
-                    {{-- <td>{{ $admin->user?->email }}</td>
-                    <td>{{ $admin->user?->mobile }}</td>
-                    <td>{{ $admin->user?->position }}</td>
-                    <td>{{$admin->user?->active? '✔️':'❌'}}</td> --}}
+                    <td>{{ $admin->userAdmin->email }}</td>
+                    <td>{{ $admin->userAdmin->mobile }}</td>
+                    <td>{{ $admin->userAdmin->position }}</td>
+                    <td>{{$admin->userAdmin->active? '✔️':'❌'}}</td>
                   </tr>
                    @endforeach
                   {{-- <tr>
