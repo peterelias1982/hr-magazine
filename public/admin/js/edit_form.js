@@ -1,4 +1,4 @@
-let inputs = document.querySelectorAll("input");
+let inputs = document.querySelectorAll("input:not([name=\"_token\"], [name=\"_method\"])");
 let selects = document.querySelectorAll('select');
 let textareas = document.querySelectorAll('textarea');
 

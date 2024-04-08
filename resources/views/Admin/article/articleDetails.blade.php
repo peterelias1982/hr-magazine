@@ -13,7 +13,7 @@
                 <form action="{{route('articles.destroy', $article->slug)}}" method="POST">
                     @csrf
                     @method('delete')
-                    <button class="btn btn-sm" style="color: #ed2708" onclick="alert('Are you sure you want to delete?')"><i
+                    <button type="submit" class="btn btn-sm" style="color: #ed2708" onclick="alert('Are you sure you want to delete?')"><i
                             class="icon-trash"></i> Delete Article
                     </button>
                 </form>
