@@ -6,14 +6,14 @@
             <div class="col-lg-auto">
                 <!-- Search Bar start -->
                 <div class="search-bar">
-                    <form action="">
+                    <form action="{{route('admin.events.index')}}" method="get">
                         <div class="row g-1 justify-content-lg-end justify-content-start">
                             <div class="col-6 col-lg-4 form-floating">
-                                <input type="text" class="form-control" id="title">
+                                <input type="text" class="form-control" id="title" name="title">
                                 <label for="title">Event title</label>
                             </div>
                             <div class="col-6 col-lg-4 form-floating">
-                                <input type="date" class="form-control" id="date">
+                                <input type="date" class="form-control" id="date" name="fromDate">
                                 <label for="date">Start date</label>
                             </div>
                             <button class="col-auto btn border-0 btn-md" type="submit">

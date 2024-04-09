@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Event;
 use App\Models\Agenda;
+use App\Traits\Common;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use App\Traits\Common;
 
 class EventController extends Controller
 {
@@ -20,7 +21,14 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = Event::get();
+        $request = Request();
+        $events_ids = $this->searchWith(requestData: [
+            'title' => $request->title,
+            'fromDate' => $request->fromDate,
+        ]);
+
+        $events = Event::whereIn('id', $events_ids)->get();
+
         return view('Admin.event.allEvent', compact('events'));
     }
 
@@ -51,7 +59,7 @@ class EventController extends Controller
     public function show(Event $event, string $slug)
     {
         $event = Event::with('Agenda')->where('slug', $slug)->first();
-        return view('Admin.event.eventDetails',compact('event'));
+        return view('Admin.event.eventDetails', compact('event'));
     }
 
     /**
@@ -61,11 +69,11 @@ class EventController extends Controller
     {
         $data = $this->prepareData($request->all());
 
-//      update event data
+        //      update event data
         $event = Event::where('slug', $slug)->first();
         $event->update($data['eventData']);
 
-//      update agenda data
+        //      update agenda data
         $event->agenda()->delete();
         $event->agenda()->saveMany($data['agendaData']);
 
@@ -83,7 +91,7 @@ class EventController extends Controller
 
     private function prepareData(array $data)
     {
-//      Event data
+        //      Event data
         $eventData = [
             'title' => $data['title'],
             'fromDate' => Carbon::parse($data['fromDate'])->format('Y-m-d'),
@@ -101,12 +109,12 @@ class EventController extends Controller
             'speakers' => $data['speakers'],
         ];
 
-        if(isset($data['image'])) {
+        if (isset($data['image'])) {
             $imageName = $this->uploadFile($data['image'], 'admin/images/articles&event');
             $eventData['image'] = $imageName;
         }
 
-//      Agenda Rows
+        //      Agenda Rows
         $agendaData = [];
 
         for ($i = 1, $dayCount = count($data['topic']); $i <= $dayCount; $i++) {
@@ -125,7 +133,23 @@ class EventController extends Controller
             'eventData' => $eventData,
             'agendaData' => $agendaData,
         ];
-
     }
+    
+    private function searchWith(array $requestData)
+    {
+        $query = DB::table('events');
 
+        if($requestData['title']) {
+            $query
+                ->where('events.title', 'LIKE', "%{$requestData['title']}%")
+                ->select('events.id');
+        }
+        if($requestData['fromDate']) {
+            $query
+                ->where('events.fromDate', 'LIKE', "%{$requestData['fromDate']}%")
+                ->select('events.id');
+        }
+
+        return $query->get()->pluck('id');
+    }
 }

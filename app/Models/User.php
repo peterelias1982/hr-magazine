@@ -5,14 +5,27 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 // use Illuminate\Database\Eloquent\Model;
 
+
+// Relation::morphMap([
+//     "Job_Seeker" => "App\Models\JobSeeker",
+//     "Admin" => Admin::class,
+//     "Author" => Author::class,
+//     "Employer" => "App\Models\Employer",
+// ]);
+
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,HasSlug;
+    use HasFactory;
+    use Notifiable;
+    use HasSlug;
+
+    // protected $table = [ 'users'];
 
     /**
      * The attributes that are mass assignable.
@@ -20,16 +33,14 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        
-        'name',
+        'firstName',
+        'secondName',
+        'gender',
         'email',
         'password',
-        "position",
-        "slug",
-        "mobile",
-        "userable_type",
-        "userable_id",
-        "active",
+        'position',
+        'mobile',
+        'active',
         
     ];
 
@@ -56,27 +67,52 @@ class User extends Authenticatable
         ];
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom(['firstName', 'secondName'])
             ->saveSlugsTo('slug');
     }
 
-    public function articleComment(){
+    public function articleComment()
+    {
         return $this->hasMany(articleComment::class);
     }
 
-    public function article(){
+    public function articleUser()
+    {
         return $this->hasMany(Article::class);
     }
 
-    function userable(){
-        return $this->morphTo();
+    public function authorUser()
+    {
+        return $this->hasOne(Article::class, 'id', 'user_id');
     }
+
+    // function userable()
+    // {
+    //     return $this->morphTo();
+    // }
 
     public function socialMedia()
     {
         return $this->belongsToMany(SocialMedia::class);
     }
+
+    public function adminUser()
+    {
+        return $this->hasOne(Article::class, 'id', 'user_id');
+    }
+
+    public function jobSeekerUser()
+    {
+        return $this->hasOne(JobSeeker::class);
+    }
+    public function employerUser()
+    {
+        return $this->hasOne(Employer::class, 'id','user_id');
+
+    }
+
+
 }
