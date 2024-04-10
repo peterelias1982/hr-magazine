@@ -7,6 +7,8 @@ use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -15,115 +17,51 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        // $admins = User::whereHas('adminUser')->get();
-        $admins = Admin::whereHas('userAdmin')->get();
 
-        $slug=$request->get('slug');
-        $email=$request->get('email');
-        $active = $request->has('status') && $request->get('status') === 'active';
-        $blocked = $request->has('status') && $request->get('status') === 'blocked';
-       // Filter by slug (if provided)
-    if (!empty($slug)) {
-        $admins = $admins->whereHas('userAdmin', function ($query) use ($slug) {
-            $query->where('slug', 'like', "%{$slug}%");
-        });
-    }
-
-    // Filter by email (if provided)
-    if (!empty($email)) {
-        $admins = $admins->whereHas('userAdmin', function ($query) use ($email) {
-            $query->where('email', 'like', "%{$email}%");
-        });
-    }
-
-
-             // active Filter (if checkbox selected)
-    if ($active) {
-        $admins->where('active', 1); // Assuming active is stored as a boolean (1/0)
-    }
-
-    // Declined Filter (if checkbox selected)
-    if ($blocked) {
-        $admins->where('active', 0); // Assuming declined is stored as a boolean (0)
-    }
-
-        
-        
    
-        
-        
+    $slug = $request->get('slug');
+    $email = $request->get('email');
+    $active = $request->has('status') && $request->get('status') === 'active';
+    $blocked = $request->has('status') && $request->get('status') === 'blocked';
 
-       
-        
-        
-    //     $admins = Admin::query();
-    //     if ($request->has("search")) {
-    //      $keyword =  $request->get("search");
-    //      $admins=Admin::with('userAdmin')
-    //      ->where("slug", "LIKE", "%$keyword%")
-    //      ->orWhere("email", "LIKE", "%$keyword%")
-    //      ->orWhereHas("userAdmin",function($q) use ($keyword){
-    //          $q->where("slug","LIKE","%$keyword%")
-    //          ->orWhere("email","LIKE","%$keyword%");
-    //      });
-         
-         
-    //  } else {
-    //      $admins = $admins->orderByDesc("id");
-    //  }
-                    //   ->select(['admins.id'])
-                    //   ->whereHas('userAdmin',function($q) use ($admin){
-                    //       $q->where('slug','LIKE' , "%{$admin}%") ;
-                    //     })->first()->id ?? null;       
-                    //     if ($author !== null) {
-                    //         $articles = $articles->where('author_id', $author);
-                    //     } else {
-                    //         // Handle missing author (e.g., display a message or redirect)
-                    //         // You can access $author here to show a user-friendly message
-                    //         return redirect()->back()->with('alert', "Author not found.");
-                    //     }
-                    // }           
+    $query = Admin::query()
+        ->with('userAdmin')
+        ->leftJoin('users', 'users.id', '=', 'admins.user_id');
 
-        
-        // $users= User::all();
-        // return view('Admin.user.admin.allAdmin', compact(['users','admins']));
-
-        // $admins = Admin::with(['userAdmin'])->get();
-        // dd($admins);
-
-
-
-    //     $admins = Admin::all();
-    //     if ($request->has("search")) {
-    //         $keyword =  $request->get("search");
-    //         $admins = Admin::where('name', 'like', "%{$keyword}%")->orWhere('email', 'like', " %{$keyword} ")->paginate(
-    //         $admins = Admin::where("name", "LIKE", "%{$keyword}%")->orWhere("email","LIKE","%{$keyword}%")->paginate(
-    //         $admins = Admin::where("name", "LIKE", "%{$keyword}%")->orWhere("email","LIKE","%{$keyword}%")->paginate(
-    //             $admins = Admin::where('name', 'LIKE', "%{$keyword}%")
-    //                          ->orWhereHas('userAdmin',function($q) use ($keyword){
-    //                              $q->where('email', 'LIKE',"%{$keyword}%");
-    //                           })->paginate(10)->appends($request->only('search'));
-    //     } else {
-    //        $admins =   Admin::paginate(10);
-    //    }
-
-    
-     
-       
-    
-
-
-
-
-        return view('Admin.user.admin.allAdmin', compact('admins'));
-       
+    if ($slug) {
+        $query->where('users.slug', $slug);
     }
 
+    if ($email) {
+        $query->where('users.email', $email);
+    }
+
+    if ($active) {
+        $query->where('users.active', 1);
+    }
+
+    if ($blocked) {
+        $query->where('users.active', 0);
+    }
+
+    $query->where('users.position', 'admin'); // Filter for admin position
+    $admins = $query->select('admins.*')->paginate(25)->appends(['slug' => $slug, 'email' => $email]);
+
+        
+        return view('Admin.user.admin.allAdmin', compact('admins'));
+    }
+        
+
+        
+        
+        
+    
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
+       
         return view('Admin.user.admin.addAdmin');
     }
 
@@ -179,4 +117,22 @@ class AdminController extends Controller
     {
         //
     }
-}
+
+    // private function searchWith(array $requestData){
+
+    //     $query = DB::table('admins')
+    //     ->join('users', 'users.id', '=', 'admins.user_id')
+    //     ->select('admins.*', 'users.firstName', 'users.secondName', 'users.email', 'users.position' , 'users.active')
+    //     ->get()
+    //     ;
+
+    //     // if($requestData['']){
+
+    //     }
+
+
+       
+    }
+
+   
+

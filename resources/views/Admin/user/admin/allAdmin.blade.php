@@ -1,5 +1,11 @@
+<?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+?>
 @extends("Admin.layouts.master")
 @section('Content')
+
 <div class="content-wrapper">
     <div class="row py-3 justify-content-between align-items-center">
       <h2 class="fw-bold col-lg-auto">Admins</h2>

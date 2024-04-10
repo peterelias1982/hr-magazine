@@ -20,6 +20,19 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => "admin"], function () {
+
+
+Route::group(['prefix' => "users"], function () {
+            Route::group(['prefix' => "admins", "controller" => AdminController::class, "as" => "admins."], function () {
+                Route::get("/", "index")->name('index');
+                Route::get("/create", "create")->name('create');
+                Route::post("/", "store")->name('store');
+                Route::get("/{slug}", "show")->name('show');
+                Route::put("/{slug}", "update")->name('update');
+                Route::delete("/{slug}", "destroy")->name('destroy');
+            });
+        });
+
     Route::group(['prefix' => "article"], function () {
         Route::group(['prefix' => "categories", "controller" => ArticleCategoryController::class, "as" => "articleCategories."], function () {
             Route::get("/create", "create")->name('create');
@@ -58,18 +71,11 @@ Route::group(['prefix' => "admin"], function () {
         });
 
         
-    Route::group(['prefix' => "users"], function () {
-        Route::group(['prefix' => "admins", "controller" => AdminController::class, "as" => "admins."], function () {
-            Route::get("/create", "create")->name('create');
-            Route::get("/", "index")->name('index');
-            Route::post("/", "store")->name('store');
-            Route::get("/{slug}", "show")->name('show');
-            Route::put("/{slug}", "update")->name('update');
-            Route::delete("/{slug}", "destroy")->name('destroy');
+        
+
+        
         });
     });
-    
-    });
-});
+
 
 
