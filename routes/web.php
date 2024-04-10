@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\JobCategoryController;
 use App\Http\Controllers\ArticleTagController;
+use App\Http\Controllers\AdminController;
+
 
 
 Route::get('/', function () {
@@ -54,6 +56,19 @@ Route::group(['prefix' => "admin"], function () {
             Route::put('/{slug}', 'update')->name('update');
             Route::delete('/{slug}', 'destroy')->name('destroy');
         });
+
+        
+    Route::group(['prefix' => "users"], function () {
+        Route::group(['prefix' => "admins", "controller" => AdminController::class, "as" => "admins."], function () {
+            Route::get("/create", "create")->name('create');
+            Route::get("/", "index")->name('index');
+            Route::post("/", "store")->name('store');
+            Route::get("/{slug}", "show")->name('show');
+            Route::put("/{slug}", "update")->name('update');
+            Route::delete("/{slug}", "destroy")->name('destroy');
+        });
+    });
+    
     });
 });
 

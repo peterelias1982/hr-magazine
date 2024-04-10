@@ -77,7 +77,7 @@ class ArticleController extends Controller
             return redirect()
                 ->route('articles.index')
                 ->with(['messages' => ['success' => ['Article deleted Successfully']]]);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('articles.index')
                 ->with(['messages' => ['error' => ['Error creating article: ' . $exception->getMessage()]]]);
@@ -91,6 +91,7 @@ class ArticleController extends Controller
      */
     public function show(string $slug)
     {
+        
         $article = Article::where('slug', $slug)->first();
         $articleCategories = ArticleCategory::get();
         $authors = Author::get();
@@ -98,8 +99,11 @@ class ArticleController extends Controller
 
         $sourceArticle = SourceArticle::where('article_id', $article->id)->first();
         $youtubeLink = YoutubeLink::where('article_id', $article->id)->first();
-
         return view('admin.article.articleDetails', compact('article', 'articleCategories', 'authors', 'articleTags', 'sourceArticle', 'youtubeLink'));
+       
+
+
+        
     }
 
     /**
@@ -127,7 +131,7 @@ class ArticleController extends Controller
             return redirect()
                 ->route('articles.index')
                 ->with(['messages' => ['success' => ['Article updated Successfully']]]);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('articles.index')
                 ->with(['messages' => ['error' => ['Error updating article: ' . $exception->getMessage()]]]);
@@ -145,7 +149,7 @@ class ArticleController extends Controller
             return redirect()
                 ->route('articles.index')
                 ->with(['messages' => ['success' => ['Article deleted Successfully']]]);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('articles.index')
                 ->with(['messages' => ['error' => ['Error deleting article: ' . $exception->getMessage()]]]);

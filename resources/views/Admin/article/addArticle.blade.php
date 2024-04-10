@@ -49,7 +49,7 @@
                                     <label>Tags</label>
                                     <div class="tags-scrollable-container" id="tags-container">
 
-                                        @foreach ($articleTags as $articleTag)
+                                        @foreach ($$articleTags as $articleTag)
                                             <div
                                                 class="badge-dark p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag">
                                                 <input type="checkbox" name="tags_id[]" value="{{ $articleTag->id }}"
