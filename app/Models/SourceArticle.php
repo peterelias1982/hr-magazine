@@ -3,15 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Article;
-use App\Models\ArticleCategory;
 
 class SourceArticle extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
+    protected $fillable = [
         'sourceName',
         'sourceLink',
         'category_id',
@@ -19,16 +18,14 @@ class SourceArticle extends Model
     ];
 
 
-
-    public function articleCategory(){
+    public function articleCategory(): BelongsTo
+    {
         return $this->belongsTo(ArticleCategory::class);
     }
 
-    public function article(){
+    public function article(): BelongsTo
+    {
         return $this->belongsTo(Article::class);
     }
 
-    // public function articles(){
-    //     return $this->morphMany(Article::class,'articleable');
-    //      }
 }

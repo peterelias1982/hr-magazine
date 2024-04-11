@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class UserMedia extends Model
 {
     use HasFactory;
-    protected $fillable=["social_id","user_id","value"];
+
+    protected $fillable = [
+        "social_id",
+        "user_id",
+        "value"
+    ];
 }
