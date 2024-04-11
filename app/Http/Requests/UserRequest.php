@@ -22,6 +22,7 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
+<<<<<<< HEAD
             'firstName'=>'required|string|max:255',
             'secondName'=>'required|string|max:255',
             'gender'=>'required|string|max:255',
@@ -38,6 +39,15 @@ class UserRequest extends FormRequest
             //  'userable_type' => 'nullable|string', // Allow userable_type to be empty
             //  'userable_id' => 'nullable|integer|exists:' . config('userable.model'), // Check if userable_id exists in userable model
             //  'active' => 'sometimes|boolean', // Allow updating `active` field (optional)
+=======
+            'firstName' => 'required|string|max:255',
+            'secondName' => 'required|string|max:255',
+            'gender' => 'required|string|max:255',
+            'email' => 'nullable|email|unique:users,email',
+            'password' => 'nullable|string|min:8|confirmed',
+            'mobile' => 'nullable|string', // Allow mobile to be empty
+            'position' => 'required|string', // Position is required
+>>>>>>> main
         ];
     }
 }

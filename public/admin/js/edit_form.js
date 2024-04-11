@@ -20,10 +20,11 @@ let articlePicInput = document.getElementById("article_pic_input");
 let eventPicInput = document.getElementById("event_pic_input");
 let tagDivs = document.querySelectorAll('.tag')
 
+
 let form_edit = false;
 let edit_button = document.getElementById("edit_user_button");
 
-if(edit_button) {
+if (edit_button) {
     editForm()
 
     edit_button

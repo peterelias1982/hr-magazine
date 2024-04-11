@@ -43,11 +43,11 @@ class ArticleCategoryController extends Controller
             ArticleCategory::create($data);
 
             return redirect()
-                ->route('articleCategories.index')
+                ->route('admin.articleCategories.index')
                 ->with(['messages' => ['success' => ['Category created Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('articleCategories.index')
+                ->route('admin.articleCategories.index')
                 ->with(['messages' => ['error' => ['Error creating category: ' . $exception->getMessage()]]]);
         }
     }
@@ -63,11 +63,11 @@ class ArticleCategoryController extends Controller
             $categoryArticle->update($data);
 
             return redirect()
-                ->route('articleCategories.index')
+                ->route('admin.articleCategories.index')
                 ->with(['messages' => ['success' => ['Category updated Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('articleCategories.index')
+                ->route('admin.articleCategories.index')
                 ->with(['messages' => ['error' => ['Error updating category: ' . $exception->getMessage()]]]);
         }
     }
@@ -81,11 +81,11 @@ class ArticleCategoryController extends Controller
             ArticleCategory::where('slug', $slug)->delete();
 
             return redirect()
-                ->route('articleCategories.index')
+                ->route('admin.articleCategories.index')
                 ->with(['messages' => ['success' => ['Category deleted Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('articleCategories.index')
+                ->route('admin.articleCategories.index')
                 ->with(['messages' => ['error' => ['Error deleting category: ' . $exception->getMessage()]]]);
         }
     }

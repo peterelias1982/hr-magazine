@@ -39,7 +39,7 @@
                                 <tbody>
                                 @foreach($tags as $tag)
                                     <tr>
-                                        <form action="{{ route('tags.update', $tag->slug) }}" method="POST"
+                                        <form action="{{ route('admin.tags.update', $tag->slug) }}" method="POST"
                                               id="editForm_{{$tag->id}}">
                                             @csrf
                                             @method('PUT')
@@ -68,7 +68,7 @@
                                             </td>
                                         </form>
                                         <td class="py-2">
-                                            <form action="{{ route('tags.destroy', $tag->slug)}}" method="POST">
+                                            <form action="{{ route('admin.tags.destroy', $tag->slug)}}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-xs delete"

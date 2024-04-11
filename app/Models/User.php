@@ -32,7 +32,6 @@ class User extends Authenticatable
         "position",
         "mobile",
         "active",
-
     ];
 
     /**
@@ -82,7 +81,7 @@ class User extends Authenticatable
 
     public function authorUser(): HasOne
     {
-        return $this->hasOne(Article::class, 'id', 'user_id');
+        return $this->hasOne(Author::class, 'user_id', 'id');
     }
 
     public function socialMedia(): BelongsToMany
@@ -92,17 +91,17 @@ class User extends Authenticatable
 
     public function adminUser(): HasOne
     {
-        return $this->hasOne(Article::class);
+        return $this->hasOne(Admin::class, 'user_id', 'id');
     }
 
     public function jobSeekerUser(): HasOne
     {
-        return $this->hasOne(Article::class, 'id', 'user_id');
+        return $this->hasOne(JobSeeker::class, 'user_id', 'id');
     }
 
     public function employerUser(): HasOne
     {
-        return $this->hasOne(Employer::class, 'id', 'user_id');
+        return $this->hasOne(Employer::class, 'user_id', 'id');
 
     }
 

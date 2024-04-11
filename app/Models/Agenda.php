@@ -12,14 +12,16 @@ class Agenda extends Model
 
     protected $fillable = [
         'event_id',
-        'content',
-        'from',
-        'to',
-        'speakers',
+        'topic',
+        'fromTime',
+        'toTime',
+        'speaker',
+        'dayNumber'
     ];
 
     public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
+
 }

@@ -12,7 +12,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Tag Form</h4>
                         <p class="card-description">Add a new article tag</p>
-                        <form class="forms-sample" id="tag-form" method="POST" action="{{ route('tags.store') }}">
+                        <form class="forms-sample" id="tag-form" method="POST" action="{{ route('admin.tags.store') }}">
                             @csrf
                             <div class="form-group">
                                 <label for="tag" class="col-sm-3 col-form-label">Tag</label>

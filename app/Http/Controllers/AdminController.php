@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
+
 class AdminController extends Controller
 {
     /**
@@ -17,51 +18,44 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
+        $slug = $request->get('slug');
+        $email = $request->get('email');
+        $active = $request->has('status') && $request->get('status') === 'active';
+        $blocked = $request->has('status') && $request->get('status') === 'blocked';
 
-   
-    $slug = $request->get('slug');
-    $email = $request->get('email');
-    $active = $request->has('status') && $request->get('status') === 'active';
-    $blocked = $request->has('status') && $request->get('status') === 'blocked';
+        $query = Admin::query()
+            ->with('userAdmin')
+            ->leftJoin('users', 'users.id', '=', 'admins.user_id');
 
-    $query = Admin::query()
-        ->with('userAdmin')
-        ->leftJoin('users', 'users.id', '=', 'admins.user_id');
+        if ($slug) {
+            $query->where('users.slug', $slug);
+        }
 
-    if ($slug) {
-        $query->where('users.slug', $slug);
-    }
+        if ($email) {
+            $query->where('users.email', $email);
+        }
 
-    if ($email) {
-        $query->where('users.email', $email);
-    }
+        if ($active) {
+            $query->where('users.active', 1);
+        }
 
-    if ($active) {
-        $query->where('users.active', 1);
-    }
+        if ($blocked) {
+            $query->where('users.active', 0);
+        }
 
-    if ($blocked) {
-        $query->where('users.active', 0);
-    }
+        $query->where('users.position', 'admin'); // Filter for admin position
+        $admins = $query->select('admins.*')->paginate(25)->appends(['slug' => $slug, 'email' => $email]);
 
-    $query->where('users.position', 'admin'); // Filter for admin position
-    $admins = $query->select('admins.*')->paginate(25)->appends(['slug' => $slug, 'email' => $email]);
 
-        
         return view('Admin.user.admin.allAdmin', compact('admins'));
     }
-        
 
-        
-        
-        
-    
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-       
         return view('Admin.user.admin.addAdmin');
     }
 
@@ -70,20 +64,15 @@ class AdminController extends Controller
      */
     public function store(UserRequest $request)
     {
-        // dd($request);
-        $data=$request->except(['_token']);
-        $data['password']=Hash::make($request['password']);
-        $user=User::create($data);
-        if($user->position != 'user'){
-            // dd($user->position);
-            $admin= new Admin();
+        $data = $request->except(['_token']);
+        $data['password'] = Hash::make($request['password']);
+        $user = User::create($data);
+        if ($user->position != 'user') {
+            $admin = new Admin();
             $admin->user_id = $user->id;
-            $admin->save();}
-        // Admin::create(['user_id'=>$user->id]);}
-        // dd($user->id);
-        return redirect()->route('admins.index');
-        
-
+            $admin->save();
+        }
+        return redirect()->route('admin.admins.index');
     }
 
     /**
@@ -118,6 +107,7 @@ class AdminController extends Controller
         //
     }
 
+
     // private function searchWith(array $requestData){
 
     //     $query = DB::table('admins')
@@ -131,8 +121,7 @@ class AdminController extends Controller
     //     }
 
 
-       
+
     }
 
-   
 

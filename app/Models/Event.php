@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\SlugOptions;
 use Spatie\Sluggable\HasSlug;
@@ -15,19 +15,26 @@ class Event extends Model
 
     protected $fillable = [
         'title',
-        'from',
-        'to',
+        'fromDate',
+        'toDate',
         'image',
         'streetNo',
+        'streetName',
         'city',
         'state',
         'postalCode',
         'country',
         'latitude',
         'longitude',
+        'googleMapLink',
         'description',
         'speakers',
     ];
+
+    public function agenda(): HasMany
+    {
+        return $this->hasMany(Agenda::class);
+    }
 
     public function getSlugOptions(): SlugOptions
     {
@@ -36,8 +43,4 @@ class Event extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function agenda(): HasOne
-    {
-        return $this->hasOne(Agenda::class);
-    }
 }
