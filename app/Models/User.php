@@ -21,7 +21,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         
-        'name',
+        'firstName', 'secondName',
         'email',
         'password',
         "position",
@@ -59,7 +59,7 @@ class User extends Authenticatable
     public function getSlugOptions() : SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('name')
+            ->generateSlugsFrom(['firstName', 'secondName'])
             ->saveSlugsTo('slug');
     }
     public function getRouteKeyName()
@@ -81,7 +81,7 @@ class User extends Authenticatable
 
     public function socialMedia()
     {
-        return $this->belongsToMany(SocialMedia::class);
+        return $this->belongsToMany(SocialMedia::class)->withPivot('value');
     }
 public function employer(){
     return $this->hasOne(Employer::class);

@@ -24,7 +24,7 @@ class JobDetailController extends Controller
       return view('Admin.jobs.alljobs',compact('jobs'));
     
       //return dd( $emps);
-        return $jobs->toJson() ;
+        //return $jobs->toJson() ;
     }
 
    

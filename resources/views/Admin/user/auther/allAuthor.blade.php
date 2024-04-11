@@ -77,6 +77,7 @@
                 </tr>
               </thead>
               <tbody>
+               
                 <tr>
                   <td class="py-1">
                     <img
@@ -97,6 +98,7 @@
                   <td>❌</td>
                   <td>❌</td>
                 </tr>
+                
                 <tr>
                   <td class="py-1">
                     <img

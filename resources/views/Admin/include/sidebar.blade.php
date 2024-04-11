@@ -53,12 +53,12 @@
         <div class="collapse" id="auther-basic">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item">
-              <a class="nav-link" href="pages/users/add-author.html"
+              <a class="nav-link" href="{{route('authors.create')}}"
                 >Add Author</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/users/authors.html"
+              <a class="nav-link" href="{{route('authors.index')}}"
                 >Authors</a
               >
             </li>

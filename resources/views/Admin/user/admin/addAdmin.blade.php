@@ -49,14 +49,25 @@
           <div class="card-body">
             <div class="card-subtitle">Additional information</div>
             <div class="form-group">
-              <label for="name" class="form-label">Name </label>
+              <label for="firstName" class="form-label">First Name </label>
               <input
                 type="text"
                 class="form-control"
-                id="name"
-                placeholder="Name"
+                id="first-name"
+                placeholder="First Name"
                 form="admin-create"
-                name="name"
+                name="firstName"
+              />
+            </div>
+            <div class="form-group">
+              <label for="secondName" class="form-label">SecondName </label>
+              <input
+                type="text"
+                class="form-control"
+                id="second-name"
+                placeholder="SecondName"
+                form="admin-create"
+                name="secondName"
               />
             </div>
             <div class="form-group">
@@ -78,9 +89,21 @@
                 id="position"
                 name="position"
               >
-                <option value="">-</option>
-                <option value="">admin</option>
-                <option value="">super admin</option>
+                <option value="user">user</option>
+                <option value="admin">admin</option>
+                <option value="superAdmin">super admin</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="gender" class="form-label">Gender </label>
+              <select
+                class="form-control"
+                form="admin-create"
+                id="gender"
+                name="gender"
+              >
+                <option value="male">male</option>
+                <option value="female">female</option>
               </select>
             </div>
             <button
@@ -90,7 +113,7 @@
             >
               Submit
             </button>
-            <button class="btn btn-light" form="admin-create">
+            <button class="btn btn-light" form="admin-create"  href=>
               Cancel
             </button>
           </div>
