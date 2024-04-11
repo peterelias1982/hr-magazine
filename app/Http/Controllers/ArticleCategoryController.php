@@ -34,10 +34,10 @@ class ArticleCategoryController extends Controller
      */
     public function store(CategoryArticleRequest $request)
     {
-      
+
        $data=$this->prepareData($request);
         ArticleCategory::create($data);
-        return redirect()->route('categories.index');
+        return redirect()->route('articleCategories.index');
     }
     /**
      * Update the specified resource in storage.

@@ -1,10 +1,8 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
 class Employer extends Model
 {
@@ -12,10 +10,7 @@ class Employer extends Model
 
     protected $fillable=["companyName","address","logo","Phone","user_id"];
 
-    // function users(){
-    //     return $this->belongsTo(User::class);
-    // }
-    function user(){
-        return $this->morphOne(User::class,"userable");
-    }
+    public function userEmployer() {
+        return $this->belongsTo(User::class,'user_id','id');
+          }
 }

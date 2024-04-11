@@ -25,7 +25,6 @@ class StoreEventRequest extends FormRequest
             'title'=>'required|max:255',
             'from'=>'required|date',
             'to'=>'required|date',
-            'image' => 'required|mimes:png,jpg,jpeg|max:2048',
             'streetNo'=>'required|integer',
             'city'=>'required|max:100',
             'state'=>'required|max:100',

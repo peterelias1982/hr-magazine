@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\ArticleCategory;
+use App\Rules\ArticleAttachesRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreArticleRequest extends FormRequest
 {
@@ -21,17 +24,17 @@ class StoreArticleRequest extends FormRequest
      */
     public function rules(): array
     {
+        $category =  ArticleCategory::where('id', $this->category_id)->first();
+
         return [
-            
-            'title' => 'required|string|max:255|unique:articles,title', // Adjust max length as needed
-            'slug' => 'required|string|max:255|unique:articles,slug',  // Adjust max length as needed
-            'image' => 'required|string|mimes:jpeg,png,jpg|max:2048', // Adjust validation for image based on your requirements (e.g., mimes, size)
+            'title' => 'required|string|max:255|unique:articles,title',
+            'image' => 'required|mimes:jpeg,png,jpg|max:2048',
             'content' => 'required|string',
-            'category_id' => 'required|exists:article_categories,id', // Ensures category exists
-            'user_id' => 'nullable|exists:users,id', // Ensures user exists
-            'approved' => 'sometimes|boolean', // Allow optional update for approved field
-            // 'articleable_id' => 'required|exists:articleable_type,id', // Assuming morph relation
-            // 'articleable_type' => 'required|string', // Assuming morph relation
+            'category_id' => 'required|exists:article_categories,id',
+            'articleable' => ['sometimes', 'array', new ArticleAttachesRule($category)],
+            'tags_id'  => 'sometimes|array',
+            'user_id' => 'nullable',
+            'author_id' => Rule::requiredIf(fn() => $category? $category['hasAuthor'] : false),
         ];
     }
 }

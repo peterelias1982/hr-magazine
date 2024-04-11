@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use App\Enums\Gender;
 
 return new class extends Migration
 {
@@ -13,8 +15,13 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->index();
-            $table->string('slug');
+            $table->string('firstName')->index();
+            $table->string('secondName')->index();
+            $table->string('slug')->unique();
+            $table->enum('gender',[
+                Gender::Male->value, 
+                Gender::Female->value, 
+                ]);
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();           
@@ -22,9 +29,14 @@ return new class extends Migration
             $table->string('mobile')->nullable();
             $table->string('position')->default('user');
             $table->boolean('active')->default(1);
-            $table->morphs('userable');
+            // $table->nullableMorphs('userable');
             $table->timestamps();
         });
+
+        //to combine 2 fields into one field for searching and sorting in datatable
+        // DB::statement("ALTER TABLE users ADD FULLNAME AS CONCAT(firstName,' ',secondName)");
+
+        // DB::statement("UPDATE users SET slug = CONCAT(LOWER(TRIM(firstName)), '-', LOWER(TRIM(secondName)))");
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

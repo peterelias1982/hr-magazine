@@ -14,7 +14,6 @@ class Tag extends Model
 
     protected $fillable=[
         'tagName',
-        'slug',
     ];
 
     public function getSlugOptions() : SlugOptions
@@ -24,7 +23,7 @@ class Tag extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function articleTag()    // i used articles word in morph relation
+    public function articleTag()    
     {
         return $this->belongsToMany(Article::class);
     }
