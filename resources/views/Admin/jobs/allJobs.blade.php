@@ -6,7 +6,7 @@
             <div class="col-lg-auto">
                 <!-- Search Bar start -->
                 <div class="search-bar">
-                    <form action="{{route('jobs.index')}}">
+                    <form action="{{route('admin.jobs.index')}}">
                         <div class="row g-1 justify-content-lg-end justify-content-start">
                             <div class="col-6 col-lg-5 form-floating">
                                 <input type="text" class="form-control" id="title">

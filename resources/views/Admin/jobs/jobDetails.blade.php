@@ -4,7 +4,7 @@
         <div class="d-sm-flex align-items-center justify-content-between border-bottom py-1">
             <h2 class="fw-bold col-lg-auto">Job Details</h2>
             <div class="btn-wrapper">
-                <form action="{{route('jobs.destroy', $jobdetail->slug)}}" method="POST">
+                <form action="{{route('admin.jobs.destroy', $jobdetail->slug)}}" method="POST">
                     @csrf
                     @method('delete')
                     <button type="submit" class="btn btn-sm" style="color: #ed2708" onclick="alert('Are you sure you want to delete?')"><i

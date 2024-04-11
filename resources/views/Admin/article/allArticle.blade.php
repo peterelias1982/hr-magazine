@@ -61,7 +61,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Articles Table</h4>
-                        <p class="card-description">List of all <code><a href="{{ route('articles.index') }}"
+                        <p class="card-description">List of all <code><a href="{{ route('admin.articles.index') }}"
                                                                          class="article-link">Articles</a></code></p>
                         <div class="table-responsive content">
                             <table class="table table-striped">
@@ -78,10 +78,10 @@
                                 @foreach ($articles as $article)
                                     <tr>
                                         <td>
-                                            <a href="{{route('articles.show', $article->slug)}}"
+                                            <a href="{{route('admin.articles.show', $article->slug)}}"
                                                class="link-primary text-decoration-none">{{ $article->title }}</a>
                                         </td>
-                                        <td>{{ $article->author?->userAuthor?->firstName . ' ' . $article->author?->userAuthor?->secondName?? '_'  }}</td>
+                                        <td>{{ $article->author?->userAuthor?->firstName . ' ' . ($article->author?->userAuthor?->secondName?? '_')  }}</td>
                                         <td>{{ $article->articleCategory->articleCategoryName  }}</td>
                                         <td class="p-1">
                                             <div class="d-flex flex-wrap">

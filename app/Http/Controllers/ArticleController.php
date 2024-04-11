@@ -77,11 +77,11 @@ class ArticleController extends Controller
             }
 
             return redirect()
-                ->route('articles.index')
+                ->route('admin.articles.index')
                 ->with(['messages' => ['success' => ['Article deleted Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('articles.index')
+                ->route('admin.articles.index')
                 ->with(['messages' => ['error' => ['Error creating article: ' . $exception->getMessage()]]]);
         }
 
@@ -110,7 +110,7 @@ class ArticleController extends Controller
             return view('admin.article.articleDetails', compact('article', 'articleCategories', 'authors', 'articleTags', 'sourceArticle', 'youtubeLink'));
         } catch (\Throwable $exception) {
             return redirect()
-                ->route('articles.index')
+                ->route('admin.articles.index')
                 ->with(['messages' => ['error' => ['Error not found article: ' . $exception->getMessage()]]]);
         }
     }
@@ -138,11 +138,11 @@ class ArticleController extends Controller
             }
 
             return redirect()
-                ->route('articles.index')
+                ->route('admin.articles.index')
                 ->with(['messages' => ['success' => ['Article updated Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('articles.index')
+                ->route('admin.articles.index')
                 ->with(['messages' => ['error' => ['Error updating article: ' . $exception->getMessage()]]]);
         }
     }
@@ -156,11 +156,11 @@ class ArticleController extends Controller
             Article::where('slug', $slug)->delete();
 
             return redirect()
-                ->route('articles.index')
+                ->route('admin.articles.index')
                 ->with(['messages' => ['success' => ['Article deleted Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('articles.index')
+                ->route('admin.articles.index')
                 ->with(['messages' => ['error' => ['Error deleting article: ' . $exception->getMessage()]]]);
         }
     }
