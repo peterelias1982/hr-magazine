@@ -2,30 +2,21 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-// use Illuminate\Database\Eloquent\Model;
 
-
-// Relation::morphMap([
-//     "Job_Seeker" => "App\Models\JobSeeker",
-//     "Admin" => Admin::class,
-//     "Author" => Author::class,
-//     "Employer" => "App\Models\Employer",
-// ]);
 
 class User extends Authenticatable
 {
     use HasFactory;
     use Notifiable;
     use HasSlug;
-
-    // protected $table = [ 'users'];
 
     /**
      * The attributes that are mass assignable.
@@ -73,45 +64,45 @@ class User extends Authenticatable
             ->saveSlugsTo('slug');
     }
 
-    public function articleComment()
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
+    public function articleComment(): HasMany
     {
         return $this->hasMany(articleComment::class);
     }
 
-    public function articleUser()
+    public function articleUser(): HasMany
     {
         return $this->hasMany(Article::class);
     }
 
-    public function authorUser()
+    public function authorUser(): HasOne
     {
-        return $this->hasOne(Article::class, 'id', 'user_id');
+        return $this->hasOne(Author::class, 'user_id', 'id');
     }
 
-    // function userable()
-    // {
-    //     return $this->morphTo();
-    // }
-
-    public function socialMedia()
+    public function socialMedia(): BelongsToMany
     {
         return $this->belongsToMany(SocialMedia::class);
     }
 
-    public function adminUser()
+    public function adminUser(): HasOne
     {
-        return $this->hasOne(Article::class, 'id', 'user_id');
+        return $this->hasOne(Admin::class, 'user_id', 'id');
     }
 
-    public function jobSeekerUser()
+    public function jobSeekerUser(): HasOne
     {
-        return $this->hasOne(Article::class, 'id', 'user_id');
-    }
-    public function employerUser()
-    {
-        return $this->hasOne(Employer::class, 'id','user_id');
-
+        return $this->hasOne(JobSeeker::class, 'user_id', 'id');
     }
 
+    public function employerUser(): HasOne
+    {
+        return $this->hasOne(Employer::class, 'user_id', 'id');
+
+    }
 
 }

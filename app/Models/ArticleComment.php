@@ -3,15 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Article;
-use App\Models\User;
 
 class ArticleComment extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
+    protected $fillable = [
         'user_id',
         'content',
         'parentComment',
@@ -19,15 +18,13 @@ class ArticleComment extends Model
     ];
 
 
-    public function article(){
+    public function article(): BelongsTo
+    {
         return $this->belongsTo(Article::class);
     }
 
-//     public function articles(){
-//         return $this->morphMany(Article::class,'articleable');
-// }
-
-    public function user(){
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 }

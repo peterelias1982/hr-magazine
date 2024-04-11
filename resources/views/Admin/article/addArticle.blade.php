@@ -13,7 +13,7 @@
                         <p class="card-description">
                             Add a new Article to the Dashboard
                         </p>
-                        <form action="{{route('articles.store')}}" method="POST" class="forms-sample"
+                        <form action="{{route('admin.articles.store')}}" method="POST" class="forms-sample"
                               id="article-create" enctype="multipart/form-data">
                             @csrf
                             <!-- Group 1: Title, Image, and Content -->
@@ -138,7 +138,7 @@
                                     Submit
                                 </button>
                                 <button class="btn btn-light" form="admin-create"
-                                        onclick="window.location.href='{{route('articles.index')}}'">
+                                        onclick="window.location.href='{{route('admin.articles.index')}}'">
                                     Cancel
                                 </button>
                             </div>

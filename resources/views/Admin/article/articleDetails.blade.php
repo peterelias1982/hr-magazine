@@ -1,6 +1,6 @@
 @extends('Admin.layouts.master')
 @section('Content')
-    <form id="edit-article" action="{{route('articles.update', $article->slug)}}" method="POST"
+    <form id="edit-article" action="{{route('admin.articles.update', $article->slug)}}" method="POST"
           enctype="multipart/form-data">
         @csrf
         @method('put')
@@ -10,10 +10,10 @@
         <div class="d-sm-flex align-items-center justify-content-between border-bottom py-1">
             <h2 class="fw-bold col-lg-auto">Article Details</h2>
             <div class="btn-wrapper">
-                <form action="{{route('articles.destroy', $article->slug)}}" method="POST">
+                <form action="{{route('admin.articles.destroy', $article->slug)}}" method="POST">
                     @csrf
                     @method('delete')
-                    <button class="btn btn-sm" style="color: #ed2708"><i
+                    <button type="submit" class="btn btn-sm" style="color: #ed2708" onclick="alert('Are you sure you want to delete?')"><i
                             class="icon-trash"></i> Delete Article
                     </button>
                 </form>
@@ -81,7 +81,7 @@
                                                                 @foreach($authors as $author)
                                                                     <option
                                                                         value="{{$author->id}}" @selected($article?->author_id == $author->id)>
-                                                                        {{$author->userAuthor->name}}
+                                                                        {{$author->userAuthor->firstName}} {{$author->userAuthor->secondName}}
                                                                     </option>
                                                                 @endforeach
                                                             </select>

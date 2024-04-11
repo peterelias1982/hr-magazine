@@ -7,13 +7,13 @@
           <div class="card-body">
             <h4 class="card-title">Article Category</h4>
             <p class="card-description">Add a new article category</p>
-            <form class="forms-sample" action="{{route('articleCategories.store')}}" method="POST">
+            <form class="forms-sample" action="{{route('admin.articleCategories.store')}}" method="POST">
               @csrf
               <div class="form-group">
                 <label for="exampleInputUsername1">Name</label>
                 <input type="text" class="form-control" id="exampleInputUsername1" placeholder="category" name="articleCategoryName" value="{{old('articleCategoryName')}}">
                 @error('articleCategoryName')
-                <p style="color: red">{{$message}}</p>
+                <small><code>{{$message}}</code></small>
                 @enderror
               </div>
 
@@ -23,7 +23,7 @@
                   Has Author
                 <i class="input-helper"></i></label>
                 @error('hasAuthor')
-                <p style="color: red">{{$message}}</p>
+                <small><code>{{$message}}</code></small>
                 @enderror
               </div>
 
@@ -33,7 +33,7 @@
                   Has Source
                 <i class="input-helper"></i></label>
                 @error('hasSource')
-                <p style="color: red">{{$message}}</p>
+                <small><code>{{$message}}</code></small>
                 @enderror
               </div>
               <div class="form-check form-check-flat form-check-primary">
@@ -42,7 +42,7 @@
                   Has YouTube link
                 <i class="input-helper"></i></label>
                 @error('hasYoutubeLink')
-                <p style="color: red">{{$message}}</p>
+                <small><code>{{$message}}</code></small>
                 @enderror
               </div>
               <div class="form-check form-check-flat form-check-primary">
@@ -51,7 +51,7 @@
                   Has Comment section
                 <i class="input-helper"></i></label>
                 @error('hasComments')
-                <p style="color: red">{{$message}}</p>
+                <small><code>{{$message}}</code></small>
                 @enderror
               </div>
               <button type="submit" class="btn btn-primary me-2">
