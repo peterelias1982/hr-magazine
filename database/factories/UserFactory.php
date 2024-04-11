@@ -24,12 +24,27 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
-            'mobile'=>fake()-> randomNumber(5,true),
+            // 'firstName' => fake()->name(),
+            // 'secondName' => fake()->name(),
+            // 'slug' =>fake()->unique()->slug(),
+            // 'gender' => fake()->word(),
+            // 'email' => fake()->unique()->safeEmail(),
+            // 'email_verified_at' => now(),
+            // 'password' => static::$password ??= Hash::make('password'),
+            // 'remember_token' => Str::random(10),
+            // 'mobile'=>fake()-> randomNumber(5,true),
+            // "position",
+            //  "active",
+
+            'firstName' => $this->faker->firstName(),
+            'secondName' => $this->faker->lastName(),
+            'slug' => Str::slug($this->faker->name),
+            'gender' => $this->faker->randomElement(['male', 'female']),
+            'email' => $this->faker->unique()->safeEmail(),
+            'email_verified_at' => now(), // Assuming most users have verified emails
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // Default password hash
+            'mobile' => $this->faker->phoneNumber(),
+            'active' => $this->faker->boolean(95), // 95% chance of being active
         ];
     }
 
