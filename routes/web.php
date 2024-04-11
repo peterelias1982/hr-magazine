@@ -7,6 +7,7 @@ use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\ArticleTagController;
 use App\Http\Controllers\JobDetailController;
 use App\Http\Controllers\JobCategoryController;
+use App\Http\Controllers\AdminController;
 
 
 Route::get('/', function () {
