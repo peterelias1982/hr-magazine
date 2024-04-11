@@ -55,7 +55,7 @@
     ></script>
 
     <script>
-        const messages = JSON.parse('<?= $messages?? '' ?>');
+        const messages = JSON.parse('<?= $messages?? '{}' ?>');
 
     </script>
 

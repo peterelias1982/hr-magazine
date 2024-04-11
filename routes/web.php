@@ -1,14 +1,12 @@
 <?php
 
-
-use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleCategoryController;
-use App\Http\Controllers\JobCategoryController;
 use App\Http\Controllers\ArticleTagController;
-use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\JobDetailController;
+use App\Http\Controllers\JobCategoryController;
 
 
 Route::get('/', function () {
@@ -69,13 +67,13 @@ Route::group(['prefix' => "users"], function () {
             Route::put('/{slug}', 'update')->name('update');
             Route::delete('/{slug}', 'destroy')->name('destroy');
         });
-
-        
-        
-
-        
-        });
     });
 
+    Route::group(['prefix'=>'jobs', 'controller' => JobDetailController::class, 'as' => 'jobs.'],function(){
+        Route::get('/', 'index')->name('index');
+        Route::get('/{slug}','show')->name('show');
+        Route::delete('/{slug}', 'destroy')->name('destroy');
 
+    });
+});
 

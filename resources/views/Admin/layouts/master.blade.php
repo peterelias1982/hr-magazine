@@ -3,6 +3,10 @@
 @include('Admin.include.head')
 
 <body class="with-welcome-text">
+
+<div class="toast-container position-fixed bottom-0 end-0" style="z-index: 1000;">
+</div>
+
 <div class="container-scroller">
     <!-- banner start -->
     <div class="row p-0 m-0 proBanner d-flex" id="proBanner">
@@ -48,10 +52,6 @@
         </div>
 
     </div>
-</div>
-
-
-<div class="toast-container position-fixed bottom-0 end-0" style="z-index: 1000;">
 </div>
 
 <!-- container-scroller -->

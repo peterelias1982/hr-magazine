@@ -2,22 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
-
 
 class Admin extends Model
 {
     use HasFactory;
 
-    protected $fillable=["user_id"];
-    
-    // function user(){
-    //     return $this->morphOne(User::class,"user");
-    // }
+    protected $fillable = [
+        "user_id"
+    ];
 
-    public function userAdmin() {
-        return $this->belongsTo(User::class,'user_id');
-          }
+    public function userAdmin(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

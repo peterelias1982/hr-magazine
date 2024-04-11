@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Article;
 use App\Models\ArticleCategory;
 use App\Models\Author;
-use App\Models\User;
 use App\Models\Tag;
 use App\Models\SourceArticle;
 use App\Models\YoutubeLink;
@@ -14,6 +13,7 @@ use App\Http\Requests\UpdateArticleRequest;
 use App\Traits\Common;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 
 class ArticleController extends Controller
@@ -65,6 +65,8 @@ class ArticleController extends Controller
             [$articleData, $tagsAttachments, $articleables] =
                 $this->prepareData($request->all());
 
+            $articleData['approved'] = 1;
+
             $article = Article::create($articleData);
 
             $article->tags()->attach($tagsAttachments);
@@ -91,19 +93,26 @@ class ArticleController extends Controller
      */
     public function show(string $slug)
     {
-        
-        $article = Article::where('slug', $slug)->first();
-        $articleCategories = ArticleCategory::get();
-        $authors = Author::get();
-        $articleTags = Tag::get();
+        try {
+            $article = Article::where('slug', $slug)->first();
 
-        $sourceArticle = SourceArticle::where('article_id', $article->id)->first();
-        $youtubeLink = YoutubeLink::where('article_id', $article->id)->first();
-        return view('admin.article.articleDetails', compact('article', 'articleCategories', 'authors', 'articleTags', 'sourceArticle', 'youtubeLink'));
-       
+            if (!$article) {
+                throw new ResourceNotFoundException('Article is not found');
+            }
 
+            $articleCategories = ArticleCategory::get();
+            $authors = Author::get();
+            $articleTags = Tag::get();
 
-        
+            $sourceArticle = SourceArticle::where('article_id', $article->id)->first();
+            $youtubeLink = YoutubeLink::where('article_id', $article->id)->first();
+
+            return view('admin.article.articleDetails', compact('article', 'articleCategories', 'authors', 'articleTags', 'sourceArticle', 'youtubeLink'));
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->route('articles.index')
+                ->with(['messages' => ['error' => ['Error not found article: ' . $exception->getMessage()]]]);
+        }
     }
 
     /**
@@ -164,10 +173,10 @@ class ArticleController extends Controller
             'category_id' => $data['category_id'],
             'user_id' => $data['user_id'] ?? null,
             'author_id' => $data['author_id'] ?? null,
-            'approved'  => isset($data['approved']),
+            'approved' => isset($data['approved']),
         ];
 
-        if($data["image"]?? false) {
+        if ($data["image"] ?? false) {
             $fileName = $this->uploadFile($data["image"], 'assets/images/');
             $articleData['image'] = $fileName;
         }
@@ -208,7 +217,7 @@ class ArticleController extends Controller
     {
         $query = DB::table('articles');
 
-        if($requestData['author']) {
+        if ($requestData['author']) {
             $query
                 ->join('authors', 'authors.id', '=', 'articles.author_id')
                 ->join('users', 'users.id', '=', 'authors.user_id')
@@ -216,7 +225,7 @@ class ArticleController extends Controller
                 ->select('articles.id');
         }
 
-        if($requestData['tagName']) {
+        if ($requestData['tagName']) {
             $query
                 ->join('article_tags', 'articles.id', '=', 'article_tags.article_id')
                 ->join('tags', 'tags.id', '=', 'article_tags.tag_id')
@@ -224,19 +233,19 @@ class ArticleController extends Controller
                 ->select('articles.id');
         }
 
-        if($requestData['title']) {
+        if ($requestData['title']) {
             $query
                 ->where('articles.title', 'LIKE', "%{$requestData['title']}%")
                 ->select('articles.id');
         }
 
-        if($requestData['categoryId']) {
+        if ($requestData['categoryId']) {
             $query
                 ->where('articles.category_id', '=', $requestData['categoryId'])
                 ->select('articles.id');
         }
 
-        if($requestData['status']) {
+        if ($requestData['status']) {
             $query
                 ->where('articles.approved', '=', $requestData['status'] === 'approved')
                 ->select('articles.id');

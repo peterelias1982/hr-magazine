@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
 
 class Author extends Model
 {
@@ -20,27 +21,14 @@ class Author extends Model
         "user_id"
     ];
 
-    public function userAuthor()
+    public function userAuthor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
-
-    // function user()
-    // {
-
-    //     return $this->morphOne(User::class, "userable");
-    // }
-
-
-    public function article()
+    public function article(): HasMany
     {
         return $this->hasMany(Article::class);
     }
-
-    // public function articles(){
-    //     return $this->morphMany(Article::class,'articleable');
-    // }
-
 
 }

@@ -27,7 +27,7 @@ class="navbar default-layout col-lg-12 col-12 p-0 d-flex align-items-top flex-ro
     <li class="nav-item font-weight-semibold d-none d-lg-block ms-0">
       <h1 class="welcome-text">
         Good Morning,
-        <span class="text-black fw-bold" id="userName"></span>
+        <span class="text-black fw-bold">Nora</span>
       </h1>
       <h3 class="welcome-sub-text w-75" id="quote"></h3>
     </li>
@@ -70,7 +70,7 @@ class="navbar default-layout col-lg-12 col-12 p-0 d-flex align-items-top flex-ro
           My Profile
           <span class="badge badge-pill badge-danger">1</span></a
         >
-        
+
         <a class="dropdown-item"
           ><i
             class="dropdown-item-icon mdi mdi-power text-primary me-2"
