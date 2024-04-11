@@ -22,8 +22,7 @@ class TagArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'tag_id' => 'required|exists:tags,id',
-            'article_id' => 'required|exists:articles,id',
+            'tagName' => "required|string|max:255|unique:tags,tagName,{$this->slug},slug",
         ];
     }
 }

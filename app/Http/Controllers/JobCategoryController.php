@@ -2,64 +2,86 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryJobRequest;
 use App\Models\JobCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Throwable;
 
 class JobCategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $query = JobCategory::Query();
+        if ($search = Request()->catergory) {
+            $query->where("category", "LIKE", "%$search%");
+        }
+        $categories = $query->get();
+
+        $messages = $this->getMessages();
+
+        return view("Admin.jobs.allCategory", compact('categories', 'messages'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.jobs.addCategory');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(CategoryJobRequest $request)
     {
-        //
+        try {
+            JobCategory::create([
+                'category' => $request['category'],
+            ]);
+
+            return redirect()
+                ->route('admin.jobCategories.index')
+                ->with(['messages' => ['success' => ['Category created Successfully']]]);
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('admin.jobCategories.index')
+                ->with(['messages' => ['error' => ['Error creating category: ' . $exception->getMessage()]]]);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(JobCategory $jobCategory)
+    public function update(CategoryJobRequest $request, $slug)
     {
-        //
+        try {
+            $categoryJob = JobCategory::where("slug", $slug)->first();
+            $categoryJob->update([
+                'category' => $request['category'],
+            ]);
+
+            return redirect()
+                ->route('admin.jobCategories.index')
+                ->with(['messages' => ['success' => ['Category updated Successfully']]]);
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('admin.jobCategories.index')
+                ->with(['messages' => ['error' => ['Error updating category: ' . $exception->getMessage()]]]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(JobCategory $jobCategory)
+    public function destroy(JobCategory $jobCategory, $slug): \Illuminate\Http\RedirectResponse
     {
-        //
+        try {
+            JobCategory::where('slug', $slug)->delete();
+
+            return redirect()
+                ->route('admin.jobCategories.index')
+                ->with(['messages' => ['success' => ['Category deleted Successfully']]]);
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('admin.jobCategories.index')
+                ->with(['messages' => ['error' => ['Error deleting category: ' . $exception->getMessage()]]]);
+        }
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, JobCategory $jobCategory)
+    private function getMessages(): string
     {
-        //
+        // check for messages if any
+        return json_encode(Session::get('messages'));
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(JobCategory $jobCategory)
-    {
-        //
-    }
 }

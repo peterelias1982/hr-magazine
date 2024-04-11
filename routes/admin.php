@@ -1,27 +1,26 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ArticleCategoryController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ArticleTagController;
+use App\Http\Controllers\JobCategoryController;
+use App\Http\Controllers\JobDetailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\JobSeekerController;
 
-//Auth::routes(['verify'=>true]);
-//we will add ->middleware('verified') after prefix('events') later on for user verification
-//all addresses in this route file are by default preceded by admin/
-
 Route::group(['prefix' => "events", "controller" => EventController::class, "as" => "events."], function () {
-
     //events
     Route::get("/create", "create")->name('create');
     Route::post("/", "store")->name('store');
     Route::get("/", "index")->name('index');
     Route::get("/{slug}", "show")->name('show');
-    Route::put("updateEvent/{slug}", "update")->name('update');
-    Route::get("deleteEvent/{slug}", "destroy")->name('destroy');
+    Route::put("/{slug}", "update")->name('update');
+    Route::delete("/{slug}", "destroy")->name('destroy');
 });
 
 Route::group(['prefix' => "users"], function () {
-
     //admins
     Route::group(['prefix' => "admins", "controller" => AdminController::class, "as" => "admins."], function () {
         Route::get("/create", "create")->name('create');
@@ -33,7 +32,52 @@ Route::group(['prefix' => "users"], function () {
     Route::group(['prefix' => "job_seekers", "controller" => JobSeekerController::class, "as" => "jobSeekers."], function () {
         Route::get("/", "index")->name('index');
         Route::get("/{slug}", "show")->name('show');
-        Route::put("updateJobSeeker/{slug}", "update")->name('update');
-        Route::get("deleteJobSeeker/{slug}", "destroy")->name('destroy');
+        Route::patch("/{slug}", "update")->name('update');
+        Route::delete("/{slug}", "destroy")->name('destroy');
     });
+});
+
+Route::group(['prefix' => "article"], function () {
+    Route::group(['prefix' => "categories", "controller" => ArticleCategoryController::class, "as" => "articleCategories."], function () {
+        Route::get("/create", "create")->name('create');
+        Route::get("/", "index")->name('index');
+        Route::post("/", "store")->name('store');
+        Route::put("/{slug}", "update")->name('update');
+        Route::delete("/{slug}", "destroy")->name('destroy');
+
+    });
+    Route::group(['prefix' => 'tags', "controller" => ArticleTagController::class, "as" => "tags."], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{slug}', 'update')->name('update');
+        Route::delete('/{slug}', 'destroy')->name('destroy');
+    });
+});
+
+Route::group(["prefix" => 'articles', "controller" => ArticleController::class, "as" => "articles."], function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/{slug}', 'show')->name('show');
+    Route::put('/{slug}', 'update')->name('update');
+    Route::delete('/{slug}', 'destroy')->name('destroy');
+
+});
+
+Route::group(['prefix' => "job"], function () {
+    Route::group(['prefix' => 'categories', "controller" => JobCategoryController::class, "as" => "jobCategories."], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{slug}', 'update')->name('update');
+        Route::delete('/{slug}', 'destroy')->name('destroy');
+    });
+});
+
+Route::group(['prefix'=>'jobs', 'controller' => JobDetailController::class, 'as' => 'jobs.'],function(){
+    Route::get('/', 'index')->name('index');
+    Route::get('/{slug}','show')->name('show');
+    Route::delete('/{slug}', 'destroy')->name('destroy');
+
 });

@@ -2,34 +2,28 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use App\Models\ArticleCategory;
-use App\Models\sourceArticle;
-use App\Models\youtubeLink;
-use App\Models\articleComment;
-use App\Models\Tag;
+use Spatie\Sluggable\HasSlug;
 
 class Article extends Model
 {
-    use HasFactory, HasSlug;
+    use HasFactory;
+    use HasSlug;
 
     protected $fillable = [
         'title',
-        // 'slug',
         'image',
         'content',
         'category_id',
         'user_id',
         'author_id',
         'approved',
-        // no need to add type and id in fillable, fillable means the data that will be added manually, 
-        //like slug is added automatically there is no need to add it into fillable, 
-        //so as to morph relation is handled automatically 
-        // 'articleable_type',   
-        // 'articleable_id',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -39,42 +33,38 @@ class Article extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function articleable()
+
+    public function articleCategory(): BelongsTo
     {
-        return $this->morphto();
+        return $this->belongsTo(ArticleCategory::class, 'category_id', 'id');
     }
 
-    public function articleCategory()
+    public function sourceArticle(): HasOne
     {
-        return $this->belongsTo(ArticleCategory::class);
+        return $this->hasOne(SourceArticle::class);
     }
 
-    public function sourceArticle()
+    public function youtubeLink(): HasOne
     {
-        return $this->hasMany(SourceArticle::class);
+        return $this->hasOne(YoutubeLink::class);
     }
 
-    public function youtubeLink()
-    {
-        return $this->hasMany(YoutubeLink::class);
-    }
-
-    public function articleComment()
+    public function articleComment(): HasMany
     {
         return $this->hasMany(articleComment::class);
     }
 
-    public function tags()
+    public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'article_tags', 'article_id', 'tag_id');
     }
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function author()
+    public function author(): BelongsTo
     {
         return $this->belongsTo(Author::class);
     }

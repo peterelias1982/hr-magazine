@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateJobSeekerRequest;
 use App\Models\JobSeeker;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Traits\Common;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class JobSeekerController extends Controller
 {
@@ -19,66 +19,74 @@ class JobSeekerController extends Controller
     public function index()
     {
         $jobSeekers = JobSeeker::get();
-        return view('Admin.user.seeker.allSeeker', compact('jobSeekers'));
-    }
+        $messages = $this->getMessages();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        return view('Admin.user.seeker.allSeeker', compact('jobSeekers', 'messages'));
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(User $user, string $slug)
+    public function show(string $slug)
     {
-        $user = User::with('jobSeekerUser')->where('slug', $slug)->first();
-        return view('Admin.user.seeker.userInfo', compact('user'));
-        // dd($user);
+        try {
+            $user = User::with('jobSeekerUser')->where('slug', $slug)->first();
+
+            if (!$user) {
+                throw new ResourceNotFoundException('User is not found');
+            }
+
+            return view('Admin.user.seeker.userInfo', compact('user'));
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->route('admin.jobSeekers.index')
+                ->with(['messages' => ['error' => ['Error user not found: ' . $exception->getMessage()]]]);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(User $user, Request $request, string $slug)
-    {        
-        $user = User::with('jobSeekerUser')->where('slug', $slug)->first();
+    public function update(Request $request, string $slug)
+    {
+        try {
+            $user = User::with('jobSeekerUser')->where('slug', $slug)->first();
 
-        $user->update([
-            'firstName' => $request->firstName,
-            'position' => $request->position,
-            'mobile' => $request->mobile,
-            'active' => isset($request->active),
-            'jobTitle' => $request->jobTitle,
-            'user_id' => $request->user_id,
-        ]);
+            $user->update([
+                'active' => isset($request->active),
+            ]);
 
-        if ($request->hasFile('cv')) {
-            $fileName = $this->uploadFile($request->cv, 'admin/jobSeekersCVs');
-            $data['cv'] = $fileName;
-            unlink("admin/jobSeekersCV/" . $request->oldCV);
+            return redirect()
+                ->route('admin.jobSeekers.index')
+                ->with(['messages' => ['success' => ['Job seeker data updated successfully']]]);
+
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->route('admin.jobSeekers.index')
+                ->with(['messages' => ['error' => ['Error updating job seeker data: ' . $exception->getMessage()]]]);
         }
-       
-        return redirect()->route('admin.jobSeekers.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user, string $slug)
+    public function destroy(string $slug)
     {
-        User::where('slug', $slug)->delete();
-        return redirect()->route('admin.jobSeekers.index');
+        try {
+            User::where('slug', $slug)->delete();
+            return redirect()
+                ->route('admin.jobSeekers.index')
+                ->with(['messages' => ['success' => ['Job seeker data deleted successfully']]]);
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->route('admin.jobSeekers.index')
+                ->with(['messages' => ['error' => ['Error deleting job seeker data: ' . $exception->getMessage()]]]);
+        }
+    }
+
+    private function getMessages(): string
+    {
+        // check for messages if any
+        return json_encode(Session::get('messages'));
     }
 }

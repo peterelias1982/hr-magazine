@@ -4,16 +4,20 @@
         <div class="d-sm-flex align-items-center justify-content-between border-bottom py-1">
             <h2 class="fw-bold col-lg-auto">Event Details</h2>
             <div class="btn-wrapper">
-                <a href="deleteEvent/{{ $event->slug }}" class="btn btn-sm" style="color: #ed2708"
+                <form action="{{route('admin.events.destroy', $event->slug)}}" method="POST">
+                    @csrf
+                    @method('delete')
+                <button  class="btn btn-sm" style="color: #ed2708"
                    onclick="return confirm('Are you sure you want to delete event?')"><i class="icon-trash"></i> Delete
-                    Event</a>
+                    Event</button>
+                </form>
             </div>
         </div>
         <div class="pt-4">
             <div class="row">
                 <form id="edit-event" action="{{route('admin.events.update',$event->slug)}}" method="post"
                       enctype="multipart/form-data">
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    @csrf
                     @method('put')
                     <div class="col-12 d-flex flex-column">
                         <div class="row flex-grow">
@@ -437,3 +441,4 @@
         }
     </script>
 @endsection
+

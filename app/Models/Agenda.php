@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Event;
 
 class Agenda extends Model
 {
@@ -17,9 +17,10 @@ class Agenda extends Model
         'toTime',
         'speaker',
         'dayNumber'
-        ];
+    ];
 
-    public function event(){
+    public function event(): BelongsTo
+    {
         return $this->belongsTo(Event::class);
     }
 

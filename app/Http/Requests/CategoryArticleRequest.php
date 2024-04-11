@@ -22,11 +22,11 @@ class CategoryArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-        'articleCategoryName' => 'required|string|max:255|unique:article_categories,articleCategoryName', // Adjust max length as needed
-        'slug' => 'required|string|max:255|unique:article_categories,slug',  // Adjust max length as needed
-        'hasComments' => 'sometimes|boolean', // Allow optional update
-        'hasSource' => 'sometimes|boolean', // Allow optional update
-        'hasYoutubeLink' => 'sometimes|boolean', // Allow optional update
+        'articleCategoryName' => "required|string|max:255|unique:article_categories,articleCategoryName,{$this->slug},slug", // Adjust max length as needed
+        'hasComments' => 'sometimes', // Allow optional update
+        'hasSource' => 'sometimes', // Allow optional update
+        'hasYoutubeLink' => 'sometimes', // Allow optional update
+        'hasAuthor' => 'sometimes', // Allow optional update
         ];
     }
 }
