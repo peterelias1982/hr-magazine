@@ -1,6 +1,3 @@
-// Simulating fetching a user's name from a database
-const userName = "Nora"; // This should come from your database
-
 // Array of quotes
 const quotes = [
     "The only way to do great work is to love what you do. – Steve Jobs",
@@ -29,17 +26,12 @@ function updateWelcomeText() {
         greeting = "Good Evening";
     }
 
-    // Update the welcome text
-    document.querySelector('.welcome-text').innerHTML = `${greeting}, <span class="text-black fw-bold" id="userName">${userName}</span>`;
 }
 
 function displayRandomQuote() {
     const quoteIndex = Math.floor(Math.random() * quotes.length);
     document.getElementById('quote').textContent = quotes[quoteIndex];
 }
-
-// Setting the user's name from the variable
-document.getElementById('userName').textContent = userName;
 
 // Calling the functions
 updateWelcomeText();

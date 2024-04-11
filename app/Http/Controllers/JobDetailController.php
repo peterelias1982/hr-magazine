@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JobCategory;
 use App\Models\JobDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Throwable;
 
 class JobDetailController extends Controller
 {
@@ -12,54 +16,65 @@ class JobDetailController extends Controller
      */
     public function index()
     {
-        //
+        $categories = JobCategory::all();
+
+        $jobs = JobDetail::with(['Employer' => function ($query) {
+            $query->select('id', 'user_id');
+        },
+            'jobCategory' => function ($query) {
+                $query->select('id', 'category');
+            },
+            'jobSeeker' => function ($query) {
+                $query->select('user_id');
+            },])->get();
+
+        $messages = $this->getMessages();
+        return view('Admin.jobs.alljobs', compact('jobs', 'categories' , 'messages'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
+    /*
      * Display the specified resource.
      */
-    public function show(JobDetail $jobDetail)
+    public function show(string $slug)
     {
-        //
-    }
+        try {
+            $jobdetail = JobDetail::where('slug', $slug)
+                ->with(['jobCategory', 'Employer', 'jobSeeker'])->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(JobDetail $jobDetail)
-    {
-        //
-    }
+            if (!$jobdetail) {
+                throw new ResourceNotFoundException('Job is not found');
+            }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, JobDetail $jobDetail)
-    {
-        //
+            return view('Admin.jobs.jobDetails', compact('jobdetail'));
+
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('jobs.index')
+                ->with(['messages' => ['error' => ['Error not found job: ' . $exception->getMessage()]]]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JobDetail $jobDetail)
+    public function destroy(string $slug)
     {
-        //
+        try {
+            JobDetail::where('slug', $slug)->delete();
+            return redirect()
+                ->route('jobs.index')
+                ->with(['messages' => ['success' => ['the job is deleted successfully!']]]);
+
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('jobs.index')
+                ->with(['messages' => ['error' => ['Error not deleting job: ' . $exception->getMessage()]]]);
+        }
+    }
+
+    private function getMessages(): string
+    {
+        // check for messages if any
+        return json_encode(Session::get('messages'));
     }
 }
