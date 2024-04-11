@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use App\Enums\Gender;
 
 return new class extends Migration
 {
@@ -16,14 +18,18 @@ return new class extends Migration
             $table->string('firstName')->index();
             $table->string('secondName')->index();
             $table->string('slug')->unique();
+            $table->enum('gender',[
+                Gender::Male->value,
+                Gender::Female->value,
+                ]);
+
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable();           
+            $table->string('password')->nullable();
             $table->rememberToken()->nullable();
             $table->string('mobile')->nullable();
             $table->string('position')->default('user');
             $table->boolean('active')->default(1);
-            $table->nullableMorphs('userable');
             $table->timestamps();
         });
 

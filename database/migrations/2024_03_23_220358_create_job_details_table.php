@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\CareerLevel;
 
 return new class extends Migration
 {
@@ -21,7 +22,6 @@ return new class extends Migration
             $table->date('deadline');
             $table->longText('content');
             $table->string('email');
-            $table->enum('jobtype',['entry', 'intermediate', 'experience']);
             // $table->foreignId('category_id')->references('id')->on('job_categories')->onDelete('set null')->onUpdate('cascade');
             $table->foreignId('category_id')->references('id')->on('job_categories')->onDelete('restrict')->onUpdate('cascade');
             $table->foreignId('employer_id')->references('id')->on('employers')->onDelete('cascade')->onUpdate('cascade');

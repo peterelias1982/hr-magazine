@@ -221,7 +221,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href="{{route('jobs.index')}}"
+          href="{{route('admin.jobs.index')}}"
           aria-expanded="false"
           aria-controls="auth"
         >

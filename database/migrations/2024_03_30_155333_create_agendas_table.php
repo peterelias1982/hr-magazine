@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('agendas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
-            $table->longText('content');
-            $table->time('from');
-            $table->time('to');
-            $table->text('speakers');
+            $table->foreignId('event_id')->references('id')->on('events')
+            ->onDelete('cascade')->onUpdate('cascade');
+            $table->string('topic');
+            $table->time('fromTime');
+            $table->time('toTime');
+            $table->string('speaker');
+            $table->integer('dayNumber');
             $table->timestamps();
         });
     }

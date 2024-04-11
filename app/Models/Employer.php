@@ -1,28 +1,31 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Model;
 
 class Employer extends Model
 {
     use HasFactory;
 
-    protected $fillable=["companyName","address","logo","Phone","user_id"];
+    protected $fillable = [
+        "companyName",
+        "address",
+        "logo",
+        "Phone",
+        "user_id"
+    ];
 
-    // function users(){
-    //     return $this->belongsTo(User::class);
-    // }
-    public function jobDetail():HasMany{
-        return $this->hasMany(JobDetail::class);
-       }
-      public function userrel(){
-            return $this->belongsTo(User::class, 'user_id');
-       }
-    public function user(){
-        return $this->morphOne(User::class,'userable');
+    public function userEmployer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+    public function jobDetail(): HasMany
+    {
+        return $this->hasMany(JobDetail::class);
+    }
+
 }

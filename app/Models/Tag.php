@@ -2,29 +2,28 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-use App\Models\Article;
+use Spatie\Sluggable\HasSlug;
 
 class Tag extends Model
 {
-    use HasFactory,HasSlug;
+    use HasFactory, HasSlug;
 
-    protected $fillable=[
+    protected $fillable = [
         'tagName',
-        'slug',
     ];
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('tagName')
             ->saveSlugsTo('slug');
     }
 
-    public function articleTag()    // i used articles word in morph relation
+    public function articleTag(): BelongsToMany
     {
         return $this->belongsToMany(Article::class);
     }

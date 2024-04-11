@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
@@ -8,7 +9,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ArticleCategory extends Model
 {
-    use HasFactory,HasSlug;
+    use HasFactory;
+    use HasSlug;
+
+    protected $table = "article_categories";
 
     protected $fillable = [
 
@@ -20,8 +24,8 @@ class ArticleCategory extends Model
 
     ];
 
-   
-    public function getSlugOptions() : SlugOptions
+
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('articleCategoryName')
@@ -29,20 +33,20 @@ class ArticleCategory extends Model
     }
 
 
-    public function article(){
+    public function article()
+    {
         return $this->hasMany(Article::class);
     }
 
-    public function sourceArticle(){
+    public function sourceArticle()
+    {
         return $this->hasMany(SourceArticle::class);
     }
 
-    public function youtubeLink(){
+    public function youtubeLink()
+    {
         return $this->hasMany(YoutubeLink::class);
     }
-
-
-
 
 
 }

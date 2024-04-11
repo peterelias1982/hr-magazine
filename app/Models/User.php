@@ -2,17 +2,21 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
-// use Illuminate\Database\Eloquent\Model;
+
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable,HasSlug;
+    use HasFactory;
+    use Notifiable;
+    use HasSlug;
 
     /**
      * The attributes that are mass assignable.
@@ -21,16 +25,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         
-        'firstName', 'secondName',
+        'name',
         'email',
         'password',
         "position",
-        "slug",
         "mobile",
-        "userable_type",
-        "userable_id",
         "active",
-        
     ];
 
     /**
@@ -56,34 +56,52 @@ class User extends Authenticatable
         ];
     }
 
-    public function getSlugOptions() : SlugOptions
+    public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom(['firstName', 'secondName'])
             ->saveSlugsTo('slug');
     }
+
     public function getRouteKeyName()
-     {
-         return 'slug';
+    {
+        return 'slug';
     }
 
-    public function articleComment(){
+    public function articleComment(): HasMany
+    {
         return $this->hasMany(articleComment::class);
     }
 
-    public function article(){
+    public function articleUser(): HasMany
+    {
         return $this->hasMany(Article::class);
     }
 
-    public function userable(){
-        return $this->morphTo();
+    public function authorUser(): HasOne
+    {
+        return $this->hasOne(Author::class, 'user_id', 'id');
     }
 
-    public function socialMedia()
+    public function socialMedia(): BelongsToMany
     {
         return $this->belongsToMany(SocialMedia::class)->withPivot('value');
     }
-public function employer(){
-    return $this->hasOne(Employer::class);
-}
+
+    public function adminUser(): HasOne
+    {
+        return $this->hasOne(Admin::class, 'user_id', 'id');
+    }
+
+    public function jobSeekerUser(): HasOne
+    {
+        return $this->hasOne(JobSeeker::class, 'user_id', 'id');
+    }
+
+    public function employerUser(): HasOne
+    {
+        return $this->hasOne(Employer::class, 'user_id', 'id');
+
+    }
+
 }

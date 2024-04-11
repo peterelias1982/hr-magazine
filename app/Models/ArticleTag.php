@@ -11,10 +11,12 @@ class ArticleTag extends Model
     use HasFactory;
     use HasCompositeKey;
 
-    protected $primaryKey = ['article_id', 'tag_id'];
+    protected $primaryKey = [
+        'article_id',
+        'tag_id'
+    ];
 
     protected $fillable = [
-        
         'article_id',
         'tag_id'
     ];

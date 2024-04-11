@@ -6,26 +6,26 @@
     <div class="col-lg-auto">
       <!-- Search Bar start -->
       <div class="search-bar">
-        <form action="">
+        <form action="{{URL::CURRENT()}}" method="GET">
           <div class="row g-1 justify-content-lg-end justify-content-start">
             <div class="col-4 col-lg-3 form-floating">
-              <input type="text" class="form-control" id="name">
+              <input type="text" class="form-control" id="name" name="name">
               <label for="name">Name</label>
             </div>
             <div class="col-4 col-lg-3 form-floating">
-              <input type="email" class="form-control" id="email">
+              <input type="email" class="form-control" id="email" name="email">
               <label for="email">Email</label>
             </div>
             <div class="col-4 col-lg-2 d-flex flex-column justify-content-center">
               <div class="row">
                 <label for="active" class="form-check-label">
-                  <input type="checkbox" id="active" class="form-check-input" name="status" value="active">
+                  <input type="checkbox" id="active" class="form-check-input" value="active" name="active" >
                   Active
                 </label>
               </div>
               <div class="row">
                 <label for="blocked" class="form-check-label">
-                  <input type="checkbox" id="blocked" class="form-check-input" name="status" value="blocked">
+                  <input type="checkbox" id="blocked" class="form-check-input" value="blocked" name="blocked">
                   Blocked
                 </label>
               </div>
@@ -49,7 +49,7 @@
             <table id="example" class="table table-striped" style="width: 100%">
               <thead>
                 <tr>
-                  <th>Name</th>
+                  <th>FirstName</th>
                   <th>Email</th>
                   <th>Mobile No.</th>
                   <th>Position</th>
@@ -57,146 +57,32 @@
                 </tr>
               </thead>
               <tbody>
+                @foreach ($employer as $employ)
                 <tr>
                   <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
+                    <a href="user_info.html" class="link-primary text-decoration-none">{{$employ->firstName}}</a>
                   </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>✔️</td>
+                  <td>{{$employ->email}}</td>
+                  <td>{{$employ->mobile}}</td>
+                  <td>{{$employ->position}}</td>
+                  <td>@if ($employ->active)
+                    ✔️
+                    @else
+                    ❌
+                  @endif
+                </td>
                 </tr>
-                <tr>
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>❌</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>❌</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>❌</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>❌</td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>❌</td>
-                </tr>
-                <tr class="hidden">
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>❌</td>
-                </tr>
-                <tr class="hidden">
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>✔️</td>
-                </tr>
-                <tr class="hidden">
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>✔️</td>
-                </tr>
-                <tr class="hidden">
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>❌</td>
-                </tr>
-                <tr class="hidden">
-                  <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">Herman Beck</a>
-                  </td>
-                  <td>mail@email.com</td>
-                  <td>+9999999999</td>
-                  <td>HR</td>
-                  <td>❌</td>
-                </tr>
+
+                @endforeach
+
+
+
               </tbody>
             </table>
         </div>
       </div>
     </div>
   </div>
+</div>
 </div>
 @endsection

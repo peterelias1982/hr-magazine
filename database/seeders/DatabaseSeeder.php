@@ -2,10 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\JobSeeker;
 use App\Models\ArticleCategory;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Employer;
 use Illuminate\Database\Seeder;
+use Database\Factories\EmployerFactory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,7 +22,6 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        //ArticleCategory::factory(5)->create();
-        //User::factory(3)->create();
+        ArticleCategory::factory(5)->create();
     }
 }

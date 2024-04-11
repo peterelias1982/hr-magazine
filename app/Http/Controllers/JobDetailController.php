@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobDetail;
-use Illuminate\Http\Request;
-use App\Http\Requests\StoreJobsRequest;
-use App\Http\Requests\UpdateJobsRequest;
-use App\Models\Employer;
 use App\Models\JobCategory;
+use App\Models\JobDetail;
+use Illuminate\Support\Facades\Session;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
+use Throwable;
 
 class JobDetailController extends Controller
 {
@@ -24,33 +23,52 @@ class JobDetailController extends Controller
       return view('Admin.jobs.alljobs',compact('jobs'));
     
       //return dd( $emps);
-        //return $jobs->toJson() ;
+        return $jobs->toJson() ;
     }
-
-   
 
     /*
      * Display the specified resource.
      */
-    public function show(JobDetail $jobDetail, string $slug)
+    public function show(string $slug)
     {
-        $jobdetail=JobDetail::where('slug', $slug)
-        ->with(['jobCategory','Employer','jobSeeker'])->first();
-    
-        //return dd($jobdetail);
-        //return $jobdetail->toJson();
-        return view('Admin.jobs.jobDetails', compact('jobdetail'));
+        try {
+            $jobdetail = JobDetail::where('slug', $slug)
+                ->with(['jobCategory', 'Employer', 'jobSeeker'])->first();
+
+            if (!$jobdetail) {
+                throw new ResourceNotFoundException('Job is not found');
+            }
+
+            return view('Admin.jobs.jobDetails', compact('jobdetail'));
+
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('admin.jobs.index')
+                ->with(['messages' => ['error' => ['Error not found job: ' . $exception->getMessage()]]]);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(JobDetail $jobDetail, Request $request)
+    public function destroy(string $slug)
     {
-        $slug=$request->slug;
-        
-        JobDetail::where('slug',$slug)->delete();
-        return redirect('/admin/jobs/jobs/')->with('deleted', 'the job is deleted!');
-        
+        try {
+            JobDetail::where('slug', $slug)->delete();
+            return redirect()
+                ->route('admin.jobs.index')
+                ->with(['messages' => ['success' => ['the job is deleted successfully!']]]);
+
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('admin.jobs.index')
+                ->with(['messages' => ['error' => ['Error not deleting job: ' . $exception->getMessage()]]]);
+        }
+    }
+
+    private function getMessages(): string
+    {
+        // check for messages if any
+        return json_encode(Session::get('messages'));
     }
 }
