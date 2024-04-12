@@ -38,12 +38,12 @@ class ArticleTagController extends Controller
                 'tagName' => $request['tagName'],
             ]);
             return redirect()
-                ->route('tags.index')
+                ->route('admin.tags.index')
                 ->with(['messages' => ['success' => ['Tag created Successfully']]]);
 
         } catch (Throwable $exception) {
             return redirect()
-                ->route('tags.index')
+                ->route('admin.tags.index')
                 ->with(['messages' => ['error' => ['Error adding tag: ' . $exception->getMessage()]]]);
         }
     }
@@ -56,11 +56,11 @@ class ArticleTagController extends Controller
             ]);
 
             return redirect()
-                ->route('tags.index')
+                ->route('admin.tags.index')
                 ->with(['messages' => ['success' => ['Tag updated Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('tags.index')
+                ->route('admin.tags.index')
                 ->with(['messages' => ['error' => ['Error updating tag: ' . $exception->getMessage()]]]);
         }
 
@@ -72,11 +72,11 @@ class ArticleTagController extends Controller
             Tag::where('slug', $slug)->delete();
 
             return redirect()
-                ->route('tags.index')
+                ->route('admin.tags.index')
                 ->with(['messages' => ['success' => ['Tag deleted Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('tags.index')
+                ->route('admin.tags.index')
                 ->with(['messages' => ['error' => ['Error deleting tag: ' . $exception->getMessage()]]]);
         }
 

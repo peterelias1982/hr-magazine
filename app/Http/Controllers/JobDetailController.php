@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\JobCategory;
 use App\Models\JobDetail;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Throwable;
@@ -49,7 +48,7 @@ class JobDetailController extends Controller
 
         } catch (Throwable $exception) {
             return redirect()
-                ->route('jobs.index')
+                ->route('admin.jobs.index')
                 ->with(['messages' => ['error' => ['Error not found job: ' . $exception->getMessage()]]]);
         }
     }
@@ -62,12 +61,12 @@ class JobDetailController extends Controller
         try {
             JobDetail::where('slug', $slug)->delete();
             return redirect()
-                ->route('jobs.index')
+                ->route('admin.jobs.index')
                 ->with(['messages' => ['success' => ['the job is deleted successfully!']]]);
 
         } catch (Throwable $exception) {
             return redirect()
-                ->route('jobs.index')
+                ->route('admin.jobs.index')
                 ->with(['messages' => ['error' => ['Error not deleting job: ' . $exception->getMessage()]]]);
         }
     }

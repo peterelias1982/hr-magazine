@@ -43,7 +43,7 @@
                                     <tr>
                                         <td>
                                             <form id="ArticleCategory{{$Category->id}}"
-                                                  action="{{route('articleCategories.update',[$Category->slug])}}"
+                                                  action="{{route('admin.articleCategories.update',[$Category->slug])}}"
                                                   method="POST">
                                                 @csrf
                                                 @method("PUT")
@@ -98,7 +98,7 @@
                                             </div>
                                         </td>
                                         <td class="py-2">
-                                            <form action="{{route('articleCategories.destroy',[$Category->slug])}}"
+                                            <form action="{{route('admin.articleCategories.destroy',[$Category->slug])}}"
                                                   method="POST">
                                                 @csrf
                                                 @method("delete")

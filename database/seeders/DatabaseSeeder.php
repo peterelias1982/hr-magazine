@@ -3,14 +3,16 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\JobSeeker;
 use App\Models\ArticleCategory;
 use App\Models\Article;
 use App\Models\ArticleTag;
 use App\Models\Author;
 use App\Models\Tag;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Employer;
 use Illuminate\Database\Seeder;
+use Database\Factories\EmployerFactory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,5 +34,9 @@ class DatabaseSeeder extends Seeder
         // Admin::factory(10)->create();
         // Tag::factory(10)->create();
         ArticleTag::factory(10)->create();
+        User::factory(10)->create();
+        Employer::factory(5)->create();
+        JobSeeker::factory(10)->create();
+        ArticleCategory::factory(5)->create();
     }
 }

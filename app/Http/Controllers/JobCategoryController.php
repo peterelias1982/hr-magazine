@@ -36,11 +36,11 @@ class JobCategoryController extends Controller
             ]);
 
             return redirect()
-                ->route('jobCategories.index')
+                ->route('admin.jobCategories.index')
                 ->with(['messages' => ['success' => ['Category created Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('jobCategories.index')
+                ->route('admin.jobCategories.index')
                 ->with(['messages' => ['error' => ['Error creating category: ' . $exception->getMessage()]]]);
         }
     }
@@ -54,11 +54,11 @@ class JobCategoryController extends Controller
             ]);
 
             return redirect()
-                ->route('jobCategories.index')
+                ->route('admin.jobCategories.index')
                 ->with(['messages' => ['success' => ['Category updated Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('jobCategories.index')
+                ->route('admin.jobCategories.index')
                 ->with(['messages' => ['error' => ['Error updating category: ' . $exception->getMessage()]]]);
         }
     }
@@ -69,11 +69,11 @@ class JobCategoryController extends Controller
             JobCategory::where('slug', $slug)->delete();
 
             return redirect()
-                ->route('jobCategories.index')
+                ->route('admin.jobCategories.index')
                 ->with(['messages' => ['success' => ['Category deleted Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('jobCategories.index')
+                ->route('admin.jobCategories.index')
                 ->with(['messages' => ['error' => ['Error deleting category: ' . $exception->getMessage()]]]);
         }
     }

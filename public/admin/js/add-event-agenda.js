@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const fromDate = new Date(fromDateInput.value);
             const toDate = new Date(toDateInput.value);
             const eventAgenda = document.getElementById("event-agenda");
+
             // Validate the dates
             if (toDate < fromDate) {
                 alert("The 'To' date cannot be before the 'From' date.");
@@ -66,17 +67,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                   </div>`;
 
-            if (agendaValues[`${dayNumber}`]) {
+            if (typeof agendaValues !== 'undefined' && agendaValues[`${dayNumber}`]) {
                 agendaValues[`${dayNumber}`]['data'].forEach((item) => {
                     dayBoxHtml += `
         <tr class="day_${dayNumber}">
         <td><input type="text" class="form-control" name="topic[${dayNumber}][]" placeholder="Topic" value="${item[0]}"></td>
-        <td><input type="time" class="form-control" name="from_time[${dayNumber}][]" value="${item[1]}"></td>
-        <td><input type="time" class="form-control" name="to_time[${dayNumber}][]" value="${item[2]}"></td>
+        <td><input type="time" class="form-control" name="fromTime[${dayNumber}][]" value="${item[1]}"></td>
+        <td><input type="time" class="form-control" name="toTime[${dayNumber}][]" value="${item[2]}"></td>
         <td><input type="text" class="form-control" name="speaker[${dayNumber}][]" placeholder="Speaker" value="${item[3]}"></td>
         <td>
-            <button type="button" class="btn btn-danger btn-sm remove-row" onclick="removeRow(this)">-</button>
-            <button type="button" class="btn btn-info btn-sm" onclick="addRowToDay(${dayNumber}, this)">+</button>
+            <button type="button" class="btn btn-danger btn-sm remove-row" onclick="removeRow(this)" >-</button>
+            <button type="button" class="btn btn-info btn-sm add-row" onclick="addRowToDay(${dayNumber}, this)" >+</button>
         </td>
         </tr>`;
                 })
@@ -84,12 +85,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 dayBoxHtml += `
       <tr class="day_${dayNumber}">
       <td><input type="text" class="form-control" name="topic[${dayNumber}][]" placeholder="Topic"></td>
-      <td><input type="time" class="form-control" name="from_time[${dayNumber}][]"></td>
-      <td><input type="time" class="form-control" name="to_time[${dayNumber}][]"></td>
+      <td><input type="time" class="form-control" name="fromTime[${dayNumber}][]"></td>
+      <td><input type="time" class="form-control" name="toTime[${dayNumber}][]"></td>
       <td><input type="text" class="form-control" name="speaker[${dayNumber}][]" placeholder="Speaker"></td>
       <td>
-          <button type="button" class="btn btn-danger btn-sm remove-row" onclick="removeRow(this)">-</button>
-          <button type="button" class="btn btn-info btn-sm" onclick="addRowToDay(${dayNumber}, this)">+</button>
+          <button type="button" class="btn btn-danger btn-sm remove-row" onclick="removeRow(this)" >-</button>
+          <button type="button" class="btn btn-info btn-sm add-row" onclick="addRowToDay(${dayNumber}, this)">+</button>
       </td>
       </tr>`;
             }
@@ -112,13 +113,13 @@ document.addEventListener("DOMContentLoaded", function () {
             const tableBody = dayBox.querySelector("tbody");
             const newRowHTML = `
             <tr class="day_${dayNumber}">
-                <td><input type="text" class="form-control" name="topic_day[${dayNumber}][]" placeholder="Topic"></td>
-                <td><input type="time" class="form-control" name="from_time_day[${dayNumber}][]"></td>
-                <td><input type="time" class="form-control" name="to_time_day[${dayNumber}][]"></td>
-                <td><input type="text" class="form-control" name="speaker_day[${dayNumber}][]" placeholder="Speaker"></td>
+                <td><input type="text" class="form-control" name="topic[${dayNumber}][]" placeholder="Topic"></td>
+                <td><input type="time" class="form-control" name="fromTime[${dayNumber}][]"></td>
+                <td><input type="time" class="form-control" name="toTime[${dayNumber}][]"></td>
+                <td><input type="text" class="form-control" name="speaker[${dayNumber}][]" placeholder="Speaker"></td>
                 <td>
                     <button type="button" class="btn btn-danger btn-sm remove-row" onclick="removeRow(this)">-</button>
-                    <button type="button" class="btn btn-info btn-sm" onclick="addRowToDay(${dayNumber}, this)">+</button>
+                    <button type="button" class="btn btn-info btn-sm add-row" onclick="addRowToDay(${dayNumber}, this)">+</button>
                 </td>
             </tr>
         `;

@@ -7,7 +7,7 @@
                     <div class="card-body">
                         <h4 class="card-title">Job Category</h4>
                         <p class="card-description">Add a new job category</p>
-                        <form class="forms-sample" action="{{route('jobCategories.store')}}" method="POST">
+                        <form class="forms-sample" action="{{route('admin.jobCategories.store')}}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <label for="exampleInputUsername1">Name</label>

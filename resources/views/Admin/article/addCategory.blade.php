@@ -7,7 +7,7 @@
           <div class="card-body">
             <h4 class="card-title">Article Category</h4>
             <p class="card-description">Add a new article category</p>
-            <form class="forms-sample" action="{{route('articleCategories.store')}}" method="POST">
+            <form class="forms-sample" action="{{route('admin.articleCategories.store')}}" method="POST">
               @csrf
               <div class="form-group">
                 <label for="exampleInputUsername1">Name</label>
