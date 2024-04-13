@@ -7,9 +7,15 @@
   >
     <h2 class="fw-bold col-lg-auto">User Details</h2>
     <div class="btn-wrapper">
-      <a href="#" class="btn btn-sm" style="color: #ed2708"
-        ><i class="icon-trash"></i> Delete User</a
+     <form action="{{route('admin.employers.destroy',[$employer->slug])}}" method="POST" id="DeleteEmploy" 
       >
+      
+        @csrf
+        @method("delete")
+      </form>
+      <button type="submit" class="btn btn-sm" style="color: #ed2708" form="DeleteEmploy" 
+      onclick="alert('Are you sure you want to delete?')" ><i class="icon-trash"></i> Delete User</button>
+     
       <a href="#" class="btn btn-sm btn-primary text-white me-0"
         ><i class="icon-key"></i> Reset Password
       </a>
@@ -54,15 +60,16 @@
                         type="text"
                         name="user_name"
                         id=""
-                        value="John Doe"
+                        value="{{$employer->firstName}}"
                         form="edit-user"
                         disabled
                       />
                     </h3>
                     <p class="card-subtitle card-subtitle-dash">
-                      joined 3 months ago.
+                      joined {{
+                       $employer->created_at }} .
                     </p>
-                    <div class="row justify-content-start g-2">
+                    {{-- <div class="row justify-content-start g-2">
                       <a href="#" class="col-auto">
                         <i class="mdi mdi-linkedin text-dark"></i>
                       </a>
@@ -75,10 +82,10 @@
                       <a href="#" class="col-auto">
                         <i class="mdi mdi-twitter text-dark"></i>
                       </a>
-                    </div>
+                    </div> --}}
                   </div>
                 </div>
-                <div
+                {{-- <div
                   class="row justify-content-between align-items-start"
                 >
                   <div class="col-auto">
@@ -103,7 +110,7 @@
                     ></i>
                     </div>
                   </div>
-                </div>
+                </div> --}}
               </div>
             </div>
           </div>
@@ -127,7 +134,7 @@
                   </div>
                 </div>
                 <div class="row py-1">
-                  <p class="card-text fw-bold lh-1">Description</p>
+                  {{-- <p class="card-text fw-bold lh-1">Description</p> --}}
                   <p class="card-text lh-1">
                   <input
                     name="short_description"
@@ -144,7 +151,7 @@
                     name="position"
                     id=""
                     class="w-100 border-0 text-black bg-transparent"
-                    value="Super admin"
+                    value="{{$employer->position}}"
                     disabled
                   ></p>
                 </div>
@@ -155,7 +162,7 @@
                     type="email"
                     id=""
                     class="w-100 border-0 text-black bg-transparent"
-                    value="email@example.com"
+                    value="{{$employer->email}}"
                     disabled
                   ></p>
                 </div>
@@ -165,7 +172,7 @@
                     name="phone"
                     id=""
                     class="w-100 border-0 text-black bg-transparent"
-                    value="+201165534342"
+                    value="{{$employer->mobile}}"
                     disabled
                   ></p>
                 </div>
@@ -183,13 +190,13 @@
                           id="active"
                           class="form-check-input"
                           name="active"
-                          checked
+                          @checked($employer->active)
                           disabled
                         />
                         Active
                       </label>
                     </div>
-                    <div
+                    {{-- <div
                       class="col-auto form-check form-check-flat form-check-primary"
                     >
                       <label
@@ -222,7 +229,7 @@
                         />
                         Bio
                       </label>
-                    </div>
+                    </div> --}}
                   </div>
                 </div>
               </div>
@@ -251,7 +258,7 @@
                         disabled
                       />
                   <img
-                    src="{{asset('admin/images/hr-logo.svg')}}"
+                    src="{{asset('assets/images/employer/'.$employer->logo)}}"
                     alt=""
                     id="company_pic"
                     class="card-img rounded-circle bg-light"
@@ -276,7 +283,7 @@
                         type="text"
                         id=""
                         class="w-100 border-0 text-black bg-transparent"
-                        value="lorem ipsum"
+                        value="{{$employer->companyName}}"
                         disabled
                       ></p>
                     </div>
@@ -288,7 +295,7 @@
                         type="text"
                         id=""
                         class="w-100 border-0 text-black bg-transparent"
-                        value="Lorem ipsum, Lorem ipsum, Lorem ipsum."
+                        value="{{$employer->address}}"
                         disabled
                       >
                       </p>
@@ -300,7 +307,7 @@
                         type="text"
                         id=""
                         class="w-100 border-0 text-black bg-transparent"
-                        value="+201123653"
+                        value="{{$employer->phone}}"
                         disabled
                       ></p>
                     </div>
@@ -313,13 +320,13 @@
         <!-- Company card end  -->
         <div class="col-lg-5 grid-margin stretch-card" id="padding_pic">
           <img
-            src="{{asset('admin/images/hr-logo.svg')}}"
+            src="{{asset('assets/images/employer/'.$employer->logo)}}"
             alt=""
             class="img-fluid rounded opacity-25"
           />
         </div>
         <!-- Social media card -->
-        <div class="col-lg-5 grid-margin stretch-card d-none" id="social_media">
+        {{-- <div class="col-lg-5 grid-margin stretch-card d-none" id="social_media">
           <div class="card">
             <div class="card-body">
               <div class="card-subtitle">Social media Links</div>
@@ -378,7 +385,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> --}}
         <!-- Social media card end -->
       </div>
     </div>

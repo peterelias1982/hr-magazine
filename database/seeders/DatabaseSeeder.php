@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\JobSeeker;
-use App\Models\ArticleCategory;
 use App\Models\User;
 use App\Models\Employer;
+use App\Models\JobSeeker;
+use App\Models\ArticleCategory;
 use Illuminate\Database\Seeder;
 use Database\Factories\EmployerFactory;
 

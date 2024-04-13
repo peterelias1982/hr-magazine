@@ -60,7 +60,7 @@
                 @foreach ($employer as $employ)
                 <tr>
                   <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">{{$employ->firstName}}</a>
+                    <a href="{{route('admin.employers.show',[$employ->slug])}}" class="link-primary text-decoration-none">{{$employ->firstName}}</a>
                   </td>
                   <td>{{$employ->email}}</td>
                   <td>{{$employ->mobile}}</td>
