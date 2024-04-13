@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Models\Admin;
+use App\Models\JobCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Throwable;
 
 class AdminController extends Controller
 {
@@ -43,7 +45,7 @@ class AdminController extends Controller
         // Admin::create(['user_id'=>$user->id]);}
         // dd($user->id);
         return redirect()->route('admins.index');
-        
+
 
     }
 
@@ -52,30 +54,43 @@ class AdminController extends Controller
      */
     public function show(Admin $admin)
     {
-        //
+        return view('admin.user.admin.userInfo');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Admin $admin)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Admin $admin)
+
+    public function update(Request $request, Admin $admin, $slug)
     {
-        //
+        try {
+            $admin = Admin::where("slug", $slug)->first();
+            $validatedData = $request->validated();
+
+            return redirect()
+                ->route('admin.admins.show')
+                ->with(['messages' => ['success' => ['Admin updated Successfully']]]);
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('admin.admins.show')
+                ->with(['messages' => ['error' => ['Error updating category: ' . $exception->getMessage()]]]);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Admin $admin)
+    public function destroy(Admin $admin, $slug)
     {
-        //
+        try {
+            Admin::where('slug', $slug)->delete();
+
+            return redirect()
+                ->route('admin.admins.index')
+                ->with(['messages' => ['success' => ['Admin deleted Successfully']]]);
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('admin.admins.index')
+                ->with(['messages' => ['error' => ['Error deleting The Admin: ' . $exception->getMessage()]]]);
+        }
     }
 }

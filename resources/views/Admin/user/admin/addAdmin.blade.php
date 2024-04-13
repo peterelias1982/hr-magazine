@@ -9,7 +9,7 @@
             <p class="card-description">
               Add a new admin user to the dashboard
             </p>
-            <form action="{{ route('admins.store') }}" method="POST" class="forms-sample" id="admin-create">
+            <form action="{{ route('admin.admins.store') }}" method="POST" class="forms-sample" id="admin-create">
               @csrf
               <div class="form-group">
                 <label for="email">Email</label>
@@ -40,9 +40,9 @@
                   name="password_confirmation"
                   placeholder="Password"
                 />
-              
+
               </div>
-              
+
             </form>
           </div>
         </div>
@@ -84,7 +84,7 @@
 
               <option value="male">Male</option>
               <option value="female">Female</option>
-              
+
             </select>
           </div>
             <div class="form-group">

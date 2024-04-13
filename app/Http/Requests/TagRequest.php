@@ -22,6 +22,7 @@ class TagRequest extends FormRequest
     public function rules(): array
     {
         return [
+
             'tagName' => 'required|string|max:255|unique:tags,tagName,'.$this->slug.',slug',
         ];
     }
