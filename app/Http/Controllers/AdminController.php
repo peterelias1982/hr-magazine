@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdminRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Admin;
 use App\Models\JobCategory;
@@ -63,12 +64,10 @@ class AdminController extends Controller
     }
 
 
-    public function update(Request $request, Admin $admin, $slug)
+    public function update(AdminRequest $request, $slug)
     {
         try {
             $admin = Admin::where("slug", $slug)->first();
-            $validatedData = $request->validated();
-
             return redirect()
                 ->route('admin.admins.show')
                 ->with(['messages' => ['success' => ['Admin updated Successfully']]]);
