@@ -15,10 +15,52 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
-    {
+    // public function index(Request $request)
+    // {
 
    
+    // $slug = $request->get('slug');
+    // $email = $request->get('email');
+    // $active = $request->has('status') && $request->get('status') === 'active';
+    // $blocked = $request->has('status') && $request->get('status') === 'blocked';
+
+    // $query = Admin::query()
+    //     ->with('userAdmin')
+    //     ->leftJoin('users', 'users.id', '=', 'admins.user_id');
+
+    // if ($slug) {
+    //     $query->where('users.slug', $slug);
+    // }
+
+    // if ($email) {
+    //     $query->where('users.email', $email);
+    // }
+
+    // if ($active) {
+    //     $query->where('users.active', 1);
+    // }
+
+    // if ($blocked) {
+    //     $query->where('users.active', 0);
+    // }
+
+    // // $query->where('users.position', 'admin'); // Filter for admin position
+    // $admins = $query->select('admins.*')->paginate(25)->appends(['slug' => $slug, 'email' => $email]);
+
+        
+    //     return view('Admin.user.admin.allAdmin', compact('admins'));
+    // }
+
+    public function index(Request $request)
+{
+  $admins = $this->searchWith($request);
+
+  return view('Admin.user.admin.allAdmin', compact('admins'));
+}
+
+
+private function searchWith(Request $request)
+{
     $slug = $request->get('slug');
     $email = $request->get('email');
     $active = $request->has('status') && $request->get('status') === 'active';
@@ -44,12 +86,8 @@ class AdminController extends Controller
         $query->where('users.active', 0);
     }
 
-    $query->where('users.position', 'admin'); // Filter for admin position
-    $admins = $query->select('admins.*')->paginate(25)->appends(['slug' => $slug, 'email' => $email]);
-
-        
-        return view('Admin.user.admin.allAdmin', compact('admins'));
-    }
+    return $query->select('admins.*')->paginate(25)->appends(['slug' => $slug, 'email' => $email]);
+}
         
 
         

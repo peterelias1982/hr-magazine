@@ -12,7 +12,7 @@ error_reporting(E_ALL);
       <div class="col-lg-auto">
         <!-- Search Bar start -->
         <div class="search-bar">
-          <form action="{{ route('admins.index') }}" method="GET">
+          <form action="{{ route('admin.admins.index') }}" method="GET">
             <div
               class="row g-1 justify-content-lg-end justify-content-start"
             >
@@ -87,7 +87,7 @@ error_reporting(E_ALL);
                   <tr>
                     <td>
                       <a
-                      href="{{route('admins.show', $admin->userAdmin->slug)}}" 
+                      href="{{route('admin.admins.show', $admin->userAdmin->slug)}}" 
                         class="link-primary text-decoration-none"
                         >
                         {{$admin->userAdmin->slug}}
