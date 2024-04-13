@@ -66,25 +66,25 @@ private function searchWith(Request $request)
     $active = $request->has('status') && $request->get('status') === 'active';
     $blocked = $request->has('status') && $request->get('status') === 'blocked';
 
-    $query = Admin::query()
-        ->with('userAdmin')
-        ->leftJoin('users', 'users.id', '=', 'admins.user_id');
+        $query = Admin::query()
+            ->with('userAdmin')
+            ->leftJoin('users', 'users.id', '=', 'admins.user_id');
 
     if ($slug) {
         $query->where('users.slug', $slug);
     }
 
-    if ($email) {
-        $query->where('users.email', $email);
-    }
+        if ($email) {
+            $query->where('users.email', $email);
+        }
 
-    if ($active) {
-        $query->where('users.active', 1);
-    }
+        if ($active) {
+            $query->where('users.active', 1);
+        }
 
-    if ($blocked) {
-        $query->where('users.active', 0);
-    }
+        if ($blocked) {
+            $query->where('users.active', 0);
+        }
 
     return $query->select('admins.*')->paginate(25)->appends(['slug' => $slug, 'email' => $email]);
 }
@@ -117,12 +117,9 @@ private function searchWith(Request $request)
             // dd($user->position);
             $admin= new Admin();
             $admin->user_id = $user->id;
-            $admin->save();}
-        // Admin::create(['user_id'=>$user->id]);}
-        // dd($user->id);
-        return redirect()->route('admins.index');
-        
-
+            $admin->save();
+        }
+        return redirect()->route('admin.admins.index');
     }
 
     /**
@@ -170,7 +167,7 @@ private function searchWith(Request $request)
     //     }
 
 
-       
+
     }
 
    

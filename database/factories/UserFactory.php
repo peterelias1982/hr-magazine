@@ -24,7 +24,6 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-
             'firstName' => fake()->firstName(),
             'secondName' => fake()->lastName(),
             'email' => fake()->unique()->safeEmail(),
@@ -36,6 +35,7 @@ class UserFactory extends Factory
             'gender' => fake()->randomElement(['male', 'female']),
             'mobile' => fake()->phoneNumber(),
             'active' => fake()->numberBetween(0, 1),
+
         ];
     }
 

@@ -1,8 +1,3 @@
-<?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-?>
 @extends("Admin.layouts.master")
 @section('Content')
 
@@ -12,6 +7,7 @@ error_reporting(E_ALL);
       <div class="col-lg-auto">
         <!-- Search Bar start -->
         <div class="search-bar">
+          <form action="{{ route('admin.admins.index') }}" method="GET">
           <form action="{{ route('admin.admins.index') }}" method="GET">
             <div
               class="row g-1 justify-content-lg-end justify-content-start"
@@ -82,8 +78,8 @@ error_reporting(E_ALL);
                 </thead>
                 <tbody>
                    @foreach ($admins as $admin)
-                     
-                  
+
+
                   <tr>
                     <td>
                       <a
