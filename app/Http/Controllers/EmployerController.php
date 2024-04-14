@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\EmployerRequest;
 use Illuminate\Support\Facades\Session;
 
 class EmployerController extends Controller
@@ -37,22 +38,6 @@ class EmployerController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show($slug)
@@ -63,19 +48,23 @@ class EmployerController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Employer $employer)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Employer $employer)
+    public function update(Request $request,  $slug)
     {
-        //
+        try {
+            $user = User::where('slug',$slug)->first();
+            $user->update([
+                'active' => isset($request->active),
+            ]);
+            return redirect()
+                ->route('admin.employers.index')
+                ->with(['messages' => ['success' => ['Employer Update Successfully']]]);
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('admin.employers.index')
+                ->with(['messages' => ['error' => ['Error Update employer: ' . $exception->getMessage()]]]);
+        }
     }
 
     /**
