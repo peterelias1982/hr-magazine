@@ -99,23 +99,8 @@ private function searchWith(Request $request)
      */
     public function create()
     {
-        // $dmins = User::select([
-        //     'users.id',
-        //     'users.name',
-        //     'users.slug',
-        //     'users.email',
-        //     'users.active', 
-        //     'users.position',
-            
-        //     DB::raw('(CASE WHEN users.active = 1 THEN "Active" ELSE "Blocked" END) as status'),
-        //     DB::raw('(CASE WHEN users.position = "admin" THEN "Admin" ELSE "Employer" END) as position'),
-        //     DB::raw('(CASE WHEN users.position = "employer" THEN "Admin" ELSE "Employer" END) as position'),
-        //     DB::raw('(CASE WHEN users.active = 1 THEN "Active" ELSE "Blocked" END) as status'),
-        // ]);
         $admins = Admin::all();
-
-        
-       
+  
         return view('Admin.user.admin.addAdmin',compact('admins'));
     }
 
@@ -169,19 +154,6 @@ private function searchWith(Request $request)
     {
         //
     }
-
-    // private function searchWith(array $requestData){
-
-    //     $query = DB::table('admins')
-    //     ->join('users', 'users.id', '=', 'admins.user_id')
-    //     ->select('admins.*', 'users.firstName', 'users.secondName', 'users.email', 'users.position' , 'users.active')
-    //     ->get()
-    //     ;
-
-    //     // if($requestData['']){
-
-    //     }
-
 
 
     }
