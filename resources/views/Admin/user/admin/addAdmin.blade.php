@@ -19,7 +19,11 @@
                   id="email"
                   name="email"
                   placeholder="Email"
-                />
+                  value={{old('email')}}
+                >
+                @error('email')
+                <small><code>{{ $message }}</code></small>
+                @enderror
               </div>
               <div class="form-group">
                 <label for="password">Password</label>
@@ -29,7 +33,11 @@
                   id="password"
                   name="password"
                   placeholder="Password"
-                />
+                  value={{old('password')}}
+                  >
+                  @error('password')
+                  <small><code>{{ $message }}</code></small>
+                  @enderror
               </div>
               <div class="form-group">
                 <label for="confirm-password">Confirm Password</label>
@@ -39,7 +47,11 @@
                   id="confirm-password"
                   name="password_confirmation"
                   placeholder="Password"
-                />
+                  value={{old('password_confirmation')}}
+                  >
+                  @error('password_confirmation')
+                  <small><code>{{ $message }}</code></small>
+                  @enderror
 
               </div>
 
@@ -57,10 +69,14 @@
                 type="text"
                 class="form-control"
                 id="name"
-                placeholder="Name"
+                placeholder="First Name"
                 form="admin-create"
                 name="firstName"
-              />
+                value={{old('firstName')}}
+                >
+                @error('firstName')
+                <small><code>{{ $message }}</code></small>
+                @enderror
             </div>
             <div class="form-group">
             <label for="name" class="form-label">Second Name</label>
@@ -68,20 +84,27 @@
               type="text"
               class="form-control"
               id="name"
-              placeholder="Name"
+              placeholder="Second Name"
               form="admin-create"
               name="secondName"
-            />
+              value={{old('secondName')}}
+              >
+              @error('secondName')
+              <small><code>{{ $message }}</code></small>
+              @enderror
           </div>
           <div class="form-group">
-            <label for="position" class="form-label">Gender </label>
+            <label for="gender" class="form-label">Gender </label>
             <select
               class="form-control"
               form="admin-create"
               id="gender"
               name="gender"
-            >
-
+              value={{old('gender')}}
+              >
+              @error('gender')
+              <small><code>{{ $message }}</code></small>
+              @enderror
               <option value="male">Male</option>
               <option value="female">Female</option>
 
@@ -96,7 +119,11 @@
                 name="mobile"
                 placeholder="Mobile No."
                 form="admin-create"
-              />
+                value={{old('mobile')}}
+                >
+                @error('mobile')
+                <small><code>{{ $message }}</code></small>
+                @enderror
             </div>
             <div class="form-group">
               <label for="position" class="form-label">Position </label>
@@ -105,12 +132,17 @@
                 form="admin-create"
                 id="position"
                 name="position"
-              >
-
+                value={{old('position')}}
+                >
+               
+                @error('position')
+                <small><code>{{ $message }}</code></small>
+                @enderror
                 <option value="user">User</option>
                 <option value="admin">admin</option>
-                <option value="superAdmin">super admin</option>
-              </select>
+                <option value="superAdmin">super admin</option> 
+              </select> 
+             
             </div>
             <button
               type="submit"

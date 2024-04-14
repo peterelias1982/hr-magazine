@@ -99,8 +99,24 @@ private function searchWith(Request $request)
      */
     public function create()
     {
+        // $dmins = User::select([
+        //     'users.id',
+        //     'users.name',
+        //     'users.slug',
+        //     'users.email',
+        //     'users.active', 
+        //     'users.position',
+            
+        //     DB::raw('(CASE WHEN users.active = 1 THEN "Active" ELSE "Blocked" END) as status'),
+        //     DB::raw('(CASE WHEN users.position = "admin" THEN "Admin" ELSE "Employer" END) as position'),
+        //     DB::raw('(CASE WHEN users.position = "employer" THEN "Admin" ELSE "Employer" END) as position'),
+        //     DB::raw('(CASE WHEN users.active = 1 THEN "Active" ELSE "Blocked" END) as status'),
+        // ]);
+        $admins = Admin::all();
+
+        
        
-        return view('Admin.user.admin.addAdmin');
+        return view('Admin.user.admin.addAdmin',compact('admins'));
     }
 
     /**
