@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\JobCategory;
 use App\Models\JobDetail;
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Throwable;
@@ -23,8 +25,9 @@ class JobDetailController extends Controller
       return view('Admin.jobs.alljobs',compact('jobs'));
     
       //return dd( $emps);
-        return $jobs->toJson() ;
+       // return $jobs->toJson() ;
     }
+    
 
     /*
      * Display the specified resource.

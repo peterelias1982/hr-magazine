@@ -22,9 +22,34 @@ class StoreAuthorRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'firstName' => 'required|string|max:255',
+            'secondName' => 'required|string|max:255',
+            'email'=>'nullable|email',
+            'mobile' => 'nullable|string',
+            'position' => 'required|string',
             'image'=>'required|image|mimes:jpeg,png,jpg',
-            'description'=>'required|string|max:1000',
-            'user_id' => 'required|exists:users,id', // Ensures user exists
+            'shortDescription'=>'required|string|max:1000',
+            'linkedin'=>'required|url',
+            'twitter' => 'required|url',
+            'instagram' =>'required|url' ,
+            'facebook'=>'required|url',
         ];
+
     }
+public function messages()
+{
+    return [
+        'required' => ':attribute is required',
+        'url'=>'enter link only',
+        
+        'email'=>'enter your correct email',
+
+        'image'=>'only jpg,png or jpeg can be uploaded',
+        'shortDescription.max' => 'The description must not exceed 1000 characters.',
+        'firstName.max' =>'the name must not exceed 255 characters.',
+        'secondName.max' =>'the name must not exceed 255 characters.',
+
+        // Add more custom messages for other fields as needed
+    ];
+}
 }

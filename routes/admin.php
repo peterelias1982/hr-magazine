@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleCategoryController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ArticleTagController;
+use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\EmployerController;
 use App\Http\Controllers\JobCategoryController;
 use App\Http\Controllers\JobDetailController;
@@ -85,4 +86,15 @@ Route::group(['prefix'=>'jobs', 'controller' => JobDetailController::class, 'as'
     Route::get('/{slug}','show')->name('show');
     Route::delete('/{slug}', 'destroy')->name('destroy');
 
+});
+Route::group(['prefix' => "author"], function () {
+    Route::group(['prefix' => 'author', "controller" => AuthorController::class, "as" => "authors."], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/search', 'search')->name('search');
+        Route::get('/create', 'create')->name('create');
+        Route::get('/{slug}','show')->name('show');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{slug}', 'update')->name('update');
+        Route::delete('/{slug}', 'destroy')->name('destroy');
+    });
 });

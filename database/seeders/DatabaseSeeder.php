@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         ArticleCategory::factory(5)->create();
+      // $this->call( [SocialMediaSeeder::class ,]);
     }
 }

@@ -2,42 +2,70 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Gender;
 use App\Http\Requests\StoreAuthorRequest;
 use App\Models\Author;
 use App\Models\SocialMedia;
 use App\Models\User;
 use App\Models\UserMedia;
 use Illuminate\Http\Request;
-use App\Trait\Authors;
+use App\Traits\Common;
+use Throwable;
 
 class AuthorController extends Controller
 {
-    use Authors;
+    use Common;
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $authors=Author::with(['user'=> function ($query) {$query->select('firstName','secondName','email','mobile','active', 'id');}]);
-        return view('Admin.user.auther.allAuthor',compact('author'));
+    {  
+        
+        $authors=Author::with('userAuthor')->get();
+
+       //return dd($request);
+        return view('Admin.user.auther.allAuthor',compact('authors'));
+    }
+
+    public function search(Request $request){
+        if($request){
+            // $search = $request->input('search');
+ 
+     $authors = Author::with('userAuthor')
+                     ->when($request, function ($query) use ($request) {
+                         $query->whereHas('userAuthor', function ($query) use ($request) {
+                             $query->where('firstName', 'like', '%' . $request->name . '%')
+                                   ->where('email', 'like', '%' . $request->email . '%')
+                                   ->where('active', 'like', '%' . $request->status . '%')
+                                   ;
+                         });
+                     })
+                     ->get();
+                     return view('Admin.user.auther.allAuthor',compact('authors'));
+         } 
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
+    
     {
-        return view('Admin.user.auther.addAuthor');
+        $Gender=Gender::getInstances();
+        return view('Admin.user.auther.addAuthor',compact('Gender'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreAuthorRequest $request)
     {
+      try{ 
         $user=User::create([
-            'firstName'=>$request->fname,
-            'secondName'=>$request->sname,
+            'firstName'=>$request->firstName,
+            'secondName'=>$request->secondName,
+            'email'=>$request->email,
+            'gender'=>$request->gender,
             'mobile'=>$request->mobile,
             'position'=>$request->position,
             'active'=>$request->has('active') ? 1 : 0,
@@ -45,7 +73,7 @@ class AuthorController extends Controller
         
 
        Author::create([
-            'image'=>$this->uploadImage($request->image,'public/admin/images/authors/'),
+            'image'=>$this->uploadFile($request->image,'admin/images/authors/'),
             'approved'=>1,
             'description'=>$request->shortDescription,
             'bio'=>$request->has('bio') ? 1 : 0,
@@ -69,9 +97,15 @@ class AuthorController extends Controller
                         'user_id'=>$user->id,
                         'social_id' => $socialMedia->id,
                         'value' => $link]);
-                    };
-                    };
+                    };};
                     }
+                    return redirect()
+                ->route('admin.authors.index')
+                ->with(['messages' => ['success' => ['Author created Successfully']]]);
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('admin.authors.index')
+                ->with(['messages' => ['error' => ['Error creating author: ' . $exception->getMessage()]]]);}
             
     }
 
@@ -106,8 +140,5 @@ class AuthorController extends Controller
     {
         //
     }
-    public function test(){
-        $mediaID=SocialMedia::get()->id;
-        return dd( $mediaID);
-    }
+   
 }

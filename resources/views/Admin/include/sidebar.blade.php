@@ -53,12 +53,12 @@
         <div class="collapse" id="auther-basic">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item">
-              <a class="nav-link" href="{{route('authors.create')}}"
+              <a class="nav-link" href="{{route('admin.authors.create')}}"
                 >Add Author</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="{{route('authors.index')}}"
+              <a class="nav-link" href="{{route('admin.authors.index')}}"
                 >Authors</a
               >
             </li>
@@ -197,7 +197,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href="pages/jobs/add_category_form.html"
+          href="{{route('admin.jobCategories.create')}}"
           aria-expanded="false"
           aria-controls="auth"
         >

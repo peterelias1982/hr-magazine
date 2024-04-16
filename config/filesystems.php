@@ -74,7 +74,7 @@ return [
     ],
     'authorImage'=>[
         'driver' => 'local',
-          'root' => base_path() . 'public/admin/images/authors/',
+          'root' => base_path() . 'admin/images/authors/',
           'url' => env('APP_URL').'/public',
           'visibility' => 'public',
           'throw' => false,
