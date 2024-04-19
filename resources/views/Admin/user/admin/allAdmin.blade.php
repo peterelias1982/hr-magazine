@@ -76,18 +76,18 @@
                 </thead>
                   @if ($admins->count() > 0)
                       <tbody>
-                      @foreach($admins as $admin)
+                      @foreach($admins as $user)
                           <tr>
                               <td>
-                                  @if ($admin->userAdmin)
-                                      <a href="{{ route('admin.userAdmin.show', $admin->userAdmin->slug) }}"
+{{--                                  @if ($user->userAdmin)--}}
+                                      <a href="{{ route('admin.admins.show', $user->userAdmin->slug) }}"
                                          class="link-primary text-decoration-none">
-                                          {{ $admin->userAdmin->firstName }}</a>
-                                  @endif
+                                          {{ $user->userAdmin->firstName }}</a>
+{{--                                  @endif--}}
                               </td>
-                              <td>{{$admin->userAdmin->email}}</td>
-                              <td>{{$admin->userAdmin->mobile}}</td>
-                              <td>{{$admin->userAdmin->position}}</td>
+                              <td>{{$user->userAdmin->email}}</td>
+                              <td>{{$user->userAdmin->mobile}}</td>
+                              <td>{{$user->userAdmin->position}}</td>
                               <td>{{ optional($admin->userAdmin)->active ? '✔️' : '❌' }}</td>
                           </tr>
                       @endforeach

@@ -42,27 +42,24 @@ class AdminController extends Controller
         // dd($user->id);
         return redirect()->route('admins.index');
     }
-    public function show(Admin $admin, $adminSlug)
+    public function show(Admin $admin, $slug)
     {
         try {
-            $admin = User::with('Admin')->where('slug', $adminSlug)->first();
-
             $admin = DB::table('admins')
-            ->join('users', 'users.id', '=', 'admins.user_id')
-            ->where('admins.slug', $adminSlug)
-            ->first();
-        if (!$admin) {
-            abort(404);
-        }
-        $admin->created_at = Carbon::parse($admin->created_at)->diffForHumans(['parts' => 1]);
-        return view('admin.user.admin.userInfo', compact('admin'));
+                ->join('users', 'users.id', '=', 'admins.user_id')
+                ->where('admins.slug', $slug)
+                ->first();
+
+            if (!$admin) {
+                abort(404);
+            }
+            $admin->created_at = Carbon::parse($admin->created_at)->diffForHumans(['parts' => 1]);
+            return view('admin.user.admin.userInfo', compact('admin'));
         } catch (\Throwable $exception) {
-            return redirect()
-                ->route('Admin.user.admin.allAdmin')
+            return view('admin.user.admin.allAdmin', compact('admin'))
                 ->with(['messages' => ['error' => ['Error user not found: ' . $exception->getMessage()]]]);
         }
     }
-
 
 
     public function update(AdminRequest $request, $slug)
