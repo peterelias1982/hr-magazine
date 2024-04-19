@@ -8,30 +8,25 @@ use App\Models\Admin;
 use App\Models\JobCategory;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Throwable;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-       return view('Admin.user.admin.allAdmin');
+        $admins = Admin::all();
+        //$admins = Admin::with('userAdmin')->get();
+       return view('Admin.user.admin.allAdmin' , compact('admins'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('Admin.user.admin.addAdmin');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(UserRequest $request)
     {
         // dd($request);
@@ -46,35 +41,45 @@ class AdminController extends Controller
         // Admin::create(['user_id'=>$user->id]);}
         // dd($user->id);
         return redirect()->route('admins.index');
-
-
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Admin $admin)
+    public function show(Admin $admin, $adminSlug)
     {
-        return view('admin.user.admin.userInfo');
+        try {
+            $admin = User::with('Admin')->where('slug', $adminSlug)->first();
+
+            $admin = DB::table('admins')
+            ->join('users', 'users.id', '=', 'admins.user_id')
+            ->where('admins.slug', $adminSlug)
+            ->first();
+        if (!$admin) {
+            abort(404);
+        }
+        $admin->created_at = Carbon::parse($admin->created_at)->diffForHumans(['parts' => 1]);
+        return view('admin.user.admin.userInfo', compact('admin'));
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->route('Admin.user.admin.allAdmin')
+                ->with(['messages' => ['error' => ['Error user not found: ' . $exception->getMessage()]]]);
+        }
     }
 
-    public function edit(Admin $admin)
-    {
-        //
-    }
 
 
     public function update(AdminRequest $request, $slug)
     {
         try {
             $admin = Admin::where("slug", $slug)->first();
+            if (!$admin) {
+                abort(404);
+            }
+            $admin->update($request->validated());
             return redirect()
-                ->route('admin.admins.show')
+                ->route('admins.show', ['slug' => $slug])
                 ->with(['messages' => ['success' => ['Admin updated Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('admin.admins.show')
-                ->with(['messages' => ['error' => ['Error updating category: ' . $exception->getMessage()]]]);
+                ->route('admins.show', ['slug' => $slug])
+                ->with(['messages' => ['error' => ['Error updating admin: ' . $exception->getMessage()]]]);
         }
     }
 

@@ -74,92 +74,32 @@
                     <th>Active</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <a
-                        href="user_info.html"
-                        class="link-primary text-decoration-none"
-                        >Herman Beck</a>
-                    </td>
-                    <td>herman@example.com</td>
-                    <td>(555) 123-4567</td>
-                    <td>Manager</td>
-                    <td>✔️</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a
-                        href="user_info.html"
-                        class="link-primary text-decoration-none"
-                        >Herman Beck</a>
-                    </td>
-                    <td>herman@example.com</td>
-                    <td>(555) 123-4567</td>
-                    <td>Manager</td>
-                    <td>✔️</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a
-                        href="user_info.html"
-                        class="link-primary text-decoration-none"
-                        >Herman Beck</a>
-                    </td>
-                    <td>herman@example.com</td>
-                    <td>(555) 123-4567</td>
-                    <td>Manager</td>
-                    <td>❌</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a
-                        href="user_info.html"
-                        class="link-primary text-decoration-none"
-                        >Herman Beck</a>
-                    </td>
-                    <td>herman@example.com</td>
-                    <td>(555) 123-4567</td>
-                    <td>Manager</td>
-                    <td>✔️</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a
-                        href="user_info.html"
-                        class="link-primary text-decoration-none"
-                        >Herman Beck</a>
-                    </td>
-                    <td>john@example.com</td>
-                    <td>(555) 345-6789</td>
-                    <td>Designer</td>
-                    <td>❌</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a
-                        href="user_info.html"
-                        class="link-primary text-decoration-none"
-                        >Herman Beck</a>
-                    </td>
-                    <td>peter@example.com</td>
-                    <td>(555) 456-7890</td>
-                    <td>Project Manager</td>
-                    <td>✔️</td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a
-                        href="user_info.html"
-                        class="link-primary text-decoration-none"
-                        >Herman Beck</a>
-                    </td>
-                    <td>edward@example.com</td>
-                    <td>(555) 567-8901</td>
-                    <td>Analyst</td>
-                    <td>❌</td>
-                  </tr>
-                </tbody>
+                  @if ($admins->count() > 0)
+                      <tbody>
+                      @foreach($admins as $admin)
+                          <tr>
+                              <td>
+                                  @if ($admin->userAdmin)
+                                      <a href="{{ route('admin.userAdmin.show', $admin->userAdmin->slug) }}"
+                                         class="link-primary text-decoration-none">
+                                          {{ $admin->userAdmin->firstName }}</a>
+                                  @endif
+                              </td>
+                              <td>{{$admin->userAdmin->email}}</td>
+                              <td>{{$admin->userAdmin->mobile}}</td>
+                              <td>{{$admin->userAdmin->position}}</td>
+                              <td>{{ optional($admin->userAdmin)->active ? '✔️' : '❌' }}</td>
+                          </tr>
+                      @endforeach
+                      </tbody>
+                  @else
+                      <tbody>
+                      <tr>
+                          <td colspan="5">No admins found</td>
+                      </tr>
+                      </tbody>
+                  @endif
+
               </table>
             </div>
           </div>

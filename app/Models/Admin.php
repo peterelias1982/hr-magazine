@@ -13,7 +13,8 @@ class Admin extends Model
 {
     use HasFactory;
 
-    public mixed $user_id;
+    public mixed $user_id = null;
+    public mixed $created_at;
     protected $fillable = [
         "user_id"
     ];
