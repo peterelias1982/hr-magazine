@@ -86,7 +86,7 @@ class User extends Authenticatable
 
     public function socialMedia(): BelongsToMany
     {
-        return $this->belongsToMany(SocialMedia::class)->withPivot('value');
+        return $this->belongsToMany(SocialMedia::class, 'social_media_user', 'user_id', 'social_media_id')->withPivot('value');
     }
 
     public function adminUser(): HasOne

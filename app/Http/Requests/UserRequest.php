@@ -29,6 +29,8 @@ class UserRequest extends FormRequest
             'password' => 'nullable|string|min:8|confirmed',
             'mobile' => 'nullable|string', // Allow mobile to be empty
             'position' => 'required|string', // Position is required
+            'image' => 'sometimes',
+            'active' => 'sometimes'
         ];
     }
 }

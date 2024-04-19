@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\SocialMedia;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,8 +14,12 @@ return new class extends Migration
     {
         Schema::create('social_media', function (Blueprint $table) {
             $table->id();
-            $table->string("mediaName");
-            $table->timestamps();
+            $table->enum('mediaName',[
+                SocialMedia::LinkedIn->value,
+                SocialMedia::Twitter->value,
+                SocialMedia::Instagram->value,
+                SocialMedia::Facebook->value,
+            ]);
         });
     }
 

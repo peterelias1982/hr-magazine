@@ -22,7 +22,6 @@ return new class extends Migration
                 Gender::Male->value,
                 Gender::Female->value,
                 ]);
-
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
@@ -30,6 +29,7 @@ return new class extends Migration
             $table->string('mobile')->nullable();
             $table->string('position')->default('user');
             $table->boolean('active')->default(1);
+            $table->string('image');
             $table->timestamps();
         });
 
