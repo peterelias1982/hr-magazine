@@ -83,6 +83,7 @@ Route::group(['prefix' => "job"], function () {
 
 Route::group(['prefix'=>'jobs', 'controller' => JobDetailController::class, 'as' => 'jobs.'],function(){
     Route::get('/', 'index')->name('index');
+    Route::get('/search', 'search')->name('search');
     Route::get('/{slug}','show')->name('show');
     Route::delete('/{slug}', 'destroy')->name('destroy');
 

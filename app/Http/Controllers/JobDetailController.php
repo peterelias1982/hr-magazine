@@ -20,14 +20,33 @@ class JobDetailController extends Controller
         $jobs=JobDetail::with(['Employer'=> function ($query) {$query->select('id', 'user_id');},
             'jobCategory' => function ($query) {$query->select('id', 'category');},
             'jobSeeker' => function ($query) { $query->select('user_id');},])->get();
+        $categories=JobCategory::get(['id','category']);
         
-        
-      return view('Admin.jobs.alljobs',compact('jobs'));
+       
+      return view('Admin.jobs.alljobs',compact(['jobs','categories']));
     
       //return dd( $emps);
        // return $jobs->toJson() ;
     }
-    
+    public function search(Request $request){
+        if($request){
+ 
+     $jobs = JobDetail::with(['Employer'=> function ($query) {$query->select('id', 'user_id');},
+     'jobCategory' => function ($query) {$query->select('id', 'category');},
+     'jobSeeker' => function ($query) { $query->select('user_id');},])
+                     ->when($request, function ($query) use ($request) {
+                         $query->whereHas('jobCategory', function ($query) use ($request) {
+                             $query->where('id', 'like', '%' . $request->category . '%');
+                         })->orWhere('title', 'like', '%' . $request->title . '%');
+                     })
+                   
+                     ->get();
+                    
+                    } $categories=JobCategory::get(['id','category']);
+        
+        
+                    return view('Admin.jobs.alljobs',compact(['jobs','categories']));
+                }
 
     /*
      * Display the specified resource.

@@ -6,7 +6,7 @@
             <div class="col-lg-auto">
                 <!-- Search Bar start -->
                 <div class="search-bar">
-                    <form action="{{route('admin.jobs.index')}}">
+                    <form action="{{route('admin.jobs.search')}}">
                         <div class="row g-1 justify-content-lg-end justify-content-start">
                             <div class="col-6 col-lg-5 form-floating">
                                 <input type="text" class="form-control" id="title" name="title">
@@ -15,8 +15,8 @@
                             <div class="col-6 col-lg-5 form-floating">
                                 <select class="form-control bg-white" id="category" name="category">
                                     <option>-</option>
-                                    @foreach($jobs as $job)
-                                        <option value="{{$job->jobCategory->id}}">{{$job->jobCategory->category}}</option>
+                                    @foreach($categories as $category)
+                                        <option value="{{$category->id}}">{{$category->category}}</option>
                                     @endforeach
                                 </select>
                                 <label for="category">Select Category</label>
