@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Gender;
 use App\Http\Requests\AdminRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Admin;
@@ -24,7 +25,8 @@ class AdminController extends Controller
 
     public function create()
     {
-        return view('Admin.user.admin.addAdmin');
+        $Gender=Gender::getInstances();
+        return view('Admin.user.admin.addAdmin',compact('Gender'));
     }
 
     public function store(UserRequest $request)
@@ -33,21 +35,21 @@ class AdminController extends Controller
         $data=$request->except(['_token']);
         $data['password']=Hash::make($request['password']);
         $user=User::create($data);
-        if($user->position != 'user'){
+        if($user->position == 'admin'||$user->position == 'super admin' ){
             // dd($user->position);
             $admin= new Admin();
             $admin->user_id = $user->id;
             $admin->save();}
         // Admin::create(['user_id'=>$user->id]);}
         // dd($user->id);
-        return redirect()->route('admins.index');
+        return redirect()->route('admin.admins.index');
     }
     public function show(Admin $admin, $slug)
     {
         try {
             $admin = DB::table('admins')
                 ->join('users', 'users.id', '=', 'admins.user_id')
-                ->where('admins.slug', $slug)
+                ->where('slug', $slug)
                 ->first();
 
             if (!$admin) {

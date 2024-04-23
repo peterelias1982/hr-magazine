@@ -28,6 +28,9 @@ Route::group(['prefix' => "users"], function () {
         Route::get("/create", "create")->name('create');
         Route::get("/", "index")->name('index');
         Route::post("/", "store")->name('store');
+        Route::get("/{slug}", "show")->name('show');
+        Route::patch("/{slug}", "update")->name('update');
+        Route::delete("/{slug}", "destroy")->name('destroy');
     });
 
     //job seekers

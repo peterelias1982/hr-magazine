@@ -27,12 +27,12 @@
         <div class="collapse" id="admin-basic">
           <ul class="nav flex-column sub-menu">
             <li class="nav-item">
-              <a class="nav-link" href="pages/users/add-admin-form.html"
+              <a class="nav-link" href="{{route('admin.admins.create')}}"
                 >Add Admin</a
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="pages/users/admins-table.html"
+              <a class="nav-link" href="{{route('admin.admins.index')}}"
                 >Admins</a
               >
             </li>

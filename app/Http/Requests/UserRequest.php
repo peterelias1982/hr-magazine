@@ -30,5 +30,23 @@ class UserRequest extends FormRequest
             'mobile' => 'nullable|string', // Allow mobile to be empty
             'position' => 'required|string', // Position is required
         ];
+
     }
+    public function messages()
+{
+    return [
+        'required' => ':attribute is required',
+        'email'=>'enter your correct email',
+        'firstName.max' =>'the name must not exceed 255 characters.',
+        'secondName.max' =>'the name must not exceed 255 characters.',
+'fistName'=>'here',
+'secondName' => 'here',
+            'gender' => 'here',
+            'email' => 'here',
+            'password' => 'here',
+            'mobile' => 'here', // Allow mobile to be empty
+            'position' => 'here', 
+        // Add more custom messages for other fields as needed
+    ];
+}
 }
