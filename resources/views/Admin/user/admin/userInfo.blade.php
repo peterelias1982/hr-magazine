@@ -7,9 +7,13 @@
   >
     <h2 class="fw-bold col-lg-auto">User Details</h2>
     <div class="btn-wrapper">
-      <a href="#" class="btn btn-sm" style="color: #ed2708"
-        ><i class="icon-trash"></i> Delete User</a
-      >
+        <form action="{{route('admin.admins.destroy', $user->userAdmin->slug)}}" method="POST">
+            @csrf
+            @method('delete')
+            <button type="submit" class="btn btn-sm" style="color: #ed2708" onclick="alert('Are you sure you want to delete?')"><i
+                    class="icon-trash"></i> Delete User
+            </button>
+        </form>
       <a href="#" class="btn btn-sm btn-primary text-white me-0"
         ><i class="icon-key"></i> Reset Password
       </a>
@@ -60,7 +64,7 @@
                       />
                     </h3>
                     <p class="card-subtitle card-subtitle-dash">
-                      joined 3 months ago.
+                        {{$user->userAdmin->created_at}}<
                     </p>
                     <div class="row justify-content-start g-2">
                       <a href="#" class="col-auto">
@@ -171,41 +175,7 @@
                 </div>
                 <div class="row py-1">
                   <div class="d-flex justify-content-between">
-                    <div
-                      class="col-auto form-check form-check-flat form-check-primary"
-                    >
-                      <label
-                        for="active"
-                        class="form-check-label"
-                      >
-                        <input
-                          type="checkbox"
-                          id="active"
-                          class="form-check-input"
-                          name="active"
-                          checked
-                          disabled
-                        />
-                        Active
-                      </label>
-                    </div>
-                    <div
-                      class="col-auto form-check form-check-flat form-check-primary"
-                    >
-                      <label
-                        for="approved"
-                        class="form-check-label"
-                      >
-                        <input
-                          type="checkbox"
-                          id="approved"
-                          class="form-check-input"
-                          name="approved"
-                          disabled
-                        />
-                        Approved
-                      </label>
-                    </div>
+
                     <div
                       class="col-auto form-check form-check-flat form-check-primary"
                     >
