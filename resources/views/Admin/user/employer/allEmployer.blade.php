@@ -49,7 +49,7 @@
             <table id="example" class="table table-striped" style="width: 100%">
               <thead>
                 <tr>
-                  <th>FirstName</th>
+                  <th>Name</th>
                   <th>Email</th>
                   <th>Mobile No.</th>
                   <th>Position</th>
@@ -60,7 +60,7 @@
                 @foreach ($employer as $employ)
                 <tr>
                   <td>
-                    <a href="user_info.html" class="link-primary text-decoration-none">{{$employ->firstName}}</a>
+                    <a href="{{route('admin.employers.show',[$employ->slug])}}" class="link-primary text-decoration-none">{{$employ->firstName}} {{$employ->secondName}}</a>
                   </td>
                   <td>{{$employ->email}}</td>
                   <td>{{$employ->mobile}}</td>

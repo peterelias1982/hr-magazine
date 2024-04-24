@@ -24,16 +24,16 @@
                         <p class="card-subtitle fw-bold">Overview</p>
                         <div class="template-demo1 px-5">
 
-                            <h5 class="fw-bold pt-4">Job Title:</h5>
+                            <h5 class="fw-bold pt-4">Job Title</h5>
                             <p>{{$jobdetail->title}}</p>
 
-                            <h5 class="fw-bold pt-4">Employer:</h5>
+                            <h5 class="fw-bold pt-4">Employer</h5>
                             <p>{{$jobdetail->Employer->userEmployer->firstName}} {{$jobdetail->Employer->userEmployer->secondName}}</p>
 
-                            <h5 class="fw-bold pt-4">Category:</h5>
+                            <h5 class="fw-bold pt-4">Category</h5>
                             <p>{{$jobdetail->jobCategory->category}}</p>
 
-                            <h5 class="fw-bold pt-4">Career Level:</h5>
+                            <h5 class="fw-bold pt-4">Career Level</h5>
                             <p>{{$jobdetail->careerLevel}}</p>
 
                             <h5 class="fw-bold pt-4">Company</h5>
@@ -45,6 +45,11 @@
                             <h5 class="fw-bold pt-4">Email to apply</h5>
                             <p class="text-primary">{{$jobdetail->email}}</p>
 
+                            <h5 class="fw-bold pt-4">Address</h5>
+                            <p >{{$jobdetail->streetNo}} {{$jobdetail->streetName}}
+                                , {{$jobdetail->city}}, {{$jobdetail->state}},
+                                {{$jobdetail->country}}</p>
+
                             <h5 class="fw-bold pt-4">No. of Application:</h5>
                             <p>{{$jobdetail->jobSeeker->count()}}</p>
                         </div>
@@ -54,20 +59,20 @@
             </div>
 
 
-        <div class="col-md-7 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-subtitle fw-bold">Details</p>
-                    <p class="card-description"></p>
-                    <div class="template-demo1">
+            <div class="col-md-7 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-subtitle fw-bold">Details</p>
+                        <p class="card-description"></p>
+                        <div class="template-demo1">
 
-                        <h5 class="fw-bold pt-4">Content</h5>
-                        <p>
-                            {{$jobdetail->content}}
-                        </p>
-                        <h5 class="fw-bold pt-4">About company</h5>
-                        <p>
-                            {{$jobdetail->about_company}}
+                            <h5 class="fw-bold pt-4">Content</h5>
+                            <p>
+                                {{$jobdetail->content}}
+                            </p>
+                            <h5 class="fw-bold pt-4">About company</h5>
+                            <p>
+                                {{$jobdetail->about_company}}
                         </p>
 
                     </div>

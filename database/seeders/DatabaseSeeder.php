@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+
 use App\Models\Admin;
 use App\Models\Author;
 use App\Models\Employer;

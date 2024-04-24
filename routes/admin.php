@@ -39,6 +39,9 @@ Route::group(['prefix' => "users"], function () {
 
     Route::group(['prefix' => "employers", "controller" => EmployerController::class, "as" => "employers."], function () {
         Route::get("/", "index")->name('index');
+        Route::get("/{slug}", "show")->name('show');
+        Route::delete("/{slug}", "destroy")->name('destroy');
+        Route::patch("/{slug}","update")->name('update');
     });
 });
 
