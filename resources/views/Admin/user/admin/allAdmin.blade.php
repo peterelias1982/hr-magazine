@@ -79,16 +79,30 @@
                       @foreach($admins as $user)
                           <tr>
                               <td>
-{{--                                  @if ($user->userAdmin)--}}
-                                      <a href="{{ route('admin.admins.show', $user->userAdmin->slug) }}"
-                                         class="link-primary text-decoration-none">
-                                          {{ $user->userAdmin->firstName }}</a>
-{{--                                  @endif--}}
+                                  @if(isset($user->userAdmin))
+                                      <a href="{{ route('admin.admins.show', $user->userAdmin->slug) }}" class="link-primary text-decoration-none">{{ $user->userAdmin->firstName }}</a>
+                                  @endif
+
                               </td>
-                              <td>{{$user->userAdmin->email}}</td>
-                              <td>{{$user->userAdmin->mobile}}</td>
-                              <td>{{$user->userAdmin->position}}</td>
-                              <td>{{ optional($admin->userAdmin)->active ? '✔️' : '❌' }}</td>
+                              <td>
+                                  @if(isset($user->userAdmin))
+                                      {{$user->userAdmin->email}}
+                                  @endif
+                              </td>
+
+                              <td>
+                                  @if(isset($user->userAdmin))
+                                      {{$user->userAdmin->mobile}}
+                                  @endif
+                              </td>
+
+                              <td>
+                                  @if(isset($user->userAdmin))
+                                      {{$user->userAdmin->position}}
+                                  @endif
+                              </td>
+
+                              <td>{{ optional($user->userAdmin)->active ? '✔️' : '❌' }}</td>
                           </tr>
                       @endforeach
                       </tbody>
