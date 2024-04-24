@@ -114,7 +114,12 @@ class AuthorController extends Controller
      */
     public function show(Author $author, $slug )
     {
-        //
+        $author=Author::with('userAuthor')->when($slug, function ($query) use ($slug) {
+            $query->whereHas('userAuthor', function ($query) use ($slug) {
+                $query->where('slug', $slug );
+            });
+        })->first();
+       return view('Admin.user.auther.userInfo', compact('author')); 
     }
 
     /**
@@ -136,9 +141,23 @@ class AuthorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Author $author)
+    public function destroy(string $slug)
     {
-        //
+        try {
+            Author::with('userAuthor')->when($slug, function ($query) use ($slug) {
+                $query->whereHas('userAuthor', function ($query) use ($slug) {
+                    $query->where('slug', $slug );
+                });
+            })->delete();
+            return redirect()
+                ->route('admin.authors.index')
+                ->with(['messages' => ['success' => ['the author is deleted successfully!']]]);
+
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('admin.authorss.index')
+                ->with(['messages' => ['error' => ['Error not deleting author: ' . $exception->getMessage()]]]);
+        }
     }
    
 }

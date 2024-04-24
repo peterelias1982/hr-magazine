@@ -1,15 +1,21 @@
 @extends("Admin.layouts.master")
 @section('Content')
-<form action="" id="edit-user"></form>
+<form method="POST" action="" id="edit-user"></form>
 <div class="content-wrapper">
   <div
     class="d-sm-flex align-items-center justify-content-between border-bottom py-1"
   >
     <h2 class="fw-bold col-lg-auto">User Details</h2>
     <div class="btn-wrapper">
-      <a href="#" class="btn btn-sm" style="color: #ed2708"
-        ><i class="icon-trash"></i> Delete User</a
-      >
+
+      
+      <form action="{{route('admin.authors.destroy', $author->userAuthor->slug)}}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" cclass="btn btn-sm" style="color: #ed2708" onclick="alert('Are you sure you want to delete?')"
+                     class="icon-trash"> Delete User
+                    </button>
+                </form>
       <a href="#" class="btn btn-sm btn-primary text-white me-0"
         ><i class="icon-key"></i> Reset Password
       </a>
@@ -36,7 +42,7 @@
                         disabled
                       />
                       <img
-                        src="{{asset('admin/images/avatar-default.svg')}}"
+                        src="{{ asset('admin/images/authors/'.$author->image)}}"
                         alt=""
                         id="user-pic"
                         class="card-img rounded-circle bg-light"
@@ -54,13 +60,17 @@
                         type="text"
                         name="user_name"
                         id=""
-                        value="John Doe"
+                        value="{{$author->userAuthor->firstName .' '. $author->userAuthor->secondName}}"
                         form="edit-user"
                         disabled
                       />
                     </h3>
                     <p class="card-subtitle card-subtitle-dash">
-                      joined 3 months ago.
+                      <?php
+                      $createdAt=$author->created_at;
+                        $period = $createdAt->diffForHumans();
+                        echo "Joined " . $period;
+                      ?>
                     </p>
                     <div class="row justify-content-start g-2">
                       <a href="#" class="col-auto">
@@ -83,7 +93,7 @@
                 >
                   <div class="col-auto">
                     <p class="fw-bold lh-1">ARTICLES</p>
-                    <p class="fw-light text-muted 1h1">277</p>
+                    <p class="fw-light text-muted 1h1">{{$author->userAuthor->articleUser->count()}}</p>
                   </div>
                   <div class="col-auto text-center">
                     <p class="fw-bold lh-1">CV</p>
@@ -133,7 +143,7 @@
                     name="short_description"
                     id=""
                     class="w-100 border-0 text-black bg-transparent"
-                    value="Lorem ipsum dolor sit amet consectetur, Lorem ipsum dolor sit. consectetur."
+                    value="{{$author->description}}"
                     disabled
                   >
                   </p>
@@ -144,7 +154,7 @@
                     name="position"
                     id=""
                     class="w-100 border-0 text-black bg-transparent"
-                    value="Super admin"
+                    value="{{$author->userAuthor->position}}"
                     disabled
                   ></p>
                 </div>
@@ -155,7 +165,7 @@
                     type="email"
                     id=""
                     class="w-100 border-0 text-black bg-transparent"
-                    value="email@example.com"
+                    value="{{$author->userAuthor->email}}"
                     disabled
                   ></p>
                 </div>
@@ -165,7 +175,7 @@
                     name="phone"
                     id=""
                     class="w-100 border-0 text-black bg-transparent"
-                    value="+201165534342"
+                    value="{{$author->userAuthor->mobile}}"
                     disabled
                   ></p>
                 </div>
@@ -183,8 +193,7 @@
                           id="active"
                           class="form-check-input"
                           name="active"
-                          checked
-                          disabled
+                          {{ $author->userAuthor->active == 1 ? 'checked' : '' }}
                         />
                         Active
                       </label>
@@ -201,7 +210,7 @@
                           id="approved"
                           class="form-check-input"
                           name="approved"
-                          disabled
+                          {{ $author->approved == 1 ? 'checked' : '' }}
                         />
                         Approved
                       </label>
@@ -218,7 +227,7 @@
                           id="bio"
                           class="form-check-input"
                           name="bio"
-                          disabled
+                          {{ $author->bio == 1 ? 'checked' : '' }}
                         />
                         Bio
                       </label>

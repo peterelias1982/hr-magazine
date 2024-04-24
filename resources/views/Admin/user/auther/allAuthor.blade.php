@@ -87,7 +87,7 @@
                   </td>
                   <td>
                     <a
-                      href=""
+                      href="{{ route('admin.authors.show', ['slug' => $author->userAuthor->slug]) }}"
                       class="link-primary text-decoration-none"
                       >{{$author->userAuthor->firstName}} {{$author->userAuthor->secondName}}</a>
                   </td>
