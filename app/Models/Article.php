@@ -21,9 +21,10 @@ class Article extends Model
         'image',
         'content',
         'category_id',
-        'user_id',
         'author_id',
         'approved',
+        'featured',
+        'recommended',
     ];
 
     public function getSlugOptions(): SlugOptions

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
             $table->text('googleMapLink')->nullable();
-            $table->text('description');
+            $table->longText('description');
             $table->text('speakers');
             $table->timestamps();
         });

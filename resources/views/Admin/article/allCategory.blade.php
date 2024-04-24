@@ -52,7 +52,7 @@
                                                     <input type="text" class="custom-input d-inline-block"
                                                            value="{{$Category->articleCategoryName}}" disabled=""
                                                            name="articleCategoryName">
-                                                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
+                                                    <i class="mdi mdi-pencil position-absolute pen-icon btn end-50"></i>
                                                     <button type="submit" class="btn btn-primary btn-xs invisible">
                                                         Submit
                                                     </button>
@@ -98,8 +98,9 @@
                                             </div>
                                         </td>
                                         <td class="py-2">
-                                            <form action="{{route('admin.articleCategories.destroy',[$Category->slug])}}"
-                                                  method="POST">
+                                            <form
+                                                action="{{route('admin.articleCategories.destroy',[$Category->slug])}}"
+                                                method="POST">
                                                 @csrf
                                                 @method("delete")
                                                 <button type="submit" class="btn btn-danger btn-xs delete"
@@ -117,4 +118,6 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 @endsection

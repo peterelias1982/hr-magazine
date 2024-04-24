@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use App\Enums\Gender;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -18,10 +17,10 @@ return new class extends Migration
             $table->string('firstName')->index();
             $table->string('secondName')->index();
             $table->string('slug')->unique();
-            $table->enum('gender',[
+            $table->enum('gender', [
                 Gender::Male->value,
                 Gender::Female->value,
-                ]);
+            ]);
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();

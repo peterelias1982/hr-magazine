@@ -15,7 +15,11 @@ return new class extends Migration {
             $table->boolean('approved')->default(1);
             $table->text('description');
             $table->boolean('bio')->default(1);
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
     }

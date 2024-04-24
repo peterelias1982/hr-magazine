@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\JobSeeker>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tag>
  */
-class JobSeekerFactory extends Factory
+class TagFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -16,11 +16,8 @@ class JobSeekerFactory extends Factory
      */
     public function definition(): array
     {
-        $id = UsersHelper::createUser(fake()->jobTitle());
-
         return [
-            'cv' => 'cv.pdf',
-            'user_id' => $id,
+            'tagName' => fake()->name()
         ];
     }
 }

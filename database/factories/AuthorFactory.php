@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\JobSeeker>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Author>
  */
-class JobSeekerFactory extends Factory
+class AuthorFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -19,7 +19,9 @@ class JobSeekerFactory extends Factory
         $id = UsersHelper::createUser(fake()->jobTitle());
 
         return [
-            'cv' => 'cv.pdf',
+            'approved' => fake()->numberBetween(0, 1),
+            'description' => fake()->text(),
+            'bio' => fake()->numberBetween(0, 1),
             'user_id' => $id,
         ];
     }

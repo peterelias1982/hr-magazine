@@ -49,6 +49,13 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 1,
         ]);
         ArticleCategory::create([
+            'articleCategoryName' => 'Ladies Interviews',
+            'hasComments' => 0,
+            'hasSource' => 0,
+            'hasYoutubeLink' => 1,
+            'hasAuthor' => 1,
+        ]);
+        ArticleCategory::create([
             'articleCategoryName' => 'Professionals Spotlights',
             'hasComments' => 0,
             'hasSource' => 0,

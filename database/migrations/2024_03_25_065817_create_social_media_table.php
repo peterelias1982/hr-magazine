@@ -4,6 +4,7 @@ use App\Enums\SocialMedia;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\MediaName;
 
 return new class extends Migration
 {
