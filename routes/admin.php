@@ -24,9 +24,12 @@ Route::group(['prefix' => "events", "controller" => EventController::class, "as"
 Route::group(['prefix' => "users"], function () {
     //admins
     Route::group(['prefix' => "admins", "controller" => AdminController::class, "as" => "admins."], function () {
-        Route::get("/create", "create")->name('create');
         Route::get("/", "index")->name('index');
+        Route::get("/create", "create")->name('create');
         Route::post("/", "store")->name('store');
+        Route::get("/{slug}", "show")->name('show');
+        Route::put("/{slug}", "update")->name('update');
+        Route::delete("/{slug}", "destroy")->name('destroy');
     });
 
     //job seekers
@@ -43,6 +46,7 @@ Route::group(['prefix' => "users"], function () {
         Route::delete("/{slug}", "destroy")->name('destroy');
         Route::patch("/{slug}","update")->name('update');
     });
+
 });
 
 Route::group(['prefix' => "article"], function () {

@@ -33,6 +33,7 @@ class User extends Authenticatable
         "mobile",
         "active",
         "image",
+        'email_verified_at',
     ];
 
     /**

@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-
 use App\Models\Admin;
 use App\Models\Author;
 use App\Models\Employer;
@@ -22,6 +21,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+
 //        required data for production
         $this->call([
             ArticleCategorySeeder::class,

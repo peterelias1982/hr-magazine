@@ -80,6 +80,7 @@ class ArticleController extends Controller
                 ->route('admin.articles.index')
                 ->with(['messages' => ['success' => ['Article added Successfully']]]);
         } catch (Throwable $exception) {
+
             return redirect()
                 ->route('admin.articles.index')
                 ->with(['messages' => ['error' => ['Error creating article: ' . $exception->getMessage()]]]);
@@ -140,7 +141,7 @@ class ArticleController extends Controller
             return redirect()
                 ->route('admin.articles.index')
                 ->with(['messages' => ['success' => ['Article updated Successfully']]]);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.articles.index')
                 ->with(['messages' => ['error' => ['Error updating article: ' . $exception->getMessage()]]]);
@@ -158,7 +159,7 @@ class ArticleController extends Controller
             return redirect()
                 ->route('admin.articles.index')
                 ->with(['messages' => ['success' => ['Article deleted Successfully']]]);
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.articles.index')
                 ->with(['messages' => ['error' => ['Error deleting article: ' . $exception->getMessage()]]]);
