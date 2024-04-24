@@ -2,20 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
+use App\Http\Requests\AdminRequest;
 use App\Models\Admin;
 use App\Models\User;
+use App\Traits\Common;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
+    use Common;
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-       return view('Admin.user.admin.allAdmin');
+        $admins = $this->searchWith($request);
+        $messages = $this->getMessages();
+
+        return view('Admin.user.admin.allAdmin', compact('admins', 'messages'));
     }
 
     /**
@@ -29,28 +36,30 @@ class AdminController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $request)
+    public function store(AdminRequest $request)
     {
-        // dd($request);
-        $data=$request->except(['_token']);
-        $data['password']=Hash::make($request['password']);
-        $user=User::create($data);
-        if($user->position != 'user'){
-            // dd($user->position);
-            $admin= new Admin();
-            $admin->user_id = $user->id;
-            $admin->save();}
-        // Admin::create(['user_id'=>$user->id]);}
-        // dd($user->id);
-        return redirect()->route('admins.index');
-        
+        try {
+            $data = $this->prepareData($request->all());
 
+            $user = User::create($data);
+            $admin = Admin::create([
+                'user_id' => $user->id
+            ]);
+
+            return redirect()
+                ->route('admin.admins.index')
+                ->with(['messages' => ['success' => ['Admin created Successfully']]]);
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->route('admin.articleCategories.index')
+                ->with(['messages' => ['error' => ['Error creating category: ' . $exception->getMessage()]]]);
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Admin $admin)
+    public function show(string $slug)
     {
         //
     }
@@ -78,4 +87,67 @@ class AdminController extends Controller
     {
         //
     }
+
+    private function prepareData(array $data)
+    {
+        if($data['image']) {
+            $image = $this->uploadFile($data['image'], 'assets/images/users');
+        } else {
+            $image = fake()->randomElement(['bear.png', 'chicken.png', 'dog.png', 'panda.png', 'rabbit.png']);
+        }
+
+        return [
+            'firstName' => $data['firstName'],
+            'secondName' => $data['secondName'],
+            'gender' => $data['gender'],
+            'email' => $data['email'],
+            'email_verified_at' => Carbon::now(),
+            'password' => Hash::make($data['password']),
+            'mobile' => $data['mobile'],
+            'position' => $data['position'],
+            'image' => $image,
+            'active' => 1,
+        ];
+    }
+
+    private function getMessages(): string
+    {
+        // check for messages if any
+        return json_encode(Session::get('messages'));
+    }
+
+    private function searchWith($request)
+    {
+        $firstName = $request->get('name');
+        $email = $request->get('email');
+        $active = $request->has('status') && $request->get('status') === 'active';
+        $blocked = $request->has('status') && $request->get('status') === 'blocked';
+
+        $query = Admin::query()
+            ->with('userAdmin')
+            ->leftJoin('users', 'users.id', '=', 'admins.user_id');
+
+        if ($firstName) {
+            $query->where('users.firstName', 'LIKE', "%{$firstName}%");
+        }
+
+        if ($email) {
+            $query->where('users.email', 'LIKE' ,"%{$email}%");
+        }
+
+        if ($active) {
+            $query->where('users.active', 1);
+        }
+
+        if ($blocked) {
+            $query->where('users.active', 0);
+        }
+
+        return $query->select('admins.*')->paginate(25)->appends(['firstName' => $firstName, 'email' => $email]);
+    }
+
+
 }
+
+
+

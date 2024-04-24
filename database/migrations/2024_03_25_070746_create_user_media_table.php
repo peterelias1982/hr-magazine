@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Enums\MediaName;
 
 return new class extends Migration
 {
@@ -12,9 +13,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_media', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained("users")->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('social_id')->constrained("social_media")->onDelete('cascade')->onUpdate('cascade');
+            $table->primary(['user_id', 'social_id'], 'id');
+            $table->foreignId('user_id')
+                ->constrained("users")
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreignId('social_id')
+                ->constrained("social_media")
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->string("value");
             $table->timestamps();
         });

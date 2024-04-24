@@ -99,6 +99,22 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row py-1">
+                                                <div class="d-flex justify-content-between align-items-start">
+                                                <div class="form-check">
+                                                    <label for="" class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" name="featured" @checked($article->featured) form="edit-article">
+                                                        Featured Article
+                                                    </label>
+                                                </div>
+                                                <div class="form-check col-4 col-lg-3">
+                                                    <label for="" class="form-check-label">
+                                                        <input type="checkbox" class="form-check-input" name="recommended" @checked($article->recommended) form="edit-article">
+                                                        Recommended Article
+                                                    </label>
+                                                </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="row border-top border-bottom py-3 justify-content-between">

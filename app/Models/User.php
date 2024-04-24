@@ -32,6 +32,8 @@ class User extends Authenticatable
         "position",
         "mobile",
         "active",
+        "image",
+        'email_verified_at',
     ];
 
     /**
@@ -86,7 +88,7 @@ class User extends Authenticatable
 
     public function socialMedia(): BelongsToMany
     {
-        return $this->belongsToMany(SocialMedia::class);
+        return $this->belongsToMany(SocialMedia::class, 'user_media', 'user_id', 'social_id')->withPivot('value');
     }
 
     public function adminUser(): HasOne
@@ -102,7 +104,5 @@ class User extends Authenticatable
     public function employerUser(): HasOne
     {
         return $this->hasOne(Employer::class, 'user_id', 'id');
-
     }
-
 }

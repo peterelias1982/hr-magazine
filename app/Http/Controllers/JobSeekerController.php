@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JobSeeker;
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Traits\Common;
+use App\Models\JobSeeker;
+use App\Models\SocialMedia;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
@@ -18,7 +20,15 @@ class JobSeekerController extends Controller
      */
     public function index()
     {
-        $jobSeekers = JobSeeker::get();
+        $request = Request();
+        $jobSeekers_ids = $this->searchWith(requestData: [
+            'name' => $request->name,
+            'email' => $request->email,
+            'active' => $request->active,
+            'blocked' => $request->blocked,
+        ]);
+
+        $jobSeekers = JobSeeker::whereIn('id', $jobSeekers_ids)->get();
         $messages = $this->getMessages();
 
         return view('Admin.user.seeker.allSeeker', compact('jobSeekers', 'messages'));
@@ -59,7 +69,6 @@ class JobSeekerController extends Controller
             return redirect()
                 ->route('admin.jobSeekers.index')
                 ->with(['messages' => ['success' => ['Job seeker data updated successfully']]]);
-
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.jobSeekers.index')
@@ -82,6 +91,34 @@ class JobSeekerController extends Controller
                 ->route('admin.jobSeekers.index')
                 ->with(['messages' => ['error' => ['Error deleting job seeker data: ' . $exception->getMessage()]]]);
         }
+    }
+
+    private function searchWith(array $requestData)
+    {
+        $query = DB::table('users')
+            ->join('job_seekers', 'job_seekers.user_id', '=', 'users.id')
+            ->select('users.*', 'job_seekers.id', 'job_seekers.user_id');
+
+        if ($requestData['name']) {
+            $query
+                ->where(DB::raw("CONCAT(users.firstName, ' ', users.secondName)"), 'LIKE', "%{$requestData['name']}%")
+                ->select('job_seekers.id');
+        }
+        if ($requestData['email']) {
+            $query
+                ->where('users.email', 'LIKE', "%{$requestData['email']}%")
+                ->select('job_seekers.id');
+        }
+        if (isset($requestData['active']) && isset($requestData['blocked'])) {
+        } elseif (isset($requestData['active'])) {
+            $query->where('users.active', true);
+        } elseif (isset($requestData['blocked'])) {
+            $query->where('users.active', false);
+        }
+
+        $query->select('job_seekers.id');
+
+        return $query->get()->pluck('id');
     }
 
     private function getMessages(): string

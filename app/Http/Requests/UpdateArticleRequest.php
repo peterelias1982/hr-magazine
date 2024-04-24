@@ -33,10 +33,10 @@ class UpdateArticleRequest extends FormRequest
             'category_id' => 'required|exists:article_categories,id',
             'articleable' => ['sometimes', 'array', new ArticleAttachesRule($category)],
             'tags_id'  => 'sometimes|array',
-            'user_id' => 'nullable',
             'approved' => 'sometimes',
             'author_id' => Rule::requiredIf(fn() => $category? $category['hasAuthor'] : false),
-
+            'featured' => 'sometimes',
+            'recommended' => 'sometimes',
         ];
     }
 }

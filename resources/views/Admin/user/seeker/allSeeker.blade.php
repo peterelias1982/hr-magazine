@@ -7,27 +7,27 @@
             <div class="col-lg-auto">
                 <!-- Search Bar start -->
                 <div class="search-bar">
-                    <form action="">
+                    <form action="{{route('admin.jobSeekers.index')}}" method="get">
                         <div class="row g-1 justify-content-lg-end justify-content-start">
                             <div class="col-6 col-lg-3 form-floating">
-                                <input type="text" class="form-control" id="title">
+                                <input type="text" class="form-control" id="title" name="name">
                                 <label for="title">Name</label>
                             </div>
                             <div class="col-6 col-lg-3 form-floating">
-                                <input type="text" class="form-control" id="title">
+                                <input type="text" class="form-control" id="title" name="email">
                                 <label for="title">Email</label>
                             </div>
                             <div class="col-4 col-lg-2 d-flex flex-column justify-content-center">
                                 <div class="row">
                                     <label for="active" class="form-check-label">
-                                        <input type="checkbox" id="active" class="form-check-input" name="status"
+                                        <input type="checkbox" id="active" class="form-check-input" name="active"
                                                value="active">
                                         Active
                                     </label>
                                 </div>
                                 <div class="row">
                                     <label for="blocked" class="form-check-label">
-                                        <input type="checkbox" id="blocked" class="form-check-input" name="status"
+                                        <input type="checkbox" id="blocked" class="form-check-input" name="blocked"
                                                value="blocked">
                                         Blocked
                                     </label>

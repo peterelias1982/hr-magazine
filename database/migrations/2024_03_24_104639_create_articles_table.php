@@ -16,14 +16,21 @@ return new class extends Migration
             $table->string('title')->index();
             $table->string('slug')->unique();
             $table->string('image');
-            $table->text('content');
-            $table->foreignId('category_id')->references('id')->on('article_categories')->onDelete('restrict')->onUpdate('restrict');
-
-            $table->foreignId('user_id')->nullable()->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('author_id')->nullable()->references('id')->on('authors')->onDelete('restrict')->onUpdate('restrict');
-
+            $table->longText('content');
+            $table->foreignId('category_id')
+                ->references('id')
+                ->on('article_categories')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
+            $table->foreignId('author_id')
+                ->nullable()->
+                references('id')
+                ->on('authors')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
             $table->boolean('approved')->default(1);
-            // $table->nullableMorphs('articleable');
+            $table->boolean('featured')->default(0);
+            $table->boolean('recommended')->default(0);
             $table->timestamps();
         });
     }
