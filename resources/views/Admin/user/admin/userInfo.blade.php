@@ -1,6 +1,8 @@
 @extends("Admin.layouts.master")
 @section('Content')
-<form action="" id="edit-user"></form>
+<form  action="{{route('admin.admins.update', $user->userAdmin->slug)}}" method="POST" id="edit-user">
+    @csrf
+</form>
 <div class="content-wrapper">
   <div
     class="d-sm-flex align-items-center justify-content-between border-bottom py-1"

@@ -80,7 +80,9 @@
                           <tr>
                               <td>
                                   @if(isset($user->userAdmin))
-                                      <a href="{{ route('admin.admins.show', $user->userAdmin->slug) }}" class="link-primary text-decoration-none">{{ $user->userAdmin->firstName }}</a>
+                                      <a href="{{ route('admin.admins.show', $user->userAdmin->slug) }}"
+                                         class="link-primary text-decoration-none">
+                                          {{ $user->userAdmin->firstName }}</a>
                                   @endif
 
                               </td>
