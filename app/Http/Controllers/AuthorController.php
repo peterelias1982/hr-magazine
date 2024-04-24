@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Admin;
 use App\Models\Author;
 use Illuminate\Http\Request;
 
@@ -50,9 +51,26 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, Author $author , $slug)
     {
-        //
+        try {
+            $author = Admin::where("slug", $slug)->first();
+            if (!$author) {
+                abort(404);
+            }
+            $author->update($request->validated());
+            return redirect()
+                ->route('admin.auther.show', ['slug' => $slug])
+                ->with(['messages' =>
+                    ['success' =>
+                    ['Admin updated Successfully']]]);
+        } catch (Throwable $exception) {
+            return redirect()
+                ->route('admin.auther.show', ['slug' => $slug])
+                ->with(['messages' =>
+                    ['error' => ['Error updating admin: '
+                    . $exception->getMessage()]]]);
+        }
     }
 
     /**

@@ -76,11 +76,11 @@ class AdminController extends Controller
             }
             $admin->update($request->validated());
             return redirect()
-                ->route('admins.show', ['slug' => $slug])
+                ->route('admin.admins.show', ['slug' => $slug])
                 ->with(['messages' => ['success' => ['Admin updated Successfully']]]);
         } catch (Throwable $exception) {
             return redirect()
-                ->route('admins.show', ['slug' => $slug])
+                ->route('admin.admins.show', ['slug' => $slug])
                 ->with(['messages' => ['error' => ['Error updating admin: ' . $exception->getMessage()]]]);
         }
     }
