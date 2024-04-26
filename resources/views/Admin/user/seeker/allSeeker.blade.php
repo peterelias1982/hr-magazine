@@ -52,6 +52,7 @@
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
+                                    <th>Job Seekers</th>
                                     <th>Name</th>
                                     <th>E-mail</th>
                                     <th>Mobile No.</th>
@@ -62,6 +63,13 @@
                                 <tbody>
                                 @foreach($jobSeekers as $seeker)
                                     <tr>
+                                        <td class="py-1">
+                                            <img
+                                                src="{{ asset('assets/images/users/'.$seeker->userjobseeker->image)}}"
+                                                alt="image"
+                                                class="img-fluid rounded-circle"
+                                            />
+                                        </td>
                                         <td>
                                             <a href="{{route('admin.jobSeekers.show', $seeker->userJobSeeker->slug)}}"
                                                class="link-primary text-decoration-none">{{$seeker->userjobseeker->firstName}} {{$seeker->userjobseeker->secondName}}</a>

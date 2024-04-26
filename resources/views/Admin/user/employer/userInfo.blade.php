@@ -46,26 +46,19 @@
                   </div>
                   <div class="col-6 my-auto">
                     <h3>
-                      {{$employer->firstName}}
+                      {{$employer->firstName}} {{$employer->secondName}}
                     </h3>
                     <p class="card-subtitle card-subtitle-dash">
                       joined {{
                        $employer->created_at }} .
                     </p>
-                    <div class="row justify-content-start g-2">
-                      <a href="#" class="col-auto">
-                        <i class="mdi mdi-linkedin text-dark"></i>
-                      </a>
-                      <a href="#" class="col-auto">
-                        <i class="mdi mdi-instagram text-dark"></i>
-                      </a>
-                      <a href="#" class="col-auto">
-                        <i class="mdi mdi-facebook text-dark"></i>
-                      </a>
-                      <a href="#" class="col-auto">
-                        <i class="mdi mdi-twitter text-dark"></i>
-                      </a>
-                    </div>
+                      <div class="row justify-content-start g-2">
+                          @foreach ($socialMedia as $socialMedia)
+                              <a href="{{ $socialMedia->value }}" class="col-auto">
+                                  <i class="mdi mdi-{{$socialMedia->mediaName}} text-dark"></i>
+                              </a>
+                          @endforeach
+                      </div>
                   </div>
                 </div>
 
@@ -87,9 +80,10 @@
                   <h3 class="col-auto card-title card-title-dash">
                     Additional information
                   </h3>
-                  <div class="col-auto">
-                    <i class="mdi mdi-lead-pencil text-muted btn btn-sm fs-5" id="edit_user_button"></i>
-                  </div>
+                    <div class="col-auto">
+                        <i class="mdi mdi-lead-pencil text-muted btn btn-sm fs-5"
+                           id="edit_user_button"></i>
+                    </div>
                 </div>
 
                 <div class="row py-1">
@@ -225,7 +219,4 @@
   </div>
 </div>
 @endsection
-@section('js')
-<script src="{{asset('admin/js/edit_form.js')}}"></script>
 
-@endsection

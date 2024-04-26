@@ -53,7 +53,7 @@
                                                     @error('tagName')
                                                     {{$message}}
                                                     @enderror
-                                                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
+                                                    <i class="mdi mdi-pencil position-absolute pen-icon btn end-50"></i>
                                                     <button type="submit" class="btn btn-primary btn-xs invisible"
                                                             form="editForm_{{$tag->id}}">
                                                         Submit

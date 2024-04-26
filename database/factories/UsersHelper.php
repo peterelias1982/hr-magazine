@@ -21,7 +21,7 @@ class UsersHelper
             'gender' => fake()->randomElement(['male', 'female']),
             'mobile' => fake()->phoneNumber(),
             'active' => fake()->numberBetween(0, 1),
-            'image' => fake()->randomElement(['bear.png', 'chicken.png', 'dog.png', 'panda.png', 'rabbit.png']),
+            'image' => 'default' .DIRECTORY_SEPARATOR . fake()->randomElement(['bear.png', 'chicken.png', 'dog.png', 'panda.png', 'rabbit.png']),
         ])->id;
     }
 

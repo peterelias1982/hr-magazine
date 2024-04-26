@@ -41,8 +41,7 @@
                                                 {{$user->firstName}} {{$user->secondName}}
                                             </h3>
                                             <p class="card-subtitle card-subtitle-dash">
-                                                joined {{ceil((\Carbon\Carbon::parse($user->created_at))->diffInMonths(\Carbon\Carbon::now()))}}
-                                                months ago.
+                                                joined {{ \Carbon\Carbon::parse($user->created_at)->diffForHumans(['parts' => 1])}}.
                                             </p>
                                             <div class="row justify-content-start g-2">
                                                 @foreach ($user->SocialMedia as $socialMedia)
@@ -57,7 +56,7 @@
                                         <div class="col-auto text-center">
                                             <p class="fw-bold lh-1">CV</p>
                                             <div class="m-n5">
-                                                <a href="{{asset('admin/jobSeekersCVs/'.$user->jobSeekerUser?->cv)}}"
+                                                <a href="{{asset('assets/cvs/'.$user->jobSeekerUser?->cv)}}"
                                                    class="text-decoration-none text-black small"><small>{{$user->jobSeekerUser?->cv}}</small></a>
                                                 <i id="user_cv_button"
                                                    class="mdi mdi-file-download fs-5 lh-1 text-danger btn btn-sm p-0"></i>

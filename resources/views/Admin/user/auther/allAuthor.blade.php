@@ -6,16 +6,15 @@
     <div class="col-lg-auto">
       <!-- Search Bar start -->
       <div class="search-bar">
-        <form action="">
+        <form method="GET" action="">
           <div
-            class="row g-1 justify-content-lg-end justify-content-start"
-          >
+            class="row g-1 justify-content-lg-end justify-content-start">
             <div class="col-6 col-lg-3 form-floating">
-              <input type="text" class="form-control" id="title" />
+              <input type="text" class="form-control" id="title" name="name"/>
               <label for="title">Name</label>
             </div>
             <div class="col-6 col-lg-3 form-floating">
-              <input type="text" class="form-control" id="title" />
+              <input type="text" class="form-control" id="title" name="email"/>
               <label for="title">Email</label>
             </div>
             <div class="col-4 col-lg-2 d-flex flex-column justify-content-center">
@@ -56,6 +55,7 @@
       <!-- Search Bar ends -->
     </div>
   </div>
+
   <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
       <div class="card">
@@ -77,226 +77,33 @@
                 </tr>
               </thead>
               <tbody>
+               @foreach($authors as $author)
                 <tr>
                   <td class="py-1">
                     <img
-                      src="{{asset('admin/images/faces/face1.jpg')}}"
+                      src="{{ asset('assets/images/users/'.$author->image)}}"
                       alt="image"
+                      class="img-fluid rounded-circle"
                     />
                   </td>
                   <td>
                     <a
-                      href="user_info.html"
+                      href="{{route('admin.authors.show', $author->slug)}}"
                       class="link-primary text-decoration-none"
-                      >Herman Beck</a>
+                      >{{$author->firstName}} {{$author->secondName}}</a>
                   </td>
-                  <td>test@example.com</td>
-                  <td>+2012222222</td>
-                  <td>Backend mentor</td>
-                  <td>❌</td>
-                  <td>❌</td>
-                  <td>❌</td>
+                  <td>{{$author->email}}</td>
+                  <td>{{$author->mobile}}</td>
+                  <td>{{$author->position}}</td>
+
+                  <td>@if($author->active == 0)❌ @else ✔️ @endif</td>
+                  <td>@if($author->authorUser->approved== 0) ❌ @else ✔️ @endif</td>
+                  <td>@if($author->authorUser->bio == 0) ❌ @else ✔️ @endif</td>
+
                 </tr>
-                <tr>
-                  <td class="py-1">
-                    <img
-                      src="{{asset('admin/images/faces/face1.jpg')}}"
-                      alt="image"
-                    />
-                  </td>
-                  <td>
-                    <a
-                      href="user_info.html"
-                      class="link-primary text-decoration-none"
-                      >Herman Beck</a>
-                  </td>
-                  <td>test@example.com</td>
-                  <td>+2012222222</td>
-                  <td>Backend mentor</td>
-                  <td>❌</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img
-                      src="{{asset('admin/images/faces/face1.jpg')}}"
-                      alt="image"
-                    />
-                  </td>
-                  <td>
-                    <a
-                      href="user_info.html"
-                      class="link-primary text-decoration-none"
-                      >Herman Beck</a>
-                  </td>
-                  <td>test@example.com</td>
-                  <td>+2012222222</td>
-                  <td>Backend mentor</td>
-                  <td>❌</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img
-                      src="{{asset('admin/images/faces/face1.jpg')}}"
-                      alt="image"
-                    />
-                  </td>
-                  <td>
-                    <a
-                      href="user_info.html"
-                      class="link-primary text-decoration-none"
-                      >Herman Beck</a>
-                  </td>
-                  <td>test@example.com</td>
-                  <td>+2012222222</td>
-                  <td>Backend mentor</td>
-                  <td>✔️</td>
-                  <td>❌</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img
-                      src="{{asset('admin/images/faces/face1.jpg')}}"
-                      alt="image"
-                    />
-                  </td>
-                  <td>
-                    <a
-                      href="user_info.html"
-                      class="link-primary text-decoration-none"
-                      >Herman Beck</a>
-                  </td>
-                  <td>test@example.com</td>
-                  <td>+2012222222</td>
-                  <td>Backend mentor</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img
-                      src="{{asset('admin/images/faces/face1.jpg')}}"
-                      alt="image"
-                    />
-                  </td>
-                  <td>
-                    <a
-                      href="user_info.html"
-                      class="link-primary text-decoration-none"
-                      >Herman Beck</a>
-                  </td>
-                  <td>test@example.com</td>
-                  <td>+2012222222</td>
-                  <td>Backend mentor</td>
-                  <td>✔️</td>
-                  <td>❌</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img
-                      src="{{asset('admin/images/faces/face1.jpg')}}"
-                      alt="image"
-                    />
-                  </td>
-                  <td>
-                    <a
-                      href="user_info.html"
-                      class="link-primary text-decoration-none"
-                      >Herman Beck</a>
-                  </td>
-                  <td>test@example.com</td>
-                  <td>+2012222222</td>
-                  <td>Backend mentor</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img
-                      src="{{asset('admin/images/faces/face1.jpg')}}"
-                      alt="image"
-                    />
-                  </td>
-                  <td>
-                    <a
-                      href="user_info.html"
-                      class="link-primary text-decoration-none"
-                      >Herman Beck</a>
-                  </td>
-                  <td>test@example.com</td>
-                  <td>+2012222222</td>
-                  <td>Backend mentor</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img
-                      src="{{asset('admin/images/faces/face1.jpg')}}"
-                      alt="image"
-                    />
-                  </td>
-                  <td>
-                    <a
-                      href="user_info.html"
-                      class="link-primary text-decoration-none"
-                      >Herman Beck</a>
-                  </td>
-                  <td>test@example.com</td>
-                  <td>+2012222222</td>
-                  <td>Backend mentor</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img
-                      src="{{asset('admin/images/faces/face1.jpg')}}"
-                      alt="image"
-                    />
-                  </td>
-                  <td>
-                    <a
-                      href="user_info.html"
-                      class="link-primary text-decoration-none"
-                      >Herman Beck</a>
-                  </td>
-                  <td>test@example.com</td>
-                  <td>+2012222222</td>
-                  <td>Backend mentor</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                </tr>
-                <tr>
-                  <td class="py-1">
-                    <img
-                      src="{{asset('admin/images/faces/face1.jpg')}}"
-                      alt="image"
-                    />
-                  </td>
-                  <td>
-                    <a
-                      href="user_info.html"
-                      class="link-primary text-decoration-none"
-                      >Herman Beck</a>
-                  </td>
-                  <td>test@example.com</td>
-                  <td>+2012222222</td>
-                  <td>Backend mentor</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                  <td>✔️</td>
-                </tr>
+                @endforeach
+
+
               </tbody>
             </table>
           </div>

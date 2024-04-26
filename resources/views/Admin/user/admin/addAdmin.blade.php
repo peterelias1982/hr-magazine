@@ -10,7 +10,7 @@
                             Add a new admin user to the dashboard
                         </p>
                         <form action="{{ route('admin.admins.store') }}" method="POST" class="forms-sample"
-                              id="admin-create">
+                              id="admin-create" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="email">Email</label>
@@ -99,7 +99,8 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputFile" class="form-label">Image</label>
-                            <input type="file" class="form-control" id="exampleInputFile" name="image" form="admin-create">
+                            <input type="file" class="form-control" id="exampleInputFile" name="image"
+                                   form="admin-create">
                         </div>
                         <div class="form-group">
                             <label for="gender" class="form-label">Gender </label>
