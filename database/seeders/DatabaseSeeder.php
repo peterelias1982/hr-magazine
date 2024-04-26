@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
 //        required data for production
         $this->call([
             ArticleCategorySeeder::class,

@@ -27,7 +27,7 @@ class AdminSeeder extends Seeder
             'password' => Hash::make('admin'),
             'position' => AdminPosition::SuperAdmin->value,
             'active' => 1,
-            'image' => 'chicken.png',
+            'image' => 'default'.DIRECTORY_SEPARATOR.'chicken.png',
         ]);
 
         Admin::create([

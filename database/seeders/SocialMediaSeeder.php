@@ -13,6 +13,7 @@ class SocialMediaSeeder extends Seeder
      */
     public function run(): void
     {
+
         SocialMedia::insert([
             ['mediaName' => \App\Enums\SocialMedia::LinkedIn->value],
             ['mediaName' => \App\Enums\SocialMedia::Facebook->value],

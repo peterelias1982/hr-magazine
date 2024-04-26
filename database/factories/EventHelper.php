@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Event;
+use Carbon\Carbon;
 
 
 class EventHelper
@@ -20,11 +21,10 @@ MAP2;
 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d220413.62136548402!2d31.54108611703804!3d30.323574978361883!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f8075f7c0ecadb%3A0xc54596c9cf9f7c82!2s10th%20of%20Rammadan%20City%2C%20Al-Sharqia%20Governorate!5e0!3m2!1sen!2seg!4v1713910848681!5m2!1sen!2seg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 MAP3;
 
-
         return Event::create([
             'title' => fake()->title(),
-            'fromDate' => fake()->date(),
-            'toDate' => fake()->date(),
+            'fromDate' => Carbon::now()->toDateString(),
+            'toDate' => Carbon::now()->addDays(2)->toDateString(),
             'image' => 'event.jpeg',
             'streetNo' => fake()->numberBetween(1, 20),
             'streetName' => fake()->streetName(),

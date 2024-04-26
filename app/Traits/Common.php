@@ -9,4 +9,10 @@ Trait Common {
         $file->move($path, $file_name);
         return $file_name;
     }
+
+    public function deleteFile($filePath) {
+        if(is_file($filePath)) {
+            unlink($filePath);
+        }
+    }
 }

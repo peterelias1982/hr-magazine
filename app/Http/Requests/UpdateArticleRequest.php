@@ -37,6 +37,7 @@ class UpdateArticleRequest extends FormRequest
             'author_id' => Rule::requiredIf(fn() => $category? $category['hasAuthor'] : false),
             'featured' => 'sometimes',
             'recommended' => 'sometimes',
+            'oldImage' => 'sometimes',
         ];
     }
 }

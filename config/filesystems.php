@@ -72,5 +72,12 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
+    'authorImage'=>[
+        'driver' => 'local',
+          'root' => base_path() . 'admin/images/authors/',
+          'url' => env('APP_URL').'/public',
+          'visibility' => 'public',
+          'throw' => false,
+    ]
 
 ];
