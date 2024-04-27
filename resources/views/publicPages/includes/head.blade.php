@@ -14,4 +14,22 @@
         rel="stylesheet"
         href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     />
+
+    <script>
+        let messages = JSON.parse('<?= $messages ?? '{}' ?>');
+
+        @if(session('resent'))
+            messages.info = [
+            ...(messages.info ?? []),
+            "{{ __('A fresh verification link has been sent to your email address.') }}"
+        ];
+        @endif
+
+        @if (session('status'))
+            messages.info = [
+            ...(messages.info ?? []),
+            "{{ session('status') }}"
+        ];
+        @endif
+    </script>
 </head>

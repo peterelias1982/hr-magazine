@@ -1,3 +1,6 @@
+<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+    @csrf
+</form>
 <nav class="container-fluid navbar fw-semibold p-0 m-0 mb-3">
     <!--Top-nav start-->
     <div id="top-nav" class="container-fluid bg-primary">
@@ -61,16 +64,16 @@
                         aria-labelledby="accountDropdown"
                     >
                         <li>
-                            <a class="dropdown-item text-white" href="#">Login</a>
+                            <a class="dropdown-item text-white" href="{{ route('login') }}">Login</a>
                         </li>
                         <li>
-                            <a class="dropdown-item text-white" href="#">Register</a>
+                            <a class="dropdown-item text-white" href="{{route('register')}}">Register</a>
                         </li>
                         <li>
                             <a class="dropdown-item text-white" href="#">Profile</a>
                         </li>
                         <li>
-                            <a class="dropdown-item text-white" href="#">Logout</a>
+                            <a class="dropdown-item text-white" href="javascript:document.getElementById('logout-form').submit();" >Logout</a>
                         </li>
                     </ul>
                 </div>

@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('publicPages.articles.legalComplianceSingle');
+    return view('publicPages.events.eventCalender');
 });
 
 Route::get('/home', function () {
     return view('publicPages.home');
-});
+})->name('index');
 
 Auth::routes();
 
