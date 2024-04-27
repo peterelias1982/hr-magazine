@@ -1,67 +1,31 @@
 @extends('publicPages.layouts.main')
 
+@section('category')
+    Workplace Culture & Well Being
+@endsection
+@section('subCategory')
+    Workplace Culture
+@endsection
+@section('createdDate')
+    Thursday Dec 12 2023
+@endsection
+
 @section('publicPagesContent')
     <!-- start of content -->
     @include('publicPages.includes.breadcrumb')
-
-    <div class="container-fluid g-0 bg-light pt-3 px-lg-5 px-md-3">
-        <div class="card bg-light text-white mx-3 border-light">
-            <div class="ratio ratio-16x9">
-                <!-- Default Image -->
-                <img
-                    src="{{asset('publicPages/images/video-image-exp-interview.svg')}}"
-                    alt="Default Video Image"
-                    class="embed-cover"
-                />
-                <!-- Iframe for Video -->
-                <iframe
-                    src="https://www.youtube.com/embed/7S0Lj4scspU?list=PL7h7VRXAvXNpehO1CPzEPdNEJNqItu6HM&enablejsapi=1"
-                    class="youtube-video embed-cover"
-                    style="display: none"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                >
-                </iframe>
-
-                <!-- Custom Play Button -->
-                <button
-                    type="button"
-                    class="btn position-absolute top-50 start-50 translate-middle"
-                    aria-label="Play Video"
-                    onclick="playVideo()"
-                >
-                    <img
-                        src="{{asset('publicPages/images/video-play-btn.svg')}}"
-                        alt="Play Video"
-                        class="embed-cover-btn"
-                    />
-                </button>
-            </div>
+    <div class="container-fluid g-0 bg-light pt-3 px-lg-5 px-md-3 px-1">
+        <div
+            class="position-relative overflow-hidden mx-lg-3 mb-3"
+            style="height: 695px"
+        >
+            <img
+                src="{{asset('publicPages/images/w-c1.png')}}"
+                class="rounded image-center"
+                alt=""
+            />
         </div>
-        <div class="conatiner-fluid">
-            <div class="row justify-content-center my-3">
-                <div class="col-xl-2 col-md-3 align-self-center">
-                    <div class="rounded-circle-container">
-                        <img
-                            src="{{asset('publicPages/images/wellness-programs-profile.png')}}"
-                            class="img-fluid"
-                            alt="User-Profile-Image"
-                        />
-                    </div>
-                </div>
-                <div class="col-xl-10 col-md-9">
-                    <h4 class="fw-bold mt-5 pb-2">Amged S. El-Hawrani</h4>
-                    <p class="fs-4 fw-semibold mt-2 pb-2">
-                        Lorem ipsum dolor sit amet consectetur. Pellentesque faucibus mi
-                        feugiat tristique purus penatibus mauris nam libero. Non aliquam
-                        varius at amet lorem lobortis netus vulputate. Semper purus
-                        turpis vitae nunc urna sodales mauris. Vulputate sit est
-                        pharetra velit eget.
-                    </p>
-                </div>
-            </div>
-            <article style="max-width: 90%" class="mx-auto">
+        <div class="mx-auto" style="max-width: 1225px">
+            <article>
                 <p>
                     Lorem ipsum dolor sit amet consectetur. Est maecenas tellus nulla
                     sed pulvinar fringilla accumsan quam. Orci lectus ornare nisi et
@@ -77,7 +41,7 @@
                     eros vitae fusce quam fringilla in.
                 </p>
 
-                <h2 class="fs-1">Title</h2>
+                <h2 class="fs-1 py-4">Title 1</h2>
                 <p>
                     Molestie interdum cras sit non magna vitae purus cum. Nisi in
                     malesuada nunc eget id maecenas. Blandit porttitor quam tempus sed
@@ -182,6 +146,28 @@
                 </p>
             </article>
         </div>
+        <div class="row d-flex justify-content-center pb-4">
+            <div class="col-xl-2 col-md-3">
+                <div class="mt-5 ms-3">
+                    <img
+                        src="{{asset('publicPages/images/w-c2.png')}}"
+                        class="img-fluid"
+                        alt="User-Profile-Image"
+                    />
+                </div>
+            </div>
+            <div class="col-xl-10 col-md-9">
+                <h4 class="fw-bold mt-5 pb-2">Amged S. El-Hawrani</h4>
+                <p class="fs-4 fw-semibold mt-2 pb-2">
+                    Lorem ipsum dolor sit amet consectetur. Pellentesque faucibus mi
+                    feugiat tristique purus penatibus mauris nam libero. Non aliquam
+                    varius at amet lorem lobortis netus vulputate. Semper purus turpis
+                    vitae nunc urna sodales mauris. Vulputate sit est pharetra velit
+                    eget. Read more
+                </p>
+            </div>
+        </div>
     </div>
+    @include('publicPages.includes.commentSection')
 
 @endsection

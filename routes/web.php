@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('publicPages.events.eventCalender');
+    return view('publicPages.articles.single.wellnessProgramsSingle');
 });
 
 Route::get('/home', function () {

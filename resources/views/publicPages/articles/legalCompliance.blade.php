@@ -14,32 +14,11 @@
                             <img
                                 src="{{asset('publicPages/images/legal-compliance-video.svg')}}"
                                 alt="Default Video Image"
-                                class="embed-cover"
                             />
-                            <!-- Iframe for Video -->
-                            <iframe
-                                src="https://www.youtube.com/embed/7S0Lj4scspU?list=PL7h7VRXAvXNpehO1CPzEPdNEJNqItu6HM&enablejsapi=1"
-                                class="youtube-video embed-cover"
-                                style="display: none"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen
-                            >
-                            </iframe>
-
-                            <!-- Custom Play Button -->
-                            <button
-                                type="button"
-                                class="btn position-absolute top-50 start-50 translate-middle"
-                                aria-label="Play Video"
-                                onclick="playVideo()"
-                            >
-                                <img
-                                    src="{{asset('publicPages/images/video-play-btn.svg')}}"
-                                    alt="Play Video"
-                                    class="embed-cover-btn"
-                                />
-                            </button>
+                            <div
+                                class="gradient position-absolute start-0 top-0 rounded-4"
+                                style="width: 100%; height: 100%"
+                            ></div>
                         </div>
 
                         <!-- <div

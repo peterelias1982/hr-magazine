@@ -1,6 +1,17 @@
 @extends('publicPages.layouts.main')
 
+@section('category')
+    Ladies in HR
+@endsection
+@section('subCategory')
+    Journey to Excellence
+@endsection
+@section('createdDate')
+    Thursday Dec 12 2023
+@endsection
+
 @section('publicPagesContent')
+    @include('publicPages.includes.breadcrumb')
     <!-- start of content -->
     <div class="container-fluid g-0 bg-light pt-3 pb-5 px-lg-5 px-md-3 px-1">
         <!-- image header -->
@@ -56,46 +67,6 @@
                     tincidunt nunc nulla habitant tristique at.
                 </p>
 
-                <!-- video -->
-                <div class="row m-auto g-0 pb-3">
-                    <div class="col">
-                        <div class="card bg-light text-white border-light">
-                            <div class="ratio ratio-16x9">
-                                <!-- Default Image -->
-                                <img
-                                    src="{{asset('publicPages/images/journeytoExcellence2-video.png')}}"
-                                    alt="Default Video Image"
-                                    class="embed-cover"
-                                />
-                                <!-- Iframe for Video -->
-                                <iframe
-                                    src="https://www.youtube.com/embed/7S0Lj4scspU?list=PL7h7VRXAvXNpehO1CPzEPdNEJNqItu6HM&enablejsapi=1"
-                                    class="youtube-video embed-cover"
-                                    style="display: none"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen
-                                >
-                                </iframe>
-
-                                <!-- Custom Play Button -->
-                                <button
-                                    type="button"
-                                    class="btn position-absolute top-50 start-50 translate-middle"
-                                    aria-label="Play Video"
-                                    onclick="playVideo()"
-                                >
-                                    <img
-                                        src="{{asset('publicPages/images/video-play-btn.svg')}}"
-                                        alt="Play Video"
-                                        class="embed-cover-btn"
-                                    />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end video -->
                 <p>
                     Commodo in nisi vel ornare egestas in donec. In pharetra nibh
                     platea odio. Duis lectus malesuada integer massa in integer risus

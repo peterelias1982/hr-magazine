@@ -1,26 +1,18 @@
 @extends('publicPages.layouts.main')
 
+@section('category')
+    Professional Development
+@endsection
+@section('subCategory')
+    Authors
+@endsection
+@section('createdDate')
+    Thursday Dec 12 2023
+@endsection
+
 @section('publicPagesContent')
-    <!-- Start Navbar of Authors -->
-    <section id="nav-author" class="bg-dark text-light py-3">
-        <div class="container-fluid ps-3">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item text-light">
-                        <a class="text-light text-decoration-none" href="home.html"
-                        >Home</a
-                        >
-                    </li>
-                    <li class="breadcrumb-item active text-light" aria-current="page">
-                        Authors
-                    </li>
-                </ol>
-            </nav>
-            <h1 class="fs-4">Authors</h1>
-            <p class="text-white-50 mb-0">Thursday Dec 12 2023</p>
-        </div>
-    </section>
-    <!-- End Navbar of Authors -->
+   @include('publicPages.includes.breadcrumb')
+
     <!--Start Author landing -->
     <section id="landing-author" class="bg-secondary">
         <div class="container-fluid pt-3">

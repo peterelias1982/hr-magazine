@@ -1,24 +1,31 @@
 @extends('publicPages.layouts.main')
 
+@section('category')
+    Industry Insights
+@endsection
+@section('subCategory')
+    Global HR Perspectives
+@endsection
+@section('createdDate')
+    Thursday Dec 12 2023
+@endsection
+
 @section('publicPagesContent')
     <!-- start of content -->
     @include('publicPages.includes.breadcrumb')
-
-    <div class="container-fluid g-0 bg-light pt-3 pb-5 px-lg-5 px-md-3 px-1">
-        <!-- image header -->
+    <div class="container-fluid g-0 bg-light pt-3 px-lg-5 px-md-3">
         <div
             class="position-relative overflow-hidden mx-3 mb-3"
             style="height: 695px"
         >
             <img
-                src="{{asset('publicPages/images/DEI-image-header.png')}}"
-                class="rounded image-center"
-                alt="DEI-header-img"
+                src="{{asset('publicPages/images/featureArticlesPage.jpg')}}"
+                class="rounded image-center border border-dark border-4"
+                alt=""
             />
         </div>
-        <!-- article -->
-        <div class="mx-auto" style="max-width: 1225px">
-            <article>
+        <div class="conatiner-fluid">
+            <article style="max-width: 90%;" class="mx-auto">
                 <p>
                     Lorem ipsum dolor sit amet consectetur. Est maecenas tellus nulla
                     sed pulvinar fringilla accumsan quam. Orci lectus ornare nisi et
@@ -34,7 +41,7 @@
                     eros vitae fusce quam fringilla in.
                 </p>
 
-                <h2 class="fs-1">Title 1</h2>
+                <h2 class="fs-1">Title</h2>
                 <p>
                     Molestie interdum cras sit non magna vitae purus cum. Nisi in
                     malesuada nunc eget id maecenas. Blandit porttitor quam tempus sed
@@ -46,7 +53,6 @@
                     imperdiet enim diam viverra. Et egestas imperdiet tempor dictum
                     leo eu.
                 </p>
-
                 <p>
                     Sit suscipit neque mauris fames. Sit purus nullam in et. Massa
                     aliquet neque scelerisque sed vestibulum porta velit scelerisque.
@@ -76,7 +82,6 @@
                     ornare dignissim in sodales. Eu nam laoreet laoreet nunc morbi
                     amet urna.
                 </p>
-
                 <p>
                     Neque tincidunt enim ullamcorper nullam urna. Etiam interdum
                     posuere laoreet enim enim imperdiet. Purus viverra in fusce
@@ -139,33 +144,12 @@
                     praesent sit eros fames eu. Egestas interdum sed libero viverra
                     proin sem facilisi lorem viverra
                 </p>
+                <div class="py-5">
+                    <p class="text-lead fs-3 mb-2 fw-600">Source Name</p>
+                    <p class="fw-600 fs-4">lorem <a href="#">www.Lorem ipsum dolor sit amet consectetur.com
+                        </a></p>
+                </div>
             </article>
         </div>
-        <!-- team info -->
-        <div class="row d-flex justify-content-center">
-            <div class="col-xl-2 col-md-3 col-sm-12">
-                <div class="mt-5 rounded-circle-container">
-                    <img
-                        src="{{asset('publicPages/images/DEI-image-profile.png')}}"
-                        class="img-fluid"
-                        alt="User-Profile-Image"
-                    />
-                </div>
-            </div>
-            <div class="col-xl-10 col-md-9 col-sm-12">
-                <h4 class="fw-bold mt-5 pb-2">Nadia S. El-Hawrani</h4>
-                <p class="fs-4 fw-semibold mt-2 pb-2">
-                    Lorem ipsum dolor sit amet consectetur. Pellentesque faucibus mi
-                    feugiat tristique purus penatibus mauris nam libero. Non aliquam
-                    varius at amet lorem lobortis netus vulputate. Semper purus turpis
-                    vitae nunc urna sodales mauris. Vulputate sit est pharetra velit
-                    eget.
-                </p>
-            </div>
-        </div>
     </div>
-
-    {{--    if article has comment section --}}
-    @include('publicPages.includes.commentSection')
-    <!-- end container-->
 @endsection

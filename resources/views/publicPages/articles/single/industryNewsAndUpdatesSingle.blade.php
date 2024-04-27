@@ -1,5 +1,15 @@
 @extends('publicPages.layouts.main')
 
+@section('category')
+    Industry Insights
+@endsection
+@section('subCategory')
+    Industry News & Updates
+@endsection
+@section('createdDate')
+    Thursday Dec 12 2023
+@endsection
+
 @section('publicPagesContent')
     <!-- start of content -->
     @include('publicPages.includes.breadcrumb')
@@ -143,6 +153,12 @@
                             Egestas interdum sed libero viverra proin sem facilisi lorem
                             viverra
                         </p>
+                        <div class="py-5">
+                            <p class="text-lead fs-3 mb-2 fw-600">Source Name</p>
+                            <p class="fw-600 fs-4">lorem <a href="#">www.Lorem ipsum dolor sit amet consectetur.com
+                                </a></p>
+                        </div>
+
                     </article>
                 </div>
                 <div class="col-md-6 col-lg-5">

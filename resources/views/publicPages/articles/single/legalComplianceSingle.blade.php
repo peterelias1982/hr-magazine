@@ -1,5 +1,15 @@
 @extends('publicPages.layouts.main')
 
+@section('category')
+    Legal & Compliance
+@endsection
+@section('subCategory')
+    Legal Corner
+@endsection
+@section('createdDate')
+    Thursday Dec 12 2023
+@endsection
+
 @section('publicPagesContent')
     <!-- start of content -->
     @include('publicPages.includes.breadcrumb')
@@ -56,47 +66,6 @@
                     amet sollicitudin id. Scelerisque consequat habitant velit
                     tincidunt nunc nulla habitant tristique at.
                 </p>
-
-                <!-- video -->
-                <div class="row m-auto g-0 pb-3">
-                    <div class="col">
-                        <div class="card bg-light text-white border-light">
-                            <div class="ratio ratio-16x9">
-                                <!-- Default Image -->
-                                <img
-                                    src="{{asset('publicPages/images/legal-compliance2-video.png')}}"
-                                    alt="Default Video Image"
-                                    class="embed-cover"
-                                />
-                                <!-- Iframe for Video -->
-                                <iframe
-                                    src="https://www.youtube.com/embed/7S0Lj4scspU?list=PL7h7VRXAvXNpehO1CPzEPdNEJNqItu6HM&enablejsapi=1"
-                                    class="youtube-video embed-cover"
-                                    style="display: none"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowfullscreen
-                                >
-                                </iframe>
-
-                                <!-- Custom Play Button -->
-                                <button
-                                    type="button"
-                                    class="btn position-absolute top-50 start-50 translate-middle"
-                                    aria-label="Play Video"
-                                    onclick="playVideo()"
-                                >
-                                    <img
-                                        src="{{asset('publicPages/images/video-play-btn.svg')}}"
-                                        alt="Play Video"
-                                        class="embed-cover-btn"
-                                    />
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end video -->
                 <p>
                     Commodo in nisi vel ornare egestas in donec. In pharetra nibh
                     platea odio. Duis lectus malesuada integer massa in integer risus
@@ -193,4 +162,5 @@
         </div>
         <!-- team info -->
     </div>
+    @include('publicPages.includes.commentSection')
 @endsection

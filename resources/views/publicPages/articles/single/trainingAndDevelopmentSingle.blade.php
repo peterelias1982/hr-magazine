@@ -1,19 +1,28 @@
 @extends('publicPages.layouts.main')
 
+@section('category')
+    Professional Development
+@endsection
+@section('subCategory')
+    Training & Development
+@endsection
+@section('createdDate')
+    Thursday Dec 12 2023
+@endsection
+
 @section('publicPagesContent')
     <!-- start of content -->
     @include('publicPages.includes.breadcrumb')
-
-    <div class="container-fluid g-0 bg-light pt-3 pb-5 px-lg-5 px-md-3 px-1">
+    <div class="container-fluid g-0 bg-light pt-3 pb-5 px-md-5 px-1">
         <!-- image header -->
         <div
             class="position-relative overflow-hidden mx-md-3 mx-1 mb-3"
             style="height: 695px"
         >
             <img
-                src="{{asset('publicPages/images/mental-health-header.png')}}"
-                class="rounded image-center"
-                alt="MentalHealth-header-img"
+                src="{{asset('publicPages/images/wellness-programs-header.png')}}"
+                class="rounded image-center border border-dark border-4"
+                alt="WellnessPrograms-header-img"
             />
         </div>
         <!-- article -->
@@ -143,17 +152,17 @@
         </div>
         <!-- team info -->
         <div class="row d-flex justify-content-center">
-            <div class="col-xl-2 col-md-3 ">
-                <div class="mt-5 rounded-circle-container">
+            <div class="col-xl-2 col-md-3 align-self-center">
+                <div class="rounded-circle-container">
                     <img
-                        src="{{asset('publicPages/images/mental-health-profile.png')}}"
+                        src="{{asset('publicPages/images/wellness-programs-profile.png')}}"
                         class="img-fluid"
                         alt="User-Profile-Image"
                     />
                 </div>
             </div>
-            <div class="col-xl-10 col-md-9 ">
-                <h4 class="fw-bold mt-5 pb-2">Nadia S. El-Hawrani</h4>
+            <div class="col-xl-10 col-md-9">
+                <h4 class="fw-bold mt-5 pb-2">Amged S. El-Hawrani</h4>
                 <p class="fs-4 fw-semibold mt-2 pb-2">
                     Lorem ipsum dolor sit amet consectetur. Pellentesque faucibus mi
                     feugiat tristique purus penatibus mauris nam libero. Non aliquam
@@ -164,6 +173,4 @@
             </div>
         </div>
     </div>
-
-    @include('publicPages.includes.commentSection')
 @endsection

@@ -1,5 +1,15 @@
 @extends('publicPages.layouts.main')
 
+@section('category')
+    Professional Development
+@endsection
+@section('subCategory')
+    Professional SpotLights
+@endsection
+@section('createdDate')
+    Thursday Dec 12 2023
+@endsection
+
 @section('publicPagesContent')
     <!-- start of content -->
     @include('publicPages.includes.breadcrumb')
@@ -15,6 +25,29 @@
             />
         </div>
         <div class="conatiner-fluid">
+
+            <div class="row justify-content-center my-3">
+                <div class="col-xl-2 col-md-3 align-self-center">
+                    <div class="rounded-circle-container">
+                        <img
+                            src="{{asset('publicPages/images/wellness-programs-profile.png')}}"
+                            class="img-fluid"
+                            alt="User-Profile-Image"
+                        />
+                    </div>
+                </div>
+                <div class="col-xl-10 col-md-9">
+                    <h4 class="fw-bold mt-5 pb-2">Amged S. El-Hawrani</h4>
+                    <p class="fs-4 fw-semibold mt-2 pb-2">
+                        Lorem ipsum dolor sit amet consectetur. Pellentesque faucibus mi
+                        feugiat tristique purus penatibus mauris nam libero. Non aliquam
+                        varius at amet lorem lobortis netus vulputate. Semper purus
+                        turpis vitae nunc urna sodales mauris. Vulputate sit est
+                        pharetra velit eget.
+                    </p>
+                </div>
+            </div>
+
             <article style="max-width: 90%;" class="mx-auto">
                 <p>
                     Lorem ipsum dolor sit amet consectetur. Est maecenas tellus nulla
@@ -134,11 +167,6 @@
                     praesent sit eros fames eu. Egestas interdum sed libero viverra
                     proin sem facilisi lorem viverra
                 </p>
-                <div class="py-5">
-                    <p class="text-lead fs-3 mb-2 fw-600">Source Name</p>
-                    <p class="fw-600 fs-4">lorem <a href="#">www.Lorem ipsum dolor sit amet consectetur.com
-                        </a></p>
-                </div>
             </article>
         </div>
     </div>

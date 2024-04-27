@@ -1,5 +1,15 @@
 @extends('publicPages.layouts.main')
 
+@section('category')
+    Professional Developmnet
+@endsection
+@section('subCategory')
+    Feature Articles
+@endsection
+@section('createdDate')
+    Thursday Dec 12 2023
+@endsection
+
 @section('publicPagesContent')
     <!-- start of content -->
     @include('publicPages.includes.breadcrumb')

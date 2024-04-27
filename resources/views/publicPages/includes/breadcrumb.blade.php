@@ -9,12 +9,12 @@
                     >
                 </li>
                 <li class="breadcrumb-item active text-light" aria-current="page">
-                    Workplace Culture & Well being
+                    @yield('category')
                 </li>
             </ol>
         </nav>
-        <h2 class="fs-2 fw-bold">Diversity, Equity, and Inclusion (DEI)</h2>
-        <p class="text-white-50 mb-0 fs-4">Thursday Dec 12 2023</p>
+        <h2 class="fs-2 fw-bold">@yield('subCategory')</h2>
+        <p class="text-white-50 mb-0 fs-4">@yield('createdDate')</p>
     </div>
 </section>
 <!-- end breadcrumb -->
