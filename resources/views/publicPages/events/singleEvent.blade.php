@@ -414,6 +414,18 @@
                         </table>
                     </div>
                 </div>
+                <div class="container pb-5">
+                    <div
+                        class="text-center bg-primary text-white py-4 mt-5 mb-0 fs-2 fw-bold"
+                    >
+                        Events Location
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        {!! $map1 = <<<MAP
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13715.228008206717!2d31.4393061992627!3d30.75192228381106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f78d65443c8c09%3A0xc1f61ff25eed8e82!2sDyarb%20Negm%2C%20Dairab%20Negm%2C%20Diyarb%20Negm%2C%20Al-Sharqia%20Governorate!5e0!3m2!1sen!2seg!4v1713910706463!5m2!1sen!2seg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    MAP; !!}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
