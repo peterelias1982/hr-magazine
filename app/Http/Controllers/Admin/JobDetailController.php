@@ -29,7 +29,7 @@ class JobDetailController extends Controller
             'jobCategory' => function ($query) {
                 $query->select('id', 'category');
             },
-            'jobSeeker' => function ($query) {
+            'jobSeekers' => function ($query) {
                 $query->select('user_id');
             },])->whereIn('id', $jobs_ids)->get();
 
@@ -47,7 +47,7 @@ class JobDetailController extends Controller
     {
         try {
             $jobdetail = JobDetail::where('slug', $slug)
-                ->with(['jobCategory', 'Employer', 'jobSeeker'])->first();
+                ->with(['jobCategory', 'Employer', 'jobSeekers'])->first();
 
             if (!$jobdetail) {
                 throw new ResourceNotFoundException('Job is not found');

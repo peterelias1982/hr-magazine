@@ -148,7 +148,7 @@
                         disabled
                       />
                   <img
-                    src="{{asset('assets/images/employer/'.$employer->logo)}}"
+                    src="{{asset('assets/images/employers/'.$employer->logo)}}"
                     alt=""
                     id="company_pic"
                     class="card-img rounded-circle bg-light"
@@ -192,7 +192,7 @@
         <!-- Company card end  -->
         <div class="col-lg-5 grid-margin stretch-card" id="padding_pic">
           <img
-            src="{{asset('assets/images/employer/'.$employer->logo)}}"
+            src="{{asset('assets/images/employers/'.$employer->logo)}}"
             alt=""
             class="img-fluid rounded opacity-25"
           />

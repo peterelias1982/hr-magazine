@@ -40,7 +40,7 @@ class EmployerController extends Controller
 
         $messages = $this->getMessages();
 
-        return view('Admin.user.employer.allEmployer', compact('employer', 'messages'));
+        return view('Admin.user.employers.allEmployer', compact('employer', 'messages'));
     }
 
     /**
@@ -65,7 +65,7 @@ class EmployerController extends Controller
             }
 
             $employer->created_at = Carbon::parse($employer->created_at)->diffForHumans(['parts' => 1]);
-            return view("Admin.user.employer.userInfo", compact('employer', 'socialMedia'));
+            return view("Admin.user.employers.userInfo", compact('employer', 'socialMedia'));
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.employers.index')
@@ -89,7 +89,7 @@ class EmployerController extends Controller
         } catch (Throwable $exception) {
             return redirect()
                 ->route('admin.employers.index')
-                ->with(['messages' => ['error' => ['Error Update employer: ' . $exception->getMessage()]]]);
+                ->with(['messages' => ['error' => ['Error Update employers: ' . $exception->getMessage()]]]);
         }
     }
 
@@ -101,7 +101,7 @@ class EmployerController extends Controller
         try {
             $user = User::where('slug', $slug)->first();
             $employer = Employer::where('user_id', $user->id)->first();
-            unlink("assets/images/employer/" . $employer->logo);
+            unlink("assets/images/employers/" . $employer->logo);
             $user->delete();
             return redirect()
                 ->route('admin.employers.index')
@@ -109,7 +109,7 @@ class EmployerController extends Controller
         } catch (Throwable $exception) {
             return redirect()
                 ->route('admin.employers.index')
-                ->with(['messages' => ['error' => ['Error delete employer: ' . $exception->getMessage()]]]);
+                ->with(['messages' => ['error' => ['Error delete employers: ' . $exception->getMessage()]]]);
         }
     }
 
