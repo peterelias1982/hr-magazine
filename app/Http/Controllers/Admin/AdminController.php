@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminRequest;
-use App\Models\Admin;
-use App\Models\User;
-use App\Traits\Common;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Admin;
+use App\Traits\Common;
 use Illuminate\Http\Request;
+use App\Http\Requests\AdminRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;

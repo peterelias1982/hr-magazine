@@ -67,7 +67,7 @@
         <!-----Job Seeker sub-category--------->
         <a
           class="nav-link"
-          href="pages/users/job-seekers.html"
+          href="{{route('admin.jobSeekers.index')}}"
           aria-expanded="false"
           aria-controls="job-seek-basic"
         >
@@ -78,7 +78,7 @@
         <!-----Job Seeker sub-category--------->
         <a
           class="nav-link"
-          href="pages/users/employers.html"
+          href="{{route('admin.employers.index')}}"
           aria-expanded="false"
           aria-controls="emp-basic"
         >
@@ -92,7 +92,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href="pages/articles/category_form.html"
+          href="{{route('admin.articleCategories.create')}}"
           aria-expanded="false"
           aria-controls="charts"
         >
@@ -105,7 +105,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href="pages/articles/categories.html"
+          href="{{route('admin.articleCategories.index')}}"
           aria-expanded="false"
           aria-controls="charts"
         >
@@ -118,7 +118,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href="pages/articles/tag_form.html"
+          href="{{route('admin.tags.create')}}"
           aria-expanded="false"
           aria-controls="tables"
         >
@@ -131,7 +131,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href="pages/articles/tags.html"
+          href="{{route('admin.tags.index')}}"
           aria-expanded="false"
           aria-controls="tags"
         >
@@ -144,7 +144,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href="pages/articles/add-article-form.html"
+          href="{{route('admin.articles.create')}}"
           aria-expanded="false"
           aria-controls="icons"
         >
@@ -157,7 +157,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href="pages/articles/articles.html"
+          href="{{route('admin.articles.index')}}"
           aria-expanded="false"
           aria-controls="icons"
         >
@@ -171,7 +171,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href="pages/events/add-event.html"
+          href="{{route('admin.events.create')}}"
           aria-expanded="false"
           aria-controls="auth"
         >
@@ -183,7 +183,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href="pages/events/events.html"
+          href="{{route('admin.events.index')}}"
           aria-expanded="false"
           aria-controls="auth"
         >
@@ -209,7 +209,7 @@
       <li class="nav-item">
         <a
           class="nav-link"
-          href="pages/jobs/categories.html"
+          href="{{route('admin.jobCategories.index')}}"
           aria-expanded="false"
           aria-controls="auth"
         >
