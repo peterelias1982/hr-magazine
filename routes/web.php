@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('publicPages.events.eventCalender');
+    return view('publicPages.articles.professionalDevelopment3');
 });
 
 Route::get('/home', function () {
@@ -19,7 +19,7 @@ Route::get('category/{category}/article/{article}', function ($category, $articl
     $articleData = \App\Models\Article::where('slug', $article)->first();
 
 //    if article.category_id not equal category.id abort
-    return view('publicPages.articles.articleSingle', compact('categoryData'));
+    return view('publicPages.articles.articleSingle', compact('categoryData', 'articleData'));
 });
 
 Auth::routes();
