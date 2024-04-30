@@ -19,14 +19,14 @@
                             <div class="col-4 col-lg-2 form-floating">
                                 <input type="text" class="form-control" id="date" name="author">
                                 <label for="date">Author</label>
-                               
+
                             </div>
                             <div class="col-4 col-lg-2 form-floating">
                                 <select class="form-control bg-white" name="categoryId">
                                     <option value="">_</option>
                                     @foreach ($articleCategories as $articleCategory)
                                         <option
-                                            value="{{ $articleCategory->id}}" @selected(old('articleCategory_id') === $articleCategory->id)>{{$articleCategory->articleCategoryName }}</option>
+                                            value="{{ $articleCategory->id}}" @selected(old('articleCategory_id') === $articleCategory->id)>{{$articleCategory->subCategory }}</option>
                                     @endforeach
                                 </select>
                                 <label for="date">Select Category</label>

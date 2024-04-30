@@ -83,7 +83,7 @@
                                             <option
                                                 value="{{ $articleCategory->id}}"
                                                 @selected(old('category_id') == $articleCategory->id)
-                                            >{{$articleCategory->articleCategoryName }}</option>
+                                            >{{$articleCategory->subCategory }}</option>
                                         @endforeach
                                         @error('category_id')
                                         <small><code>{{ $message }}</code></small>

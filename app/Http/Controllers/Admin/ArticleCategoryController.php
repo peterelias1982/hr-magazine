@@ -17,7 +17,7 @@ class ArticleCategoryController extends Controller
     {
         $query = ArticleCategory::Query();
         if ($search = Request()->catergory) {
-            $query->where("articleCategoryName", "LIKE", "%$search%");
+            $query->where("subCategory", "LIKE", "%$search%");
         }
         $categories = $query->get();
 
@@ -60,6 +60,11 @@ class ArticleCategoryController extends Controller
     {
         try {
             $categoryArticle = ArticleCategory::where("slug", $slug)->first();
+
+            if(!$categoryArticle || !$categoryArticle->canModified) {
+                throw new \Exception('Category Cannot be modified');
+            }
+
             $data = $this->prepareData($request);
             $categoryArticle->update($data);
 
@@ -79,7 +84,13 @@ class ArticleCategoryController extends Controller
     public function destroy($slug)
     {
         try {
-            ArticleCategory::where('slug', $slug)->delete();
+            $categoryArticle = ArticleCategory::where('slug', $slug)->first();
+
+            if(!$categoryArticle->canModified) {
+                throw new \Exception('Category Cannot be deleted');
+            }
+
+            $categoryArticle->delete();
 
             return redirect()
                 ->route('admin.articleCategories.index')
@@ -95,10 +106,12 @@ class ArticleCategoryController extends Controller
     {
         return [
             "articleCategoryName" => $request["articleCategoryName"],
+            "subCategory" => $request["subCategory"],
             "hasComments" => isset($request['hasComments']),
             "hasSource" => isset($request['hasSource']),
             "hasYoutubeLink" => isset($request['hasYoutubeLink']),
             "hasAuthor" => isset($request['hasAuthor']),
+            "canModified" => 1,
         ];
     }
 

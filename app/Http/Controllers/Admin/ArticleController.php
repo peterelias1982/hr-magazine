@@ -37,8 +37,7 @@ class ArticleController extends Controller
         ]);
 
         $articles = Article::whereIn('id', $articles_ids)->get();
-        $articleCategories = ArticleCategory::all();
-
+        $articleCategories = ArticleCategory::select(['id', 'subCategory'])->distinct()->get();
 
         $messages = $this->getMessages();
 
@@ -52,7 +51,7 @@ class ArticleController extends Controller
     {
         $authors = Author::get();
         $articleCategories = ArticleCategory::select(
-            ['id', 'articleCategoryName', 'hasAuthor', 'hasSource', 'hasYoutubeLink'])->get();
+            ['id', 'subCategory', 'hasAuthor', 'hasSource', 'hasYoutubeLink'])->get();
         $articleTags = Tag::select('id', 'tagName')->get();
 
         return view("Admin.article.addArticle", compact(['articleCategories', 'articleTags', 'authors']));

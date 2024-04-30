@@ -64,11 +64,13 @@ class AdminController extends Controller
     {
         try {
             $user = User::where("slug", $slug)->first();
-            $user->created_at = Carbon::parse($user->created_at)->diffForHumans(['parts' => 1]);
 
             if (!$user) {
                 throw new ResourceNotFoundException('User is not found');
             }
+
+            $user->created_at = Carbon::parse($user->created_at)->diffForHumans(['parts' => 1]);
+
             return view('Admin.user.admin.userinfo', compact('user'));
 
         } catch (\Throwable $exception) {

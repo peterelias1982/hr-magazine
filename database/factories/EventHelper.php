@@ -35,7 +35,7 @@ MAP3;
             'latitude' => fake()->latitude(),
             'longitude' => fake()->longitude(),
             'googleMapLink' => fake()->randomElement([$map1, $map2, $map3]),
-            'description' => fake()->text(800),
+            'description' => fake()->text(1500),
             'speakers' => fake()->name() . ', ' . fake()->name() . ', ' . fake()->name(),
         ]);
     }

@@ -21,7 +21,7 @@ class EmployerFactory extends Factory
         return [
             'companyName' => fake()->company(),
             'address' => fake()->address(),
-            'about_company' => fake()->text(500),
+            'about_company' => fake()->text(800),
             'logo' => 'test.jpg',
             'phone' => fake()->phoneNumber(),
             'user_id' => $id,

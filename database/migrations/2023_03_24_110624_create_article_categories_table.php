@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('article_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('articleCategoryName')->unique();
+            $table->string('articleCategoryName');
+            $table->string('subCategory')->unique();
             $table->string('slug')->unique();
             $table->boolean('hasComments');
             $table->boolean('hasSource');
             $table->boolean('hasYoutubeLink');
             $table->boolean('hasAuthor');
+            $table->boolean('canModified');
             $table->timestamps();
         });
     }
