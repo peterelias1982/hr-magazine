@@ -1,15 +1,17 @@
+<?php use Carbon\Carbon;
+?>
 @extends('publicPages.layouts.main')
 
 @section('publicPagesContent')
     <div class="container-fluid bg-light pt-3 px-lg-5 px-md-3 px-2">
         <div class="row bg-dark px-lg-5 px-md-3 px-1 py-4 mb-3">
-            <h3 class="fw-bold fs-2 text-white py-4">Upcoming Event Page</h3>
+            <h3 class="fw-bold fs-2 text-white py-4">Upcoming events Page</h3>
             <div
                 class="position-relative overflow-hidden mx-auto mb-3"
                 style="height: 695px"
             >
                 <img
-                    src="{{asset('publicPages/images/event-page.png')}}"
+                    src="{{asset('publicPages/images/events-page.png')}}"
                     class="rounded image-center"
                     alt="..."
                 />
@@ -18,7 +20,7 @@
         <div class="row bg-light mb-3 flex-nowrap overflow-auto mt-5">
             <div class="row g-0">
                 <div class="col">
-                    <h2 class="fw-bold mt-5 ms-3">Events Name</h2>
+                    <h2 class="fw-bold mt-5 ms-3">{{$events[0]->title}}</h2>
                     <div class="row align-items-center">
                         <div class="col-auto ms-2">
                             <svg
@@ -39,7 +41,8 @@
                         </div>
                         <div class="col mt-4">
                             <p class="mb-0 fw-bold text-danger">
-                                May 25, 2024 at 1:00 PM - May 28, 2024 at 1:00 PM
+                                {{ date_format(date_create($events[0]->fromDate),'M d Y')}}  at 1:00 PM -
+                                {{ date_format(date_create($events[0]->toDate),'M d Y')}}  at 1:00 PM
                             </p>
                         </div>
                     </div>
@@ -60,7 +63,8 @@
                         </div>
                         <div class="col mt-4">
                             <p class="mb-0 fw-bold text-danger">
-                                May 25, 2024 at 1:00 PM - May 28, 2024 at 1:00 PM
+                                {{$events[0]->streetNo}},{{$events[0]->streetName}},{{$events[0]->city}}, {{$events[0]->country}}
+
                             </p>
                         </div>
                     </div>
@@ -68,60 +72,7 @@
 
                 <div class="mt-4">
                     <p class="fw-bold py-2 px-3">
-                        Lorem ipsum dolor sit amet consectetur. Augue et rhoncus sed
-                        enim pretium egestas platea. Euismod est sed pellentesque
-                        condimentum amet mattis praesent ultricies enim. Ipsum justo non
-                        vestibulum diam fermentum porta. Lorem mi sem vitae proin
-                        ridiculus sed maecenas. Dui lorem viverra ornare commodo rutrum
-                        tempor rhoncus aenean donec. Orci eu ut pellentesque amet sit
-                        nibh semper. Viverra felis cursus sed vehicula sit egestas urna
-                        risus aliquet. Erat netus odio orci velit arcu venenatis purus.
-                        Tortor neque consectetur aliquam erat. Id consectetur vivamus
-                        pellentesque donec in sed. faucibus eleifend sagittis ac rhoncus
-                        fermentum dui urna.
-                        <br/>
-                        Aliquam a elementum non nec aliquet. Aliquet facilisi pretium in
-                        mattis placerat. Elit tempor gravida tincidunt sit iaculis
-                        aenean cras aliquam. Nunc ultrices et cursus eget orci mi non
-                        luctus sodales. Amet commodo nunc at ornare eros. Tincidunt
-                        ligula dictum viverra rutrum eget mauris adipiscing. A felis
-                        nulla quis tellus aliquet pulvinar sed. Faucibus netus diam
-                        pharetra dapibus nunc et consectetur ultrices porta. Lorem sem
-                        semper eget iaculis mi malesuada augue risus. Justo velit tellus
-                        dolor aliquam aliquam morbi ac. Duis nunc proin scelerisque
-                        odio.
-                        <br/>
-                        Ipsum varius sed eu eget nulla. Pretium facilisi semper donec
-                        accumsan feugiat lectus volutpat proin faucibus. Sed id orci
-                        vitae tortor odio eu fermentum nulla sem. Nibh molestie mi
-                        ornare tincidunt volutpat rutrum. Nunc ultricies dictum mauris
-                        libero sed mi vitae libero at. Eros vel et magna vestibulum at
-                        neque sem urna. Nisi nunc velit amet leo dignissim. Pulvinar sit
-                        id adipiscing in amet. Sit ligula fames felis in nibh donec
-                        pellentesque. Mauris mauris faucibus elementum volutpat aliquet
-                        sed posuere pharetra. Nec lacinia aliquam ullamcorper vitae et
-                        blandit. Massa dignissim non faucibus consectetur. Adipiscing
-                        urna tincidunt quis scelerisque leo quisque diam. Urna
-                        suspendisse nunc pellentesque cursus venenatis.
-                        <br/>
-                        Vel orci mauris bibendum lorem commodo. Risus est cum integer
-                        venenatis sed. Dui bibendum et nam dictum vestibulum lacus quis
-                        ut massa. Ultricies pharetra eleifend vitae aliquet odio nulla.
-                        Ultrices nulla massa viverra mauris. Ut iaculis nec dui sit
-                        mauris nulla sed quis. Lectus laoreet malesuada praesent nam
-                        neque turpis urna. Vitae gravida non diam dolor risus nulla
-                        integer aliquet adipiscing.
-                        <br/>
-                        Suscipit ac ullamcorper scelerisque suspendisse commodo arcu
-                        integer volutpat lobortis. Dolor nibh aliquam gravida penatibus
-                        scelerisque integer elit. Purus ac rhoncus arcu orci elementum
-                        et tempus nunc nisl. Donec orci etiam suspendisse interdum nisl
-                        hendrerit. Maecenas lectus est at vestibulum sed imperdiet sed.
-                        Sagittis interdum interdum cursus risus sit tempor. Eleifend
-                        cras scelerisque sed enim. Convallis dui sit risus metus tortor
-                        ullamcorper enim nisl. Ut dictum donec urna tincidunt nulla nibh
-                        malesuada. Amet venenatis a viverra risus nulla fames varius
-                        congue. Nibh pharetra adipiscing posuere cursus. Ac a a et.
+                        {{$events[0]->description}}
                     </p>
                 </div>
                 <!--cards Caousel-->
@@ -373,7 +324,7 @@
                     <div
                         class="text-center bg-primary text-white py-4 mt-5 mb-0 fs-2 fw-bold"
                     >
-                        Events Agenda
+                        events Agenda
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered border-dark text-center">
@@ -398,18 +349,15 @@
                                 <td>To</td>
                                 <td></td>
                             </tr>
+                            @foreach ($events as $event)
                             <tr>
-                                <td class="bg-primary">Agenda</td>
-                                <td>1:30 pm</td>
-                                <td>3:30 pm</td>
-                                <td>Speakers Name</td>
+                                <td class="bg-primary">{{$event->topic}}</td>
+                                <td>{{Carbon::createFromFormat('H:i:s', $event->fromTime)->format('g:i A')}} </td>
+                                <td>{{Carbon::createFromFormat('H:i:s', $event->toTime)->format('g:i A')}} </td>
+                                <td>{{$event->speaker}} </td>
                             </tr>
-                            <tr>
-                                <td class="bg-primary">Agenda</td>
-                                <td>4:00 pm</td>
-                                <td>6:00 pm</td>
-                                <td>Speakers Name</td>
-                            </tr>
+                            @endforeach
+                            
                             </tbody>
                         </table>
                     </div>
@@ -418,7 +366,7 @@
                     <div
                         class="text-center bg-primary text-white py-4 mt-5 mb-0 fs-2 fw-bold"
                     >
-                        Events Location
+                        events Location
                     </div>
                     <div class="d-flex justify-content-center">
                         {!! $map1 = <<<MAP

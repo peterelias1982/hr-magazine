@@ -12,7 +12,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    return view('publicPages.home');
+    return view('publicPages.events.allEvents');
 })->name('index');
 
 Route::get('category/{category}/article/{article}', function ($category, $article) {
@@ -35,7 +35,7 @@ Auth::routes();
 Route::group(['prefix' => "event", "controller" => EventController::class, "as" => "event."], function () {
     Route::get("allEvents","allEvents")->name('allEvents');
     Route::get("eventCalender","eventCalender")->name('eventCalender');
-    Route::get("singleEvent","singleEvent")->name('singleEvent');
+    Route::get("singleEvent/{slug}","singleEvent")->name('singleEvent');
 });
 
 

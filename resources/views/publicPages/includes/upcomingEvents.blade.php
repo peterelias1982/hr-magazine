@@ -41,7 +41,7 @@
             {{$events[0]->description}}
         </p>
         <div class="event-btn d-flex justify-content-end mb-4">
-            <a
+            <a href="{{route('event.singleEvent',[$events[0]->slug])}}"
                 class="d-inline-block bg-dark text-decoration-none text-light border rounded-5 px-3 py-2"
             >Learn More</a
             >
@@ -98,7 +98,7 @@
                         {{$events[$i]->description}}
                     </p>
                     <div class="event-btn d-flex justify-content-end mb-4">
-                        <a
+                        <a href="{{route('event.singleEvent',$events[$i]->slug)}}"
                             class="d-inline-block bg-dark text-decoration-none text-light border rounded-5 px-3 py-2"
                         >Learn More</a
                         >
