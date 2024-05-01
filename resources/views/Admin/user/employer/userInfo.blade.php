@@ -11,7 +11,7 @@
     <h2 class="fw-bold col-lg-auto">User Details</h2>
       @can('crudUser')
     <div class="btn-wrapper">
-     <form action="{{route('admin.employers.destroy',[$employer->slug])}}" method="POST" id="DeleteEmploy"
+    <form action="{{route('admin.employers.destroy',[$employer->slug])}}" method="POST" id="DeleteEmploy"
       >
 
         @csrf
@@ -225,4 +225,3 @@
     @endcan
 </div>
 @endsection
-

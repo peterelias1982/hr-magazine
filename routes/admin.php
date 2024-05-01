@@ -1,17 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\Admin\ArticleCategoryController;
-use App\Http\Controllers\Admin\ArticleController;
-use App\Http\Controllers\Admin\ArticleTagController;
-use App\Http\Controllers\Admin\AuthorController;
-use App\Http\Controllers\Admin\EmployerController;
 use App\Http\Controllers\Admin\EventController;
-use App\Http\Controllers\Admin\JobCategoryController;
+use App\Http\Controllers\Admin\AuthorController;
+use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\EmployerController;
 use App\Http\Controllers\Admin\JobDetailController;
 use App\Http\Controllers\Admin\JobSeekerController;
 use App\Http\Middleware\CrudUserAuthorization;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ArticleTagController;
+use App\Http\Controllers\Admin\JobCategoryController;
+use App\Http\Controllers\Admin\ArticleCategoryController;
 
 Route::group(['prefix' => "events", "controller" => EventController::class, "as" => "events."], function () {
     //events
@@ -48,6 +48,8 @@ Route::group(['prefix' => "users", 'middleware' => CrudUserAuthorization::class]
         Route::get("/{slug}", "show")->name('show')->withoutMiddleware(CrudUserAuthorization::class);
         Route::delete("/{slug}", "destroy")->name('destroy');
         Route::patch("/{slug}","update")->name('update');
+        Route::post("/{slug}/reset","resetPassword")->name('resetPassword');
+
     });
 
     //authors

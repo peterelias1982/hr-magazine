@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Employer;
-use App\Models\User;
+use Throwable;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Models\Employer;
 use Illuminate\Http\Request;
+use App\Traits\ResetPassword;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class EmployerController extends Controller
 {
+    use ResetPassword;
     /**
      * Display a listing of the resource.
      */
@@ -37,7 +40,7 @@ class EmployerController extends Controller
 
         $employer = $users->get();
 
-        return view('Admin.user.employers.allEmployer', compact('employer'));
+        return view('Admin.user.employer.allEmployer', compact('employer'));
     }
 
     /**
@@ -62,7 +65,7 @@ class EmployerController extends Controller
             }
 
             $employer->created_at = Carbon::parse($employer->created_at)->diffForHumans(['parts' => 1]);
-            return view("Admin.user.employers.userInfo", compact('employer', 'socialMedia'));
+            return view("Admin.user.employer.userInfo", compact('employer', 'socialMedia'));
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.employers.index')
@@ -100,7 +103,7 @@ class EmployerController extends Controller
             Gate::authorize('crudUser');
             $user = User::where('slug', $slug)->first();
             $employer = Employer::where('user_id', $user->id)->first();
-            unlink("assets/images/employers/" . $employer->logo);
+            // unlink("assets/images/employers/" . $employer->logo);
             $user->delete();
             return redirect()
                 ->route('admin.employers.index')
@@ -111,4 +114,5 @@ class EmployerController extends Controller
                 ->with(['messages' => json_encode(['error' => ['Error delete employers: ' . $exception->getMessage()]])]);
         }
     }
+
 }
