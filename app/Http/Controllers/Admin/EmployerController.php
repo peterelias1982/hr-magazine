@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Throwable;
+use App\Traits\Common;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Employer;
@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 class EmployerController extends Controller
 {
     use ResetPassword;
+    use Common;
     /**
      * Display a listing of the resource.
      */
@@ -103,8 +104,15 @@ class EmployerController extends Controller
             Gate::authorize('crudUser');
             $user = User::where('slug', $slug)->first();
             $employer = Employer::where('user_id', $user->id)->first();
-            // unlink("assets/images/employers/" . $employer->logo);
+
+            if(!str_starts_with($user->image , 'default')) {
+                $this->deleteFile(public_path('assets/images/users/'. $user->image));
+            }
+
+            $this->deleteFile(public_path('assets/images/users/' . $employer->logo));
+
             $user->delete();
+
             return redirect()
                 ->route('admin.employers.index')
                 ->with(['messages' => json_encode(['success' => ['Employer deleted Successfully']])]);

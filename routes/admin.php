@@ -32,6 +32,7 @@ Route::group(['prefix' => "users", 'middleware' => CrudUserAuthorization::class]
         Route::get("/{slug}", "show")->name('show')->withoutMiddleware(CrudUserAuthorization::class);
         Route::put("/{slug}", "update")->name('update')->withoutMiddleware(CrudUserAuthorization::class);;
         Route::delete("/{slug}", "destroy")->name('destroy');
+        Route::post("/{slug}/reset","reset")->name('resetPassword');
     });
 
     //job seekers
@@ -40,6 +41,7 @@ Route::group(['prefix' => "users", 'middleware' => CrudUserAuthorization::class]
         Route::get("/{slug}", "show")->name('show')->withoutMiddleware(CrudUserAuthorization::class);
         Route::patch("/{slug}", "update")->name('update');
         Route::delete("/{slug}", "destroy")->name('destroy');
+        Route::post("/{slug}/reset","reset")->name('resetPassword');
     });
 
     //employers
@@ -48,7 +50,7 @@ Route::group(['prefix' => "users", 'middleware' => CrudUserAuthorization::class]
         Route::get("/{slug}", "show")->name('show')->withoutMiddleware(CrudUserAuthorization::class);
         Route::delete("/{slug}", "destroy")->name('destroy');
         Route::patch("/{slug}","update")->name('update');
-        Route::post("/{slug}/reset","resetPassword")->name('resetPassword');
+        Route::post("/{slug}/reset","reset")->name('resetPassword');
 
     });
 
@@ -60,6 +62,7 @@ Route::group(['prefix' => "users", 'middleware' => CrudUserAuthorization::class]
         Route::post('/', 'store')->name('store');
         Route::put('/{slug}', 'update')->name('update');
         Route::delete('/{slug}', 'destroy')->name('destroy');
+        Route::post("/{slug}/reset","reset")->name('resetPassword');
     });
 
 });

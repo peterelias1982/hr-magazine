@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Traits\ResetPassword;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Admin;
@@ -18,6 +19,7 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 class AdminController extends Controller
 {
     use Common;
+    use ResetPassword;
 
     /**
      * Display a listing of the resource.

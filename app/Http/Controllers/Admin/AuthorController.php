@@ -8,6 +8,7 @@ use App\Models\Author;
 use App\Models\SocialMedia;
 use App\Models\User;
 use App\Traits\Common;
+use App\Traits\ResetPassword;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -15,6 +16,7 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 class AuthorController extends Controller
 {
     use Common;
+    use ResetPassword;
 
     /**
      * Display a listing of the resource.

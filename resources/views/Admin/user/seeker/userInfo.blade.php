@@ -12,13 +12,18 @@
                 @csrf
                 @method('delete')
             </form>
+            <form action="{{route('admin.jobSeekers.resetPassword',[$user->slug])}}" method="POST"
+                  id="resetPassword">
+                @csrf
+            </form>
             @can('crudUser')
             <div class="btn-wrapper">
                 <button form="deleteJobSeeker" onclick="return confirm('Are you sure you want to delete?')"
                         class="btn btn-sm" style="color: #ed2708"><i class="icon-trash"></i> Delete User
                 </button>
-                <a href="#" class="btn btn-sm btn-primary text-white me-0"><i class="icon-key"></i> Reset Password
-                </a>
+                <button type="submit"   class="btn btn-sm btn-primary text-white me-0" form="resetPassword"
+                ><i class="icon-key"></i> Reset Password
+                </button>
             </div>
             @endcan
         </div>
