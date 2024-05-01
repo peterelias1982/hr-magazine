@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Throwable;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
@@ -14,7 +13,6 @@ use App\Models\Tag;
 use App\Models\YoutubeLink;
 use App\Traits\Common;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 
@@ -37,12 +35,9 @@ class ArticleController extends Controller
         ]);
 
         $articles = Article::whereIn('id', $articles_ids)->get();
-        $articleCategories = ArticleCategory::all();
+        $articleCategories = ArticleCategory::select(['id', 'subCategory'])->get();
 
-
-        $messages = $this->getMessages();
-
-        return view("Admin.article.allArticle", compact(['articles', 'articleCategories', 'messages']));
+        return view("Admin.article.allArticle", compact(['articles', 'articleCategories']));
     }
 
     /**
@@ -52,7 +47,7 @@ class ArticleController extends Controller
     {
         $authors = Author::get();
         $articleCategories = ArticleCategory::select(
-            ['id', 'articleCategoryName', 'hasAuthor', 'hasSource', 'hasYoutubeLink'])->get();
+            ['id', 'subCategory', 'hasAuthor', 'hasSource', 'hasYoutubeLink'])->get();
         $articleTags = Tag::select('id', 'tagName')->get();
 
         return view("Admin.article.addArticle", compact(['articleCategories', 'articleTags', 'authors']));
@@ -80,12 +75,12 @@ class ArticleController extends Controller
 
             return redirect()
                 ->route('admin.articles.index')
-                ->with(['messages' => ['success' => ['Article added Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Article added Successfully']])]);
+        } catch (\Throwable $exception) {
 
             return redirect()
                 ->route('admin.articles.index')
-                ->with(['messages' => ['error' => ['Error creating article: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error creating article: ' . $exception->getMessage()]])]);
         }
 
     }
@@ -114,7 +109,7 @@ class ArticleController extends Controller
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.articles.index')
-                ->with(['messages' => ['error' => ['Error not found article: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error not found article: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -142,11 +137,11 @@ class ArticleController extends Controller
 
             return redirect()
                 ->route('admin.articles.index')
-                ->with(['messages' => ['success' => ['Article updated Successfully']]]);
+                ->with(['messages' => json_encode(['success' => ['Article updated Successfully']])]);
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.articles.index')
-                ->with(['messages' => ['error' => ['Error updating article: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error updating article: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -163,11 +158,11 @@ class ArticleController extends Controller
 
             return redirect()
                 ->route('admin.articles.index')
-                ->with(['messages' => ['success' => ['Article deleted Successfully']]]);
+                ->with(['messages' => json_encode(['success' => ['Article deleted Successfully']])]);
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.articles.index')
-                ->with(['messages' => ['error' => ['Error deleting article: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error deleting article: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -217,12 +212,6 @@ class ArticleController extends Controller
 
         return [$articleData, $tagsAttachments, $articleables];
 
-    }
-
-    private function getMessages(): string
-    {
-        // check for messages if any
-        return json_encode(Session::get('messages'));
     }
 
     private function searchWith(array $requestData)

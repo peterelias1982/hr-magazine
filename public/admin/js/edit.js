@@ -25,9 +25,6 @@ function edit(obj) {
 
     trInputs.forEach((node) => {
       node.disabled = false;
-      if (node.type.toLowerCase() == "text") {
-        node.focus();
-      }
     });
 
     trButtons.forEach((button) => {

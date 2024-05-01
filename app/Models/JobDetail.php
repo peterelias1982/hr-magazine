@@ -45,7 +45,7 @@ class JobDetail extends Model
         return $this->belongsTo(Employer::class);
     }
 
-    public function jobSeeker(): BelongsToMany
+    public function jobSeekers(): BelongsToMany
     {
         return $this->belongsToMany(JobSeeker::class, 'job_applieds', 'jobDetail_id', 'jobSeeker_id');
 

@@ -6,9 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\JobCategory;
 use App\Models\JobDetail;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Throwable;
+
 
 class JobDetailController extends Controller
 {
@@ -35,9 +34,7 @@ class JobDetailController extends Controller
 
         $categories = JobCategory::get(['id', 'category']);
 
-        $messages = $this->getMessages();
-
-        return view('Admin.jobs.alljobs', compact(['jobs', 'categories', 'messages']));
+        return view('Admin.jobs.alljobs', compact(['jobs', 'categories']));
     }
 
     /*
@@ -55,10 +52,10 @@ class JobDetailController extends Controller
 
             return view('Admin.jobs.jobDetails', compact('jobdetail'));
 
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.jobs.index')
-                ->with(['messages' => ['error' => ['Error not found job: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error not found job: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -71,19 +68,13 @@ class JobDetailController extends Controller
             JobDetail::where('slug', $slug)->delete();
             return redirect()
                 ->route('admin.jobs.index')
-                ->with(['messages' => ['success' => ['the job is deleted successfully!']]]);
+                ->with(['messages' => json_encode(['success' => ['the job is deleted successfully!']])]);
 
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.jobs.index')
-                ->with(['messages' => ['error' => ['Error not deleting job: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error not deleting job: ' . $exception->getMessage()]])]);
         }
-    }
-
-    private function getMessages(): string
-    {
-        // check for messages if any
-        return json_encode(Session::get('messages'));
     }
 
     private function searchWith(array $requestData): \Illuminate\Support\Collection

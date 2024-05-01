@@ -30,7 +30,7 @@ class JobDetailFactory extends Factory
             "deadline" => fake()->date(),
             "email" => fake()->email(),
             "careerLevel" => fake()->randomElement(["entry level", "intermediate level", "expert level"]),
-            "content" => fake()->text(800),
+            "content" => fake()->text(1500),
             "category_id" => fake()->numberBetween(1, 5),
             "employer_id" => fake()->numberBetween(1, 5),
         ];

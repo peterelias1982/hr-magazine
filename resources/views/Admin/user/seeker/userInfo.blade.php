@@ -12,13 +12,20 @@
                 @csrf
                 @method('delete')
             </form>
+            <form action="{{route('admin.jobSeekers.resetPassword',[$user->slug])}}" method="POST"
+                  id="resetPassword">
+                @csrf
+            </form>
+            @can('crudUser')
             <div class="btn-wrapper">
                 <button form="deleteJobSeeker" onclick="return confirm('Are you sure you want to delete?')"
                         class="btn btn-sm" style="color: #ed2708"><i class="icon-trash"></i> Delete User
                 </button>
-                <a href="#" class="btn btn-sm btn-primary text-white me-0"><i class="icon-key"></i> Reset Password
-                </a>
+                <button type="submit"   class="btn btn-sm btn-primary text-white me-0" form="resetPassword"
+                ><i class="icon-key"></i> Reset Password
+                </button>
             </div>
+            @endcan
         </div>
         <div class="pt-4">
             <div class="row">
@@ -77,10 +84,12 @@
                                         <h3 class="col-auto card-title card-title-dash">
                                             Additional information
                                         </h3>
+                                        @can('crudUser')
                                         <div class="col-auto">
                                             <i class="mdi mdi-lead-pencil text-muted btn btn-sm fs-5"
                                                id="edit_user_button"></i>
                                         </div>
+                                        @endcan
                                     </div>
                                     <div class="row py-1">
                                         <p class="card-text fw-bold lh-1">Position</p>
@@ -124,6 +133,7 @@
                 </div>
             </div>
         </div>
+        @can('crudUser')
         <div class="d-sm-flex align-items-center justify-content-start border-top py-2">
             <div class="btn-wrapper d-none" id="submit_pannel">
                 <button type="submit" class="btn btn-primary me-2" form="edit-user">
@@ -134,5 +144,6 @@
                 </button>
             </div>
         </div>
+        @endcan
     </div>
 @endsection

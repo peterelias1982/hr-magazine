@@ -51,7 +51,7 @@
                                 {{$jobdetail->country}}</p>
 
                             <h5 class="fw-bold pt-4">No. of Application:</h5>
-                            <p>{{$jobdetail->jobSeeker->count()}}</p>
+                            <p>{{$jobdetail->jobSeekers->count()}}</p>
                         </div>
                     </div>
 

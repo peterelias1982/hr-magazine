@@ -2,23 +2,21 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Enums\Gender;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AuthorRequest;
 use App\Models\Author;
 use App\Models\SocialMedia;
 use App\Models\User;
-use App\Models\UserMedia;
 use App\Traits\Common;
-use Illuminate\Http\Request;
+use App\Traits\ResetPassword;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Throwable;
 
 class AuthorController extends Controller
 {
     use Common;
+    use ResetPassword;
 
     /**
      * Display a listing of the resource.
@@ -34,9 +32,8 @@ class AuthorController extends Controller
         ]);
 
         $authors = User::whereIn('id', $authors_ids)->get();
-        $messages = $this->getMessages();
 
-        return view('Admin.user.auther.allAuthor', compact('authors', 'messages'));
+        return view('Admin.user.auther.allAuthor', compact('authors'));
     }
 
     /**
@@ -54,6 +51,7 @@ class AuthorController extends Controller
     public function store(AuthorRequest $request)
     {
         try {
+            Gate::authorize('crudUser');
             $data = $this->prepareData($request->all());
 
             $user = User::create($data['user']);
@@ -67,11 +65,11 @@ class AuthorController extends Controller
 
             return redirect()
                 ->route('admin.authors.index')
-                ->with(['messages' => ['success' => ['Author created Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Author created Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.authors.index')
-                ->with(['messages' => ['error' => ['Error creating author: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error creating author: ' . $exception->getMessage()]])]);
         }
 
     }
@@ -92,7 +90,7 @@ class AuthorController extends Controller
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.authors.index')
-                ->with(['messages' => ['error' => ['Error showing author: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error showing author: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -102,6 +100,7 @@ class AuthorController extends Controller
     public function update(AuthorRequest $request, string $slug)
     {
         try {
+            Gate::authorize('crudUser');
             $data = $this->prepareData($request->all());
 
             $user = User::where('slug', $slug)->first();
@@ -113,11 +112,11 @@ class AuthorController extends Controller
 
             return redirect()
                 ->route('admin.authors.index')
-                ->with(['messages' => ['success' => ['Author updated Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Author updated Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.authors.index')
-                ->with(['messages' => ['error' => ['Error updating author: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error updating author: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -127,6 +126,7 @@ class AuthorController extends Controller
     public function destroy(string $slug)
     {
         try {
+            Gate::authorize('crudUser');
             $user = User::where('slug', $slug)->first();
 //            delete the image file
             if(!str_starts_with($user->image , 'default')) {
@@ -137,11 +137,11 @@ class AuthorController extends Controller
 
             return redirect()
                 ->route('admin.authors.index')
-                ->with(['messages' => ['success' => ['Author deleted Successfully']]]);
+                ->with(['messages' => json_encode(['success' => ['Author deleted Successfully']])]);
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.authors.index')
-                ->with(['messages' => ['error' => ['Error deleting The Author: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error deleting The Author: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -163,12 +163,6 @@ class AuthorController extends Controller
         }
 
         return $query->select('users.id')->get()->pluck('id');
-    }
-
-    private function getMessages(): string
-    {
-        // check for messages if any
-        return json_encode(Session::get('messages'));
     }
 
     private function prepareData(array $data): array

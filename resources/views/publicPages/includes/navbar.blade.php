@@ -34,15 +34,12 @@
                     </div>
                 </div>
             </div>
-            <!-- Right Side: Language, Account -->
             <div class="d-flex align-items-center">
-                <!--language-->
-                <a
-                    href="#"
-                    class="fs-4 fw-bold nav-link text-white"
-                    id="languageToggle"
-                >EN</a
-                >
+                <a class="fs-5 fw-semibold nav-link text-white">
+                    @auth
+                        {{Auth::user()->firstName}} {{Auth::user()->secondName}}
+                    @endauth
+                </a>
                 <!-- Account Dropdown --showing in large screens and tablets on top-->
                 <div class="dropdown" id="account-icon-top">
                     <a
@@ -63,17 +60,25 @@
                         class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
                         aria-labelledby="accountDropdown"
                     >
+
                         <li>
                             <a class="dropdown-item text-white" href="{{ route('login') }}">Login</a>
                         </li>
                         <li>
                             <a class="dropdown-item text-white" href="{{route('register')}}">Register</a>
                         </li>
+                        @can('viewAdminDashboard')
+                            <li>
+                                <a class="dropdown-item text-white" href="{{route('admin.admins.index')}}">Admin Dashboard</a>
+                            </li>
+                        @else
+                            <li>
+                                <a class="dropdown-item text-white" href="#">Profile</a>
+                            </li>
+                        @endcan
                         <li>
-                            <a class="dropdown-item text-white" href="#">Profile</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item text-white" href="javascript:document.getElementById('logout-form').submit();" >Logout</a>
+                            <a class="dropdown-item text-white"
+                               href="javascript:document.getElementById('logout-form').submit();">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -122,7 +127,7 @@
                                 />
                             </div>
                             <div class="icon-circle me-2">
-                                <img src="{{asset('publicPages/images/youtube.svg')}}" alt="youtube" />
+                                <img src="{{asset('publicPages/images/youtube.svg')}}" alt="youtube"/>
                             </div>
                             <div class="icon-circle me-2">
                                 <img

@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryJobRequest;
 use App\Models\JobCategory;
-use Illuminate\Support\Facades\Session;
-use Throwable;
 
 class JobCategoryController extends Controller
 {
@@ -18,9 +16,7 @@ class JobCategoryController extends Controller
         }
         $categories = $query->get();
 
-        $messages = $this->getMessages();
-
-        return view("Admin.jobs.allCategory", compact('categories', 'messages'));
+        return view("Admin.jobs.allCategory", compact('categories'));
     }
 
     public function create()
@@ -37,11 +33,11 @@ class JobCategoryController extends Controller
 
             return redirect()
                 ->route('admin.jobCategories.index')
-                ->with(['messages' => ['success' => ['Category created Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Category created Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.jobCategories.index')
-                ->with(['messages' => ['error' => ['Error creating category: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error creating category: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -55,11 +51,11 @@ class JobCategoryController extends Controller
 
             return redirect()
                 ->route('admin.jobCategories.index')
-                ->with(['messages' => ['success' => ['Category updated Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Category updated Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.jobCategories.index')
-                ->with(['messages' => ['error' => ['Error updating category: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error updating category: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -70,18 +66,12 @@ class JobCategoryController extends Controller
 
             return redirect()
                 ->route('admin.jobCategories.index')
-                ->with(['messages' => ['success' => ['Category deleted Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Category deleted Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.jobCategories.index')
-                ->with(['messages' => ['error' => ['Error deleting category: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error deleting category: ' . $exception->getMessage()]])]);
         }
-    }
-
-    private function getMessages(): string
-    {
-        // check for messages if any
-        return json_encode(Session::get('messages'));
     }
 
 }
