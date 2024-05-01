@@ -4,12 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Enums\Gender;
 use App\Http\Requests\StoreAuthorRequest;
+use App\Http\Requests\UpdateAuthorRequest;
 use App\Models\Author;
 use App\Models\SocialMedia;
 use App\Models\User;
 use App\Models\UserMedia;
 use Illuminate\Http\Request;
 use App\Traits\Common;
+use Illuminate\Support\Facades\Session;
+
+
 use Throwable;
 
 class AuthorController extends Controller
@@ -133,9 +137,76 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, Author $author, string $slug)
     {
-        //
+        try {
+            $userdata=[ 
+                'firstName' => $request->firstName,
+                'secondName' => $request->secondName,
+                'active'=>$request->has('active') ? 1 : 0,      
+                'position' => $request->position,         
+                'email' => $request->email,        
+                 'mobile'=>$request->mobile,         
+            ];
+            $authordata=[
+                'description' => $request->description, 
+                 'bio'=>$request->has('bio') ? 1 : 0, 
+                 'approved'=>$request->has('approved') ? 1 : 0, 
+            ];
+            if ($request->image ?? false) {
+                $fileName = $this->uploadFile($request->image, 'admin/images/authors/');
+                $authordata['image'] = $fileName;
+            }
+            $socialMediaLinks = [
+                'linkedin'=>$request->linkedin,
+                'twitter' => $request->twitter,
+                'instagram' => $request->instagram,
+                'facebook' => $request->facebook,
+            ];
+           $user= User::where('slug', $slug )->first();
+           $author=Author::where('user_id',$user->id)->first();
+           //social media link update
+          
+    
+        foreach ($socialMediaLinks as $platform => $link) {
+            if ($link) //check that array not null
+             {
+                $socialMedia = SocialMedia::where('mediaName', $platform)->first();
+                if ($socialMedia) {
+                    //  to avoid duplicates
+                    $social=UserMedia::where('user_id', $user->id) ->where('social_id', $socialMedia->id)
+                    ->first();
+                      $link=[ 'value' => $link] ;
+                    };}; $social->update($link);
+                    }
+                //
+            $user->update($userdata);
+            $author->update($authordata);
+           
+           
+            return redirect()
+                ->route('admin.authors.index')
+                ->with(['messages' => ['success' => ['Author updated Successfully']]]);
+
+    } catch (Throwable $exception) {
+        return redirect()
+            ->route('admin.authors.index')
+            ->with(['messages' => ['error' => ['Error updating Author: ' . $exception->getMessage()]]]);
+     }
+    }
+    
+    /*** reset password */
+    public function resetPassword(Author $author,  string $slug){
+        $author=Author::with('userAuthor')->when($slug, function ($query) use ($slug) {
+            $query->whereHas('userAuthor', function ($query) use ($slug) {
+                $query->where('slug', $slug );
+            });
+        })->first();
+       
+        return view('Admin.user.auther.resetpassword',compact('author')); 
+    }
+    public function reset(Request $request, Author $author){
+        
     }
 
     /**
@@ -159,5 +230,11 @@ class AuthorController extends Controller
                 ->with(['messages' => ['error' => ['Error not deleting author: ' . $exception->getMessage()]]]);
         }
     }
-   
+
+ private function getMessages(): string
+    {
+        // check for messages if any
+        return json_encode(Session::get('messages'));
+    }
+  
 }

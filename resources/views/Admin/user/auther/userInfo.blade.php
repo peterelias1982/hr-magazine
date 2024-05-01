@@ -1,6 +1,9 @@
 @extends("Admin.layouts.master")
 @section('Content')
-<form method="POST" action="" id="edit-user"></form>
+<form method="POST" action="{{route('admin.authors.update', $author->userAuthor->slug)}}" id="edit-user" enctype="multipart/form-data">
+@csrf
+@method('put')
+</form>
 <div class="content-wrapper">
   <div
     class="d-sm-flex align-items-center justify-content-between border-bottom py-1"
@@ -16,7 +19,7 @@
                      class="icon-trash"> Delete User
                     </button>
                 </form>
-      <a href="#" class="btn btn-sm btn-primary text-white me-0"
+      <a href="{{route('admin.authors.resetPassword',['slug'=>$author->userAuthor->slug])}}" class="btn btn-sm btn-primary text-white me-0"
         ><i class="icon-key"></i> Reset Password
       </a>
     </div>
@@ -35,7 +38,7 @@
                     <div class="position-relative" id="change-pic">
                       <input
                         type="file"
-                        name="user_image"
+                        name="image"
                         id="user_pic_input"
                         form="edit-user"
                         class="opacity-0"
@@ -58,9 +61,20 @@
                       <input
                         class="card-title card-title-dash fs-4 border-0 bg-transparent"
                         type="text"
-                        name="user_name"
-                        id=""
-                        value="{{$author->userAuthor->firstName .' '. $author->userAuthor->secondName}}"
+                        name="firstName"
+                        id="firstName"
+                        value="{{$author->userAuthor->firstName}}"
+                        form="edit-user"
+                        disabled
+                      />
+                    </h3>
+                    <h3>
+                      <input
+                        class="card-title card-title-dash fs-4 border-0 bg-transparent"
+                        type="text"
+                        name="secondName"
+                        id="secondName"
+                        value="{{ $author->userAuthor->secondName}}"
                         form="edit-user"
                         disabled
                       />
@@ -95,24 +109,7 @@
                     <p class="fw-bold lh-1">ARTICLES</p>
                     <p class="fw-light text-muted 1h1">{{$author->userAuthor->articleUser->count()}}</p>
                   </div>
-                  <div class="col-auto text-center">
-                    <p class="fw-bold lh-1">CV</p>
-                    <div class="m-n5">
-                      <input
-                      type="file"
-                      name="cv"
-                      id="user_cv_input"
-                      form="edit-user"
-                      class="d-none"
-                      disabled
-                    />
-                      <a href="#" class="text-decoration-none text-black small" id="cv_text"><small>test.pdf</small></a>
-                    <i
-                      id="user_cv_button"
-                      class="mdi mdi-file-download fs-5 lh-1 text-danger btn btn-sm p-0"
-                    ></i>
-                    </div>
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -140,9 +137,10 @@
                   <p class="card-text fw-bold lh-1">Description</p>
                   <p class="card-text lh-1">
                   <input
-                    name="short_description"
-                    id=""
+                    name="description"
+                    id="description"
                     class="w-100 border-0 text-black bg-transparent"
+                    form="edit-user"
                     value="{{$author->description}}"
                     disabled
                   >
@@ -152,7 +150,8 @@
                   <p class="card-text fw-bold lh-1">Position</p>
                   <p class="card-text lh-1"><input
                     name="position"
-                    id=""
+                    form="edit-user"
+                    id="position"
                     class="w-100 border-0 text-black bg-transparent"
                     value="{{$author->userAuthor->position}}"
                     disabled
@@ -163,7 +162,8 @@
                   <p class="card-text lh-1"><input
                     name="email"
                     type="email"
-                    id=""
+                    id="email"
+                    form="edit-user"
                     class="w-100 border-0 text-black bg-transparent"
                     value="{{$author->userAuthor->email}}"
                     disabled
@@ -172,8 +172,9 @@
                 <div class="row border-bottom py-2">
                   <p class="card-text fw-bold lh-1">Phone</p>
                   <p class="card-text lh-1"><input
-                    name="phone"
-                    id=""
+                    name="mobile"
+                    id="mobile"
+                    form="edit-user"
                     class="w-100 border-0 text-black bg-transparent"
                     value="{{$author->userAuthor->mobile}}"
                     disabled
@@ -191,6 +192,7 @@
                         <input
                           type="checkbox"
                           id="active"
+                          form="edit-user"
                           class="form-check-input"
                           name="active"
                           {{ $author->userAuthor->active == 1 ? 'checked' : '' }}
@@ -208,6 +210,7 @@
                         <input
                           type="checkbox"
                           id="approved"
+                          form="edit-user"
                           class="form-check-input"
                           name="approved"
                           {{ $author->approved == 1 ? 'checked' : '' }}
@@ -227,6 +230,7 @@
                           id="bio"
                           class="form-check-input"
                           name="bio"
+                          form="edit-user"
                           {{ $author->bio == 1 ? 'checked' : '' }}
                         />
                         Bio
@@ -244,89 +248,7 @@
   <div>
     <div class="col d-flex flex-column">
       <div class="row flex-grow">
-        <!-- Company card start -->
-        <div class="col-lg-7 grid-margin stretch-card" id="companyCard">
-          <div class="card card-rounded">
-            <div class="card-body px-4">
-              <div class="row py-2 my-2 align-items-center">
-                <div class="col-4">
-                  <div class="position-relative" id="change_company_pic">
-                    <input
-                        type="file"
-                        name="user_image"
-                        id="company_pic_input"
-                        form="edit-user"
-                        class="opacity-0"
-                        disabled
-                      />
-                  <img
-                    src="{{asset('admin/images/hr-logo.svg')}}"
-                    alt=""
-                    id="company_pic"
-                    class="card-img rounded-circle bg-light"
-                  />
-                  <i
-                        class="mdi mdi-link-variant-plus fs-4 position-absolute bottom-0 start-75 translate-middle btn btn-sm d-none"
-                        id="company_pic_change_icon"
-                      ></i>
-                      </div>
-                </div>
-                <div class="col-8">
-                  <div
-                    class="row flex-column justify-content-between"
-                  >
-                    <h3 class="card-title card-title-dash pb-2">
-                      Company information
-                    </h3>
-                    <div class="row py-1">
-                      <p class="card-text fw-bold lh-1">Name</p>
-                      <p class="card-text lh-1"><input
-                        name="company_name"
-                        type="text"
-                        id=""
-                        class="w-100 border-0 text-black bg-transparent"
-                        value="lorem ipsum"
-                        disabled
-                      ></p>
-                    </div>
-                    <div class="row py-1">
-                      <p class="card-text fw-bold lh-1">Address</p>
-                      <p class="card-text lh-1">
-                        <input
-                        name="company_name"
-                        type="text"
-                        id=""
-                        class="w-100 border-0 text-black bg-transparent"
-                        value="Lorem ipsum, Lorem ipsum, Lorem ipsum."
-                        disabled
-                      >
-                      </p>
-                    </div>
-                    <div class="row py-1">
-                      <p class="card-text fw-bold lh-1">Phone</p>
-                      <p class="card-text lh-1"><input
-                        name="company_phone"
-                        type="text"
-                        id=""
-                        class="w-100 border-0 text-black bg-transparent"
-                        value="+201123653"
-                        disabled
-                      ></p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Company card end  -->
-        <div class="col-lg-5 grid-margin stretch-card" id="padding_pic">
-          <img
-            src="{{asset('admin/images/hr-logo.svg')}}"
-            alt=""
-            class="img-fluid rounded opacity-25"
-          />
-        </div>
+       
         <!-- Social media card -->
         <div class="col-lg-5 grid-margin stretch-card d-none" id="social_media">
           <div class="card">
@@ -336,13 +258,19 @@
                 <span class="input-group-text"
                   ><i class="mdi mdi-linkedin"></i
                 ></span>
+
                 <input
                   type="url"
                   class="form-control"
                   id="exampleInputUrl"
                   placeholder="http://LinkedIn.com"
-                  form="authors-create"
+                  form="edit-user"
                   name="linkedin"
+                 
+                  value=" @foreach($author->userAuthor->socialMedia as $socialMedia)
+                  @if($socialMedia->id === 6){{$socialMedia->pivot->value}} @endif
+                   @endforeach"
+  
                   disabled
                 />
               </div>
@@ -355,7 +283,11 @@
                   class="form-control"
                   id="exampleInputUrl"
                   placeholder="http://Twitter.com"
-                  form="authors-create"
+                  form="edit-user"
+                  name="twitter"
+                  value=" @foreach($author->userAuthor->socialMedia as $socialMedia)
+                  @if($socialMedia->id === 7){{$socialMedia->pivot->value}} @endif 
+                  @endforeach"
                   disabled
                 />
               </div>
@@ -368,7 +300,11 @@
                   class="form-control"
                   id="exampleInputUrl"
                   placeholder="http://Instagram.com"
-                  form="authors-create"
+                  form="edit-user"
+                  name="instagram"
+                  value=" @foreach($author->userAuthor->socialMedia as $socialMedia)
+                  @if($socialMedia->id === 8){{$socialMedia->pivot->value}} @endif 
+                  @endforeach"
                   disabled
                 />
               </div>
@@ -381,7 +317,11 @@
                   class="form-control"
                   id="exampleInputUrl"
                   placeholder="http://Facebook.com"
-                  form="authors-create"
+                  form="edit-user"
+                  name="facebook"
+                  value=" @foreach($author->userAuthor->socialMedia as $socialMedia)
+                  @if($socialMedia->id === 9){{$socialMedia->pivot->value}} @endif 
+                  @endforeach"
                   disabled
                 />
               </div>

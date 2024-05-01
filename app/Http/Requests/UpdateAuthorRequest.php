@@ -22,9 +22,29 @@ class UpdateAuthorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => 'sometimes|string|mimes:jpeg,png,jpg',
+            'firstName' => 'required|string|max:255',
+            'secondName' => 'required|string|max:255',
+            'email'=>'nullable|email',
+            'mobile' => 'nullable|string',
+            'position' => 'required|string',
+            'image' => 'sometimes|image|string|mimes:jpeg,png,jpg',
             'description'=>'required|string|max:1000',
-            'user_id' => 'required|exists:users,id', // Ensures user exists
+            'shortDescription'=>'required|string|max:1000',
         ];
     }
+    public function messages()
+{
+    return [
+        'required' => ':attribute is required',
+        
+        
+        'email'=>'enter your correct email',
+
+        'image'=>'only jpg,png or jpeg can be uploaded',
+        'shortDescription.max' => 'The description must not exceed 1000 characters.',
+        'firstName.max' =>'the name must not exceed 255 characters.',
+        'secondName.max' =>'the name must not exceed 255 characters.',
+
+    ];
+}
 }

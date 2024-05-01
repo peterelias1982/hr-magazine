@@ -98,6 +98,7 @@ Route::group(['prefix' => "author"], function () {
         Route::get('/create', 'create')->name('create');
         Route::get('show/{slug}','show')->name('show');
         Route::post('/', 'store')->name('store');
+   
         Route::put('/{slug}', 'update')->name('update');
         Route::delete('/{slug}', 'destroy')->name('destroy');
     });
