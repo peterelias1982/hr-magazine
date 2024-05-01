@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Traits\Common;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class JobSeekerController extends Controller
@@ -29,9 +29,8 @@ class JobSeekerController extends Controller
         ]);
 
         $jobSeekers = JobSeeker::whereIn('id', $jobSeekers_ids)->get();
-        $messages = $this->getMessages();
 
-        return view('Admin.user.seeker.allSeeker', compact('jobSeekers', 'messages'));
+        return view('Admin.user.seeker.allSeeker', compact('jobSeekers'));
     }
 
     /**
@@ -50,7 +49,7 @@ class JobSeekerController extends Controller
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.jobSeekers.index')
-                ->with(['messages' => ['error' => ['Error user not found: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error user not found: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -60,6 +59,7 @@ class JobSeekerController extends Controller
     public function update(Request $request, string $slug)
     {
         try {
+            Gate::authorize('crudUser');
             $user = User::with('jobSeekerUser')->where('slug', $slug)->first();
 
             $user->update([
@@ -68,11 +68,11 @@ class JobSeekerController extends Controller
 
             return redirect()
                 ->route('admin.jobSeekers.index')
-                ->with(['messages' => ['success' => ['Job seeker data updated successfully']]]);
+                ->with(['messages' => json_encode(['success' => ['Job seeker data updated successfully']])]);
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.jobSeekers.index')
-                ->with(['messages' => ['error' => ['Error updating job seeker data: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error updating job seeker data: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -82,14 +82,15 @@ class JobSeekerController extends Controller
     public function destroy(string $slug)
     {
         try {
+            Gate::authorize('crudUser');
             User::where('slug', $slug)->delete();
             return redirect()
                 ->route('admin.jobSeekers.index')
-                ->with(['messages' => ['success' => ['Job seeker data deleted successfully']]]);
+                ->with(['messages' => json_encode(['success' => ['Job seeker data deleted successfully']])]);
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.jobSeekers.index')
-                ->with(['messages' => ['error' => ['Error deleting job seeker data: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error deleting job seeker data: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -121,9 +122,4 @@ class JobSeekerController extends Controller
         return $query->get()->pluck('id');
     }
 
-    private function getMessages(): string
-    {
-        // check for messages if any
-        return json_encode(Session::get('messages'));
-    }
 }

@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryArticleRequest;
 use App\Models\ArticleCategory;
-use Illuminate\Support\Facades\Session;
-use Throwable;
 
 class ArticleCategoryController extends Controller
 {
@@ -21,9 +19,7 @@ class ArticleCategoryController extends Controller
         }
         $categories = $query->get();
 
-        $messages = $this->getMessages();
-
-        return view("Admin.article.allCategory", compact('categories', 'messages'));
+        return view("Admin.article.allCategory", compact('categories'));
     }
 
     /**
@@ -45,11 +41,11 @@ class ArticleCategoryController extends Controller
 
             return redirect()
                 ->route('admin.articleCategories.index')
-                ->with(['messages' => ['success' => ['Category created Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Category created Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.articleCategories.index')
-                ->with(['messages' => ['error' => ['Error creating category: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error creating category: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -70,11 +66,11 @@ class ArticleCategoryController extends Controller
 
             return redirect()
                 ->route('admin.articleCategories.index')
-                ->with(['messages' => ['success' => ['Category updated Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Category updated Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.articleCategories.index')
-                ->with(['messages' => ['error' => ['Error updating category: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error updating category: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -94,11 +90,11 @@ class ArticleCategoryController extends Controller
 
             return redirect()
                 ->route('admin.articleCategories.index')
-                ->with(['messages' => ['success' => ['Category deleted Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Category deleted Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.articleCategories.index')
-                ->with(['messages' => ['error' => ['Error deleting category: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error deleting category: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -113,11 +109,5 @@ class ArticleCategoryController extends Controller
             "hasAuthor" => isset($request['hasAuthor']),
             "canModified" => 1,
         ];
-    }
-
-    private function getMessages(): string
-    {
-        // check for messages if any
-        return json_encode(Session::get('messages'));
     }
 }

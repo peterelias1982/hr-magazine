@@ -9,6 +9,7 @@
     class="d-sm-flex align-items-center justify-content-between border-bottom py-1"
   >
     <h2 class="fw-bold col-lg-auto">User Details</h2>
+      @can('crudUser')
     <div class="btn-wrapper">
      <form action="{{route('admin.employers.destroy',[$employer->slug])}}" method="POST" id="DeleteEmploy"
       >
@@ -23,6 +24,7 @@
         ><i class="icon-key"></i> Reset Password
       </a>
     </div>
+      @endcan
   </div>
   <div class="pt-4">
     <div class="row">
@@ -80,10 +82,12 @@
                   <h3 class="col-auto card-title card-title-dash">
                     Additional information
                   </h3>
+                    @can('crudUser')
                     <div class="col-auto">
                         <i class="mdi mdi-lead-pencil text-muted btn btn-sm fs-5"
                            id="edit_user_button"></i>
                     </div>
+                    @endcan
                 </div>
 
                 <div class="row py-1">
@@ -201,6 +205,7 @@
      </div>
     </div>
   </div>
+    @can('crudUser')
   <div
     class="d-sm-flex align-items-center justify-content-start border-top py-2"
   >
@@ -217,6 +222,7 @@
       </button>
     </div>
   </div>
+    @endcan
 </div>
 @endsection
 

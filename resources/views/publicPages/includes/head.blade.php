@@ -16,16 +16,20 @@
     />
 
     <script>
-        let messages = JSON.parse('<?= $messages ?? '{}' ?>');
+        let messages = {};
 
-        @if(session('resent'))
+        @if(session('messages'))
+            messages = {!! session('messages') !!};
+        @endif
+
+            @if(session('resent'))
             messages.info = [
             ...(messages.info ?? []),
             "{{ __('A fresh verification link has been sent to your email address.') }}"
         ];
         @endif
 
-        @if (session('status'))
+            @if (session('status'))
             messages.info = [
             ...(messages.info ?? []),
             "{{ session('status') }}"

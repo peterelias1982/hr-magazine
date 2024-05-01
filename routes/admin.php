@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\EventController;
 use App\Http\Controllers\Admin\JobCategoryController;
 use App\Http\Controllers\Admin\JobDetailController;
 use App\Http\Controllers\Admin\JobSeekerController;
+use App\Http\Middleware\CrudUserAuthorization;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => "events", "controller" => EventController::class, "as" => "events."], function () {
@@ -22,38 +23,38 @@ Route::group(['prefix' => "events", "controller" => EventController::class, "as"
     Route::delete("/{slug}", "destroy")->name('destroy');
 });
 
-Route::group(['prefix' => "users"], function () {
+Route::group(['prefix' => "users", 'middleware' => CrudUserAuthorization::class], function () {
     //admins
     Route::group(['prefix' => "admins", "controller" => AdminController::class, "as" => "admins."], function () {
-        Route::get("/", "index")->name('index');
+        Route::get("/", "index")->name('index')->withoutMiddleware(CrudUserAuthorization::class);
         Route::get("/create", "create")->name('create');
         Route::post("/", "store")->name('store');
-        Route::get("/{slug}", "show")->name('show');
-        Route::put("/{slug}", "update")->name('update');
+        Route::get("/{slug}", "show")->name('show')->withoutMiddleware(CrudUserAuthorization::class);
+        Route::put("/{slug}", "update")->name('update')->withoutMiddleware(CrudUserAuthorization::class);;
         Route::delete("/{slug}", "destroy")->name('destroy');
     });
 
     //job seekers
     Route::group(['prefix' => "job_seekers", "controller" => JobSeekerController::class, "as" => "jobSeekers."], function () {
-        Route::get("/", "index")->name('index');
-        Route::get("/{slug}", "show")->name('show');
+        Route::get("/", "index")->name('index')->withoutMiddleware(CrudUserAuthorization::class);
+        Route::get("/{slug}", "show")->name('show')->withoutMiddleware(CrudUserAuthorization::class);
         Route::patch("/{slug}", "update")->name('update');
         Route::delete("/{slug}", "destroy")->name('destroy');
     });
 
     //employers
     Route::group(['prefix' => "employers", "controller" => EmployerController::class, "as" => "employers."], function () {
-        Route::get("/", "index")->name('index');
-        Route::get("/{slug}", "show")->name('show');
+        Route::get("/", "index")->name('index')->withoutMiddleware(CrudUserAuthorization::class);
+        Route::get("/{slug}", "show")->name('show')->withoutMiddleware(CrudUserAuthorization::class);
         Route::delete("/{slug}", "destroy")->name('destroy');
         Route::patch("/{slug}","update")->name('update');
     });
 
     //authors
     Route::group(['prefix' => 'authors', "controller" => AuthorController::class, "as" => "authors."], function () {
-        Route::get('/', 'index')->name('index');
+        Route::get('/', 'index')->name('index')->withoutMiddleware(CrudUserAuthorization::class);
         Route::get('/create', 'create')->name('create');
-        Route::get('/{slug}','show')->name('show');
+        Route::get('/{slug}','show')->name('show')->withoutMiddleware(CrudUserAuthorization::class);
         Route::post('/', 'store')->name('store');
         Route::put('/{slug}', 'update')->name('update');
         Route::delete('/{slug}', 'destroy')->name('destroy');

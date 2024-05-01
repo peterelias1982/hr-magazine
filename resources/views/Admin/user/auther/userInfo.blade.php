@@ -5,26 +5,12 @@
         @method('put')
         <input type="hidden" name="oldImage" value="{{$user->image}}">
     </form>
-    @error('firstName')
-    {{$message}}
-    @enderror
-    @error('secondName')
-    {{$message}}
-    @enderror
-    @error('email')
-    {{$message}}
-    @enderror
-    @error('position')
-    {{$message}}
-    @enderror
-    @error('gender')
-    {{$message}}
-    @enderror
     <div class="content-wrapper">
         <div
             class="d-sm-flex align-items-center justify-content-between border-bottom py-1"
         >
             <h2 class="fw-bold col-lg-auto">User Details</h2>
+            @can('crudUser')
             <div class="btn-wrapper">
                 <form action="{{route('admin.authors.destroy',[$user->slug])}}" method="POST" id="delete"
                 >
@@ -39,6 +25,7 @@
                 ><i class="icon-key"></i> Reset Password
                 </a>
             </div>
+            @endcan
         </div>
         <div class="pt-4">
             <div class="row">
@@ -125,10 +112,12 @@
                                         <h3 class="col-auto card-title card-title-dash">
                                             Additional information
                                         </h3>
+                                        @can('crudUser')
                                         <div class="col-auto">
                                             <i class="mdi mdi-lead-pencil text-muted btn btn-sm fs-5"
                                                id="edit_user_button"></i>
                                         </div>
+                                        @endcan
                                     </div>
                                     <div class="row py-1">
                                         <p class="card-text fw-bold lh-1">Description</p>
@@ -262,6 +251,7 @@
                 </div>
             </div>
         </div>
+        @can('crudUser')
         <div>
             <div class="col d-flex flex-column">
                 <div class="row flex-grow">
@@ -311,6 +301,7 @@
                 </button>
             </div>
         </div>
+        @endcan
     </div>
 @endsection
 

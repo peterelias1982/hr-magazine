@@ -10,6 +10,7 @@
                 @csrf
                 @method('delete')
             </form>
+            @can('crudUser')
             <div class="btn-wrapper">
                 <button form="deleteAdmin" onclick="return confirm('Are you sure you want to delete?')"
                         class="btn btn-sm" style="color: #ed2708"><i class="icon-trash"></i> Delete User
@@ -18,6 +19,7 @@
                 ><i class="icon-key"></i> Reset Password
                 </a>
             </div>
+            @endcan
         </div>
         <form action="{{route('admin.admins.update', $user->slug)}}" id="edit-user" method="POST" enctype="multipart/form-data">
             @csrf
@@ -100,10 +102,12 @@
                                         <h3 class="col-auto card-title card-title-dash">
                                             Additional information
                                         </h3>
+                                        @if(\Illuminate\Support\Facades\Gate::allows('crudUser') || Auth::user()->id === $user->id)
                                         <div class="col-auto">
                                             <i class="mdi mdi-lead-pencil text-muted btn btn-sm fs-5"
                                                id="edit_user_button"></i>
                                         </div>
+                                        @endif
                                     </div>
                                     <div class="row py-1">
                                         <p class="card-text fw-bold lh-1">Position</p>
@@ -195,6 +199,7 @@
             </div>
         </div>
 
+        @if(\Illuminate\Support\Facades\Gate::allows('crudUser') || Auth::user()->id === $user->id)
         <div
             class="d-sm-flex align-items-center justify-content-start border-top py-2"
         >
@@ -211,9 +216,7 @@
                 </button>
             </div>
         </div>
+        @endif
     </div>
 @endsection
-@section('js')
-    <script src="{{asset('admin/js/edit_form.js')}}"></script>
 
-@endsection

@@ -8,20 +8,4 @@ document.addEventListener("DOMContentLoaded", function () {
   const year = today.getFullYear();
   currentDate.textContent = `Tuesday, ${day} ${month} ${year}`;
 
-  //Arabic English
-  const languageToggle = document.getElementById("languageToggle");
-
-  languageToggle.addEventListener("click", function () {
-    const currentLanguage = languageToggle.textContent;
-    if (currentLanguage === "EN") {
-      // Change language to Arabic
-      languageToggle.textContent = "AR";
-      // code to Load Load Arabic version of the content should be added here
-    } else if (currentLanguage === "AR") {
-      // Change language to English
-      languageToggle.textContent = "EN";
-      // code to Load English version of the content should be added here
-    }
-  });
-  //End of Arabic English Js//
 });

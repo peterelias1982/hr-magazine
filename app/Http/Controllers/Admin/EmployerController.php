@@ -8,9 +8,8 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Throwable;
 
 class EmployerController extends Controller
 {
@@ -38,9 +37,7 @@ class EmployerController extends Controller
 
         $employer = $users->get();
 
-        $messages = $this->getMessages();
-
-        return view('Admin.user.employers.allEmployer', compact('employer', 'messages'));
+        return view('Admin.user.employers.allEmployer', compact('employer'));
     }
 
     /**
@@ -69,7 +66,7 @@ class EmployerController extends Controller
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.employers.index')
-                ->with(['messages' => ['error' => ['Error user not found: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error user not found: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -79,17 +76,18 @@ class EmployerController extends Controller
     public function update(Request $request, $slug)
     {
         try {
+            Gate::authorize('crudUser');
             $user = User::where('slug', $slug)->first();
             $user->update([
                 'active' => isset($request->active),
             ]);
             return redirect()
                 ->route('admin.employers.index')
-                ->with(['messages' => ['success' => ['Employer Update Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Employer Update Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.employers.index')
-                ->with(['messages' => ['error' => ['Error Update employers: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error Update employers: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -99,23 +97,18 @@ class EmployerController extends Controller
     public function destroy($slug)
     {
         try {
+            Gate::authorize('crudUser');
             $user = User::where('slug', $slug)->first();
             $employer = Employer::where('user_id', $user->id)->first();
             unlink("assets/images/employers/" . $employer->logo);
             $user->delete();
             return redirect()
                 ->route('admin.employers.index')
-                ->with(['messages' => ['success' => ['Employer deleted Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Employer deleted Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.employers.index')
-                ->with(['messages' => ['error' => ['Error delete employers: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error delete employers: ' . $exception->getMessage()]])]);
         }
-    }
-
-    private function getMessages(): string
-    {
-        // check for messages if any
-        return json_encode(Session::get('messages'));
     }
 }
