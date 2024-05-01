@@ -8,7 +8,7 @@
                 <div class="search-bar">
                     <form action="{{URL::CURRENT()}}" method="GET">
                         <div class="row g-1 justify-content-lg-end justify-content-start">
-                            <div class="col-4 col-lg-5 form-floating">
+                            <div class="col-4 col-md-5 col-lg-6 col form-floating">
                                 <input type="text" class="form-control" id="title" name="catergory">
                                 <label for="title">Category</label>
                             </div>
@@ -51,7 +51,7 @@
                                                     <input type="text" class="custom-input d-inline-block"
                                                            value="{{$category->category}}" disabled=""
                                                            name="category">
-                                                    <i class="mdi mdi-pencil position-absolute pen-icon btn p-3"></i>
+                                                    <i class="mdi mdi-pencil position-absolute pen-icon btn end-50"></i>
                                                     <button type="submit" class="btn btn-primary btn-xs invisible">
                                                         Submit
                                                     </button>

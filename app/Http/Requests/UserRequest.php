@@ -22,6 +22,24 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
+
+            // 'firstName'=>'required|string|max:255',
+            // 'secondName'=>'required|string|max:255',
+            // 'gender'=>'required|string|max:255',
+            // 'slug'=>'required|unique:users,slug',
+            // 'email'=>'nullable|email|unique:users,email',
+            // 'password'=>'nullable|confirmed|min:6|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[-_?@!$#%.]).*$/',
+            // 'mobile'=>'nullable',
+            // 'password' => 'required_if:create|string|min:8|confirmed', // Required on create, confirmed, minimum length
+            // 'password' => 'nullable|string|min:8|confirmed',
+            // 'password' => 'nullable|string|min:8',
+            // 'password_confirmation' => 'required',
+            //  'mobile' => 'nullable|string', // Allow mobile to be empty
+            //  'position' => 'required|string', // Position is required
+            //  'userable_type' => 'nullable|string', // Allow userable_type to be empty
+            //  'userable_id' => 'nullable|integer|exists:' . config('userable.model'), // Check if userable_id exists in userable model
+            //  'active' => 'sometimes|boolean', // Allow updating `active` field (optional)
+
             'firstName' => 'required|string|max:255',
             'secondName' => 'required|string|max:255',
             'gender' => 'required|string|max:255',
@@ -29,6 +47,8 @@ class UserRequest extends FormRequest
             'password' => 'nullable|string|min:8|confirmed',
             'mobile' => 'nullable|string', // Allow mobile to be empty
             'position' => 'required|string', // Position is required
+            'image' => 'sometimes',
+            'active' => 'sometimes',
         ];
 
     }

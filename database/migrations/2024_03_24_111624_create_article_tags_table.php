@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,9 +12,16 @@ return new class extends Migration
     {
         Schema::create('article_tags', function (Blueprint $table) {
             $table->primary(['article_id', 'tag_id'], 'id'); //create composite key
-            $table->foreignId('tag_id')->references('id')->on('tags')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('article_id')->references('id')->on('articles')->onDelete('cascade')->onUpdate('cascade');
-            $table->timestamps();
+            $table->foreignId('tag_id')
+                ->references('id')
+                ->on('tags')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreignId('article_id')
+                ->references('id')
+                ->on('articles')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
         });
     }
 

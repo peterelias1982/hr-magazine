@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\SocialMedia;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
 class SocialMediaSeeder extends Seeder
 {
@@ -14,30 +13,12 @@ class SocialMediaSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('social_media')->delete(); //aviod duplicating
-        
 
-       
-       $media= [
-            [
-            'mediaName'=>'linkedin',
-           
-            ],
-            [
-            'mediaName'=>'twitter',
-            
-            ],
-            [
-            'mediaName'=>'instagram',
-            
-            ],
-            [
-            'mediaName'=>'facebook',
-            
-        ]
-            ];
-    foreach ($media as $amedia) {
-        SocialMedia::create($amedia);
-    }
+        SocialMedia::insert([
+            ['mediaName' => \App\Enums\SocialMedia::LinkedIn->value],
+            ['mediaName' => \App\Enums\SocialMedia::Facebook->value],
+            ['mediaName' => \App\Enums\SocialMedia::Instagram->value],
+            ['mediaName' => \App\Enums\SocialMedia::Twitter->value],
+        ]);
     }
 }

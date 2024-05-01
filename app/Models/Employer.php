@@ -14,8 +14,9 @@ class Employer extends Model
         "companyName",
         "address",
         "logo",
-        "Phone",
-        "user_id"
+        "phone",
+        "user_id",
+        "about_company",
     ];
 
     public function userEmployer(): BelongsTo

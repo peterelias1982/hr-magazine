@@ -24,13 +24,16 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        
-        'firstName', 'secondName','gender',
+        'firstName',
+        'secondName',
+        'gender',
         'email',
         'password',
         "position",
         "mobile",
         "active",
+        "image",
+        'email_verified_at',
     ];
 
     /**
@@ -101,7 +104,5 @@ class User extends Authenticatable
     public function employerUser(): HasOne
     {
         return $this->hasOne(Employer::class, 'user_id', 'id');
-
     }
-
 }

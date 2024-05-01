@@ -6,7 +6,7 @@
     <div class="col-lg-auto">
       <!-- Search Bar start -->
       <div class="search-bar">
-        <form method="GET" action="{{route('admin.authors.search')}}">
+        <form method="GET" action="">
           <div
             class="row g-1 justify-content-lg-end justify-content-start">
             <div class="col-6 col-lg-3 form-floating">
@@ -25,7 +25,7 @@
                     id="active"
                     class="form-check-input"
                     name="status"
-                    value="1"
+                    value="active"
                   />
                   Active
                 </label>
@@ -37,7 +37,7 @@
                     id="blocked"
                     class="form-check-input"
                     name="status"
-                    value="0"
+                    value="blocked"
                   />
                   Blocked
                 </label>
@@ -81,28 +81,29 @@
                 <tr>
                   <td class="py-1">
                     <img
-                      src="{{ asset('admin/images/authors/'.$author->image)}}"
+                      src="{{ asset('assets/images/users/'.$author->image)}}"
                       alt="image"
+                      class="img-fluid rounded-circle"
                     />
                   </td>
                   <td>
                     <a
-                      href="{{ route('admin.authors.show', ['slug' => $author->userAuthor->slug]) }}"
+                      href=""
                       class="link-primary text-decoration-none"
-                      >{{$author->userAuthor->firstName}} {{$author->userAuthor->secondName}}</a>
+                      >{{$author->firstName}} {{$author->secondName}}</a>
                   </td>
-                  <td>{{$author->userAuthor->email}}</td>
-                  <td>{{$author->userAuthor->mobile}}</td>
-                  <td>{{$author->userAuthor->position}}</td>
-                 
-                  <td>@if($author->userAuthor->active == 0)❌ @else ✔️ @endif</td>
-                  <td>@if($author->approved== 0) ❌ @else ✔️ @endif</td>
-                  <td>@if($author->bio == 0) ❌ @else ✔️ @endif</td>
-                  
+                  <td>{{$author->email}}</td>
+                  <td>{{$author->mobile}}</td>
+                  <td>{{$author->position}}</td>
+
+                  <td>@if($author->active == 0)❌ @else ✔️ @endif</td>
+                  <td>@if($author->authorUser->approved== 0) ❌ @else ✔️ @endif</td>
+                  <td>@if($author->authorUser->bio == 0) ❌ @else ✔️ @endif</td>
+
                 </tr>
                 @endforeach
-               
-                
+
+
               </tbody>
             </table>
           </div>

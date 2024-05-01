@@ -16,12 +16,15 @@ class EmployerFactory extends Factory
      */
     public function definition(): array
     {
+        $id = UsersHelper::createUser(fake()->jobTitle());
+
         return [
-            'companyName' => fake()->sentence(),
+            'companyName' => fake()->company(),
             'address' => fake()->address(),
-            'logo' => fake()->image("public/assets/images/employer/",640, 480, 'animals', false),
-            'phone'=>fake()->phoneNumber(),
-            'user_id' => fake()->unique()->numberBetween(1,5),
+            'about_company' => fake()->text(800),
+            'logo' => 'test.jpg',
+            'phone' => fake()->phoneNumber(),
+            'user_id' => $id,
         ];
     }
 }

@@ -12,14 +12,20 @@
                 @csrf
                 @method('delete')
             </form>
+            <form action="{{route('admin.jobSeekers.resetPassword',[$user->slug])}}" method="POST"
+                  id="resetPassword">
+                @csrf
+            </form>
+            @can('crudUser')
             <div class="btn-wrapper">
-                <button form="deleteJobSeeker"
-                        onclick="return confirm('Are you sure you want to delete?')" class="btn btn-sm"
-                        style="color: #ed2708"><i class="icon-trash"></i> Delete User
+                <button form="deleteJobSeeker" onclick="return confirm('Are you sure you want to delete?')"
+                        class="btn btn-sm" style="color: #ed2708"><i class="icon-trash"></i> Delete User
                 </button>
-                <a href="#" class="btn btn-sm btn-primary text-white me-0"><i class="icon-key"></i> Reset Password
-                </a>
+                <button type="submit"   class="btn btn-sm btn-primary text-white me-0" form="resetPassword"
+                ><i class="icon-key"></i> Reset Password
+                </button>
             </div>
+            @endcan
         </div>
         <div class="pt-4">
             <div class="row">
@@ -31,7 +37,7 @@
                                     <div class="row border-bottom py-2 my-2">
                                         <div class="col-4">
                                             <div class="position-relative" id="change-pic">
-                                                <img src="{{asset('admin/images/avatar-default.svg')}}" alt=""
+                                                <img src="{{asset('assets/images/users/' . $user->image)}}" alt=""
                                                      id="user-pic" class="card-img rounded-circle bg-light"/>
                                                 <i class="mdi mdi-link-variant-plus fs-4 position-absolute bottom-0 start-75 translate-middle btn btn-sm d-none"
                                                    id="user_pic_change_icon"></i>
@@ -42,22 +48,14 @@
                                                 {{$user->firstName}} {{$user->secondName}}
                                             </h3>
                                             <p class="card-subtitle card-subtitle-dash">
-                                                joined {{ceil(\Carbon\Carbon::now()->diffInMonths(\Carbon\Carbon::parse($user->created_at)))}}
-                                                months ago.
+                                                joined {{ \Carbon\Carbon::parse($user->created_at)->diffForHumans(['parts' => 1])}}.
                                             </p>
                                             <div class="row justify-content-start g-2">
-                                                <a href="#" class="col-auto">
-                                                    <i class="mdi mdi-linkedin text-dark"></i>
-                                                </a>
-                                                <a href="#" class="col-auto">
-                                                    <i class="mdi mdi-instagram text-dark"></i>
-                                                </a>
-                                                <a href="#" class="col-auto">
-                                                    <i class="mdi mdi-facebook text-dark"></i>
-                                                </a>
-                                                <a href="#" class="col-auto">
-                                                    <i class="mdi mdi-twitter text-dark"></i>
-                                                </a>
+                                                @foreach ($user->SocialMedia as $socialMedia)
+                                                    <a href="{{ $socialMedia->pivot->value }}" class="col-auto">
+                                                        <i class="mdi mdi-{{$socialMedia->mediaName}} text-dark"></i>
+                                                    </a>
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
@@ -65,9 +63,8 @@
                                         <div class="col-auto text-center">
                                             <p class="fw-bold lh-1">CV</p>
                                             <div class="m-n5">
-                                                <a href="{{asset('admin/jobSeekersCVs/'.$user->jobSeekerUser?->cv)}}"
-                                                   class="text-decoration-none text-black small"
-                                                ><small>{{$user->jobSeekerUser?->cv}}</small></a>
+                                                <a href="{{asset('assets/cvs/'.$user->jobSeekerUser?->cv)}}"
+                                                   class="text-decoration-none text-black small"><small>{{$user->jobSeekerUser?->cv}}</small></a>
                                                 <i id="user_cv_button"
                                                    class="mdi mdi-file-download fs-5 lh-1 text-danger btn btn-sm p-0"></i>
                                             </div>
@@ -87,10 +84,12 @@
                                         <h3 class="col-auto card-title card-title-dash">
                                             Additional information
                                         </h3>
+                                        @can('crudUser')
                                         <div class="col-auto">
                                             <i class="mdi mdi-lead-pencil text-muted btn btn-sm fs-5"
                                                id="edit_user_button"></i>
                                         </div>
+                                        @endcan
                                     </div>
                                     <div class="row py-1">
                                         <p class="card-text fw-bold lh-1">Position</p>
@@ -110,8 +109,9 @@
                                         <div class="d-flex justify-content-between">
                                             <div class="col-auto form-check form-check-flat form-check-primary">
                                                 <label for="active" class="form-check-label">
-                                                    <input type="checkbox" id="active" class="form-check-input" form="edit-user"
-                                                           name="active" @checked($user->active) disabled/>
+                                                    <input type="checkbox" id="active" class="form-check-input"
+                                                           form="edit-user" name="active"
+                                                           @checked($user->active) disabled/>
                                                     Active
                                                 </label>
                                             </div>
@@ -128,12 +128,12 @@
             <div class="col d-flex flex-column">
                 <div class="row flex-grow">
                     <div class="col-lg-5 grid-margin stretch-card" id="padding_pic">
-                        <img src="{{asset('admin/images/hr-logo.svg')}}" alt=""
-                             class="img-fluid rounded opacity-25"/>
+                        <img src="{{asset('admin/images/hr-logo.svg')}}" alt="" class="img-fluid rounded opacity-25"/>
                     </div>
                 </div>
             </div>
         </div>
+        @can('crudUser')
         <div class="d-sm-flex align-items-center justify-content-start border-top py-2">
             <div class="btn-wrapper d-none" id="submit_pannel">
                 <button type="submit" class="btn btn-primary me-2" form="edit-user">
@@ -144,5 +144,6 @@
                 </button>
             </div>
         </div>
+        @endcan
     </div>
 @endsection

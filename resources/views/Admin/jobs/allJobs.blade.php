@@ -6,7 +6,7 @@
             <div class="col-lg-auto">
                 <!-- Search Bar start -->
                 <div class="search-bar">
-                    <form action="{{route('admin.jobs.search')}}">
+                    <form action="{{ route('admin.jobs.index') }}">
                         <div class="row g-1 justify-content-lg-end justify-content-start">
                             <div class="col-6 col-lg-5 form-floating">
                                 <input type="text" class="form-control" id="title" name="title">
@@ -14,7 +14,7 @@
                             </div>
                             <div class="col-6 col-lg-5 form-floating">
                                 <select class="form-control bg-white" id="category" name="category">
-                                    <option>-</option>
+                                    <option value="">-</option>
                                     @foreach($categories as $category)
                                         <option value="{{$category->id}}">{{$category->category}}</option>
                                     @endforeach
@@ -51,14 +51,14 @@
                             @foreach($jobs as $job )
                                 <tr>
                                     <td>
-                                        <a href="jobs/{{$job->slug}}"
+                                        <a href="{{route('admin.jobs.show', $job->slug)}}"
                                            class="link-primary text-decoration-none">{{$job->title}}</a>
                                     </td>
                                     <td>
                                         {{$job->Employer->userEmployer->firstName}} {{$job->Employer->userEmployer->secondName}}
                                     </td>
                                     <td>{{$job->jobCategory->category}}</td>
-                                    <td>{{$job->jobSeeker->count()}}</td>
+                                    <td>{{$job->jobSeekers->count()}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

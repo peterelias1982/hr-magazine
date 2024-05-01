@@ -13,16 +13,28 @@ return new class extends Migration
     {
         Schema::create('article_comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->text('content');
-            // $table->bigInteger('parentComment')->references('id')->on('article_comments')->onDelete('cascade')->onUpdate('cascade')->nullable();
-            // $table->unsignedBigInteger('parentComment')->constrained('article_comments')->onDelete('cascade')->onUpdate('cascade')->nullable(); // Changed type to unsignedBigInteger and added nullable
-            
-            // $table->unsignedBigInteger('parentComment')->nullable(); // Changed type to unsignedBigInteger and added nullable
-            // $table->foreignId('parentComment')->constrained('article_comments')->onDelete('cascade')->onUpdate('cascade'); // Use constrained() for parentComment
-
-            $table->foreignId('parentComment')->references('id')->on('article_comments')->onDelete('cascade')->onUpdate('cascade')->nullable();
-            $table->foreignId('article_id')->references('id')->on('articles')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreignId('parentComment')
+                ->nullable()
+                ->references('id')
+                ->on('article_comments')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreignId('article_id')
+                ->references('id')
+                ->on('articles')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
+            $table->foreignId('category_id')
+                ->references('id')
+                ->on('article_categories')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
             $table->timestamps();
         });
     }
