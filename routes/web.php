@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Session;
 
 
 Route::get('/', function () {
-    return view('publicPages.articles.professionalDevelopment3');
+    return view('publicPages.events.eventCalender');
 });
 
 Route::get('/home', function () {
