@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TagArticleRequest;
 use App\Models\Tag;
-use Illuminate\Support\Facades\Session;
-use Throwable;
 
 class ArticleTagController extends Controller
 {
@@ -19,18 +17,12 @@ class ArticleTagController extends Controller
         }
         $tags = $query->get();
 
-        // get messages
-        $messages = $this->getMessages();
-
-        return view('Admin.article.allTag', compact(['tags', 'messages']));
+        return view('Admin.article.allTag', compact('tags'));
     }
 
     public function create()
     {
-        // get messages
-        $messages = $this->getMessages();
-
-        return view('Admin.article.addTag', compact('messages'));
+        return view('Admin.article.addTag');
     }
 
     public function store(TagArticleRequest $request)
@@ -41,12 +33,12 @@ class ArticleTagController extends Controller
             ]);
             return redirect()
                 ->route('admin.tags.index')
-                ->with(['messages' => ['success' => ['Tag created Successfully']]]);
+                ->with(['messages' => json_encode(['success' => ['Tag created Successfully']])]);
 
-        } catch (Throwable $exception) {
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.tags.index')
-                ->with(['messages' => ['error' => ['Error adding tag: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error adding tag: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -59,11 +51,11 @@ class ArticleTagController extends Controller
 
             return redirect()
                 ->route('admin.tags.index')
-                ->with(['messages' => ['success' => ['Tag updated Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Tag updated Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.tags.index')
-                ->with(['messages' => ['error' => ['Error updating tag: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error updating tag: ' . $exception->getMessage()]])]);
         }
 
     }
@@ -75,18 +67,13 @@ class ArticleTagController extends Controller
 
             return redirect()
                 ->route('admin.tags.index')
-                ->with(['messages' => ['success' => ['Tag deleted Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Tag deleted Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.tags.index')
-                ->with(['messages' => ['error' => ['Error deleting tag: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error deleting tag: ' . $exception->getMessage()]])]);
         }
 
     }
 
-    private function getMessages(): string
-    {
-        // check for messages if any
-        return json_encode(Session::get('messages'));
-    }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Throwable;
+use App\Traits\Common;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Employer;
@@ -10,12 +10,13 @@ use Illuminate\Http\Request;
 use App\Traits\ResetPassword;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Gate;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class EmployerController extends Controller
 {
     use ResetPassword;
+    use Common;
     /**
      * Display a listing of the resource.
      */
@@ -40,9 +41,7 @@ class EmployerController extends Controller
 
         $employer = $users->get();
 
-        $messages = $this->getMessages();
-
-        return view('Admin.user.employer.allEmployer', compact('employer', 'messages'));
+        return view('Admin.user.employer.allEmployer', compact('employer'));
     }
 
     /**
@@ -71,7 +70,7 @@ class EmployerController extends Controller
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.employers.index')
-                ->with(['messages' => ['error' => ['Error user not found: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error user not found: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -81,17 +80,18 @@ class EmployerController extends Controller
     public function update(Request $request, $slug)
     {
         try {
+            Gate::authorize('crudUser');
             $user = User::where('slug', $slug)->first();
             $user->update([
                 'active' => isset($request->active),
             ]);
             return redirect()
                 ->route('admin.employers.index')
-                ->with(['messages' => ['success' => ['Employer Update Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Employer Update Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.employers.index')
-                ->with(['messages' => ['error' => ['Error Update employers: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error Update employers: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -101,35 +101,26 @@ class EmployerController extends Controller
     public function destroy($slug)
     {
         try {
+            Gate::authorize('crudUser');
             $user = User::where('slug', $slug)->first();
             $employer = Employer::where('user_id', $user->id)->first();
-            // unlink("assets/images/employers/" . $employer->logo);
+
+            if(!str_starts_with($user->image , 'default')) {
+                $this->deleteFile(public_path('assets/images/users/'. $user->image));
+            }
+
+            $this->deleteFile(public_path('assets/images/users/' . $employer->logo));
+
             $user->delete();
+
             return redirect()
                 ->route('admin.employers.index')
-                ->with(['messages' => ['success' => ['Employer deleted Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Employer deleted Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.employers.index')
-                ->with(['messages' => ['error' => ['Error delete employers: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error delete employers: ' . $exception->getMessage()]])]);
         }
     }
-    public function  resetPassword($slug) {
-        try {
-            
-            $this->Reset($slug);
-            return redirect()
-                ->route('admin.employers.index')
-                ->with(['messages' => ['success' => ['Employer resetPassword Successfully']]]);
-        } catch (Throwable $exception) {
-            return redirect()
-                ->route('admin.employers.index')
-                ->with(['messages' => ['error' => ['Error resetPassword employer: ' . $exception->getMessage()]]]);
-        }
-    }
-    private function getMessages(): string
-    {
-        // check for messages if any
-        return json_encode(Session::get('messages'));
-    }
+
 }

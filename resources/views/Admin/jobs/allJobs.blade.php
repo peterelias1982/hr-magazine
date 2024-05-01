@@ -51,14 +51,14 @@
                             @foreach($jobs as $job )
                                 <tr>
                                     <td>
-                                        <a href="jobs/{{$job->slug}}"
+                                        <a href="{{route('admin.jobs.show', $job->slug)}}"
                                            class="link-primary text-decoration-none">{{$job->title}}</a>
                                     </td>
                                     <td>
                                         {{$job->Employer->userEmployer->firstName}} {{$job->Employer->userEmployer->secondName}}
                                     </td>
                                     <td>{{$job->jobCategory->category}}</td>
-                                    <td>{{$job->jobSeeker->count()}}</td>
+                                    <td>{{$job->jobSeekers->count()}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

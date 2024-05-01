@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Traits\ResetPassword;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Admin;
 use App\Traits\Common;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\AdminRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class AdminController extends Controller
 {
     use Common;
+    use ResetPassword;
 
     /**
      * Display a listing of the resource.
@@ -23,9 +27,8 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $admins = $this->searchWith($request);
-        $messages = $this->getMessages();
 
-        return view('Admin.user.admin.allAdmin', compact('admins', 'messages'));
+        return view('Admin.user.admin.allAdmin', compact('admins'));
 
     }
 
@@ -40,6 +43,7 @@ class AdminController extends Controller
     public function store(AdminRequest $request)
     {
         try {
+            Gate::authorize('crudUser');
             $data = $this->prepareData($request->all());
 
             $user = User::create($data);
@@ -49,11 +53,11 @@ class AdminController extends Controller
 
             return redirect()
                 ->route('admin.admins.index')
-                ->with(['messages' => ['success' => ['Admin created Successfully']]]);
+                ->with(['messages' => json_encode(['success' => ['Admin created Successfully']])]);
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.admins.index')
-                ->with(['messages' => ['error' => ['Error creating category: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error creating category: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -64,17 +68,19 @@ class AdminController extends Controller
     {
         try {
             $user = User::where("slug", $slug)->first();
-            $user->created_at = Carbon::parse($user->created_at)->diffForHumans(['parts' => 1]);
 
             if (!$user) {
                 throw new ResourceNotFoundException('User is not found');
             }
+
+            $user->created_at = Carbon::parse($user->created_at)->diffForHumans(['parts' => 1]);
+
             return view('Admin.user.admin.userinfo', compact('user'));
 
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.admins.index')
-                ->with(['messages' => ['error' => ['Error showing admin: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error showing admin: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -84,39 +90,48 @@ class AdminController extends Controller
     public function update(AdminRequest $request, string $slug)
     {
         try {
+            if(!(Gate::allows('crudUser') || Auth::user()->slug === $slug)) {
+                throw new UnauthorizedHttpException('Forbidden');
+            }
+
             $data = $this->prepareData($request->all());
+
+            if(Gate::denies('crudUser')) {
+                unset($data['active']);
+            }
 
             $user = User::where('slug', $slug)->first();
             $user->update($data);
 
             return redirect()
                 ->route('admin.admins.index')
-                ->with(['messages' => ['success' => ['Admin updated Successfully']]]);
+                ->with(['messages' => json_encode(['success' => ['Admin updated Successfully']])]);
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.admins.index')
-                ->with(['messages' => ['error' => ['Error updating admin: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error updating admin: ' . $exception->getMessage()]])]);
         }
     }
 
     public function destroy(string $slug)
     {
         try {
+            Gate::authorize('crudUser');
             $user = User::where('slug', $slug)->first();
 //            delete the image file
-            if(!str_starts_with($user->image , 'default')) {
-                $this->deleteFile(public_path('assets/images/users/'. $user->image));
+            if (!str_starts_with($user->image, 'default')) {
+                $this->deleteFile(public_path('assets/images/users/' . $user->image));
             }
 //           delete rest of data
             $user->delete();
 
             return redirect()
                 ->route('admin.admins.index')
-                ->with(['messages' => ['success' => ['Admin deleted Successfully']]]);
-        } catch (Throwable $exception) {
+                ->with(['messages' => json_encode(['success' => ['Admin deleted Successfully']])]);
+        } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.admins.index')
-                ->with(['messages' => ['error' => ['Error deleting The Admin: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error deleting The Admin: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -140,8 +155,8 @@ class AdminController extends Controller
 
         if ($data['image'] ?? false) {
             $image = $this->uploadFile($data['image'], 'assets/images/users');
-            if (($data['oldImage'] ?? false) && !str_starts_with($data['oldImage'] , 'default'.DIRECTORY_SEPARATOR)) {
-                $this->deleteFile(public_path('assets/images/users/'. $data['oldImage']));
+            if (($data['oldImage'] ?? false) && !str_starts_with($data['oldImage'], 'default' . DIRECTORY_SEPARATOR)) {
+                $this->deleteFile(public_path('assets/images/users/' . $data['oldImage']));
             }
         } elseif ($data['oldImage'] ?? false) {
             $image = $data['oldImage'];
@@ -152,12 +167,6 @@ class AdminController extends Controller
         $userData['image'] = $image;
 
         return $userData;
-    }
-
-    private function getMessages(): string
-    {
-        // check for messages if any
-        return json_encode(Session::get('messages'));
     }
 
     private function searchWith($request)

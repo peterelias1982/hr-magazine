@@ -39,6 +39,10 @@ class DatabaseSeeder extends Seeder
             ArticleHelper::generateArticle();
         }
 
+        for ($i = 1; $i <= 30; $i++) {
+            ArticleHelper::generateArticle();
+        }
+
         JobCategory::factory(5)->create();
         JobDetail::factory(5)->create();
         DB::table('job_applieds')->insert([

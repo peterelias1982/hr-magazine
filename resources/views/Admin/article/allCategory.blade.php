@@ -34,6 +34,7 @@
                                 <thead>
                                 <tr>
                                     <th>Category</th>
+                                    <th>Sub Category</th>
                                     <th>Abilities</th>
                                     <th>Delete</th>
                                 </tr>
@@ -41,74 +42,122 @@
                                 <tbody>
                                 @foreach($categories as $Category)
                                     <tr>
-                                        <td>
-                                            <form id="ArticleCategory{{$Category->id}}"
-                                                  action="{{route('admin.articleCategories.update',[$Category->slug])}}"
-                                                  method="POST">
-                                                @csrf
-                                                @method("PUT")
-                                                <div class="position-relative input-parent d-inline-block"
-                                                     onclick="edit(this)">
-                                                    <input type="text" class="custom-input d-inline-block"
-                                                           value="{{$Category->articleCategoryName}}" disabled=""
-                                                           name="articleCategoryName">
-                                                    <i class="mdi mdi-pencil position-absolute pen-icon btn end-50"></i>
-                                                    <button type="submit" class="btn btn-primary btn-xs invisible">
-                                                        Submit
+                                        @if($Category->canModified)
+                                            <td>
+                                                <form id="ArticleCategory{{$Category->id}}"
+                                                      action="{{route('admin.articleCategories.update',[$Category->slug])}}"
+                                                      method="POST">
+                                                    @csrf
+                                                    @method("PUT")
+                                                    <div class="position-relative input-parent d-inline-block"
+                                                         onclick="edit(this)">
+                                                        <input type="text" class="custom-input d-inline-block"
+                                                               value="{{$Category->articleCategoryName}}" disabled=""
+                                                               name="articleCategoryName">
+                                                        <i class="mdi mdi-pencil position-absolute pen-icon btn end-50"></i>
+                                                        <button type="submit" class="btn btn-primary btn-xs invisible">
+                                                            Submit
+                                                        </button>
+                                                        <button type="cancel" class="btn btn-light btn-xs invisible">
+                                                            Cancel
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </td>
+                                            <td>
+                                                <input type="text" class="custom-input d-inline-block"
+                                                       value="{{$Category->subCategory}}" disabled=""
+                                                       name="subCategory" form="ArticleCategory{{$Category->id}}">
+                                            </td>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <div class="form-check form-check-flat form-check-primary mx-2">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""
+                                                                   @checked($Category->hasComments) name="hasComments"
+                                                                   form="ArticleCategory{{$Category->id}}">Has Comment
+                                                            <i class="input-helper"></i></label>
+                                                    </div>
+                                                    <div class="form-check form-check-flat form-check-primary mx-2">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""
+                                                                   @checked($Category->hasYoutubeLink) name="hasYoutubeLink"
+                                                                   form="ArticleCategory{{$Category->id}}">
+                                                            Has YouTube
+                                                            <i class="input-helper"></i></label>
+                                                    </div>
+                                                    <div class="form-check form-check-flat form-check-primary mx-2">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""
+                                                                   @checked($Category->hasSource) name="hasSource"
+                                                                   form="ArticleCategory{{$Category->id}}">
+                                                            Has Source
+                                                            <i class="input-helper"></i></label>
+                                                    </div>
+                                                    <div class="form-check form-check-flat form-check-primary mx-2">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""
+                                                                   @checked($Category->hasAuthor)  name="hasAuthor"
+                                                                   form="ArticleCategory{{$Category->id}}">
+                                                            Has Author
+                                                            <i class="input-helper"></i></label>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="py-2">
+                                                <form
+                                                    action="{{route('admin.articleCategories.destroy',[$Category->slug])}}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method("delete")
+                                                    <button type="submit" class="btn btn-danger btn-xs delete"
+                                                            onclick="alert('Are you sure you want to delete?')">
+                                                        Delete
                                                     </button>
-                                                    <button type="cancel" class="btn btn-light btn-xs invisible">
-                                                        Cancel
-                                                    </button>
+                                                </form>
+                                            </td>
+                                        @else
+                                            <td>{{$Category->articleCategoryName}}</td>
+                                            <td>{{$Category->subCategory}}</td>
+                                            <td>
+                                                <div class="d-flex">
+                                                    <div class="form-check form-check-flat form-check-primary mx-2">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""
+                                                                   @checked($Category->hasComments) name="hasComments"
+                                                                   form="ArticleCategory{{$Category->id}}">Has Comment
+                                                            <i class="input-helper"></i></label>
+                                                    </div>
+                                                    <div class="form-check form-check-flat form-check-primary mx-2">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""
+                                                                   @checked($Category->hasYoutubeLink) name="hasYoutubeLink"
+                                                                   form="ArticleCategory{{$Category->id}}">
+                                                            Has YouTube
+                                                            <i class="input-helper"></i></label>
+                                                    </div>
+                                                    <div class="form-check form-check-flat form-check-primary mx-2">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""
+                                                                   @checked($Category->hasSource) name="hasSource"
+                                                                   form="ArticleCategory{{$Category->id}}">
+                                                            Has Source
+                                                            <i class="input-helper"></i></label>
+                                                    </div>
+                                                    <div class="form-check form-check-flat form-check-primary mx-2">
+                                                        <label class="form-check-label">
+                                                            <input type="checkbox" class="form-check-input" disabled=""
+                                                                   @checked($Category->hasAuthor)  name="hasAuthor"
+                                                                   form="ArticleCategory{{$Category->id}}">
+                                                            Has Author
+                                                            <i class="input-helper"></i></label>
+                                                    </div>
                                                 </div>
-                                            </form>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex">
-                                                <div class="form-check form-check-flat form-check-primary mx-2">
-                                                    <label class="form-check-label">
-                                                        <input type="checkbox" class="form-check-input" disabled=""
-                                                               @checked($Category->hasComments) name="hasComments"
-                                                               form="ArticleCategory{{$Category->id}}">Has Comment
-                                                        <i class="input-helper"></i></label>
-                                                </div>
-                                                <div class="form-check form-check-flat form-check-primary mx-2">
-                                                    <label class="form-check-label">
-                                                        <input type="checkbox" class="form-check-input" disabled=""
-                                                               @checked($Category->hasYoutubeLink) name="hasYoutubeLink"
-                                                               form="ArticleCategory{{$Category->id}}">
-                                                        Has YouTube
-                                                        <i class="input-helper"></i></label>
-                                                </div>
-                                                <div class="form-check form-check-flat form-check-primary mx-2">
-                                                    <label class="form-check-label">
-                                                        <input type="checkbox" class="form-check-input" disabled=""
-                                                               @checked($Category->hasSource) name="hasSource"
-                                                               form="ArticleCategory{{$Category->id}}">
-                                                        Has Source
-                                                        <i class="input-helper"></i></label>
-                                                </div>
-                                                <div class="form-check form-check-flat form-check-primary mx-2">
-                                                    <label class="form-check-label">
-                                                        <input type="checkbox" class="form-check-input" disabled=""
-                                                               @checked($Category->hasAuthor)  name="hasAuthor"
-                                                               form="ArticleCategory{{$Category->id}}">
-                                                        Has Author
-                                                        <i class="input-helper"></i></label>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="py-2">
-                                            <form
-                                                action="{{route('admin.articleCategories.destroy',[$Category->slug])}}"
-                                                method="POST">
-                                                @csrf
-                                                @method("delete")
-                                                <button type="submit" class="btn btn-danger btn-xs delete"
-                                                        onclick="alert('Are you sure you want to delete?')">
-                                                    Delete
-                                                </button>
-                                            </form>
-                                        </td>
+                                            </td>
+                                            <td class="py-2">
+                                                _
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
 

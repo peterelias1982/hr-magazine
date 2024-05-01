@@ -14,109 +14,139 @@ class ArticleCategorySeeder extends Seeder
     public function run(): void
     {
         ArticleCategory::create([
-            'articleCategoryName' => 'Industry News and Updates',
+            'articleCategoryName' => 'Industry Insights',
+            'subCategory' => 'Industry News and Updates',
             'hasComments' => 0,
             'hasSource' => 1,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 0,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Trends and Insights',
+            'articleCategoryName' => 'Industry Insights',
+            'subCategory' => 'Trends and Insights',
             'hasComments' => 0,
             'hasSource' => 1,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 0,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Global HR Perspectives',
+            'articleCategoryName' => 'Industry Insights',
+            'subCategory' => 'Global HR Perspectives',
             'hasComments' => 0,
             'hasSource' => 1,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 0,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Feature Articles',
+            'articleCategoryName' => 'Professional Development',
+            'subCategory' => 'Feature Articles',
             'hasComments' => 0,
             'hasSource' => 0,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 1,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Expert Interviews',
+            'articleCategoryName' => 'Professional Development',
+            'subCategory' => 'Expert Interviews',
             'hasComments' => 0,
             'hasSource' => 0,
             'hasYoutubeLink' => 1,
             'hasAuthor' => 1,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Ladies Interviews',
+            'articleCategoryName' => 'Ladies in HR',
+            'subCategory' => 'Ladies Interviews',
             'hasComments' => 0,
             'hasSource' => 0,
             'hasYoutubeLink' => 1,
             'hasAuthor' => 1,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Professionals Spotlights',
+            'articleCategoryName' => 'Professional Development',
+            'subCategory' => 'Professional Spotlights',
             'hasComments' => 0,
             'hasSource' => 0,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 1,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Training and Development',
+            'articleCategoryName' => 'Professional Development',
+            'subCategory' => 'Training and Development',
             'hasComments' => 0,
             'hasSource' => 0,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 1,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Case Studies',
+            'articleCategoryName' => 'Ladies in HR',
+            'subCategory' => 'Case Studies',
             'hasComments' => 0,
             'hasSource' => 0,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 1,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Journey to Excellence',
+            'articleCategoryName' => 'Ladies in HR',
+            'subCategory' => 'Journey to Excellence',
             'hasComments' => 0,
             'hasSource' => 0,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 1,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Legal Corner',
+            'articleCategoryName' => 'Legal and Compliance',
+            'subCategory' => 'Legal Corner',
             'hasComments' => 1,
             'hasSource' => 0,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 1,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Workplace Culture',
+            'articleCategoryName' => 'Workplace Culture and Well-being',
+            'subCategory' => 'Workplace Culture',
             'hasComments' => 1,
             'hasSource' => 0,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 1,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Diversity, Equity, and Inclusion (DEI)',
+            'articleCategoryName' => 'Workplace Culture and Well-being',
+            'subCategory' => 'Diversity, Equity, and Inclusion (DEI)',
             'hasComments' => 1,
             'hasSource' => 0,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 1,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Wellness Programs',
+            'articleCategoryName' => 'Workplace Culture and Well-being',
+            'subCategory' => 'Wellness Programs',
             'hasComments' => 1,
             'hasSource' => 0,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 1,
+            'canModified' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Mental Health in the Workplace',
+            'articleCategoryName' => 'Workplace Culture and Well-being',
+            'subCategory' => 'Mental Health in the Workplace',
             'hasComments' => 1,
             'hasSource' => 0,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 1,
+            'canModified' => 0,
         ]);
     }
 }
