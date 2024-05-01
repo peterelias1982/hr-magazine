@@ -65,7 +65,7 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event, string $slug)
+    public function show(string $slug)
     {
         try {
             $event = Event::with('Agenda')->where('slug', $slug)->first();
@@ -112,7 +112,7 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event, string $slug)
+    public function destroy(string $slug)
     {
         try {
             $event = Event::where('slug', $slug)->first();

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\JobSeeker;
 use App\Models\User;
 use App\Traits\Common;
+use App\Traits\ResetPassword;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -14,7 +15,7 @@ use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 class JobSeekerController extends Controller
 {
     use Common;
-
+    use ResetPassword;
     /**
      * Display a listing of the resource.
      */
@@ -83,7 +84,14 @@ class JobSeekerController extends Controller
     {
         try {
             Gate::authorize('crudUser');
-            User::where('slug', $slug)->delete();
+            $user = User::where('slug', $slug)->first();
+
+            if(!str_starts_with($user->image , 'default')) {
+                $this->deleteFile(public_path('assets/images/users/'. $user->image));
+            }
+
+            $user->delete();
+
             return redirect()
                 ->route('admin.jobSeekers.index')
                 ->with(['messages' => json_encode(['success' => ['Job seeker data deleted successfully']])]);
