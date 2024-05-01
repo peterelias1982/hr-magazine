@@ -8,11 +8,20 @@ use App\Http\Controllers\EventController;
 
 Route::get('/', function () {
     return view('publicPages.articles.professionalDevelopment3');
+    return view('publicPages.articles.professionalDevelopment3');
 });
 
 Route::get('/home', function () {
     return view('publicPages.home');
 })->name('index');
+
+Route::get('category/{category}/article/{article}', function ($category, $article) {
+    $categoryData = \App\Models\ArticleCategory::where('slug', $category)->first();
+    $articleData = \App\Models\Article::where('slug', $article)->first();
+
+//    if article.category_id not equal category.id abort
+    return view('publicPages.articles.articleSingle', compact('categoryData', 'articleData'));
+});
 
 Route::get('category/{category}/article/{article}', function ($category, $article) {
     $categoryData = \App\Models\ArticleCategory::where('slug', $category)->first();
