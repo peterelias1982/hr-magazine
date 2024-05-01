@@ -13,15 +13,31 @@ class ArticleCategorySeeder extends Seeder
      */
     public function run(): void
     {
+
         ArticleCategory::create([
-            'articleCategoryName' => 'Industry News and Updates',
+            'articleCategoryName' => 'Industry News',
+            'hasComments' => 0,
+            'hasSource' => 1,
+            'hasYoutubeLink' => 0,
+            'hasAuthor' => 0,
+        ]);
+
+        ArticleCategory::create([
+            'articleCategoryName' => 'Industry Updates',
             'hasComments' => 0,
             'hasSource' => 1,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 0,
         ]);
         ArticleCategory::create([
-            'articleCategoryName' => 'Trends and Insights',
+            'articleCategoryName' => 'Trends',
+            'hasComments' => 0,
+            'hasSource' => 1,
+            'hasYoutubeLink' => 0,
+            'hasAuthor' => 0,
+        ]);
+        ArticleCategory::create([
+            'articleCategoryName' => 'Insights',
             'hasComments' => 0,
             'hasSource' => 1,
             'hasYoutubeLink' => 0,
