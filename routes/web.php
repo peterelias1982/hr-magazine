@@ -23,7 +23,7 @@ Route::get('category/{category}/article/{article}', function ($category, $articl
 //    if article.category_id not equal category.id abort
     return view('publicPages.articles.articleSingle', compact('categoryData', 'articleData'));
 });
- 
+Route::post('comment', 'CommentsController@store')->name('comment.store');
 Auth::routes();
 
 
