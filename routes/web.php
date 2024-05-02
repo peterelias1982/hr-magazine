@@ -26,7 +26,8 @@ Auth::routes();
 
 
 Route::get('test', function () {
-   return view('publicPages.jobs.applyForAJobNotLogin');
+   return view('publicPages.jobs.jobsIndex');
 });
+
 
 
