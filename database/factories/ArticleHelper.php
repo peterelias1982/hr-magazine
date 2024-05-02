@@ -42,7 +42,7 @@ class ArticleHelper
 
     public static function generateArticle()
     {
-        $category_id = fake()->numberBetween(1, 15);
+        $category_id = fake()->numberBetween(1, 16);
         $category = ArticleCategory::find($category_id);
 
         $article = Article::create([
