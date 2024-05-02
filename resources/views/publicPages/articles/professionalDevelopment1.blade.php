@@ -29,7 +29,7 @@
                         <p class="card-text fw-600 fs-4">{{ \Carbon\Carbon::parse($latestFeature->created_at)->format('l M d Y') }}</p>
                         <p class="card-text fs-5 fw-600">
                             {{Str::limit($latestFeature->content, 280)}}<a
-                                href="#"
+                                href="{{ route('articleSingle', ['category' => $latestFeature->articleCategory->slug, 'article' => $latestFeature->slug]) }}"
                                 class="fw-bold text-decoration-none text-white"
                             >
                             Read more</a
@@ -68,7 +68,7 @@
                                     </p>
                                     <p class="card-text fs-14px text-white">
                                         {{Str::limit($new->content, 241)}}<a
-                                            href="#"
+                                            href="{{ route('articleSingle', ['category' => $new->articleCategory->slug, 'article' => $new->slug]) }}"
                                             class="fw-600 text-white text-decoration-none"
                                         >Read more</a
                                         >
@@ -134,7 +134,7 @@
                                 <p class="card-text fs-6 fw-600 text-border">
                                     {{Str::limit($update->content, 232)}}
                                     <a
-                                        href="#"
+                                        href="{{ route('articleSingle', ['category' => $update->articleCategory->slug, 'article' => $update->slug]) }}"
                                         class="fw-bold text-decoration-none text-white"
                                     >Read more</a
                                     >

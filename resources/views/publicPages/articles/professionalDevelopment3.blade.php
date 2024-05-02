@@ -65,7 +65,7 @@
                             <p class="carousel-p card-text fw-medium fs-5">
                                 {{Str::limit($trainingAndDevelopment->content, 266)}}....
                                 <a
-                                    href="#"
+                                    href="{{ route('articleSingle', ['category' => $trainingAndDevelopment->articleCategory->slug, 'article' => $trainingAndDevelopment->slug]) }}"
                                     class="fw-bold text-white text-decoration-none"
                                 >Read more</a
                                 >@endforeach 
@@ -133,7 +133,7 @@
                                             <p class="carousel-p card-text fw-medium fs-5">
                                                 {{Str::limit($legalCorner->content, 116)}}....
                                                 <a
-                                                    href="#"
+                                                    href="{{ route('articleSingle', ['category' => $legalCorner->articleCategory->slug, 'article' => $legalCorner->slug]) }}"
                                                     class="fw-bold text-white text-decoration-none"
                                                 >Read more</a
                                                 >

@@ -121,7 +121,7 @@
                                     </p>
                                     <p class="card-text fs-7 text-white">
                                         {{Str::limit( $expertInterview->content, 227)}}.....<a
-                                            href="#"
+                                            href="{{ route('articleSingle', ['category' => $expertInterview->articleCategory->slug, 'article' => $expertInterview->slug]) }}"
                                             class="fw-semibold text-white text-decoration-none"
                                         >Read more</a
                                         >
@@ -300,7 +300,7 @@
                                     <p class="carousel-p card-text fw-medium fs-5">
                                         {{Str::limit($professionalsSpotlight->content, 266)}}....
                                         <a
-                                            href="#"
+                                            href="{{ route('articleSingle', ['category' => $professionalsSpotlight->articleCategory->slug, 'article' => $professionalsSpotlight->slug]) }}"
                                             class="fw-bold text-dark text-decoration-none"
                                         >Read more</a
                                         >
