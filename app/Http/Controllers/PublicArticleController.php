@@ -111,5 +111,19 @@ class PublicArticleController extends Controller
 
         return view('publicPages.articles.legalCompliance', compact('legalCompliances', 'latestLegalCompliances'));
     }
+    public function professionalDevelopment1()
+    {
 
+        return view('publicPages.articles.professionalDevelopment1');
+    }
+    public function professionalDevelopment2()
+    {
+
+        return view('publicPages.articles.professionalDevelopment2');
+    }
+    public function professionalDevelopment3()
+    {
+
+        return view('publicPages.articles.professionalDevelopment3');
+    }
 }
