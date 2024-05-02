@@ -130,7 +130,7 @@ class PublicArticleController extends Controller
 
         $trainingAndDevelopments = Article::where('approved',1)
         ->whereHas('articleCategory', function ($query) {
-            $query->where('subCategory', 'Training & Development');
+            $query->where('subCategory', 'Training and Development');
         })
         ->latest()
         ->take(1)
