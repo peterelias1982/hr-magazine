@@ -7,8 +7,7 @@ use App\Http\Controllers\EventController;
 
 
 Route::get('/', function () {
-    return view('publicPages.articles.professionalDevelopment3');
-    return view('publicPages.articles.professionalDevelopment3');
+    return view('publicPages.events.eventCalender');
 });
 
 Route::get('/home', function () {
