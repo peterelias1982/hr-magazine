@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             toast += `
                 <div class="toast" role="status" aria-live="polite" aria-atomic="true" data-bs-delay="3000">
                     <div class="toast-header">
-                        <i class="mdi mdi-checkbox-marked-circle fw-bold fs-4" style="color: #31a839"></i>
+                       <i class="fs-4 fw-bold">✅</i>
                         <strong class="me-auto ps-1">Sucess</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 toast += `
                 <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="3000">
                     <div class="toast-header">
-                        <i class="mdi mdi-alert fw-bold fs-4 text-danger"></i>
+                        <i class="fs-4 fw-bold">⚠️</i>
                         <strong class="me-auto ps-1">Error</strong>
                         <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                     </div>

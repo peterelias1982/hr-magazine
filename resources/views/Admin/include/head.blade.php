@@ -55,7 +55,11 @@
     ></script>
 
     <script>
-        const messages = JSON.parse('<?= $messages?? '{}' ?>');
+        let messages = {};
+
+        @if(session('messages'))
+            messages = {!! session('messages') !!};
+        @endif
 
     </script>
 

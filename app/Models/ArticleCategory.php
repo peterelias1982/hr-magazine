@@ -17,18 +17,19 @@ class ArticleCategory extends Model
     protected $fillable = [
 
         'articleCategoryName',
+        'subCategory',
         'hasComments',
         'hasSource',
         'hasYoutubeLink',
-        'hasAuthor'
-
+        'hasAuthor',
+        'canModified'
     ];
 
 
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
-            ->generateSlugsFrom('articleCategoryName')
+            ->generateSlugsFrom(['articleCategoryName', 'subCategory'])
             ->saveSlugsTo('slug');
     }
 

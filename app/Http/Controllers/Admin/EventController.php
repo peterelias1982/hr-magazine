@@ -10,7 +10,6 @@ use App\Models\Event;
 use App\Traits\Common;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class EventController extends Controller
@@ -30,9 +29,7 @@ class EventController extends Controller
 
         $events = Event::whereIn('id', $events_ids)->get();
 
-        $messages = $this->getMessages();
-
-        return view('Admin.event.allEvent', compact('events', 'messages'));
+        return view('Admin.event.allEvent', compact('events'));
     }
 
     /**
@@ -56,19 +53,19 @@ class EventController extends Controller
 
             return redirect()
                 ->route('admin.events.index')
-                ->with(['messages' => ['success' => ["Event created successfully"]]]);
+                ->with(['messages' => json_encode(['success' => ["Event created successfully"]])]);
 
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.events.index')
-                ->with(['messages' => ['error' => ['Error creating event: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error creating event: ' . $exception->getMessage()]])]);
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Event $event, string $slug)
+    public function show(string $slug)
     {
         try {
             $event = Event::with('Agenda')->where('slug', $slug)->first();
@@ -81,7 +78,7 @@ class EventController extends Controller
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.events.index')
-                ->with(['messages' => ['error' => ['Error event not found: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error event not found: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -103,11 +100,11 @@ class EventController extends Controller
 
             return redirect()
                 ->route('admin.events.index')
-                ->with(['messages' => ['success' => ['Event updated successfully']]]);
+                ->with(['messages' => json_encode(['success' => ['Event updated successfully']])]);
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.events.index')
-                ->with(['messages' => ['error' => ['Error updating event: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error updating event: ' . $exception->getMessage()]])]);
         }
 
     }
@@ -115,7 +112,7 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event, string $slug)
+    public function destroy(string $slug)
     {
         try {
             $event = Event::where('slug', $slug)->first();
@@ -125,11 +122,11 @@ class EventController extends Controller
 
             return redirect()
                 ->route('admin.events.index')
-                ->with(['messages' => ['success' => ['Event deleted successfully']]]);
+                ->with(['messages' => json_encode(['success' => ['Event deleted successfully']])]);
         }catch (\Throwable $exception) {
             return redirect()
                 ->route('admin.events.index')
-                ->with(['messages' => ['error' => ['Error deleting event: ' . $exception->getMessage()]]]);
+                ->with(['messages' => json_encode(['error' => ['Error deleting event: ' . $exception->getMessage()]])]);
         }
     }
 
@@ -198,9 +195,4 @@ class EventController extends Controller
         return $query->select('events.id')->get()->pluck('id');
     }
 
-    private function getMessages(): string
-    {
-        // check for messages if any
-        return json_encode(Session::get('messages'));
-    }
 }
