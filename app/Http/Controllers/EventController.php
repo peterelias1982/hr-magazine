@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Month;
 use Carbon\Carbon;
 use App\Models\Event;
 use App\Models\Agenda;
@@ -18,7 +19,10 @@ class EventController extends Controller
 
     }
     public function eventCalender()  {
-        return view("publicPages.events.eventCalender");
+        $events_calender = Event::get()->groupBy(function ($post) {
+            return date_format(date_create($post->fromDate),'Y-m');
+        });
+        return view("publicPages.events.eventCalender",compact('events_calender'));
         
     }
     public function singleEvent($slug)  {

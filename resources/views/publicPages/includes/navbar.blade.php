@@ -298,12 +298,12 @@
                             aria-labelledby="navbarDropdownEvents"
                         >
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{route('event.allEvents')}}"
                                 >Upcoming Events</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{route('event.eventCalender')}}"
                                 >Event Calendar</a
                                 >
                             </li>

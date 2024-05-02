@@ -90,61 +90,25 @@
     <!-- Script tag for static event data -->
     <script>
         const events = {
-            4: {
-                2024: {
-                    22: [
-                        {
-                            eventName: "test name 1",
-                            eventLocation: "cairo, egypt",
-                            eventDate: "22 April 2024 at 12:00 PM",
-                            eventContent: `Lorem ipsum dolor sit amet consectetur. Lacus eu tortor ut
-                    elementum in elementum cras nunc vel. Laoreet blandit leo
-                    pulvinar rhoncus ipsum placerat. Metus congue ac a
-                    scelerisque tellus urna tincidunt.`,
-                            eventUrl: "https://www.google.com",
-                        },
-                    ],
-                },
-            },
-            10: {
+         @foreach ( $events_calender as $key=> $events_calender_events)      
+             {{(int) date_format(date_create($key)  ,'m')}}:  {
                 // October
-                2024: {
-                    1: [
+                {{(int) date_format(date_create($key)  ,'Y')}}: {
+                 @foreach ($events_calender_events as $event )
+                    {{(int) date_format(date_create($event->fromDate) ,'d')}}: [
                         {
-                            eventName: "test name 1",
-                            eventLocation: "cairo, egypt",
-                            eventDate: "1 October 2024 at 1:00 PM",
-                            eventContent: `Lorem ipsum dolor sit amet consectetur. Lacus eu tortor ut
-                    elementum in elementum cras nunc vel. Laoreet blandit leo
-                    pulvinar rhoncus ipsum placerat. Metus congue ac a
-                    scelerisque tellus urna tincidunt.`,
-                            eventUrl: "https://www.google.com",
-                        },
-                        {
-                            eventName: "test name 2",
-                            eventLocation: "cairo, egypt",
-                            eventDate: "1 October 2024 at 1:00 PM",
-                            eventContent: `Lorem ipsum dolor sit amet consectetur. Lacus eu tortor ut
-                    elementum in elementum cras nunc vel. Laoreet blandit leo
-                    pulvinar rhoncus ipsum placerat. Metus congue ac a
-                    scelerisque tellus urna tincidunt.`,
-                            eventUrl: "#",
+                            eventName: "{{$event->title}} ",
+                            eventLocation: "{{$event->streetNo}},{{$event->streetName}},{{$event->city}}, {{$event->country}} ",
+                            eventDate: "{{ date_format(date_create($event->fromDate),'d M Y')}} at 1:00 pm",
+                            eventContent: `{{$event->description}}`,
+                            eventUrl: "{{$event->googleMapLink}}",
                         },
                     ],
-                    2: [
-                        {
-                            eventName: "test name 1",
-                            eventLocation: "cairo, egypt",
-                            eventDate: "1 October 2024 at 1:00 PM",
-                            eventContent: `Lorem ipsum dolor sit amet consectetur. Lacus eu tortor ut
-                    elementum in elementum cras nunc vel. Laoreet blandit leo
-                    pulvinar rhoncus ipsum placerat. Metus congue ac a
-                    scelerisque tellus urna tincidunt.`,
-                            eventUrl: "https://www.google2.com",
-                        },
-                    ],
+                    @endforeach
                 },
-            },
+            }, 
+           
+         @endforeach
         };
     </script>
     <!-- script for calendar table populating -->
