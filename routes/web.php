@@ -25,5 +25,8 @@ Route::get('category/{category}/article/{article}', function ($category, $articl
 Auth::routes();
 
 
+Route::get('test', function () {
+   return view('publicPages.jobs.applyForAJobNotLogin');
+});
 
 
