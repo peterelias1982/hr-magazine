@@ -38,5 +38,9 @@ Route::group(['prefix' => "event", "controller" => EventController::class, "as" 
 });
 
 
+Route::get('test', function () {
+   return view('publicPages.jobs.jobsIndex');
+});
+
 
 
