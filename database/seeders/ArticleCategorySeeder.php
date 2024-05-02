@@ -15,23 +15,18 @@ class ArticleCategorySeeder extends Seeder
     {
 
         ArticleCategory::create([
-            'articleCategoryName' => 'Industry News',
+            'articleCategoryName' => 'Industry Insights',
+            'subCategory' => 'Industry News',
             'hasComments' => 0,
             'hasSource' => 1,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 0,
+            'canModified' => 0,
         ]);
 
         ArticleCategory::create([
-            'articleCategoryName' => 'Industry Updates',
-            'hasComments' => 0,
-            'hasSource' => 1,
-            'hasYoutubeLink' => 0,
-            'hasAuthor' => 0,
-        ]);
-        ArticleCategory::create([
             'articleCategoryName' => 'Industry Insights',
-            'subCategory' => 'Industry News and Updates',
+            'subCategory' => 'Industry Updates',
             'hasComments' => 0,
             'hasSource' => 1,
             'hasYoutubeLink' => 0,
@@ -40,7 +35,16 @@ class ArticleCategorySeeder extends Seeder
         ]);
         ArticleCategory::create([
             'articleCategoryName' => 'Industry Insights',
-            'subCategory' => 'Trends and Insights',
+            'subCategory' => 'Insudtry Insights',
+            'hasComments' => 0,
+            'hasSource' => 1,
+            'hasYoutubeLink' => 0,
+            'hasAuthor' => 0,
+            'canModified' => 0,
+        ]);
+        ArticleCategory::create([
+            'articleCategoryName' => 'Industry Insights',
+            'subCategory' => 'Industry Trends',
             'hasComments' => 0,
             'hasSource' => 1,
             'hasYoutubeLink' => 0,

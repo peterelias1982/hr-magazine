@@ -64,13 +64,14 @@
                     
                         <div class="carousel-inner">
                             <!-- item 1 -->
-                            
+                            @foreach ($workplaceCultures as $workplaceCulture)
                             <div class="carousel-item active" data-bs-interval="5000">
+                               
                                 <!-- text -->
                                 
                                 <h2 class="pb-4">Workplace Culture</h2>
                                 <!-- slide image -->
-                                @foreach ($workplaceCultures as $workplaceCulture)
+                                
                                 <div
                                     class="row pb-4 carousel-img position-relative overflow-hidden"
                                     style="height: 690px"
@@ -80,7 +81,8 @@
                                         src="{{asset('publicPages/images/workplaceCulture-wellBeing-slide-1.png')}}"
                                         class="d-block image-center"
                                         alt="slide-img"
-                                    />@endforeach
+                                    />
+                                    
                                     <button
                                         class="carousel-control-prev custom-carousel-prev"
                                         type="button"
