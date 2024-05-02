@@ -11,19 +11,18 @@ class PublicArticleController extends Controller
     {
         $news = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Industry News');
+                $query->where('subCategory', 'Industry News');
             })->get();
         $updates = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Industry Updates');
+                $query->where('subCategory', 'Industry Updates');
             })->get();
         $latestNews = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Industry News');
+                $query->where('subCategory', 'Industry News');
             })
             ->latest()
-            ->take(1)
-            ->get();
+            ->first();
 
         return view('publicPages.articles.industryInsights1', compact('news', 'updates', 'latestNews'));
     }
@@ -32,19 +31,18 @@ class PublicArticleController extends Controller
     {
         $trends = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Trends');
+                $query->where('subCategory', 'Trends');
             })->get();
         $insights = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Insights');
+                $query->where('subCategory', 'Insights');
             })->get();
         $latestTrends = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Trends');
+                $query->where('subCategory', 'Trends');
             })
             ->latest()
-            ->take(1)
-            ->get();
+            ->first();
 
         return view('publicPages.articles.industryInsights2', compact('trends', 'insights', 'latestTrends'));
     }
@@ -53,19 +51,18 @@ class PublicArticleController extends Controller
     {
         $news = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Industry News');
+                $query->where('subCategory', 'Industry News');
             })->get();
         $perspectives = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Global HR Perspectives');
+                $query->where('subCategory', 'Global HR Perspectives');
             })->get();
         $latestPerspectives = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Global HR Perspectives');
+                $query->where('subCategory', 'Global HR Perspectives');
             })
             ->latest()
-            ->take(1)
-            ->get();
+            ->first();
 
         return view('publicPages.articles.industryInsights3', compact('news', 'perspectives', 'latestPerspectives'));
     }
@@ -74,23 +71,22 @@ class PublicArticleController extends Controller
     {
         $expertInterviews = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Expert Interviews');
+                $query->where('subCategory', 'Expert Interviews');
             })->get();
         $journeyToExcellences = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Journey to Excellence');
+                $query->where('subCategory', 'Journey to Excellence');
             })->get();
         $caseStudies = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Case Studies');
+                $query->where('subCategory', 'Case Studies');
             })->get();
         $latestLadiesInterviews = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Ladies Interviews');
+                $query->where('subCategory', 'Ladies Interviews');
             })
             ->latest()
-            ->take(1)
-            ->get();
+            ->first();
 
         return view('publicPages.articles.ladiesInHR', compact('expertInterviews', 'journeyToExcellences', 'caseStudies', 'latestLadiesInterviews'));
     }
@@ -99,31 +95,16 @@ class PublicArticleController extends Controller
     {
         $legalCompliances = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Legal Corner');
+                $query->where('subCategory', 'Legal Corner');
             })->get();
         $latestLegalCompliances = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
-                $query->where('articleCategoryName', 'Legal Corner');
+                $query->where('subCategory', 'Legal Corner');
             })
             ->latest()
-            ->take(1)
-            ->get();
+            ->first();
 
         return view('publicPages.articles.legalCompliance', compact('legalCompliances', 'latestLegalCompliances'));
     }
-    public function professionalDevelopment1()
-    {
-
-        return view('publicPages.articles.professionalDevelopment1');
-    }
-    public function professionalDevelopment2()
-    {
-
-        return view('publicPages.articles.professionalDevelopment2');
-    }
-    public function professionalDevelopment3()
-    {
-
-        return view('publicPages.articles.professionalDevelopment3');
-    }
+    
 }

@@ -11,7 +11,7 @@
                 <div class="card bg-light text-white mx-md-3 mx-1 border-light">
                     <div class="ratio ratio-16x9">
                         <!-- Default Image -->
-                        <img src="{{asset('publicPages/images/legal-compliance-video.svg')}}" alt="Default Video Image" />
+                        <img src="{{asset('assets/images/articles/'.$latestLegalCompliances->image)}}" alt="Default Video Image" />
                         <div class="gradient position-absolute start-0 top-0 rounded-4" style="width: 100%; height: 100%"></div>
                     </div>
 
@@ -22,12 +22,11 @@
                         <h5 class="card-title fs-card-xl">
                             HRs Legal and compliance
                         </h5>
-                        @foreach($latestLegalCompliances as $latestLegalCompliance)
-                        <p class="fw-semibold fs-card-l">{{ \Carbon\Carbon::parse($latestLegalCompliance->created_at)->format('l M d Y') }}</p>
-                        <p class="fw-semibold fs-card-md">{{$latestLegalCompliance->author->userAuthor->firstName}} {{$latestLegalCompliance->author->userAuthor->secondName}}</p>
+                        <p class="fw-semibold fs-card-l">{{ \Carbon\Carbon::parse($latestLegalCompliances->created_at)->format('l M d Y') }}</p>
+                        <p class="fw-semibold fs-card-md">{{$latestLegalCompliances->author->userAuthor->firstName}} {{$latestLegalCompliance->author->userAuthor->secondName}}</p>
                         <p class="fs-card-sm open-font fw-semibold">
-                            {{Str::limit($latestLegalCompliance->content, 266)}}
-                            <a href="{{ route('articleSingle', ['category' => $latestLegalCompliance->articleCategory->slug, 'article' => $latestLegalCompliance->slug]) }}" class="fw-bold text-decoration-none text-white">Read more</a>
+                            {{Str::limit($latestLegalCompliances->content, 266)}}
+                            <a href="{{ route('articleSingle', ['category' => $latestLegalCompliances->articleCategory->slug, 'article' => $latestLegalCompliances->slug]) }}" class="fw-bold text-decoration-none text-white">Read more</a>
                         </p>
                         @endforeach
                     </div>

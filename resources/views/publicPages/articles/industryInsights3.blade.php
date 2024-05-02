@@ -7,17 +7,15 @@
         <h3 class="fw-bold fs-2">Global HR Perspectives</h3>
         <div class="col">
             <div class="card bg-dark text-white landing-img mx-lg-5 mx-md-3 mx-1" style="border: 1px solid hsla(0, 2%, 68%, 0.4); height: 695px">
-                <img src="{{asset('publicPages/images/GlobalHRPerspectives.jpg')}}" class="card-img image-center" alt="..." />
+                <img src="{{asset('assets/images/articles/'.$latestPerspectives->image)}}" class="card-img image-center" alt="..." />
                 <div class="gradient position-absolute start-0 top-0" style="width: 100%; height: 100%"></div>
                 <div class="card-img-overlay overflow-auto">
                     <h5 class="card-title fw-bold fs-3">Global HR Perspectives</h5>
-                    @foreach ($latestPerspectives as $latest)
-                    <p class="card-text fw-600 fs-4">{{ \Carbon\Carbon::parse($latest->created_at)->format('l M d Y') }}</p>
+                    <p class="card-text fw-600 fs-4">{{ \Carbon\Carbon::parse($latestPerspectives->created_at)->format('l M d Y') }}</p>
                     <p class="card-text fs-5 fw-600">
-                        {{Str::limit($latest->content, 266)}}
-                        <a href="{{ route('articleSingle', ['category' => $latest->articleCategory->slug, 'article' => $latest->slug]) }}" class="fw-bold text-decoration-none text-white">Read more</a>
+                        {{Str::limit($latestPerspectives->content, 266)}}
+                        <a href="{{ route('articleSingle', ['category' => $latestPerspectives->articleCategory->slug, 'article' => $latestPerspectives->slug]) }}" class="fw-bold text-decoration-none text-white">Read more</a>
                     </p>
-                    @endforeach
                 </div>
             </div>
         </div>
@@ -71,7 +69,7 @@
                     <div class="gradient position-absolute start-0 top-0" style="width: 100%; height: 100%"></div>
                     <div class="card-img-overlay overflow-auto" style="top: 35%">
                         <h5 class="card-title fw-bold fs-5 text-border">
-                            HRs Magazine Perspectives Updates
+                            HRs Magazine Perspectives
                         </h5>
                         <p class="card-text fw-600 fs-6 text-border">
                             {{ \Carbon\Carbon::parse($perspective->created_at)->format('l M d Y') }}

@@ -21,9 +21,6 @@ Route::group(['prefix' => "articles", "controller" => PublicArticleController::c
     Route::get("/industryInsights3", "industryInsights3")->name('industryInsights3');
     Route::get("/ladiesInHR", "ladiesInHR")->name('ladiesInHR');
     Route::get("/legalCompliance", "legalCompliance")->name('legalCompliance');
-    Route::get("/professionalDevelopment1", "professionalDevelopment1")->name('professionalDevelopment1');
-    Route::get("/professionalDevelopment2", "professionalDevelopment2")->name('professionalDevelopment2');
-    Route::get("/professionalDevelopment3", "professionalDevelopment3")->name('professionalDevelopment3');
 });
 
 Route::get('category/{category}/article/{article}', function ($category, $article) {

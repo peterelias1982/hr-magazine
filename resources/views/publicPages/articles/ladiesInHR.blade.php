@@ -12,8 +12,7 @@
                     <!-- Default Image -->
                     <img src="{{asset('publicPages/images/ladies-interview.svg')}}" alt="Default Video Image" class="embed-cover" />
                     <!-- Iframe for Video -->
-                    @foreach ($latestLadiesInterviews as $latest)
-                    <iframe src="{{$latest->youtubeLink->youtubeLink}}" class="youtube-video embed-cover" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    <iframe src="{{$latestLadiesInterviews->youtubeLink->youtubeLink}}" class="youtube-video embed-cover" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
                     </iframe>
 
                     <!-- Custom Play Button -->
@@ -27,13 +26,12 @@
                     ></div>-->
                 <div class="card-img-overlay overflow-auto responsive-card">
                     <h5 class="card-title fs-card-xl">Ladies Interviews</h5>
-                    <p class="fw-semibold fs-card-l">{{ \Carbon\Carbon::parse($latest->created_at)->format('l M d Y') }}</p>
-                    <p class="fw-semibold fs-card-md">{{$latest->author->userAuthor->firstName}} {{$latest->author->userAuthor->secondName}}</p>
+                    <p class="fw-semibold fs-card-l">{{ \Carbon\Carbon::parse($latestLadiesInterviews->created_at)->format('l M d Y') }}</p>
+                    <p class="fw-semibold fs-card-md">{{$latestLadiesInterviews->author->userAuthor->firstName}} {{$latestLadiesInterviews->author->userAuthor->secondName}}</p>
                     <p class="fs-card-sm open-font fw-semibold">
-                        {{Str::limit($latest->content, 266)}}
-                        <a href="{{ route('articleSingle', ['category' => $latest->articleCategory->slug, 'article' => $latest->slug]) }}" class="fw-bold text-decoration-none text-white">Read more</a>
+                        {{Str::limit($latestLadiesInterviews->content, 266)}}
+                        <a href="{{ route('articleSingle', ['category' => $latestLadiesInterviews->articleCategory->slug, 'article' => $latestLadiesInterviews->slug]) }}" class="fw-bold text-decoration-none text-white">Read more</a>
                     </p>
-                    @endforeach
                 </div>
             </div>
         </div>

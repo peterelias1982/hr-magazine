@@ -30,28 +30,10 @@
         <div class="mx-auto" style="max-width: 1225px">
             <article>
                 <p>
-<<<<<<< HEAD
-                    Lorem ipsum dolor sit amet consectetur. Est maecenas tellus nulla
-                    sed pulvinar fringilla accumsan quam. Orci lectus ornare nisi et
-                    aliquet vitae nisl. Ultrices in bibendum pellentesque a pharetra
-                    lacus ante fermentum dui. Vestibulum vitae eget hendrerit
-                    tristique. Sagittis et viverra arcu maecenas tristique libero elit
-                    egestas at. Scelerisque bibendum quam interdum lobortis
-                    consectetur. Nam pulvinar senectus aliquam tincidunt malesuada.
-                    Cursus faucibus venenatis metus non sem. Aliquet magna molestie
-                    mus semper scelerisque nisl amet faucibus nibh. Lectus commodo
-                    quam leo elementum. Proin id commodo ipsum ut sagittis nec nisi.
-                    Adipiscing ullamcorper nulla et malesuada. Sollicitudin curabitur
-                    eros vitae fusce quam fringilla in.
-                </p>
-
-                <h2 class="fs-1">Title 1</h2>
-=======
                     {{substr($articleData->content, 0, 500)}}
                 </p>
 
                 <h2 class="fs-1">{{$articleData->title}}</h2>
->>>>>>> 9ad2dbfb012466bd1e3ab9a9c8319d4ad567ef89
                 <p>
                     Molestie interdum cras sit non magna vitae purus cum. Nisi in
                     malesuada nunc eget id maecenas. Blandit porttitor quam tempus sed
@@ -62,13 +44,6 @@
                     facilisi pretium. Felis aenean massa libero bibendum. Faucibus et
                     imperdiet enim diam viverra. Et egestas imperdiet tempor dictum
                     leo eu.
-<<<<<<< HEAD
-                </p>
-
-                <p>
-=======
-
->>>>>>> 9ad2dbfb012466bd1e3ab9a9c8319d4ad567ef89
                     Sit suscipit neque mauris fames. Sit purus nullam in et. Massa
                     aliquet neque scelerisque sed vestibulum porta velit scelerisque.
                     Fames egestas congue vivamus nulla sit porta arcu ultrices.
@@ -96,13 +71,6 @@
                     convallis. Sit aenean in rhoncus ipsum quam augue ultricies eu. Ac
                     ornare dignissim in sodales. Eu nam laoreet laoreet nunc morbi
                     amet urna.
-<<<<<<< HEAD
-                </p>
-
-                <p>
-=======
-
->>>>>>> 9ad2dbfb012466bd1e3ab9a9c8319d4ad567ef89
                     Neque tincidunt enim ullamcorper nullam urna. Etiam interdum
                     posuere laoreet enim enim imperdiet. Purus viverra in fusce
                     interdum vel magna nibh sed urna. Viverra lectus nunc molestie
@@ -190,16 +158,9 @@
         </div>
     </div>
 
-<<<<<<< HEAD
-    {{--    if article has comment section --}}
-    @include('publicPages.includes.commentSection')
-    <!-- end container-->
-@endsection
-=======
     @if($categoryData->hasComment)
     {{--    if article has comment section --}}
     @include('publicPages.includes.commentSection')
     <!-- end container-->
     @endif
 @endsection
->>>>>>> 9ad2dbfb012466bd1e3ab9a9c8319d4ad567ef89

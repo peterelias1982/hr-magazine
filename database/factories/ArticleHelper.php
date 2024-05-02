@@ -13,7 +13,7 @@ class ArticleHelper
     protected static function generateYoutubeLink($article_id, $category_id)
     {
         YoutubeLink::create([
-            'YoutubeLink' => fake()->url(),
+            'YoutubeLink' => fake()->randomElement(['https://www.youtube.com/embed/Gn-tAV4eOAU?si=hwOzmAiqsBRFwcNw', 'https://www.youtube.com/embed/jcmMnBwIkYc?si=YhSDoD0F9JqlDPIo']),
             'category_id' => $category_id,
             'article_id' => $article_id,
         ]);
@@ -42,7 +42,7 @@ class ArticleHelper
 
     public static function generateArticle()
     {
-        $category_id = fake()->numberBetween(1, 16);
+        $category_id = fake()->numberBetween(1, 17);
         $category = ArticleCategory::find($category_id);
 
         $article = Article::create([
