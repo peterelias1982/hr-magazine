@@ -19,9 +19,11 @@ class EventController extends Controller
 
     }
     public function eventCalender()  {
-        $events_calender = Event::get()->groupBy(function ($post) {
-            return date_format(date_create($post->fromDate),'Y-m');
-        });
+           $events_calender = Event::get()->groupBy( function ($even) {
+            return(date_format(date_create($even->fromDate),'Y-m'));
+        })->transform(function($item) {
+                return $item->groupBy('fromDate');
+            });
         return view("publicPages.events.eventCalender",compact('events_calender'));
         
     }

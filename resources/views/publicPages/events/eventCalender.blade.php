@@ -94,8 +94,9 @@
              {{(int) date_format(date_create($key)  ,'m')}}:  {
                 // October
                 {{(int) date_format(date_create($key)  ,'Y')}}: {
-                 @foreach ($events_calender_events as $event )
-                    {{(int) date_format(date_create($event->fromDate) ,'d')}}: [
+                    @foreach ($events_calender_events as $key2 => $Allevent )
+                    {{(int) date_format(date_create($key2) ,'d')}}: [
+                        @foreach ($Allevent as $event )
                         {
                             eventName: "{{$event->title}} ",
                             eventLocation: "{{$event->streetNo}},{{$event->streetName}},{{$event->city}}, {{$event->country}} ",
@@ -103,6 +104,10 @@
                             eventContent: `{{$event->description}}`,
                             eventUrl: "{{$event->googleMapLink}}",
                         },
+                        @endforeach
+
+
+                      
                     ],
                     @endforeach
                 },
