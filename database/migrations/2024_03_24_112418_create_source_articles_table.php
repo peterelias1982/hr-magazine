@@ -15,8 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('sourceName');
             $table->string('sourceLink');
-            $table->foreignId('category_id')->references('id')->on('article_categories')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignId('article_id')->references('id')->on('articles')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('category_id')
+                ->references('id')
+                ->on('article_categories')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
+            $table->foreignId('article_id')
+                ->references('id')
+                ->on('articles')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
     }

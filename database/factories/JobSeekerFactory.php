@@ -16,10 +16,11 @@ class JobSeekerFactory extends Factory
      */
     public function definition(): array
     {
+        $id = UsersHelper::createUser(fake()->jobTitle());
+
         return [
-            'user_id' => fake()->randomDigitNotNull(),
-            'cv' => fake()->lexify('?????.pdf'),
-            'jobTitle' => fake()->jobTitle(),
+            'cv' => 'cv.pdf',
+            'user_id' => $id,
         ];
     }
 }

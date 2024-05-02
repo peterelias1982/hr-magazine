@@ -32,17 +32,18 @@ class UpdateEventRequest extends FormRequest
             'state'=>'required|max:255',
             'postalCode'=>'required|max:255',
             'country'=>'required|max:255',
+            'oldImage' => 'sometimes',
             'latitude' => [
                 'required_if:googleMapLink,Null',
                 'required_with:longitude',
-                'numeric', 
+                'numeric',
                 'regex:/^[-+]?(90(\.0+)?|[0-8]?\d(\.\d+)?)$/',
                 'nullable',
             ],
             'longitude' => [
                 'required_if:googleMapLink,Null',
                 'required_with:latitude',
-                'numeric', 
+                'numeric',
                 'regex:/^[-+]?((180(\.0+)?)|((1[0-7]\d|\d{1,2})(\.\d+)?))$/',
                 'nullable',
             ],
@@ -60,7 +61,7 @@ class UpdateEventRequest extends FormRequest
             'speaker.*.*'=>'required|max:255',
         ];
     }
-    
+
     public function messages()
     {
         return[

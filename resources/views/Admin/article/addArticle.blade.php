@@ -21,7 +21,7 @@
                                 <div class="form-group">
                                     <label for="title">Title</label>
                                     <input type="text" class="form-control" id="title" name="title" placeholder="Title"
-                                           value={{old('title')}}>
+                                           value="{{old('title')}}">
                                     @error('title')
                                     <small><code>{{ $message }}</code></small>
                                     @enderror
@@ -42,7 +42,20 @@
                                     <small><code>{{ $message }}</code></small>
                                     @enderror
                                 </div>
+                                <div class="form-check">
+                                    <label for="" class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" name="featured">
+                                        Featured Article
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <label for="" class="form-check-label">
+                                        <input type="checkbox" class="form-check-input" name="recommended">
+                                        Recommended Article
+                                    </label>
+                                </div>
                             </div>
+
                             <!-- Group 2: Tags and Category -->
                             <div class="form-group-group">
                                 <div class="form-group">
@@ -54,7 +67,7 @@
                                                 class="badge-dark p-2 me-2 my-1 badge fw-bold d-flex  align-items-center justify-content-center tag">
                                                 <input type="checkbox" name="tags_id[]" value="{{ $articleTag->id }}"
                                                        id="tag-{{ $articleTag->id }}" class="tag-checkbox"> #<label
-                                                    for="tag-{{ $articleTag->id }}" >{{ $articleTag->tagName }}</label>
+                                                    for="tag-{{ $articleTag->id }}">{{ $articleTag->tagName }}</label>
                                             </div>
                                         @endforeach
 
@@ -70,7 +83,7 @@
                                             <option
                                                 value="{{ $articleCategory->id}}"
                                                 @selected(old('category_id') == $articleCategory->id)
-                                            >{{$articleCategory->articleCategoryName }}</option>
+                                            >{{$articleCategory->subCategory }}</option>
                                         @endforeach
                                         @error('category_id')
                                         <small><code>{{ $message }}</code></small>
@@ -111,7 +124,7 @@
                                         <option value="">_</option>
                                         @foreach ($authors as $author )
                                             <option
-                                                value="{{$author->id}}" @selected($author->id == old('author_id'))>{{$author->userAuthor->name}}
+                                                value="{{$author->id}}" @selected($author->id == old('author_id'))>{{$author->userAuthor->firstName}} {{$author->userAuthor->secondName}}
                                             </option>
                                         @endforeach
                                         @error('author_id')

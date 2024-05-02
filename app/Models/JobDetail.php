@@ -19,7 +19,13 @@ class JobDetail extends Model
         "title",
         "slug",
         "company",
+        "about_company",
+        "streetNo",
+        "streetName",
         "city",
+        "state",
+        "postalCode",
+        "country",
         "image",
         "deadline",
         "email",
@@ -39,7 +45,7 @@ class JobDetail extends Model
         return $this->belongsTo(Employer::class);
     }
 
-    public function jobSeeker(): BelongsToMany
+    public function jobSeekers(): BelongsToMany
     {
         return $this->belongsToMany(JobSeeker::class, 'job_applieds', 'jobDetail_id', 'jobSeeker_id');
 

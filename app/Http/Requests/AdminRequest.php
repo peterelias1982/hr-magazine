@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\AdminPosition;
+use App\Enums\Gender;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Enum;
 
 class AdminRequest extends FormRequest
 {
@@ -22,7 +25,16 @@ class AdminRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id'=>'required|exists:users,id',
+            'firstName' => 'required|string|max:255',
+            'secondName' => 'required|string|max:255',
+            'gender' => ['required', new Enum(Gender::class)],
+            'email' => "required|email|unique:users,email,{$this->slug},slug",
+            'password' => 'sometimes|string|min:8|confirmed',
+            'mobile' => 'nullable|string',
+            'position' => ['required', new Enum(AdminPosition::class)],
+            'image' => 'sometimes',
+            'oldImage' => 'sometimes',
+            'active' => 'sometimes',
         ];
     }
 }

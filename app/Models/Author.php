@@ -23,7 +23,7 @@ class Author extends Model
 
     public function userAuthor(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function article(): HasMany

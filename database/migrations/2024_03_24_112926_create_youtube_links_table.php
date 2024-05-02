@@ -14,8 +14,16 @@ return new class extends Migration
         Schema::create('youtube_links', function (Blueprint $table) {
             $table->id();
             $table->string('youtubeLink');
-            $table->foreignId('category_id')->references('id')->on('article_categories')->onDelete('restrict')->onUpdate('restrict');
-            $table->foreignId('article_id')->references('id')->on('articles')->onDelete('cascade')->onUpdate('cascade');         
+            $table->foreignId('category_id')
+                ->references('id')
+                ->on('article_categories')
+                ->onDelete('restrict')
+                ->onUpdate('restrict');
+            $table->foreignId('article_id')
+                ->references('id')
+                ->on('articles')
+                ->onDelete('cascade')
+                ->onUpdate('cascade');
             $table->timestamps();
         });
     }
