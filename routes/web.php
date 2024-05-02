@@ -13,7 +13,6 @@ Route::get('/home', function () {
     return view('publicPages.home');
 })->name('index');
 
-<<<<<<< HEAD
 //articles
 Route::group(['prefix' => "articles", "controller" => PublicArticleController::class, "as" => "articles."], function () {
     //articles
@@ -24,19 +23,12 @@ Route::group(['prefix' => "articles", "controller" => PublicArticleController::c
     Route::get("/legalCompliance", "legalCompliance")->name('legalCompliance');
 });
 
-=======
->>>>>>> 9ad2dbfb012466bd1e3ab9a9c8319d4ad567ef89
 Route::get('category/{category}/article/{article}', function ($category, $article) {
     $categoryData = \App\Models\ArticleCategory::where('slug', $category)->first();
     $articleData = \App\Models\Article::where('slug', $article)->first();
 
 //    if article.category_id not equal category.id abort
-<<<<<<< HEAD
     return view('publicPages.articles.articleSingle', compact('categoryData'));
 })->name('articleSingle');
-=======
-    return view('publicPages.articles.articleSingle', compact('categoryData', 'articleData'));
-});
->>>>>>> 9ad2dbfb012466bd1e3ab9a9c8319d4ad567ef89
 
 Auth::routes();
