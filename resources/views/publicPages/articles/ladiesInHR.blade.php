@@ -10,27 +10,34 @@
             <div class="card bg-light text-white mx-md-3 border-light">
                 <div class="ratio ratio-16x9">
                     <!-- Default Image -->
-                    <img src="{{asset('publicPages/images/ladies-interview.svg')}}" alt="Default Video Image" class="embed-cover" />
+                    <img src="{{asset('assets/images/articles/'. (isset($ladiesInterviews[0])? $ladiesInterviews[0]->image:''))}}" alt="{{isset($ladiesInterviews[0])? $ladiesInterviews[0]->title: ''}}" class="embed-cover image-center" />
+                    <div class="gradient position-absolute start-0 top-0" style="width: 100%; height: 100%"></div>
                     <!-- Iframe for Video -->
-                    <iframe src="{{$latestLadiesInterviews->youtubeLink->youtubeLink}}" class="youtube-video embed-cover" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    <iframe src="{{(isset($ladiesInterviews[0])? $ladiesInterviews[0]->youtubeLink->youtubeLink:'')}}" class="youtube-video embed-cover d-none" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
                     </iframe>
 
                     <!-- Custom Play Button -->
-                    <!-- <button type="button" class="btn position-absolute top-50 start-50 translate-middle" aria-label="Play Video" onclick="playVideo()">
+                    <button type="button" class="btn position-absolute top-50 start-50 translate-middle" aria-label="Play Video" onclick="playVideo(this)">
                         <img src="{{asset('publicPages/images/video-play-btn.svg')}}" alt="Play Video" class="embed-cover-btn" />
-                    </button> -->
+                    </button>
                 </div>
 
-                <!-- <div
-                  class="gradient position-absolute start-0 top-0 w-100 h-100"
-                    ></div>-->
                 <div class="card-img-overlay overflow-auto responsive-card">
-                    <h5 class="card-title fs-card-xl">Ladies Interviews</h5>
-                    <p class="fw-semibold fs-card-l">{{ \Carbon\Carbon::parse($latestLadiesInterviews->created_at)->format('l M d Y') }}</p>
-                    <p class="fw-semibold fs-card-md">{{$latestLadiesInterviews->author->userAuthor->firstName}} {{$latestLadiesInterviews->author->userAuthor->secondName}}</p>
+                    <h5 class="card-title fs-card-xl">{{isset($ladiesInterviews[0])? $ladiesInterviews[0]->title: 'Ladies Interviews'}}</h5>
+                    <p class="fw-semibold fs-card-l">{{isset($ladiesInterviews[0])? Carbon\Carbon::parse($ladiesInterviews[0]->created_at)->format('l M d Y'): ''}}</p>
+                    <p class="fw-semibold fs-card-md">
+                        @isset($ladiesInterviews[0])
+                        {{$ladiesInterviews[0]->author->userAuthor->firstName}} {{$ladiesInterviews[0]->author->userAuthor->secondName}}
+                        @endisset
+                    </p>
                     <p class="fs-card-sm open-font fw-semibold">
-                        {{Str::limit($latestLadiesInterviews->content, 266)}}
-                        <a href="{{ route('articleSingle', ['category' => $latestLadiesInterviews->articleCategory->slug, 'article' => $latestLadiesInterviews->slug]) }}" class="fw-bold text-decoration-none text-white">Read more</a>
+                        {{isset($ladiesInterviews[0])? mb_substr($ladiesInterviews[0]->content, 0, 260) . '.....': ''}}
+                        @if(isset($ladiesInterviews[0]))
+                            <a
+                                href="{{route('articleSingle', [$ladiesInterviews[0]->articleCategory->slug, $ladiesInterviews[0]->slug])}}"
+                                class="fw-bold text-decoration-none text-white"
+                            >Read more</a>
+                        @endif
                     </p>
                 </div>
             </div>
@@ -41,38 +48,38 @@
     <div class="row slide_group overflow-hidden px-md-5 px-lg-0 g-0 py-3 bg-dark">
         <div class="d-flex flex-nowrap overflow-auto">
             <!-- First card -->
-            @foreach($expertInterviews as $expertInterview)
+            @foreach($ladiesInterviews->take((($count=$ladiesInterviews->count())<= 1? $count:-$count+1)) as $article)
             <div class="col-12 col-md-8 py-3 px-4 slide_custom sliderWrapper">
                 <div class="card mb-3 bg-dark border-0">
                     <div class="row g-0 align-items-center justify-content-center">
                         <div class="col-md-4 overflow-hidden position-relative" style="height: 170px">
                             <div class="ratio ratio-16x9">
                                 <!-- Default Image -->
-                                <img src="{{asset('publicPages/images/sm-video1-p8.jpg')}}" alt="Default Video Image" class="embed-cover" />
+                                <img src="{{asset('assets/images/articles/'.$article->image)}}" alt="{{$article->title}}" class="embed-cover image-center" />
                                 <!-- Iframe for Video -->
-                                <iframe src="{{$expertInterview->youtubeLink->youtubeLink}}" class="youtube-video embed-cover" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                                <iframe src="{{$article->youtubeLink->youtubeLink}}" class="youtube-video embed-cover d-none" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
                                 </iframe>
 
                                 <!-- Custom Play Button -->
-                                <!-- <button type="button" class="btn position-absolute top-50 start-50 translate-middle" aria-label="Play Video" onclick="playVideo()">
+                                <button type="button" class="btn position-absolute top-50 start-50 translate-middle" aria-label="Play Video" onclick="playVideo(this)">
                                     <img src="{{asset('publicPages/images/video-play-btn.svg')}}" alt="Play Video" class="embed-cover-btn" />
-                                </button> -->
+                                </button>
                             </div>
                         </div>
                         <div class="col-md-7">
                             <div class="card-body">
                                 <h5 class="card-title text-primary fw-bold fs-5 hs">
-                                    HRs Expert Interviews
+                                    {{$article->title}}
                                 </h5>
                                 <p class="card-text fs-6 text-white ps">
-                                    {{ \Carbon\Carbon::parse($expertInterview->created_at)->format('l M d Y') }}
+                                    {{ \Carbon\Carbon::parse($article->created_at)->format('l M d Y') }}
                                 </p>
                                 <p class="fw-semibold text-white fs-7 ps">
-                                    {{$expertInterview->author->userAuthor->firstName}} {{$expertInterview->author->userAuthor->secondName}}
+                                    {{$article->author->userAuthor->firstName}} {{$article->author->userAuthor->secondName}}
                                 </p>
                                 <p class="card-text fs-7 text-white ps">
-                                    {{Str::limit($expertInterview->content, 227)}}
-                                    <a href="{{ route('articleSingle', ['category' => $expertInterview->articleCategory->slug, 'article' => $expertInterview->slug]) }}" class="fw-semibold text-white text-decoration-none">Read more</a>
+                                    {{Str::limit($article->content, 227)}}
+                                    <a href="{{ route('articleSingle', ['category' => $article->articleCategory->slug, 'article' => $article->slug]) }}" class="fw-semibold text-white text-decoration-none">Read more</a>
                                 </p>
                             </div>
                         </div>
@@ -98,30 +105,30 @@
             <div id="cardCarousel" class="carousel slide" data-bs-ride="carousel">
                 <!-- The slideshow/carousel -->
                 <div class="carousel-inner">
-                    @foreach($journeyToExcellences as $journeyToExcellence)
-                    <div class="carousel-item active">
+                    @foreach($journeyToExcellences as $article)
+                    <div class="carousel-item {{$loop->first? 'active':''}}">
                         <div class="card bg-white text-dark mx-auto my-1 border-0">
                             <div class="row align-items-center mx-2 justify-content-center">
                                 <!-- Card Content -->
                                 <div class="col-md-3">
                                     <div class="position-relative overflow-hidden" style="max-width: 218px; aspect-ratio: 1">
-                                        <img src="{{asset('assets/images/users/'.$journeyToExcellence->author->userAuthor->image)}}" class="rounded-circle border-light image-center" alt="Profile Image" />
+                                        <img src="{{asset('assets/images/users/'.$article->author->userAuthor->image)}}" class="rounded-circle border-light image-center" alt="Profile Image" />
                                     </div>
                                 </div>
                                 <div class="card-body col-md-8">
                                     <div>
                                         <h5 class="card-title fw-bold fs-3">
-                                            HRs Journey to Excellence
+                                            {{$article->title}}
                                         </h5>
                                         <p class="card-text fw-semibold fs-4">
-                                            {{ \Carbon\Carbon::parse($journeyToExcellence->created_at)->format('l M d Y') }}
+                                            {{ \Carbon\Carbon::parse($article->created_at)->format('l M d Y') }}
                                         </p>
                                         <p class="card-text fw-semibold fs-4">
-                                            {{$journeyToExcellence->author->userAuthor->firstName}} {{$journeyToExcellence->author->userAuthor->secondName}}
+                                            {{$article->author->userAuthor->firstName}} {{$article->author->userAuthor->secondName}}
                                         </p>
                                         <p class="carousel-p card-text fw-medium fs-5">
-                                            {{Str::limit($journeyToExcellence->content, 116)}}
-                                            <a href="{{ route('articleSingle', ['category' => $journeyToExcellence->articleCategory->slug, 'article' => $journeyToExcellence->slug]) }}" class="fw-bold text-dark text-decoration-none">Read more</a>
+                                            {{Str::limit($article->content, 120)}}
+                                            <a href="{{ route('articleSingle', ['category' => $article->articleCategory->slug, 'article' => $article->slug]) }}" class="fw-bold text-dark text-decoration-none">Read more</a>
                                         </p>
                                     </div>
                                 </div>
@@ -152,27 +159,27 @@
         <div class="col-12">
             <div>
                 <div>
-                    @foreach($caseStudies as $caseStudy)
+                    @foreach($caseStudies as $article)
                     <div class="card bg-white text-dark mx-auto mx-lg-5 my-3">
                         <div class="row align-items-center gx-5 mx-2 justify-content-center">
                             <!-- Card Content -->
                             <div class="col-md-3">
                                 <div class="position-relative overflow-hidden" style="max-width: 218px; aspect-ratio: 1">
-                                    <img src="{{asset('assets/images/users/'.$caseStudy->author->userAuthor->image)}}" class="rounded-circle border-light image-center" alt="Profile Image" />
+                                    <img src="{{asset('assets/images/users/'.$article->author->userAuthor->image)}}" class="rounded-circle border-light image-center" alt="Profile Image" />
                                 </div>
                             </div>
                             <div class="card-body col-md-8">
                                 <div>
-                                    <h5 class="card-title fw-bold fs-3">HR Case Studies</h5>
+                                    <h5 class="card-title fw-bold fs-3">{{$article->title}}</h5>
                                     <p class="card-text fw-semibold fs-4">
-                                        {{ \Carbon\Carbon::parse($caseStudy->created_at)->format('l M d Y') }}
+                                        {{ \Carbon\Carbon::parse($article->created_at)->format('l M d Y') }}
                                     </p>
                                     <p class="card-text fw-semibold fs-4">
-                                        {{$caseStudy->author->userAuthor->firstName}} {{$caseStudy->author->userAuthor->secondName}}
+                                        {{$article->author->userAuthor->firstName}} {{$article->author->userAuthor->secondName}}
                                     </p>
                                     <p class="carousel-p card-text fw-medium fs-5">
-                                        {{Str::limit($caseStudy->content, 116)}}
-                                        <a href="{{ route('articleSingle', ['category' => $caseStudy->articleCategory->slug, 'article' => $caseStudy->slug]) }}" class="fw-bold text-dark text-decoration-none">Read more</a>
+                                        {{Str::limit($article->content, 116)}}
+                                        <a href="{{ route('articleSingle', ['category' => $article->articleCategory->slug, 'article' => $article->slug]) }}" class="fw-bold text-dark text-decoration-none">Read more</a>
                                     </p>
                                 </div>
                             </div>
