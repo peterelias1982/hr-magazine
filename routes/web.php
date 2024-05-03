@@ -1,10 +1,11 @@
 <?php
 
+use App\Models\JobCategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\EventController;
-
 
 Route::get('/', function () {
     return view('publicPages.events.eventCalender');
@@ -37,9 +38,19 @@ Route::group(['prefix' => "event", "controller" => EventController::class, "as" 
     Route::get("singleEvent/{slug}","singleEvent")->name('singleEvent');
 });
 
+Route::group(['prefix' => "jobs", "controller" => JobController::class, "as" => "jobs."], function () {
+    Route::get("postJob","create")->name('create');
+    Route::post("postJob","store")->name('store');
+
+
+    Route::get("jobsPosted","index")->name('jobsPosted');
+    Route::get("eventCalender","eventCalender")->name('eventCalender');
+    Route::get("singleEvent/{slug}","singleEvent")->name('singleEvent');
+});
+
 
 Route::get('test', function () {
-   return view('publicPages.jobs.jobsIndex');
+   return view('publicPages.jobs.postJob');
 });
 
 

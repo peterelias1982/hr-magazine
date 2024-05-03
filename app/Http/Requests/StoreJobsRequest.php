@@ -23,15 +23,22 @@ class StoreJobsRequest extends FormRequest
     {
         return [
             'title'=>'required',
-            'slug'=>'required|unique:job_details,slug',
+            // 'slug'=>'required|unique:job_details,slug',
             'company'=>'required',
+            "about_company"=>'required|string',
             'city'=>'required',
+            'state'=>'required',
+            'streetNo'=>'required',
+            'streetName'=>'required',
+            'postalCode'=>'required',
+            'country'=>'required',
+            'careerLevel'=>'required',
             'image'=>'required|image|mimes:jpeg,png,gif|max:2048',
             'deadline'=>'required',
-            'content'=>'required',
+            'content'=>'required|string',
             'email'=>'required|email',
             'category_id'=>'required|exists:job_categories,id',
-            'employer_id'=>'required|exists:employers,id'
+            // 'employer_id'=>'required|exists:employers,id'
         ];
     }
 }
