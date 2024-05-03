@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use Illuminate\Http\Request;
+use App\Models\Author;
 
 class PublicArticleController extends Controller
 {
@@ -106,5 +106,90 @@ class PublicArticleController extends Controller
 
         return view('publicPages.articles.legalCompliance', compact('legalCompliances', 'latestLegalCompliances'));
     }
-    
+
+    public function professionalDevelopment1()
+    {
+        $features = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Feature Articles');
+            })
+            ->latest()
+            ->get();
+
+        $recommends = Article::where('approved', 1)
+            ->where('recommended', 1)
+            ->latest()
+            ->take(6)
+            ->get();
+
+        return view('publicPages.articles.professionalDevelopment1', compact('features', 'recommends'));
+    }
+
+    public function professionalDevelopment2()
+    {
+        $expertInterviews = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Expert Interviews');
+            })
+            ->latest()
+            ->get();
+
+        $professionalsSpotlights = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Professional Spotlights');
+            })
+            ->latest()
+            ->get();
+
+        return view('publicPages.articles.professionalDevelopment2', compact('expertInterviews', 'professionalsSpotlights'));
+    }
+
+    public function professionalDevelopment3()
+    {
+
+        $trainingAndDevelopments = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Training and Development');
+            })
+            ->latest()
+            ->get();
+
+        $authors = Author::where('bio', 1)->get();
+
+        return view('publicPages.articles.professionalDevelopment3', compact('trainingAndDevelopments', 'authors'));
+    }
+
+    public function workPlaceCultureAndWellBeing()
+    {
+        $mentalHealthInTheWorkplaces = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Mental Health in the Workplace');
+            })
+            ->latest()
+            ->get();
+
+        $wellnessPrograms = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Wellness Programs');
+            })
+            ->latest()
+            ->get();
+
+        $hrDiversities = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Diversity, Equity, and Inclusion (DEI)');
+            })
+            ->latest()
+            ->get();
+
+        $workplaceCultures = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Workplace Culture');
+            })
+            ->latest()
+            ->get();
+
+        return view('publicPages.articles.workPlaceCultureAndWellBeing', compact('mentalHealthInTheWorkplaces', 'wellnessPrograms', 'hrDiversities', 'workplaceCultures'));
+    }
+
 }
