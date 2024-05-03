@@ -41,16 +41,12 @@ Route::group(['prefix' => "event", "controller" => EventController::class, "as" 
 Route::group(['prefix' => "jobs", "controller" => JobController::class, "as" => "jobs."], function () {
     Route::get("postJob","create")->name('create');
     Route::post("postJob","store")->name('store');
-
-
     Route::get("jobsPosted","index")->name('jobsPosted');
-    Route::get("eventCalender","eventCalender")->name('eventCalender');
-    Route::get("singleEvent/{slug}","singleEvent")->name('singleEvent');
 });
 
 
 Route::get('test', function () {
-   return view('publicPages.jobs.postJob');
+   return view('publicPages.jobs.browseJobs');
 });
 
 
