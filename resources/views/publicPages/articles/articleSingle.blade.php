@@ -30,10 +30,10 @@
         <div class="mx-auto" style="max-width: 1225px">
             <article>
                 <p>
-                    {{substr($articleData->content, 0, 500)}}
+
                 </p>
 
-                <h2 class="fs-1">{{$articleData->title}}</h2>
+                <h2 class="fs-1"></h2>
                 <p>
                     Molestie interdum cras sit non magna vitae purus cum. Nisi in
                     malesuada nunc eget id maecenas. Blandit porttitor quam tempus sed

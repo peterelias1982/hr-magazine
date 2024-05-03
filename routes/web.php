@@ -1,14 +1,8 @@
 <?php
 
-
 use App\Http\Controllers\PublicArticleController;
-use App\Http\Controllers\SingleArticleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
-
-
-
 
 
 Route::get('/', function () {
@@ -25,7 +19,7 @@ Route::get('category/{category}/article/{article}', function ($category, $articl
 
 //    if article.category_id not equal category.id abort
     return view('publicPages.articles.articleSingle', compact('categoryData', 'articleData'));
-});
+})->name('articleSingle');
 
 Auth::routes();
 
@@ -52,17 +46,17 @@ Route::get('category/{category}/article/{article}', function ($category, $articl
     return view('publicPages.articles.articleSingle', compact('categoryData'));
 })->name('articleSingle');
 
-    
 
 
 
 
 
-       
 
-    
 
-    
+
+
+
+
 
 
 
