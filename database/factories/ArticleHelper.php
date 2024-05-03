@@ -7,13 +7,15 @@ use App\Models\ArticleCategory;
 use App\Models\ArticleComment;
 use App\Models\SourceArticle;
 use App\Models\YoutubeLink;
+use App\Traits\Files;
 
 class ArticleHelper
 {
+    use Files;
     protected static function generateYoutubeLink($article_id, $category_id)
     {
         YoutubeLink::create([
-            'YoutubeLink' => fake()->url(),
+            'YoutubeLink' => 'https://www.youtube.com/embed/6-KKYdaNcl0?si=6r0sg_I8BrSG3OJk',
             'category_id' => $category_id,
             'article_id' => $article_id,
         ]);
@@ -42,12 +44,14 @@ class ArticleHelper
 
     public static function generateArticle()
     {
-        $category_id = fake()->numberBetween(1, 15);
+        $category_id = fake()->numberBetween(1, 17);
         $category = ArticleCategory::find($category_id);
+
+        $allImages = ArticleHelper::getFilesFromDir(public_path('assets/images/articles'));
 
         $article = Article::create([
             'title' => fake()->name(),
-            'image' => 'test.jpg',
+            'image' => fake()->randomElement($allImages),
             'content' => fake()->text(1500),
             'category_id' => $category_id,
             'author_id' => ($category->hasAuthor) ? fake()->numberBetween(1, 5) : null,

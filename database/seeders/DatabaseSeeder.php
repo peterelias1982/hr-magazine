@@ -34,12 +34,11 @@ class DatabaseSeeder extends Seeder
         Employer::factory(5)->create();
         JobSeeker::factory(5)->create();
 
-        for ($i = 1; $i <= 5; $i++) {
+        for ($i = 1; $i <= 34; $i++) {
             AgendaFactory::createAgenda();
-            ArticleHelper::generateArticle();
         }
 
-        for ($i = 1; $i <= 30; $i++) {
+        for ($i = 1; $i <= 60; $i++) {
             ArticleHelper::generateArticle();
         }
 

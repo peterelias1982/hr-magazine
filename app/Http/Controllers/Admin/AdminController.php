@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Traits\Files;
 use App\Traits\ResetPassword;
 use Carbon\Carbon;
 use App\Models\User;
@@ -20,6 +21,7 @@ class AdminController extends Controller
 {
     use Common;
     use ResetPassword;
+    use Files;
 
     /**
      * Display a listing of the resource.
@@ -161,7 +163,14 @@ class AdminController extends Controller
         } elseif ($data['oldImage'] ?? false) {
             $image = $data['oldImage'];
         } else {
-            $image = 'default' . DIRECTORY_SEPARATOR . fake()->randomElement(['bear.png', 'chicken.png', 'dog.png', 'panda.png', 'rabbit.png']);
+            $allImages = AdminController::getFilesFromDir(public_path('assets/images/users/default'));
+            $image = fake()->randomElement($allImages);
+
+            $imageArray = explode('-', $image);
+            $imageArray[0] = $data['gender'];
+            $image = implode('', $imageArray);
+
+            $image = 'default' . DIRECTORY_SEPARATOR . $image;
         }
 
         $userData['image'] = $image;
