@@ -2,59 +2,105 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Models\Article;
-use App\Models\ArticleCategory;
 use App\Models\Author;
-use App\Models\YoutubeLink;
 
 class PublicArticleController extends Controller
 {
     public function industryInsights1()
     {
-
         $news = Article::where('approved', 1)
-            ->whereHas('articleCategory', function ($query) {
-                $query->where('subCategory', 'Industry News');
-            })->get();
-        $updates = Article::where('approved', 1)
-            ->whereHas('articleCategory', function ($query) {
-                $query->where('subCategory', 'Industry Updates');
-            })->get();
-        $latestNews = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
                 $query->where('subCategory', 'Industry News');
             })
             ->latest()
-            ->take(1)
             ->get();
-        return view('publicPages.articles.industryInsights1', compact('news', 'updates', 'latestNews'));
+
+        $updates = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Industry Updates');
+            })
+            ->latest()
+            ->get();
 
 
+        return view('publicPages.articles.industryInsights1', compact('news', 'updates'));
     }
 
     public function industryInsights2()
     {
+        $trends = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Industry Trends');
+            })
+            ->latest()
+            ->get();
 
-        return view('publicPages.articles.industryInsights2');
+        $insights = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Industry Insights');
+            })
+            ->latest()
+            ->get();
+
+        return view('publicPages.articles.industryInsights2', compact('trends', 'insights'));
     }
 
     public function industryInsights3()
     {
+        $news = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Industry News');
+            })
+            ->latest()
+            ->get();
 
-        return view('publicPages.articles.industryInsights3');
+        $perspectives = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Global HR Perspectives');
+            })
+            ->latest()
+            ->get();
+
+        return view('publicPages.articles.industryInsights3', compact('news', 'perspectives'));
     }
 
     public function ladiesInHR()
     {
+        $journeyToExcellences = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Journey to Excellence');
+            })
+            ->latest()
+            ->get();
 
-        return view('publicPages.articles.ladiesInHR');
+        $caseStudies = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Case Studies');
+            })
+            ->latest()
+            ->get();
+
+        $ladiesInterviews = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Ladies Interviews');
+            })
+            ->latest()
+            ->get();
+
+        return view('publicPages.articles.ladiesInHR', compact('journeyToExcellences', 'caseStudies', 'ladiesInterviews'));
     }
 
     public function legalCompliance()
     {
+        $legalCompliances = Article::where('approved', 1)
+            ->whereHas('articleCategory', function ($query) {
+                $query->where('subCategory', 'Legal Corner');
+            })
+            ->latest()
+            ->get();
 
-        return view('publicPages.articles.legalCompliance');
+        return view('publicPages.articles.legalCompliance', compact('legalCompliances'));
     }
 
     public function professionalDevelopment1()
@@ -106,7 +152,6 @@ class PublicArticleController extends Controller
 
         $authors = Author::where('bio', 1)->get();
 
-
         return view('publicPages.articles.professionalDevelopment3', compact('trainingAndDevelopments', 'authors'));
     }
 
@@ -118,7 +163,6 @@ class PublicArticleController extends Controller
             })
             ->latest()
             ->get();
-
 
         $wellnessPrograms = Article::where('approved', 1)
             ->whereHas('articleCategory', function ($query) {
@@ -140,7 +184,6 @@ class PublicArticleController extends Controller
             })
             ->latest()
             ->get();
-
 
         return view('publicPages.articles.workPlaceCultureAndWellBeing', compact('mentalHealthInTheWorkplaces', 'wellnessPrograms', 'hrDiversities', 'workplaceCultures'));
     }

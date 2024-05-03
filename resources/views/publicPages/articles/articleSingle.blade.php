@@ -44,7 +44,6 @@
                     facilisi pretium. Felis aenean massa libero bibendum. Faucibus et
                     imperdiet enim diam viverra. Et egestas imperdiet tempor dictum
                     leo eu.
-
                     Sit suscipit neque mauris fames. Sit purus nullam in et. Massa
                     aliquet neque scelerisque sed vestibulum porta velit scelerisque.
                     Fames egestas congue vivamus nulla sit porta arcu ultrices.
@@ -72,7 +71,6 @@
                     convallis. Sit aenean in rhoncus ipsum quam augue ultricies eu. Ac
                     ornare dignissim in sodales. Eu nam laoreet laoreet nunc morbi
                     amet urna.
-
                     Neque tincidunt enim ullamcorper nullam urna. Etiam interdum
                     posuere laoreet enim enim imperdiet. Purus viverra in fusce
                     interdum vel magna nibh sed urna. Viverra lectus nunc molestie
