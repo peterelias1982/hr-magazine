@@ -42,11 +42,13 @@ Route::group(['prefix' => "jobs", "controller" => JobController::class, "as" => 
     Route::get("postJob","create")->name('create');
     Route::post("postJob","store")->name('store');
     Route::get("jobsPosted","index")->name('jobsPosted');
+    Route::get("jobDetails/{slug}","show")->name('jobDetails');
+    Route::get("browseJobs","browseJobs")->name('browseJobs');
 });
 
 
 Route::get('test', function () {
-   return view('publicPages.jobs.browseJobs');
+   return view('publicPages.jobs.jobOpportunitiesAndCareerResource');
 });
 
 

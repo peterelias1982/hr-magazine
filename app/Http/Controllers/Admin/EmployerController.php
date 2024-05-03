@@ -24,7 +24,7 @@ class EmployerController extends Controller
     {
         $users = DB::table('employers')
             ->join('users', 'users.id', '=', 'employers.user_id');
-
+            
         $request = Request();
         if ($search = $request->name) {
             $users->where('users.firstName', "LIKE", "%$search%");

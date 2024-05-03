@@ -2,18 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Traits\Common;
 use App\Models\JobDetail;
 use App\Models\JobApplied;
 use App\Models\JobCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreJobsRequest;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class JobController extends Controller
 {
     use Common;
     function index (){
-        $jobs=JobDetail::where("employer_id",1)->get();
+    $jobs=JobDetail::where("employer_id",1)->get();
     $jobApplied = DB::table('job_applieds')
     ->join('job_details', 'job_applieds.jobDetail_id', '=', 'job_details.id')
     ->join('job_seekers', 'job_applieds.jobSeeker_id', '=', 'job_seekers.id')
@@ -38,11 +40,28 @@ class JobController extends Controller
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('jobs.jobsPosted')
-                ->with(['messages' => json_encode(['error' => ['Error creating category: ' . $exception->getMessage()]])]);
+                ->with(['messages' => json_encode(['error' => ['Error creating Job: ' . $exception->getMessage()]])]);
         }
         
     }
+    function show($slug)  {
+        try{
+            $jobDetails=JobDetail::where("slug",$slug)->first();
+            if(!$jobDetails){
+                throw new ResourceNotFoundException('Job is not found');
+            }
+             return view('publicPages.jobs.jobDetails',compact('jobDetails'));
+        }catch (\Throwable $exception) {
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['error' => [' Job: ' . $exception->getMessage()]])]);
+        }
         
+    }
+       
+    function browseJobs (){
+        return view('publicPages.jobs.browseJobs');
+    }
     
 }
 

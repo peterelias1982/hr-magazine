@@ -50,7 +50,8 @@
                             Job Description:&nbsp;
                             <span class="fw-normal">
                                 {{$job->content}}
-                  <span class="fw-semibold">Read more</span>
+                                
+                                <a href="{{route('jobs.jobDetails',[$job->slug])}}" class="text-decoration-none text-black text-decoration-none"><span class="fw-semibold   "> Read more</span> </a>
                 </span>
                         </h3>
                     </div>
@@ -74,13 +75,8 @@
                         </div>
                         <div class="col-xl-10 col-md-9 ">
                             <h3 class="mt-5 pb-2 fw-bold">{{$jobapply->title}}</h3>
-                            <h4 class="fw-semibold"> {{ date_format(date_create($jobapply->created_at),'M d Y')}}</h4>
                             <h4 class="fw-semibold">{{$jobapply->firstName}} {{$jobapply->secondName}}</h4>
-                            <p class="fs-4 fw-normal">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Neque, pellentesque dictum posuere....
-                                <span class="fw-semibold">Read more</span>
-                            </p>
+                           
                         </div>
                     </div>
                 </div>
