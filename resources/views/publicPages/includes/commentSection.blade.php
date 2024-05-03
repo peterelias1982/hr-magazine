@@ -6,7 +6,7 @@
                 <div class="col-xl-2 col-md-3 col-sm-12">
                     <div class="mt-5 ms-5 rounded-circle-small">
                         <img
-                            src="{{ assets('publicPages/images/w-c3.jpeg') }}"
+                            src="{{ asset('publicPages/images/w-c3.jpeg') }}"
                             class="img-fluid"
                             alt="User-Profile-Image"
                         />
@@ -65,7 +65,7 @@ Lorem ipsum dolor sit amet consectetur. Vestibulum sit sollicitudin elementum ut
             <div class="col-xl-2 col-md-3 col-sm-12">
                 <div class="mt-5 ms-3 rounded-circle-small">
                     <img
-                        src="{{ assets('publicPages/images/w-c4.jpeg') }}"
+                        src="{{ asset('publicPages/images/w-c4.jpeg') }}"
                         class="img-fluid"
                         alt="User-Profile-Image"
                     />
@@ -203,7 +203,7 @@ Lorem ipsum dolor sit amet consectetur. Vestibulum sit sollicitudin elementum ut
             <div class="col-xl-2 col-md-3 col-sm-10">
                 <div class="mt-5 ms-3 rounded-circle-small">
                     <img
-                        src="{{ assets('publicPages/images/w-c5.jpeg') }}"
+                        src="{{ asset('publicPages/images/w-c5.jpeg') }}"
                         class="img-fluid"
                         alt="User-Profile-Image"
                     />
@@ -286,7 +286,7 @@ Lorem ipsum dolor sit amet consectetur. Vestibulum sit sollicitudin elementum ut
             <div class="col-xl-2 col-md-3 col-sm-12">
                 <div class="mt-5 ms-3 rounded-circle-small">
                     <img
-                        src="{{ assets('publicPages/images/w-c6.jpeg') }}"
+                        src="{{ asset('publicPages/images/w-c6.jpeg') }}"
                         class="img-fluid"
                         alt="User-Profile-Image"
                     />
@@ -379,7 +379,7 @@ Lorem ipsum dolor sit amet consectetur. Vestibulum sit sollicitudin elementum ut
             <div class="col-xl-2 col-md-3 col-sm-10">
                 <div class="mt-5 ms-3 rounded-circle-small">
                     <img
-                        src="{{ assets('publicPages/images/w-c7.jpeg') }}"
+                        src="{{ asset('publicPages/images/w-c7.jpeg') }}"
                         class="img-fluid"
                         alt="User-Profile-Image"
                     />
@@ -420,7 +420,7 @@ Lorem ipsum dolor sit amet consectetur. Vestibulum sit sollicitudin elementum ut
             <div class="col-xl-2 col-md-3 col-sm-10">
                 <div class="mt-5 ms-3 rounded-circle-small">
                     <img
-                        src="{{ assets('publicPages/images/w-c8.jpeg') }}"
+                        src="{{ asset('publicPages/images/w-c8.jpeg') }}"
                         class="img-fluid"
                         alt="User-Profile-Image"
                     />
@@ -461,7 +461,7 @@ Lorem ipsum dolor sit amet consectetur. Vestibulum sit sollicitudin elementum ut
             <div class="col-xl-2 col-md-3 col-sm-12">
                 <div class="mt-5 ms-3 rounded-circle-small">
                     <img
-                        src="{{ assets('publicPages/images/w-c9.jpeg') }}"
+                        src="{{ asset('publicPages/images/w-c9.jpeg') }}"
                         class="img-fluid"
                         alt="User-Profile-Image"
                     />
