@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleCategory;
 use App\Models\Author;
+use Illuminate\Support\Facades\DB;
 
 class PublicArticleController extends Controller
 {
@@ -186,6 +188,23 @@ class PublicArticleController extends Controller
             ->get();
 
         return view('publicPages.articles.workPlaceCultureAndWellBeing', compact('mentalHealthInTheWorkplaces', 'wellnessPrograms', 'hrDiversities', 'workplaceCultures'));
+    }
+
+    public function single(string $category, string $article)
+    {
+        $categoryData = ArticleCategory::where('slug', $category)->first();
+
+        $articleData = DB::table('articles')
+            ->leftJoin('authors', 'authors.id', '=', 'articles.author_id')
+            ->leftJoin('users', 'users.id', '=', 'authors.user_id')
+            ->leftJoin('youtube_links', 'articles.id', '=', 'youtube_links.article_id')
+            ->leftJoin('source_articles', 'source_articles.article_id' , '=', 'articles.id')
+            ->where("articles.slug", $article)
+            ->select('*', 'users.image as userImage', 'articles.image as image', 'articles.created_at as created_at')
+            ->first();
+
+
+        return view('publicPages.articles.articleSingle', compact('categoryData', 'articleData'));
     }
 
 }

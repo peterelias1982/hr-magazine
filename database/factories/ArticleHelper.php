@@ -52,7 +52,7 @@ class ArticleHelper
         $article = Article::create([
             'title' => fake()->name(),
             'image' => fake()->randomElement($allImages),
-            'content' => fake()->text(1500),
+            'content' => fake()->text(800) . "\n" . fake()->text(800) . "\n" . fake()->text(800),
             'category_id' => $category_id,
             'author_id' => ($category->hasAuthor) ? fake()->numberBetween(1, 5) : null,
             'approved' => fake()->numberBetween(0, 1),

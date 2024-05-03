@@ -26,7 +26,7 @@
                         </p>
                         <p class="fs-card-sm open-font fw-semibold">
                             {{isset($legalCompliances[0])? mb_substr($legalCompliances[0]->content, 0, 260) . '.....': ''}}
-                            @isset($legalCompliances[0]))
+                            @isset($legalCompliances[0])
                                 <a
                                     href="{{route('articleSingle', [$legalCompliances[0]->articleCategory->slug, $legalCompliances[0]->slug])}}"
                                     class="fw-bold text-decoration-none text-white"

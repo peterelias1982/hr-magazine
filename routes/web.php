@@ -1,25 +1,10 @@
 <?php
 
+
 use App\Http\Controllers\PublicArticleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('publicPages.events.eventCalender');
-});
-
-Route::get('/home', function () {
-    return view('publicPages.home');
-})->name('index');
-
-
-Route::get('category/{category}/article/{article}', function ($category, $article) {
-    $categoryData = \App\Models\ArticleCategory::where('slug', $category)->first();
-    $articleData = \App\Models\Article::where('slug', $article)->first();
-
-//    if article.category_id not equal category.id abort
-    return view('publicPages.articles.articleSingle', compact('categoryData', 'articleData'));
-})->name('articleSingle');
 
 Auth::routes();
 
@@ -35,9 +20,17 @@ Route::group(['prefix' => "articles", "controller" => PublicArticleController::c
     Route::get("/professionalDevelopment2", "professionalDevelopment2")->name('professionalDevelopment2');
     Route::get("/professionalDevelopment3", "professionalDevelopment3")->name('professionalDevelopment3');
     Route::get("/workPlaceCultureAndWellBeing", "workPlaceCultureAndWellBeing")->name('workPlaceCultureAndWellBeing');
-
 });
 
+Route::get('category/{category}/article/{article}',[ PublicArticleController::class, 'single'])->name('articleSingle');
+
+Route::get('/', function () {
+    return view('publicPages.events.eventCalender');
+});
+
+Route::get('/home', function () {
+    return view('publicPages.home');
+})->name('index');
 
 
 
