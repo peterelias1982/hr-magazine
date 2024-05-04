@@ -189,7 +189,7 @@
                                     <p class="carousel-p card-text fw-medium fs-5">
                                         {{mb_substr($author->description, 0, 120)}}....
                                         <a
-                                            href="#"
+                                            href="{{route('authorSingle', $author->userAuthor->slug)}}"
                                             class="fw-bold text-white text-decoration-none"
                                         >Read more</a>
                                     </p>

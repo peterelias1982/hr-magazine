@@ -6,6 +6,7 @@ use App\Models\Article;
 use App\Models\ArticleCategory;
 use App\Models\Author;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class PublicArticleController extends Controller
 {
@@ -190,21 +191,67 @@ class PublicArticleController extends Controller
         return view('publicPages.articles.workPlaceCultureAndWellBeing', compact('mentalHealthInTheWorkplaces', 'wellnessPrograms', 'hrDiversities', 'workplaceCultures'));
     }
 
-    public function single(string $category, string $article)
+    public function articleSingle(string $category, string $article)
     {
-        $categoryData = ArticleCategory::where('slug', $category)->first();
+        try {
+            $categoryData = ArticleCategory::where('slug', $category)->first();
 
-        $articleData = DB::table('articles')
-            ->leftJoin('authors', 'authors.id', '=', 'articles.author_id')
-            ->leftJoin('users', 'users.id', '=', 'authors.user_id')
-            ->leftJoin('youtube_links', 'articles.id', '=', 'youtube_links.article_id')
-            ->leftJoin('source_articles', 'source_articles.article_id' , '=', 'articles.id')
-            ->where("articles.slug", $article)
-            ->select('*', 'users.image as userImage', 'articles.image as image', 'articles.created_at as created_at')
-            ->first();
+            $articleData = DB::table('articles')
+                ->leftJoin('authors', 'authors.id', '=', 'articles.author_id')
+                ->leftJoin('users', 'users.id', '=', 'authors.user_id')
+                ->leftJoin('youtube_links', 'articles.id', '=', 'youtube_links.article_id')
+                ->leftJoin('source_articles', 'source_articles.article_id', '=', 'articles.id')
+                ->where("articles.slug", $article)
+                ->where("articles.approved", '=',1)
+                ->select('*', 'users.image as userImage', 'articles.image as image', 'articles.created_at as created_at', 'users.slug as userSlug')
+                ->first();
 
+            if(!$categoryData || !$articleData) {
+                throw new ResourceNotFoundException('Resource not found');
+            }
 
-        return view('publicPages.articles.articleSingle', compact('categoryData', 'articleData'));
+            return view('publicPages.articles.articleSingle',
+                compact('categoryData', 'articleData'));
+
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['error' => ['Error: ' . $exception->getMessage()]])]);
+        }
+    }
+
+    public function authorSingle(string $author)
+    {
+        try {
+            $authorData = DB::table('authors')
+                ->join('users', 'users.id', '=', 'authors.user_id')
+                ->where('authors.bio', '=', 1)
+                ->where('users.slug', '=', $author)
+                ->select('authors.*', 'users.firstName', 'users.secondName', 'users.position', 'users.image')
+                ->first();
+
+            if (!$authorData) {
+                throw new ResourceNotFoundException('Resource not found');
+            }
+
+            $authorArticles = DB::table('articles')
+                ->join('article_categories', 'article_categories.id', '=', 'articles.category_id')
+                ->where('articles.approved', '=', 1)
+                ->where('articles.author_id', '=', $authorData->id)
+                ->select('articles.title', 'articles.slug as articleSlug', 'article_categories.slug as categorySlug')
+                ->get();
+
+            $authorMedia = DB::table('user_media')
+                ->join('social_media', 'social_media.id', '=', 'user_media.social_id')
+                ->where('user_media.user_id', '=', $authorData->user_id)
+                ->get();
+
+            return view('publicPages.articles.authorSingle', compact('authorData', 'authorArticles', 'authorMedia'));
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['error' => ['Error: ' . $exception->getMessage()]])]);
+        }
     }
 
 }

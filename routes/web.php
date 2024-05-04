@@ -22,10 +22,11 @@ Route::group(['prefix' => "articles", "controller" => PublicArticleController::c
     Route::get("/workPlaceCultureAndWellBeing", "workPlaceCultureAndWellBeing")->name('workPlaceCultureAndWellBeing');
 });
 
-Route::get('category/{category}/article/{article}',[ PublicArticleController::class, 'single'])->name('articleSingle');
+Route::get('category/{category}/article/{article}',[PublicArticleController::class, 'articleSingle'])->name('articleSingle');
+Route::get('authors/{author}', [PublicArticleController::class, 'authorSingle'])->name('authorSingle');
 
 Route::get('/', function () {
-    return view('publicPages.events.eventCalender');
+    return view('publicPages.articles.authorSingle');
 });
 
 Route::get('/home', function () {
