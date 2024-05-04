@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use Carbon\Carbon;
 use App\Traits\Common;
 use App\Models\JobDetail;
-use App\Models\JobApplied;
 use App\Models\JobCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreJobsRequest;
@@ -60,8 +59,41 @@ class JobController extends Controller
     }
        
     function browseJobs (){
-        return view('publicPages.jobs.browseJobs');
+        
+        $request = Request();
+        $jobs=$this->search($request);
+        $jobs=$jobs->whereDate('job_details.deadline','>=', Carbon::now()->format('Y-m-d'))->get();
+        return view('publicPages.jobs.browseJobs',compact('jobs'));
     }
+    
+    function search($request){
+        $jobs= DB::table('job_details')
+        ->join('job_categories', 'job_categories.id', '=', 'job_details.category_id');
+        
+        if($search=$request->search){
+            $jobs->where('job_details.title', "LIKE" , "%$search%") ;
+        }
+        if($search=$request->optcheckbox){
+
+            foreach($search as $sr){
+                if($sr=="All"){
+                    break;
+                }
+                $jobs->orWhere("job_details.city", "LIKE" , "%$sr%");
+            }
+        }
+        if($search=$request->optcheckbox2){
+
+            foreach($search as $cat){
+                if($cat=="All"){
+                    break;
+                }
+                $jobs->orWhere("job_categories.category", "LIKE" , "%$cat%");
+            }
+        }
+        return $jobs;
+    }
+    
     
 }
 
