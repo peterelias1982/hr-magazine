@@ -15,7 +15,7 @@ use App\Traits\Common;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
-
+use Throwable;
 class ArticleController extends Controller
 {
     use Common;
