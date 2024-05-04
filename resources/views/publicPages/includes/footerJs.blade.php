@@ -25,3 +25,4 @@
 <script src="{{asset('publicPages/js/map.js')}}"></script>
 <script src="{{asset('publicPages/js/messages.js')}}"></script>
 <script src="{{asset('publicPages/js/toast.js')}}"></script>
+<script src="{{ asset('publicPages/js/play-video.js') }}"></script>
