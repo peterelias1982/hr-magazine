@@ -40,6 +40,14 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    protected function attemptLogin(Request $request)
+    {
+        return $this->guard()->attempt(
+            [...$this->credentials($request), 'active' => 1], $request->boolean('remember')
+        );
+    }
+
+
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();

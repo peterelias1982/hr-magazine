@@ -202,16 +202,22 @@ class PublicArticleController extends Controller
                 ->leftJoin('youtube_links', 'articles.id', '=', 'youtube_links.article_id')
                 ->leftJoin('source_articles', 'source_articles.article_id', '=', 'articles.id')
                 ->where("articles.slug", $article)
-                ->where("articles.approved", '=',1)
-                ->select('*', 'users.image as userImage', 'articles.image as image', 'articles.created_at as created_at', 'users.slug as userSlug')
+                ->where("articles.approved", '=', 1)
+                ->select('*', 'users.image as userImage', 'articles.image as image', 'articles.created_at as created_at', 'users.slug as userSlug', 'articles.id as articleId')
                 ->first();
 
-            if(!$categoryData || !$articleData) {
+            if (!$categoryData || !$articleData) {
                 throw new ResourceNotFoundException('Resource not found');
             }
 
+            $comments = null;
+
+            if ($categoryData->hasComments) {
+                $comments = (new CommentsController())->showArticleComments($articleData->articleId);
+            }
+
             return view('publicPages.articles.articleSingle',
-                compact('categoryData', 'articleData'));
+                compact('categoryData', 'articleData', 'comments'));
 
         } catch (\Throwable $exception) {
             return redirect()

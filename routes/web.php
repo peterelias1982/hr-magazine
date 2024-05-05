@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\PublicArticleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -22,16 +23,18 @@ Route::group(['prefix' => "articles", "controller" => PublicArticleController::c
     Route::get("/workPlaceCultureAndWellBeing", "workPlaceCultureAndWellBeing")->name('workPlaceCultureAndWellBeing');
 });
 
-Route::get('category/{category}/article/{article}',[PublicArticleController::class, 'articleSingle'])->name('articleSingle');
+Route::get('category/{category}/article/{article}', [PublicArticleController::class, 'articleSingle'])->name('articleSingle');
 Route::get('authors/{author}', [PublicArticleController::class, 'authorSingle'])->name('authorSingle');
-
-Route::get('/', function () {
-    return view('publicPages.articles.authorSingle');
-});
 
 Route::get('/home', function () {
     return view('publicPages.home');
 })->name('index');
 
+// requires authentication
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('comments/', [CommentsController::class, 'store'])->name('comments.store');
+    Route::put('comments/{id}', [CommentsController::class, 'update'])->name('comments.update');
+    Route::delete('comments/{id}', [CommentsController::class, 'destroy'])->name('comments.destroy');
+});
 
 
