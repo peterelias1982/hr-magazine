@@ -20,7 +20,7 @@ class AuthorFactory extends Factory
 
         return [
             'approved' => fake()->numberBetween(0, 1),
-            'description' => fake()->text(),
+            'description' => fake()->text(500) . "\n" . fake()->text(500) ,
             'bio' => fake()->numberBetween(0, 1),
             'user_id' => $id,
         ];
