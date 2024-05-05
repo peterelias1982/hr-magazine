@@ -1,41 +1,125 @@
+<?php
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Comment;
+use App\Http\Requests\CommentRequest;
+use App\Models\ArticleComment;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class CommentsController extends Controller
 {
-    public function index()
+    public function showArticleComments($articleId): Collection
     {
-        $comment = Comment::all();
-        return view('comment.index', compact('comment'));
+        $baseQuery = DB::table('article_comments')
+            ->join('users', 'users.id', '=', 'article_comments.user_id')
+            ->where('article_comments.article_id', '=', $articleId)
+            ->orderBy('article_comments.created_at', 'desc')
+            ->select('*', 'article_comments.id as commentId', 'users.id as userId');
+
+        if(Gate::denies('isAdmin')) {
+            $baseQuery->where('is_deleted', '=', 0);
+        }
+
+        $comments =
+            (clone $baseQuery)
+                ->where('article_comments.parentComment', '=', null)
+                ->get();
+
+        foreach ($comments as $comment) {
+            $replies = (clone $baseQuery)
+                ->where('article_comments.parentComment', '=', $comment->commentId)
+                ->get();
+            $comment->replies = $replies->toArray();
+        }
+
+        return $comments;
     }
 
-    public function create()
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(CommentRequest $request)
     {
-        return view('includes.commentSection');
+        try {
+            $data = $this->prepareData($request);
+
+            ArticleComment::create($data);
+
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['success' => ['Comment added successfully']])]);
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['error' => ['Error: ' . $exception->getMessage()]])]);
+        }
     }
 
-    public function store(Request $request)
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(CommentRequest $request, string $id)
     {
-        Comment::create($request->all());
-        return redirect()->route('comment.index');
+        try {
+            $data = $this->prepareData($request);
+
+            $comment = ArticleComment::find($id);
+
+            if (Gate::denies('isOwner', ['userId' => $comment->user_id])) {
+                return redirect()
+                    ->back()
+                    ->with(['messages' => json_encode(['error' => ['Unauthorized action']])]);
+            }
+
+            $comment->update($data);
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['success' => ['Updated Successfully']])]);
+
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['error' => ['Error: ' . $exception->getMessage()]])]);
+        }
+
     }
 
-    public function edit(Comment $comment)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
     {
-        return view('includes.commentSection', compact('comment'));
+        $comment = DB::table('article_comments')
+            ->where('id', '=', $id)
+            ->limit(1);
+
+        if (Gate::allows('isAdmin')) {
+            $comment->delete();
+        } elseif (Gate::denies('isOwner', ['userId' => $comment->first()->user_id])) {
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['error' => ['Unauthorized action']])]);
+        } else {
+            $comment->update(['is_deleted' => 1]);
+        }
+
+        return redirect()
+            ->back()
+            ->with(['messages' => json_encode(['success' => ['Deleted successfully']])]);
     }
 
-    public function update(Request $request, Comment $comment)
+    private function prepareData(CommentRequest $request)
     {
-        $comment->update($request->all());
-        return redirect()->route('comments.index');
-    }
-
-    public function destroy(Comment $comment)
-    {
-        $comment->delete();
-        return redirect()->route('comment.index');
+        return [
+            'article_id' => $request['article_id'],
+            'category_id' => $request['category_id'],
+            'content' => $request['content'],
+            'parentComment' => $request['parentComment'] ?? null,
+            'user_id' => Auth::user()->id,
+        ];
     }
 }

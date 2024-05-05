@@ -112,4 +112,14 @@ Route::group(['prefix'=>'jobs', 'controller' => JobDetailController::class, 'as'
     Route::delete('/{slug}', 'destroy')->name('destroy');
 
 });
-
+Route::group(['prefix' => "author"], function () {
+    Route::group(['prefix' => 'author', "controller" => AuthorController::class, "as" => "authors."], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/search', 'search')->name('search');
+        Route::get('/create', 'create')->name('create');
+        Route::get('/{slug}','show')->name('show');
+        Route::post('/', 'store')->name('store');
+        Route::put('/{slug}', 'update')->name('update');
+        Route::delete('/{slug}', 'destroy')->name('destroy');
+    });
+});

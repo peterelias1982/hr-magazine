@@ -1,3 +1,4 @@
+{{-- This file if the employer wants to edit his Data --}}
 @extends('publicPages.layouts.main')
 
 @section('publicPagesContent')
@@ -21,201 +22,188 @@
                 </button>
             </div>
 
-            <div class="row d-flex mb-5 bg-light">
-                <div class="col-xl-12 col-md-12 col-sm-12 py-5 px-md-5 px-1 g-0">
-                    <form>
-                        <div class="card-block justify-content-center row gy-5">
-                            <div class="col-12">
-                                <label
-                                    for="companyName"
-                                    class="form-label mb-3 text-primary fw-bold fs-3"
-                                >First Name</label
-                                >
-                                <input
-                                    type="text"
-                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    id="firstName"
-                                    name="firstName"
-                                    value="Amged"
-                                />
-                            </div>
+            <div class="row py-5 px-md-5 px-1 g-0" id="employer">
+                <form>
+                    <div class="row gy-5">
 
-                            <div class="col-12">
-                                <label
-                                    for="companyName"
-                                    class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Second Name</label
-                                >
-                                <input
-                                    type="text"
-                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    id="secondName"
-                                    name="secondName"
-                                    value="S. El-Hawrani"
-                                />
-                            </div>
+                        <h2 class="text-primary fw-bold">User Information</h2>
 
-                            <div class="col-12">
-                                <label
-                                    for="companyName"
-                                    class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Company Name</label
-                                >
-                                <input
-                                    type="text"
-                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    id="companyName"
-                                    name="companyName"
-                                    value="Company Name"
-                                />
-                            </div>
-
-                            <div class="col-12">
-                                <label
-                                    for="companyName"
-                                    class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Business Email</label
-                                >
-                                <input
-                                    type="email"
-                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    id="email"
-                                    name="email"
-                                    value="Amged S. El-Hawrani@gmail.com"
-                                />
-                            </div>
-
-                            <div class="col-12">
-                                <label
-                                    for="companyName"
-                                    class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Company Phone Number</label
-                                >
-                                <input
-                                    type="tel"
-                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    id="phoneNumber"
-                                    name="phoneNumber"
-                                    value="012345678910"
-                                />
-                            </div>
-
-                            <div class="col-12">
-                                <label
-                                    for="country"
-                                    class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Country</label
-                                >
-                                <input
-                                    type="text"
-                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    id="country"
-                                    name="country"
-                                    value="e.g. Egypt"
-                                />
-                            </div>
-
-                            <div class="col-12">
-                                <label
-                                    for="country"
-                                    class="form-label mb-3 text-primary fw-bold fs-3"
-                                >City</label
-                                >
-                                <input
-                                    type="text"
-                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    id="country"
-                                    name="country"
-                                    value="City"
-                                />
-                            </div>
-
-                            <div class="col-12">
-                                <label
-                                    for="country"
-                                    class="form-label mb-3 text-primary fw-bold fs-3"
-                                >State / Province</label
-                                >
-                                <input
-                                    type="text"
-                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    id="country"
-                                    name="country"
-                                    value="State"
-                                />
-                            </div>
-
-                            <div class="col-12">
-                                <label
-                                    for="country"
-                                    class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Postal / Zip code</label
-                                >
-                                <input
-                                    type="text"
-                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    id="country"
-                                    name="country"
-                                    value="Postal code"
-                                />
-                            </div>
-
-                            <div class="col-12">
-                                <label
-                                    for="companyName"
-                                    class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Industry</label
-                                >
-                                <input
-                                    type="text"
-                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    id="jobTitle"
-                                    name="jobTitle"
-                                    value="Industry"
-                                />
-                            </div>
-
-                            <div class="col-12">
-                                <label
-                                    for="companyName"
-                                    class="form-label mb-3 text-primary fw-bold fs-3"
-                                >About Company</label
-                                >
-                                <textarea
-                                    type="text"
-                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    id="jobTitle"
-                                    name="jobTitle"
-                                    value="Industry"
-                                    rows="12"
-                                ></textarea>
-                            </div>
-
-                            <div class="col-12">
-                                <h2 class="text-primary fw-bold ms-4">Logo</h2>
-                                <h6 class="ms-4 text-muted">Please include an image</h6>
-                                <label
-                                    class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
-                                >
-                                    <input type="file" class="d-none" placeholder="" />
-                                    Upload Image
-                                </label>
-
-                                <h6 class="ms-4 mt-2 text-muted">PDF, PNG, JPG (5 MB)</h6>
-                            </div>
-
-                            <div class="col-md-12 d-flex py-4 w-100">
-                                <button
-                                    class="btn btn-primary text-light fs-5 fw-semibold rounded-4 py-3 px-5 m-auto"
-                                    type="submit"
-                                >
-                                    Create Account
-                                </button>
-                            </div>
+                        <div class="col-12">
+                            <label
+                                for="firstName"
+                                class="form-label mb-3 text-primary fw-bold fs-3"
+                            >First Name*</label>
+                            <input
+                                type="text"
+                                class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                id="firstName"
+                                name="firstName"
+                                placeholder="First Name"
+                            />
                         </div>
-                    </form>
-                </div>
+                        <div class="col-12">
+                            <label
+                                for="secondName"
+                                class="form-label mb-3 text-primary fw-bold fs-3"
+                            >Second Name*</label
+                            >
+                            <input
+                                type="text"
+                                class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                id="secondName"
+                                name="secondName"
+                                placeholder="Second Name"
+                            />
+                        </div>
+                        <div class="col-12">
+                            <label
+                                for="email"
+                                class="form-label mb-3 text-primary fw-bold fs-3"
+                            >Email*</label
+                            >
+                            <input
+                                type="email"
+                                class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                id="email"
+                                name="email"
+                                placeholder="Email Address"
+                            />
+                        </div>
+
+                        <div class="col-12">
+                            <label
+                                for="phone"
+                                class="form-label mb-3 text-primary fw-bold fs-3"
+                            >Phone Number</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                id="phone"
+                                name="phone"
+                                placeholder="Phone Number"
+                            />
+                        </div>
+                        <div class="col-12">
+                            <label
+                                for="country"
+                                class="form-label mb-3 text-primary fw-bold fs-3"
+                            >Gender*</label>
+                            <select class="form-select text-muted border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                    id="country"
+                                    name="gender" aria-label="Default select example">
+                                <option selected>Please Select</option>
+                                <option value="1">Male</option>
+                                <option value="2">Female</option>
+                            </select>
+                            <small class="ps-5 fs-4 text-muted">Please Selecte your gender</small>
+                        </div>
+                        <div class="col-12">
+                            <label
+                                for="position"
+                                class="form-label mb-3 text-primary fw-bold fs-3"
+                            >Position*</label
+                            >
+                            <input
+                                type="text"
+                                class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                id="position"
+                                name="position"
+                                placeholder="Position"
+                            />
+                        </div>
+                        <div class="col-12">
+                            <h2 class="text-primary fw-bold ms-4 fs-3">Profile Picture</h2>
+                            <h6 class="ms-4 text-muted">Please include an image</h6>
+                            <label
+                                class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
+                            >
+                                <input type="file" class="d-none" placeholder=""/>
+                                Upload Image
+                            </label>
+
+                            <h6 class="ms-4 mt-2 text-muted">PDF, PNG, JPG (5 MB)</h6>
+                        </div>
+                        <hr>
+                        <h2 class="text-primary fw-bold">Company Information</h2>
+                        <div class="col-12">
+                            <label
+                                for="companyName"
+                                class="form-label mb-3 text-primary fw-bold fs-3"
+                            >Company Name*</label>
+                            <input
+                                type="text"
+                                class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                id="companyName"
+                                name="companyName"
+                                placeholder="Company Name"
+                            />
+                        </div>
+                        <div class="col-12">
+                            <label
+                                for="address"
+                                class="form-label mb-3 text-primary fw-bold fs-3"
+                            >Address*</label>
+                            <input
+                                type="text"
+                                class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                id="address"
+                                name="address"
+                                placeholder="Address"
+                            />
+                        </div>
+                        <div class="col-12">
+                            <label
+                                for="phone"
+                                class="form-label mb-3 text-primary fw-bold fs-3"
+                            >Company Phone Number*</label>
+                            <input
+                                type="text"
+                                class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                id="phone"
+                                name="phone"
+                                placeholder=" Company Phone Number"
+                            />
+                        </div>
+                        <div class="col-12">
+                            <label
+                                for="companyName"
+                                class="form-label mb-3 text-primary fw-bold fs-3"
+                            >About Company*</label
+                            >
+                            <textarea
+                                type="text"
+                                class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                id="jobTitle"
+                                name="jobTitle"
+                                value="Industry"
+                                rows="12"
+                            ></textarea>
+                        </div>
+                        <div class="col-12">
+                            <h2 class="text-primary fw-bold ms-4 fs-3">Company Logo</h2>
+                            <h6 class="ms-4 text-muted">Please include an image</h6>
+                            <label
+                                class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
+                            >
+                                <input type="file" class="d-none" placeholder=""/>
+                                Upload Image
+                            </label>
+
+                            <h6 class="ms-4 mt-2 text-muted">PDF, PNG, JPG (5 MB)</h6>
+                        </div>
+                        <div class="col-md-12 d-flex py-4 w-100">
+                            <button
+                                type="submit"
+                                class="btn btn-primary text-light fs-5 fw-semibold rounded-4 py-3 px-5 m-auto"
+                            >
+                                Edit Account
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
+
         </div>
 
         <!-- Edite Profile Users End  -->

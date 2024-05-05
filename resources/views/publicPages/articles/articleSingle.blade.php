@@ -7,7 +7,7 @@
     {{$categoryData->subCategory}}
 @endsection
 @section('createdDate')
-    Thursday Dec 12 2023
+    {{Carbon\Carbon::parse($articleData->created_at)->format('l M d Y')}}
 @endsection
 
 @section('publicPagesContent')
@@ -21,148 +21,100 @@
             style="height: 695px"
         >
             <img
-                src="{{asset('publicPages/images/DEI-image-header.png')}}"
+                src="{{asset('assets/images/articles/'.$articleData->image)}}"
                 class="rounded image-center"
                 alt="DEI-header-img"
             />
         </div>
         <!-- article -->
         <div class="mx-auto" style="max-width: 1225px">
+            @php
+                $paragraphs=explode("\n", $articleData->content);
+            @endphp
             <article>
                 <p>
-                    {{substr($articleData->content, 0, 500)}}
+                    {{$paragraphs[0]}}
                 </p>
-
                 <h2 class="fs-1">{{$articleData->title}}</h2>
                 <p>
-                    Molestie interdum cras sit non magna vitae purus cum. Nisi in
-                    malesuada nunc eget id maecenas. Blandit porttitor quam tempus sed
-                    at gravida urna. Egestas montes nibh aliquam luctus. Eu placerat
-                    arcu libero viverra cras. Fermentum ullamcorper velit at
-                    condimentum vulputate. Risus in vel commodo ultrices tellus
-                    convallis. Sit malesuada tempus ultricies fringilla sit nunc
-                    facilisi pretium. Felis aenean massa libero bibendum. Faucibus et
-                    imperdiet enim diam viverra. Et egestas imperdiet tempor dictum
-                    leo eu.
-
-                    Sit suscipit neque mauris fames. Sit purus nullam in et. Massa
-                    aliquet neque scelerisque sed vestibulum porta velit scelerisque.
-                    Fames egestas congue vivamus nulla sit porta arcu ultrices.
-                    Porttitor phasellus volutpat elit maecenas mauris molestie. Semper
-                    in dui lectus fames ultrices erat. Sed arcu sit scelerisque
-                    consequat amet. Consectetur purus tempus cras neque interdum arcu
-                    magna feugiat vel. Lacus molestie maecenas duis sit malesuada orci
-                    sed. Mauris augue sodales lacus eget at nunc morbi in tellus. Quis
-                    mi venenatis in tempor ultricies ridiculus. Vestibulum in mauris
-                    pellentesque platea in. Massa sagittis non quam montes sagittis
-                    elementum. Tellus amet morbi orci at aliquam. Consequat elementum
-                    scelerisque amet sollicitudin id. Scelerisque consequat habitant
-                    velit tincidunt nunc nulla habitant tristique at. Commodo in nisi
-                    vel ornare egestas in donec. In pharetra nibh platea odio. Duis
-                    lectus malesuada integer massa in integer risus dis. Facilisi
-                    integer tristique sed eu. Mi a posuere enim etiam viverra non. Dui
-                    neque turpis sed leo pharetra ultrices. A neque elit orci viverra
-                    ornare iaculis scelerisque ultricies. Faucibus scelerisque ut
-                    aliquet gravida vehicula scelerisque vitae sit ac. Leo rhoncus
-                    justo est dui placerat eros ac. Velit sed commodo quam neque sed
-                    dolor eget viverra. Eget felis diam fringilla ut quis scelerisque
-                    habitasse. Nec enim pellentesque in orci elit potenti tincidunt
-                    quam. Tempor sagittis interdum nec tincidunt libero eu a.
-                    Ultricies vulputate at venenatis ipsum consequat sed gravida vitae
-                    convallis. Sit aenean in rhoncus ipsum quam augue ultricies eu. Ac
-                    ornare dignissim in sodales. Eu nam laoreet laoreet nunc morbi
-                    amet urna.
-
-                    Neque tincidunt enim ullamcorper nullam urna. Etiam interdum
-                    posuere laoreet enim enim imperdiet. Purus viverra in fusce
-                    interdum vel magna nibh sed urna. Viverra lectus nunc molestie
-                    volutpat. Faucibus tortor semper sed pellentesque viverra ut nunc.
-                    At etiam vulputate sodales ultrices aliquet. Sem in vivamus
-                    aliquam non. Nibh tempus tristique ut suspendisse. Convallis urna
-                    orci condimentum ut quam fames. Faucibus dolor commodo sagittis
-                    sapien a amet sapien sed. Cras nec blandit sed lectus enim feugiat
-                    facilisis dolor. Ultrices viverra nam volutpat eget ut. Gravida
-                    lacus proin euismod etiam volutpat diam lacus. Dui integer nulla
-                    rhoncus maecenas in eget. Neque in hendrerit in arcu vulputate sed
-                    volutpat. Nisi pharetra ut at imperdiet sit massa montes auctor.
-                    Praesent nibh et in in. Senectus sem massa nisi iaculis ultricies
-                    ullamcorper ultrices. Lectus mi gravida tellus est mauris donec
-                    et. Pharetra semper sit viverra fames diam ultricies. In lorem
-                    commodo nunc nisi fusce sollicitudin lectus vestibulum integer.
-                    Bibendum aliquet hac porttitor elit arcu metus orci. Augue
-                    habitant pellentesque fusce blandit malesuada varius gravida
-                    rhoncus diam. Diam nulla mi bibendum in luctus urna blandit
-                    platea. Nunc orci neque ipsum varius. Nunc ornare at vestibulum
-                    aliquam tortor ut. Maecenas purus consequat eget odio viverra sed
-                    faucibus nec. Adipiscing ut mauris sit libero elit sollicitudin
-                    vel volutpat at. Purus massa eu mattis vel mauris. Fusce fermentum
-                    non leo pharetra at in auctor. Diam est non semper ipsum diam. Nec
-                    pretium habitasse tristique risus quis. Sociis aliquet nec
-                    tristique in arcu at lobortis. Id pharetra feugiat id eget
-                    accumsan tellus. Bibendum purus dictum gravida lobortis non.
-                    Tellus hendrerit pellentesque fermentum in placerat amet. Id
-                    libero justo massa ut quis ultrices. Pretium vel in ut
-                    pellentesque vel fusce. fermentum cras varius ornare tempor
-                    integer varius et. Sodales porttitor tincidunt velit viverra
-                    semper semper. At pharetra at phasellus nisl gravida curabitur.
-                    Feugiat diam lectus diam tortor cursus. Etiam at cursus sapien ut
-                    id. At enim pretium arcu faucibus fringilla lacus iaculis amet.
-                    Consequat consequat ultrices vitae ipsum. Integer enim quam eu a
-                    tellus adipiscing orci. Suspendisse pulvinar pellentesque risus
-                    velit quis lobortis magna. Porttitor vitae mauris faucibus tempus
-                    ultrices fames non congue. Turpis etiam volutpat accumsan aenean
-                    aliquam posuere bibendum sed blandit. Elementum sem elementum dui
-                    quis. Faucibus scelerisque amet vulputate vitae senectus sit et
-                    adipiscing nulla. A maecenas at commodo aliquet facilisi tellus
-                    maecenas non vel. Lobortis sed dolor id nisi nibh tincidunt.
-                    Egestas nunc turpis volutpat viverra nec aliquam sapien nunc.
-                    Scelerisque est pretium vitae dui placerat scelerisque. Mi fames
-                    velit et facilisis. In vulputate sit nunc massa lacus pellentesque
-                    sit sit. Faucibus morbi mauris nulla magna neque feugiat id.
-                    Sodales a cum quis nullam sed aenean morbi ultricies. Nisl viverra
-                    aliquet imperdiet ultrices rhoncus vitae. Duis sit dignissim
-                    sagittis aliquet et molestie tempor. Sed enim sed molestie duis
-                    ligula ultricies vitae orci. Sem adipiscing sit malesuada sit.
-                    Convallis interdum eu tincidunt sit. Rutrum suspendisse sem nunc
-                    in faucibus dictum. Ullamcorper netus elementum tortor tempor.
-                    Commodo habitant sit enim viverra. Viverra et duis eget accumsan.
-                    Semper a faucibus convallis sed. Netus id tellus semper arcu ut
-                    sed. Risus ullamcorper in sit fusce. Magna id interdum at mauris.
-                    Eu mi ut non pellentesque viverra mauris arcu. Nulla libero
-                    pulvinar dignissim tellus. Fames cursus ultrices quis augue vitae
-                    consectetur augue. Massa nisl amet turpis arcu id. Auctor vitae
-                    praesent sit eros fames eu. Egestas interdum sed libero viverra
-                    proin sem facilisi lorem viverra
+                    {{$paragraphs[1]??''}}
                 </p>
+                @if($categoryData->hasYoutubeLink)
+                    <!-- video -->
+                    <div class="row m-auto g-0 pb-3">
+                        <div class="col">
+                            <div class="card bg-light text-white border-light">
+                                <div class="ratio ratio-16x9">
+                                    <!-- Default Image -->
+                                    <img
+                                        src="{{asset('assets/images/articles/'.$articleData->image)}}"
+                                        alt="Default Video Image"
+                                        class="embed-cover"
+                                    />
+                                    <!-- Iframe for Video -->
+                                    <iframe
+                                        src="{{$articleData->youtubeLink}}"
+                                        class="youtube-video embed-cover d-none"
+                                        frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen
+                                    >
+                                    </iframe>
+                                    <!-- Custom Play Button -->
+                                    <button
+                                        type="button"
+                                        class="btn position-absolute top-50 start-50 translate-middle"
+                                        aria-label="Play Video"
+                                        onclick="playVideo(this)"
+                                    >
+                                        <img
+                                            src="{{asset('publicPages/images/video-play-btn.svg')}}"
+                                            alt="Play Video"
+                                            class="embed-cover-btn"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+                @foreach(array_slice($paragraphs,2) as $paragraph)
+                    <p>{{$paragraph}}</p>
+
+                @endforeach
+                @if($categoryData->hasSource)
+                    <div class="py-5">
+                        <p class="text-lead fs-3 mb-2 fw-600">Source </p>
+                        <p class="fw-600 fs-4">{{$articleData->sourceName}} <a
+                                href="{{$articleData->sourceLink}}">{{$articleData->sourceLink}}</a></p>
+                    </div>
+                @endif
             </article>
         </div>
-        <!-- team info -->
+    @if($categoryData->hasAuthor)
         <div class="row d-flex justify-content-center">
             <div class="col-xl-2 col-md-3 col-sm-12">
                 <div class="mt-5 rounded-circle-container">
                     <img
-                        src="{{asset('publicPages/images/DEI-image-profile.png')}}"
+                        src="{{asset('assets/images/users/'.$articleData->userImage)}}"
                         class="img-fluid"
                         alt="User-Profile-Image"
                     />
                 </div>
             </div>
             <div class="col-xl-10 col-md-9 col-sm-12">
-                <h4 class="fw-bold mt-5 pb-2">Nadia S. El-Hawrani</h4>
+                <h4 class="fw-bold mt-5 pb-2">{{$articleData->firstName}} {{$articleData->secondName}}</h4>
                 <p class="fs-4 fw-semibold mt-2 pb-2">
-                    Lorem ipsum dolor sit amet consectetur. Pellentesque faucibus mi
-                    feugiat tristique purus penatibus mauris nam libero. Non aliquam
-                    varius at amet lorem lobortis netus vulputate. Semper purus turpis
-                    vitae nunc urna sodales mauris. Vulputate sit est pharetra velit
-                    eget.
+                    {{Str::limit($articleData->description, 260)}}...
+                    <a href="{{route('authorSingle', $articleData->userSlug)}}" class="text-decoration-none text-dark fw-bold">Read more</a>
                 </p>
             </div>
         </div>
+    @endif
     </div>
-
-    @if($categoryData->hasComment)
-    {{--    if article has comment section --}}
-    @include('publicPages.includes.commentSection')
-    <!-- end container-->
+    @if($categoryData->hasComments)
+        {{--    if article has comment section --}}
+        @include('publicPages.includes.commentSection')
+        <!-- end container-->
     @endif
 @endsection
