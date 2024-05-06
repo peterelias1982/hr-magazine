@@ -13,7 +13,6 @@ class ArticleCategorySeeder extends Seeder
      */
     public function run(): void
     {
-
         ArticleCategory::create([
             'articleCategoryName' => 'Industry Insights',
             'subCategory' => 'Industry News',
@@ -33,15 +32,17 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 0,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Industry Insights',
-            'subCategory' => 'Insudtry Insights',
+            'subCategory' => 'Industry Insights',
             'hasComments' => 0,
             'hasSource' => 1,
             'hasYoutubeLink' => 0,
             'hasAuthor' => 0,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Industry Insights',
             'subCategory' => 'Industry Trends',
@@ -51,6 +52,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 0,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Industry Insights',
             'subCategory' => 'Global HR Perspectives',
@@ -60,6 +62,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 0,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Professional Development',
             'subCategory' => 'Feature Articles',
@@ -69,6 +72,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 1,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Professional Development',
             'subCategory' => 'Expert Interviews',
@@ -78,6 +82,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 1,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Ladies in HR',
             'subCategory' => 'Ladies Interviews',
@@ -87,6 +92,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 1,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Professional Development',
             'subCategory' => 'Professional Spotlights',
@@ -96,6 +102,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 1,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Professional Development',
             'subCategory' => 'Training and Development',
@@ -105,6 +112,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 1,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Ladies in HR',
             'subCategory' => 'Case Studies',
@@ -114,6 +122,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 1,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Ladies in HR',
             'subCategory' => 'Journey to Excellence',
@@ -123,6 +132,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 1,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Legal and Compliance',
             'subCategory' => 'Legal Corner',
@@ -132,6 +142,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 1,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Workplace Culture and Well-being',
             'subCategory' => 'Workplace Culture',
@@ -141,6 +152,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 1,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Workplace Culture and Well-being',
             'subCategory' => 'Diversity, Equity, and Inclusion (DEI)',
@@ -150,6 +162,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 1,
             'canModified' => 0,
         ]);
+
         ArticleCategory::create([
             'articleCategoryName' => 'Workplace Culture and Well-being',
             'subCategory' => 'Wellness Programs',
@@ -159,6 +172,7 @@ class ArticleCategorySeeder extends Seeder
             'hasAuthor' => 1,
             'canModified' => 0,
         ]);
+        
         ArticleCategory::create([
             'articleCategoryName' => 'Workplace Culture and Well-being',
             'subCategory' => 'Mental Health in the Workplace',

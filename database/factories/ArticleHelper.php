@@ -15,7 +15,7 @@ class ArticleHelper
     protected static function generateYoutubeLink($article_id, $category_id)
     {
         YoutubeLink::create([
-            'YoutubeLink' => 'https://www.youtube.com/embed/6-KKYdaNcl0?si=6r0sg_I8BrSG3OJk',
+            'YoutubeLink' => fake()->randomElement(['https://www.youtube.com/embed/Gn-tAV4eOAU?si=hwOzmAiqsBRFwcNw', 'https://www.youtube.com/embed/jcmMnBwIkYc?si=YhSDoD0F9JqlDPIo']),
             'category_id' => $category_id,
             'article_id' => $article_id,
         ]);
@@ -52,7 +52,7 @@ class ArticleHelper
         $article = Article::create([
             'title' => fake()->name(),
             'image' => fake()->randomElement($allImages),
-            'content' => fake()->text(1500),
+            'content' => fake()->text(800) . "\n" . fake()->text(800) . "\n" . fake()->text(800),
             'category_id' => $category_id,
             'author_id' => ($category->hasAuthor) ? fake()->numberBetween(1, 5) : null,
             'approved' => fake()->numberBetween(0, 1),
