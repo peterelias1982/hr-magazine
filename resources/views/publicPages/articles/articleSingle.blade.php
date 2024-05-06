@@ -36,29 +36,12 @@
                     {{$paragraphs[0]}}
                 </p>
                 <h2 class="fs-1">{{$articleData->title}}</h2>
-=========
-
-                </p>
-
-                <h2 class="fs-1"></h2>
-                <p>
-                    Molestie interdum cras sit non magna vitae purus cum. Nisi in
-                    malesuada nunc eget id maecenas. Blandit porttitor quam tempus sed
-                    at gravida urna. Egestas montes nibh aliquam luctus. Eu placerat
-                    arcu libero viverra cras. Fermentum ullamcorper velit at
-                    condimentum vulputate. Risus in vel commodo ultrices tellus
-                    convallis. Sit malesuada tempus ultricies fringilla sit nunc
-                    facilisi pretium. Felis aenean massa libero bibendum. Faucibus et
-                    imperdiet enim diam viverra. Et egestas imperdiet tempor dictum
-                    leo eu.
->>>>>>>>> Temporary merge branch 2
-
                 <p> 
                     {{$paragraphs[1]}}
                 </p>
                 @if($categoryData->hasYoutubeLink)
-                    <!-- video -->
-                    <div class="row m-auto g-0 pb-3">
+                     <!-- video -->
+                     <div class="row m-auto g-0 pb-3">
                         <div class="col">
                             <div class="card bg-light text-white border-light">
                                 <div class="ratio ratio-16x9">
