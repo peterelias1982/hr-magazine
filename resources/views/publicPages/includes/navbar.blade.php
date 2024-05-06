@@ -1,4 +1,4 @@
-<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+<form id="logout-form" action="{{route('logout')}}" method="POST" class="d-none">
     @csrf
 </form>
 <nav class="container-fluid navbar fw-semibold p-0 m-0 mb-3">
@@ -62,7 +62,7 @@
                     >
 
                         <li>
-                            <a class="dropdown-item text-white" href="{{ route('login') }}">Login</a>
+                            <a class="dropdown-item text-white" href="{{route('login')}}">Login</a>
                         </li>
                         <li>
                             <a class="dropdown-item text-white" href="{{route('register')}}">Register</a>
@@ -73,7 +73,7 @@
                             </li>
                         @else
                             <li>
-                                <a class="dropdown-item text-white" href="#">Profile</a>
+                                <a class="dropdown-item text-white" href="{{route('profile.index')}}">Profile</a>
                             </li>
                         @endcan
                         <li>

@@ -19,11 +19,11 @@ if (slideGroup) {
     const translateXValue = parseFloat(transformValue.split(",")[4] ?? 0);
 
     width = document.querySelector(".sliderWrapper").offsetWidth;
-    
+
     if (
       (currentIndex === 0 && newIndex === -1) ||
       currentIndex >= (slides.length -1) ||
-      currentIndex < 0 
+      currentIndex < 0
     ) {
       // don't move
       slides.forEach((slide) => {
@@ -37,7 +37,7 @@ if (slideGroup) {
 
       if (currentIndex === slides.length - 1 && newIndex === slides.length) {
         currentIndex = 0;
-        newIndex = -slides.length; // 3
+        newIndex = -slides.length -1; // 3
       }
 
       width = document.querySelector(".sliderWrapper").offsetWidth;

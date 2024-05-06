@@ -8,6 +8,7 @@ use App\Models\Author;
 use App\Models\SocialMedia;
 use App\Models\User;
 use App\Traits\Common;
+use App\Traits\Files;
 use App\Traits\ResetPassword;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -17,6 +18,7 @@ class AuthorController extends Controller
 {
     use Common;
     use ResetPassword;
+    use Files;
 
     /**
      * Display a listing of the resource.
@@ -187,7 +189,14 @@ class AuthorController extends Controller
         } elseif ($data['oldImage'] ?? false) {
             $image = $data['oldImage'];
         } else {
-            $image = 'default' . DIRECTORY_SEPARATOR . fake()->randomElement(['bear.png', 'chicken.png', 'dog.png', 'panda.png', 'rabbit.png']);
+            $allImages = AuthorController::getFilesFromDir(public_path('assets/images/users/default'));
+            $image = fake()->randomElement($allImages);
+
+            $imageArray = explode('-', $image);
+            $imageArray[0] = $data['gender'];
+            $image = implode('', $imageArray);
+
+            $image = 'default' . DIRECTORY_SEPARATOR . $image;
         }
 
         $preparedData['user']['image'] = $image;;

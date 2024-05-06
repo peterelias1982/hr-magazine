@@ -1,4 +1,4 @@
-{{-- This file if the employer wants to edit his Data --}}
+{{-- This file if the user wants to edit his Data --}}
 @extends('publicPages.layouts.main')
 
 @section('publicPagesContent')
@@ -18,16 +18,15 @@
                 <button
                     class="nxt-btn btn mb-2 mx-0 btn-dark text-white rounded-0 py-2 w-100 fw-bold"
                 >
-                    Employer Profile
+                    User Profile
                 </button>
             </div>
 
-            <div class="row py-5 px-md-5 px-1 g-0" id="employer">
-                <form>
-                    <div class="row gy-5">
-
-                        <h2 class="text-primary fw-bold">User Information</h2>
-
+            <div class="row py-5 px-md-5 px-1 g-0" id="user">
+                <form action="{{route('profile.update',$user->slug)}}" method="post" enctype="multipart/form-data">
+                    @csrf  
+                    @method('put')
+                    <div class="row gy-5 ">
                         <div class="col-12">
                             <label
                                 for="firstName"
@@ -38,6 +37,7 @@
                                 class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                 id="firstName"
                                 name="firstName"
+                                value="{{$user->firstName}}"
                                 placeholder="First Name"
                             />
                         </div>
@@ -52,6 +52,7 @@
                                 class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                 id="secondName"
                                 name="secondName"
+                                value="{{$user->secondName}}"
                                 placeholder="Second Name"
                             />
                         </div>
@@ -59,6 +60,7 @@
                             <label
                                 for="email"
                                 class="form-label mb-3 text-primary fw-bold fs-3"
+                              
                             >Email*</label
                             >
                             <input
@@ -66,10 +68,10 @@
                                 class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                 id="email"
                                 name="email"
+                                  value="{{$user->email}}"
                                 placeholder="Email Address"
                             />
                         </div>
-
                         <div class="col-12">
                             <label
                                 for="phone"
@@ -79,8 +81,9 @@
                             <input
                                 type="text"
                                 class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                id="phone"
-                                name="phone"
+                                id="mobile"
+                                name="mobile"
+                                value="{{$user->mobile}}"
                                 placeholder="Phone Number"
                             />
                         </div>
@@ -92,9 +95,9 @@
                             <select class="form-select text-muted border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="country"
                                     name="gender" aria-label="Default select example">
-                                <option selected>Please Select</option>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
+                                    <option value="">-</option>
+                                    <option value="{{\App\Enums\Gender::Male->value}}" @selected($user->gender === \App\Enums\Gender::Male->value)>Male</option>
+                                    <option value="{{\App\Enums\Gender::Female->value}}" @selected($user->gender === \App\Enums\Gender::Female->value)>Female</option>
                             </select>
                             <small class="ps-5 fs-4 text-muted">Please Selecte your gender</small>
                         </div>
@@ -109,6 +112,7 @@
                                 class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                 id="position"
                                 name="position"
+                                value="{{$user->position}}"
                                 placeholder="Position"
                             />
                         </div>
@@ -118,80 +122,21 @@
                             <label
                                 class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
                             >
-                                <input type="file" class="d-none" placeholder=""/>
+                            <input name="oldImage" type="hidden" value="{{$user->image}}">
+                                <input type="file" name="image" class="d-none" placeholder=""/>
                                 Upload Image
                             </label>
+                           
+                            <h6 class="ms-4 mt-2 text-muted">PNG, JPG (5 MB)</h6>
+                        </div>
+ <img
+                                                    src="{{asset('assets/images/users/'.$user->image)}}"
+                                                    alt="notfound"
+                                                    id="user-pic"
+                                                   width="300" height="300"
+                                                />
+                                               
 
-                            <h6 class="ms-4 mt-2 text-muted">PDF, PNG, JPG (5 MB)</h6>
-                        </div>
-                        <hr>
-                        <h2 class="text-primary fw-bold">Company Information</h2>
-                        <div class="col-12">
-                            <label
-                                for="companyName"
-                                class="form-label mb-3 text-primary fw-bold fs-3"
-                            >Company Name*</label>
-                            <input
-                                type="text"
-                                class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                id="companyName"
-                                name="companyName"
-                                placeholder="Company Name"
-                            />
-                        </div>
-                        <div class="col-12">
-                            <label
-                                for="address"
-                                class="form-label mb-3 text-primary fw-bold fs-3"
-                            >Address*</label>
-                            <input
-                                type="text"
-                                class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                id="address"
-                                name="address"
-                                placeholder="Address"
-                            />
-                        </div>
-                        <div class="col-12">
-                            <label
-                                for="phone"
-                                class="form-label mb-3 text-primary fw-bold fs-3"
-                            >Company Phone Number*</label>
-                            <input
-                                type="text"
-                                class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                id="phone"
-                                name="phone"
-                                placeholder=" Company Phone Number"
-                            />
-                        </div>
-                        <div class="col-12">
-                            <label
-                                for="companyName"
-                                class="form-label mb-3 text-primary fw-bold fs-3"
-                            >About Company*</label
-                            >
-                            <textarea
-                                type="text"
-                                class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                id="jobTitle"
-                                name="jobTitle"
-                                value="Industry"
-                                rows="12"
-                            ></textarea>
-                        </div>
-                        <div class="col-12">
-                            <h2 class="text-primary fw-bold ms-4 fs-3">Company Logo</h2>
-                            <h6 class="ms-4 text-muted">Please include an image</h6>
-                            <label
-                                class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
-                            >
-                                <input type="file" class="d-none" placeholder=""/>
-                                Upload Image
-                            </label>
-
-                            <h6 class="ms-4 mt-2 text-muted">PDF, PNG, JPG (5 MB)</h6>
-                        </div>
                         <div class="col-md-12 d-flex py-4 w-100">
                             <button
                                 type="submit"
@@ -201,9 +146,9 @@
                             </button>
                         </div>
                     </div>
+
                 </form>
             </div>
-
         </div>
 
         <!-- Edite Profile Users End  -->

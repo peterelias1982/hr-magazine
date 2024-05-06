@@ -30,7 +30,7 @@
                                 <label
                                     for="companyName"
                                     class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Job Title</label
+                                >Job Title*</label
                                 >
                                 <input
                                     type="text"
@@ -45,7 +45,7 @@
                                 <label
                                     for="companyName"
                                     class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Job Category</label
+                                >Job Category*</label
                                 >
                                 <select
                                     class="form-select text-muted border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
@@ -63,7 +63,7 @@
                                 <label
                                     for="companyName"
                                     class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Career Level</label
+                                >Career Level*</label
                                 >
                                 <select
                                     class="form-select text-muted border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
@@ -81,7 +81,7 @@
                                 <label
                                     for="companyName"
                                     class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Company Name</label
+                                >Company Name*</label
                                 >
                                 <input
                                     type="text"
@@ -96,7 +96,7 @@
                                 <label
                                     for="companyName"
                                     class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Applying Deadline</label
+                                >Applying Deadline*</label
                                 >
                                 <input
                                     type="date"
@@ -112,7 +112,94 @@
                                 <label
                                     for="companyName"
                                     class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Business Email</label
+                                >Street Number*</label
+                                >
+                                <input
+                                    type="number"
+                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                    id="companyName"
+                                    name="companyName"
+                                    placeholder="Street Number"
+                                />
+                            </div>
+
+                            <div class="col-12">
+                                <label
+                                    for="companyName"
+                                    class="form-label mb-3 text-primary fw-bold fs-3"
+                                >Street Name*</label
+                                >
+                                <input
+                                    type="text"
+                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                    name="companyName"
+                                    value="Street Number"
+                                />
+                            </div>
+                            <div class="col-12">
+                                <label
+                                    for="companyName"
+                                    class="form-label mb-3 text-primary fw-bold fs-3"
+                                >City*</label
+                                >
+                                <input
+                                    type="text"
+                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                    id="city"
+                                    name="city"
+                                    value="City"
+                                />
+                            </div>
+                            <div class="col-12">
+                                <label
+                                    for="companyName"
+                                    class="form-label mb-3 text-primary fw-bold fs-3"
+                                >State / Province*</label
+                                >
+                                <input
+                                    type="text"
+                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                    id="companyName"
+                                    name="companyName"
+                                    value="Street Number"
+                                />
+                            </div>
+
+                            <div class="col-12">
+                                <label
+                                    for="companyName"
+                                    class="form-label mb-3 text-primary fw-bold fs-3"
+                                >Postal Code*</label
+                                >
+                                <input
+                                    type="text"
+                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                    id="companyName"
+                                    name="companyName"
+                                    value="Street Number"
+                                />
+                            </div>
+
+                            <div class="col-12">
+                                <label
+                                    for="companyName"
+                                    class="form-label mb-3 text-primary fw-bold fs-3"
+                                >Country*</label
+                                >
+                                <input
+                                    type="text"
+                                    class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
+                                    id="companyName"
+                                    name="companyName"
+                                    value="Street Number"
+                                />
+                            </div>
+
+                            <div class="col-12">
+                                <label
+                                    for="companyName"
+                                    class="form-label mb-3 text-primary fw-bold fs-3"
+                                >Business Email*</label
                                 >
                                 <input
                                     type="email"
@@ -122,27 +209,27 @@
                                     value="Amged S. El-Hawrani@gmail.com"
                                 />
                             </div>
-
                             <div class="col-12">
                                 <label
                                     for="companyName"
                                     class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Company Phone Number</label
+                                >About Company*</label
                                 >
-                                <input
-                                    type="tel"
+                                <textarea
+                                    type="text"
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    id="phoneNumber"
-                                    name="phoneNumber"
-                                    value="012345678910"
-                                />
+                                    id="jobTitle"
+                                    name="jobTitle"
+                                    value="Industry"
+                                    rows="12"
+                                >
+                                </textarea>
                             </div>
-
                             <div class="col-12">
                                 <label
                                     for="companyName"
                                     class="form-label mb-3 text-primary fw-bold fs-3"
-                                >Job Description</label
+                                >Job Description*</label
                                 >
                                 <textarea
                                     type="text"
@@ -166,8 +253,8 @@ Consequuntur animi ducimus nesciunt ex aliquam, unde eveniet laudantium exceptur
                             </div>
 
                             <div class="col-12">
-                                <h2 class="text-primary fw-bold ms-4">Post image</h2>
-                                <h6 class="ms-4 text-muted">Please include an image(Optional)</h6>
+                                <h2 class="text-primary fw-bold ms-4">Post image*</h2>
+                                <h6 class="ms-4 text-muted">Please include an image</h6>
                                 <label
                                     class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
                                 >

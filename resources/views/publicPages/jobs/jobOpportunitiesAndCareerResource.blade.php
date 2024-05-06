@@ -1,7 +1,6 @@
 @extends('publicPages.layouts.main')
 
 @section('publicPagesContent')
-    <!-- start of content -->
     <!-- section 1 -->
     <div class="container-fluid g-0 bg-light pt-3 pb-3 px-md-5 px-1">
         <div class="row py-4 justify-content-center">

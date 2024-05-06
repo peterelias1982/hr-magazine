@@ -124,11 +124,5 @@ return [
     ],
       
     
-    'aliases' => array(
-
-        //...
-        'OEmbed' => 'Cohensive\OEmbed\Facades\OEmbed'
-        //...
-    
-    )
+   
 ];
