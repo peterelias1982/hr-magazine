@@ -20,6 +20,7 @@
         </div>
         <div class="row d-flex overflow-auto" style="max-height: 200vh;">
             @include('publicPages.includes.employerOffcanvas')
+            @if(count($jobs) !== 0)
             <div class="col-xl-8 col-md-12 col-sm-12">
                 <h2 class="text-primary fw-bold mt-5 ms-4">Jobs Posted</h2>
               @foreach ($jobs as $job)
@@ -49,23 +50,23 @@
                         <h3 class="px-3 pt-2 pb-2 fw-bold">
                             Job Description:&nbsp;
                             <span class="fw-normal">
-                                {{$job->content}}
-                                
+                                {{Str::limit($job->content, 400)}}
+
                                 <a href="{{route('jobs.jobDetails',[$job->slug])}}" class="text-decoration-none text-black text-decoration-none"><span class="fw-semibold   "> Read more</span> </a>
                 </span>
                         </h3>
                     </div>
                 </div>
-            </div> 
+            </div>
               @endforeach
-               
+
                 <!-- CV  -->
                 <h2 class="text-primary fw-bold mt-5 ms-4">Find CVs</h2>
                 @foreach ($jobApplied as $jobapply)
                 <div class="block border border-dark border rounded-4 mt-4 mx-4">
                     <div class="row d-flex justify-content-center">
                         <div class="col-xl-2 col-md-3 ">
-                            <div class="mt-5 ms-3">
+                            <div class="my-3 ms-3">
                                 <img
                                     src="{{asset('assets/images/users/'.$jobapply->image)}}"
                                     class="img-fluid"
@@ -76,14 +77,18 @@
                         <div class="col-xl-10 col-md-9 ">
                             <h3 class="mt-5 pb-2 fw-bold">{{$jobapply->title}}</h3>
                             <h4 class="fw-semibold">{{$jobapply->firstName}} {{$jobapply->secondName}}</h4>
-                           
+
                         </div>
                     </div>
                 </div>
                 @endforeach
-              
-            </div>
 
+            </div>
+            @else
+                <div class="col-xl-8 col-md-12 col-sm-12">
+                    <h2 class="text-primary fw-bold mt-5 ms-4">No Jobs Posted</h2>
+                </div>
+            @endif
         </div>
     </div>
 @endsection

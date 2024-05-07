@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CareerLevel;
+use App\Models\Employer;
 use Carbon\Carbon;
 use App\Traits\Common;
 use App\Models\JobDetail;
 use App\Models\JobCategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\StoreJobsRequest;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -16,28 +19,49 @@ class JobController extends Controller
 
     function index()
     {
-        $jobs = JobDetail::where("employer_id", 1)->get();
-        $jobApplied = DB::table('job_applieds')
-            ->join('job_details', 'job_applieds.jobDetail_id', '=', 'job_details.id')
-            ->join('job_seekers', 'job_applieds.jobSeeker_id', '=', 'job_seekers.id')
-            ->where("job_details.employer_id", 4)
-            ->join('users', 'job_seekers.user_id', '=', 'users.id')->get();
-        return view('publicPages.jobs.jobsPosted', compact('jobs', "jobApplied"));
+        try {
+            $employer = Employer::where('user_id', Auth::user()->id)->first();
+
+            if (!$employer) {
+                throw new ResourceNotFoundException("Not Found");
+            }
+
+            $jobs = JobDetail::where("employer_id", $employer->id)->get();
+
+            $jobApplied = DB::table('job_applieds')
+                ->join('job_details', 'job_applieds.jobDetail_id', '=', 'job_details.id')
+                ->join('job_seekers', 'job_applieds.jobSeeker_id', '=', 'job_seekers.id')
+                ->where("job_details.employer_id", $employer->id)
+                ->join('users', 'job_seekers.user_id', '=', 'users.id')->get();
+
+            return view('publicPages.jobs.jobsPosted', compact('jobs', "jobApplied"));
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->route('index')
+                ->with(['messages' => json_encode(['error' => ['Error: ' . $exception->getMessage()]])]);
+        }
     }
 
     function create()
     {
         $jobCategory = JobCategory::get();
-        $levels = ["entry level", "intermediate level", "expert level"];
+        $levels = CareerLevel::cases();
+
         return view("publicPages.jobs.postJob", compact('jobCategory', "levels"));
     }
 
     function store(StoreJobsRequest $request)
     {
         try {
+            $employer = Employer::where('user_id', Auth::user()->id)->first();
+
+            if (!$employer) {
+                throw new ResourceNotFoundException("Not Found");
+            }
+
             $data = $request->except('_token');
             $data['image'] = $this->uploadFile($data['image'], 'assets/images/jobs');
-            $data["employer_id"] = 1;
+            $data["employer_id"] = $employer->id;
             JobDetail::create($data);
             return redirect()
                 ->route('jobs.jobsPosted')

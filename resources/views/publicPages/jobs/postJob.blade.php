@@ -44,7 +44,7 @@
                                 <p style="color: red"> {{$message}}</p>
                             @enderror
                             </div>
-                          
+
 
                             <div class="col-12">
                                 <label
@@ -61,7 +61,7 @@
                                     @foreach ($jobCategory as $Category )
                                     <option value="{{$Category->id}}" @selected($Category->id==old('category_id')) > {{$Category->category}}</option>
                                     @endforeach
-                                 
+
                                 </select>
                                 @error('category_id')
                                 <p style="color: red"> {{$message}}</p>
@@ -81,10 +81,10 @@
                                 >
                                     <option value="" >Career Level</option>
                                     @foreach ($levels as $level)
-                                    <option value="{{$level}}"  @selected($level==old('careerLevel'))>{{$level}}</option>
+                                    <option value="{{$level->value}}"  @selected($level->value==old('careerLevel'))>{{$level->value}}</option>
 
                                     @endforeach
-                                  
+
                                 </select>
                                 @error('careerLevel')
                                 <p style="color: red"> {{$message}}</p>
@@ -298,13 +298,13 @@
                                     <input type="file" class="d-none" placeholder=""  name="image" />
 
                                     Upload Image
-                                 
+
                                 </label>
                                 @error('image')
                                 <p style="color: red" class="ms-4 mt-2"> {{$message}}</p>
                             @enderror
                                 <h6 class="ms-4 mt-2 text-muted">PDF, PNG, JPG (5 MB)</h6>
-                              
+
                             </div>
 
                             <div class="col-md-12 d-flex py-4 w-100">
