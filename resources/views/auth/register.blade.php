@@ -66,7 +66,11 @@
                                 id="secondName"
                                 name="secondName"
                                 placeholder="Second Name"
+                                value="{{old('secondName')}}
                             />
+                             @error('secondName')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -80,7 +84,11 @@
                                 id="email"
                                 name="email"
                                 placeholder="Email Address"
+                                 value="{{old('email')}}
                             />
+                             @error('email')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -93,7 +101,11 @@
                                 id="password"
                                 name="password"
                                 placeholder="Password"
+                               value="{{old('password')}}
                             />
+                             @error('password')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -107,7 +119,11 @@
                                 id="confirm-password"
                                 name="password_confirmation"
                                 placeholder="Confirm Password"
+                            value="{{old('password_confirmation')}}
                             />
+                             @error('password_confirmation')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -121,7 +137,11 @@
                                 id="phone"
                                 name="mobile"
                                 placeholder="Phone Number"
+                             value="{{old('mobile')}}
                             />
+                             @error('mobile')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -149,7 +169,11 @@
                                 id="position"
                                 name="position"
                                 placeholder="Position"
+                              value="{{old('position')}}
                             />
+                             @error('position')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <h2 class="text-primary fw-bold ms-4 fs-3">Profile Picture</h2>
@@ -157,7 +181,12 @@
                             <label
                                 class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
                             >
-                                <input type="file" class="d-none" placeholder="" name="image"/>
+                                <input type="file" class="d-none" placeholder="" name="image"
+                                  value="{{old('image')}}
+                            />
+                             @error('image')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                                 Upload Image
                             </label>
 
@@ -252,7 +281,11 @@
                                 id="secondName"
                                 name="secondName"
                                 placeholder="Second Name"
+                              value="{{old('secondName')}}
                             />
+                             @error('secondName')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -266,7 +299,11 @@
                                 id="email"
                                 name="email"
                                 placeholder="Email Address"
+                             value="{{old('email')}}
                             />
+                             @error('email')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -279,7 +316,11 @@
                                 id="password"
                                 name="password"
                                 placeholder="Password"
+                              value="{{old('password')}}
                             />
+                             @error('password')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -293,7 +334,11 @@
                                 id="confirm-password"
                                 name="password_confirmation"
                                 placeholder="Confirm Password"
+                               value="{{old('password_confirmation')}}
                             />
+                             @error('password_confirmation')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -307,7 +352,11 @@
                                 id="phone"
                                 name="mobile"
                                 placeholder="Phone Number"
+                              value="{{old('mobile')}}
                             />
+                             @error('mobile')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -335,7 +384,11 @@
                                 id="position"
                                 name="position"
                                 placeholder="Position"
+                               value="{{old('position')}}
                             />
+                             @error('position')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <h2 class="text-primary fw-bold ms-4 fs-3">Profile Picture</h2>
@@ -343,7 +396,12 @@
                             <label
                                 class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
                             >
-                                <input type="file" class="d-none" placeholder="" name="image"/>
+                                <input type="file" class="d-none" placeholder="" name="image"
+                                   value="{{old('image')}}
+                            />
+                             @error('image')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                                 Upload Image
                             </label>
 
