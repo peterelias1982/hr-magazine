@@ -13,11 +13,6 @@ class PublicEmployer extends Controller
 {
     use Common;
 
-    public function __invoke()
-    {
-        return view('publicPages.404');
-    }
-
     /**
      * Display a listing of the resource.
      */

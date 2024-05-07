@@ -60,26 +60,29 @@
                         class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
                         aria-labelledby="accountDropdown"
                     >
-
-                        <li>
-                            <a class="dropdown-item text-white" href="{{ route('login') }}">Login</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item text-white" href="{{route('register')}}">Register</a>
-                        </li>
-                        @can('viewAdminDashboard')
+                        @guest
                             <li>
-                                <a class="dropdown-item text-white" href="{{route('admin.admins.index')}}">Admin Dashboard</a>
+                                <a class="dropdown-item text-white" href="{{ route('login') }}">Login</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-white" href="{{route('register')}}">Register</a>
                             </li>
                         @else
+                            @can('viewAdminDashboard')
+                                <li>
+                                    <a class="dropdown-item text-white" href="{{route('admin.admins.index')}}">Admin
+                                        Dashboard</a>
+                                </li>
+                            @else
+                                <li>
+                                    <a class="dropdown-item text-white" href="#">Profile</a>
+                                </li>
+                            @endcan
                             <li>
-                                <a class="dropdown-item text-white" href="#">Profile</a>
+                                <a class="dropdown-item text-white"
+                                   href="javascript:document.getElementById('logout-form').submit();">Logout</a>
                             </li>
-                        @endcan
-                        <li>
-                            <a class="dropdown-item text-white"
-                               href="javascript:document.getElementById('logout-form').submit();">Logout</a>
-                        </li>
+                        @endguest
                     </ul>
                 </div>
             </div>
@@ -298,12 +301,12 @@
                             aria-labelledby="navbarDropdownEvents"
                         >
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{route('event.allEvents')}}"
                                 >Upcoming Events</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{route('event.eventCalender')}}"
                                 >Event Calendar</a
                                 >
                             </li>

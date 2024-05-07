@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('article_comments', function (Blueprint $table) {
             $table->id();
             $table->text('content');
+            $table->boolean('is_deleted')
+                ->default(0);
             $table->foreignId('user_id')
                 ->references('id')
                 ->on('users')

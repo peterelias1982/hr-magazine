@@ -31,58 +31,6 @@
                         <div class="col my-4">
                             <h2 class="fw-bold">
                                 Available Jobs
-                                <span class="float-end">
-                      Sort By:
-                      <span class="dropdown">
-                        <button
-                            type="button"
-                            class="bg-light border-0 text-muted dropdown-toggle"
-                            data-bs-toggle="dropdown"
-                        >
-                          Publish Date
-                        </button>
-                        <ul
-                            class="dropdown-menu dropdown-menu-dark bg-light"
-                            aria-labelledby="navbarDropdownBrowseJobsDate"
-                        >
-                          <li>
-                            <a
-                                class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                href="#"
-                            >All</a
-                            >
-                          </li>
-                          <li>
-                            <a
-                                class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark border-bottom text-dark"
-                                href="#"
-                            >Today</a
-                            >
-                          </li>
-                          <li>
-                            <a
-                                class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark border-bottom text-dark"
-                                href="#"
-                            >This Week</a
-                            >
-                          </li>
-                          <li>
-                            <a
-                                class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark border-bottom text-dark"
-                                href="#"
-                            >This Month</a
-                            >
-                          </li>
-                          <li>
-                            <a
-                                class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark border-bottom text-dark"
-                                href="#"
-                            >This Year</a
-                            >
-                          </li>
-                        </ul>
-                      </span>
-                    </span>
                             </h2>
                         </div>
                     </nav>
@@ -109,6 +57,8 @@
                                 id="browseJobs"
                             >
                                 <div class="row justify-content-between w-100">
+                                    <form action="{{route('jobs.browseJobs')}}" method="GET" id="filter">
+                                    </form>
                                     <div
                                         class="col-md-5 d-flex align-items-center  bg-white rounded-4 border border-dark mt-2 px-2"
                                     >
@@ -119,11 +69,11 @@
                                             style="max-width: 56px; aspect-ratio: 1"
                                         />
                                         <input
-                                            type="text"
+                                            type="text" form="filter" name="search"
                                             class="form-control border-0 fw-bold fs-2 opacity-50 flex-grow-1"
                                             placeholder=" Search..."
                                         />
-                                        <button type="button" class="btn p-0">
+                                        <button type="button" class="btn p-0" form="filter">
                                             <img
                                                 src="{{asset('publicPages/images/close-icon2.svg')}}"
                                                 alt="Close"
@@ -131,115 +81,9 @@
                                             />
                                         </button>
                                     </div>
+
                                     <ul class="col-lg-6 col-xl-4 navbar-nav ps-4 me-0">
-                                        <li class="nav-item dropdown me-3">
-                                            <a
-                                                class="nav-link text-white dropdown-toggle fs-3 fw-bold"
-                                                href="#"
-                                                id="navbarDropdownBrowseJobsDate"
-                                                role="button"
-                                                data-bs-toggle="dropdown"
-                                                aria-expanded="false"
-                                            >
-                                                Date
-                                            </a>
-                                            <ul
-                                                class="dropdown-menu dropdown-menu-dark bg-light overflow-auto"
-                                                aria-labelledby="navbarDropdownBrowseJobsDate"
-                                                style="max-height: 20rem"
-                                            >
-                                                <li>
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        Any
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        May 2024
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        April 2024
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        March 2024
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        February 2024
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        January 2024
-                                                    </label>
-                                                </li>
-                                            </ul>
-                                        </li>
+
                                         <li class="nav-item dropdown me-3">
                                             <a
                                                 class="nav-link text-white dropdown-toggle fs-3 fw-bold"
@@ -262,8 +106,8 @@
                                                         href="#"
                                                     >
                                                         <input type="checkbox" class=" form-check-input"
-                                                               id="checkbox1" name="optcheckbox"
-                                                               value="option1"> All
+                                                               id="checkbox1" name="optcheckbox[]"
+                                                               value="All" form="filter"> All
                                                     </label>
                                                 </li>
                                                 <li>
@@ -275,8 +119,8 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox[]"
+                                                            value="Cairo" form="filter"
                                                         />
                                                         Cairo
                                                     </label>
@@ -290,8 +134,9 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox[]"
+                                                            value="Giza"
+                                                            form="filter"
                                                         />
                                                         Giza
                                                     </label>
@@ -305,8 +150,9 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox[]"
+                                                            value="Alexandria"
+                                                            form="filter"
                                                         />
                                                         Alexandria
                                                     </label>
@@ -320,8 +166,9 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox[]"
+                                                            value="Sadat City"
+                                                            form="filter"
                                                         />
                                                         Sadat City
                                                     </label>
@@ -335,8 +182,9 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox[]"
+                                                            value="Aswan"
+                                                            form="filter"
                                                         />
                                                         Aswan
                                                     </label>
@@ -350,8 +198,9 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox[]"
+                                                            value="Luxor"
+                                                            form="filter"
                                                         />
                                                         Luxor
                                                     </label>
@@ -365,8 +214,9 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox[]"
+                                                            value="Hurghada"
+                                                            form="filter"
                                                         />
                                                         Hurghada
                                                     </label>
@@ -380,8 +230,9 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox[]"
+                                                            value="Sharm El Sheikh"
+                                                            form="filter"
                                                         />
                                                         Sharm El Sheikh
                                                     </label>
@@ -395,8 +246,9 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox[]"
+                                                            value="Ismailia"
+                                                            form="filter"
                                                         />
                                                         Ismailia
                                                     </label>
@@ -410,8 +262,9 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox[]"
+                                                            value="Sohag"
+                                                            form="filter"
                                                         />
                                                         Sohag
                                                     </label>
@@ -425,8 +278,9 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox[]"
+                                                            value="6th of October City"
+                                                            form="filter"
                                                         />
                                                         6th of October City
                                                     </label>
@@ -440,8 +294,9 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox[]"
+                                                            value="10th of Ramadan City"
+                                                            form="filter"
                                                         />
                                                         10th of Ramadan City
                                                     </label>
@@ -473,12 +328,14 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            form="filter"
+                                                            name="optcheckbox2[]"
+                                                            value="All"
                                                         />
                                                         All
                                                     </label>
                                                 </li>
+                                                @foreach($categories as $cat)
                                                 <li class="px-2">
                                                     <label
                                                         class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
@@ -488,117 +345,14 @@
                                                             type="checkbox"
                                                             class="form-check-input"
                                                             id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
+                                                            name="optcheckbox2[]"
+                                                            value="{{$cat->category}}"
+                                                            form="filter"
                                                         />
-                                                        Arts
+                                                        {{$cat->category}}
                                                     </label>
                                                 </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        Education & study & training
-                                                    </label>
-                                                </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        Business
-                                                    </label>
-                                                </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        Sales
-                                                    </label>
-                                                </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        Communications
-                                                    </label>
-                                                </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        Finance
-                                                    </label>
-                                                </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        Legal
-                                                    </label>
-                                                </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox"
-                                                            value="option1"
-                                                        />
-                                                        Technology
-                                                    </label>
-                                                </li>
+                                                @endforeach
                                             </ul>
                                         </li>
                                     </ul>
@@ -609,114 +363,23 @@
                 </div>
 
                 <div class="col">
-                    <div class="card-body">
-                        <h5 class="card-title text-dark fw-bold fs-3 m-3">Jobs Name</h5>
-                        <p class="card-text fs-6 text-dark mx-auto ms-3">
-                            Lorem ipsum dolor sit amet consectetur. Pellentesque faucibus
-                            mi feugiat tristique purus penatibus mauris nam libero. Non
-                            aliquam varius at amet lorem lobortis netus vulputate. Semper
-                            purus turpis vitae nunc urna sodales mauris. Vulputate sit est
-                            pharetra velit eget.
-                        </p>
-                        <div class="col-md-12 d-flex py-4 w-100">
-                            <button
-                                type="submit"
-                                class="btn btn-primary text-light rounded-4 fs-4 fw-semibold px-5 py-2 m-auto"
-                            >
-                                Apply Job
-                            </button>
+                    @foreach ($jobs as $job)
+                        <div class="card-body">
+                            <h5 class="card-title text-dark fw-bold fs-3 m-3">{{$job->title}}</h5>
+                            <p class="card-text fs-6 text-dark mx-auto ms-3">
+                                {{Str::limit($job->content, 300)}}
+                            </p>
+                            <div class="col-md-12 d-flex py-4 w-100">
+                                <a
+                                    href="{{route('jobs.jobDetails', $job->jobSlug)}}"
+                                    class="btn btn-primary text-light rounded-4 fs-4 fw-semibold px-5 py-2 m-auto"
+                                >
+                                    Read more
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title text-dark fw-bold fs-3 m-3">Jobs Name</h5>
-                        <p class="card-text fs-6 text-dark mx-auto ms-3">
-                            Lorem ipsum dolor sit amet consectetur. Pellentesque faucibus
-                            mi feugiat tristique purus penatibus mauris nam libero. Non
-                            aliquam varius at amet lorem lobortis netus vulputate. Semper
-                            purus turpis vitae nunc urna sodales mauris. Vulputate sit est
-                            pharetra velit eget.
-                        </p>
-                        <div class="col-md-12 d-flex py-4 w-100">
-                            <button
-                                type="submit"
-                                class="btn btn-primary text-light rounded-4 fs-4 fw-semibold px-5 py-2 m-auto"
-                            >
-                                Apply Job
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title text-dark fw-bold fs-3 m-3">Jobs Name</h5>
-                        <p class="card-text fs-6 text-dark mx-auto ms-3">
-                            Lorem ipsum dolor sit amet consectetur. Pellentesque faucibus
-                            mi feugiat tristique purus penatibus mauris nam libero. Non
-                            aliquam varius at amet lorem lobortis netus vulputate. Semper
-                            purus turpis vitae nunc urna sodales mauris. Vulputate sit est
-                            pharetra velit eget.
-                        </p>
-                        <div class="col-md-12 d-flex py-4 w-100">
-                            <button
-                                type="submit"
-                                class="btn btn-primary text-light rounded-4 fs-4 fw-semibold px-5 py-2 m-auto"
-                            >
-                                Apply Job
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title text-dark fw-bold fs-3 m-3">Jobs Name</h5>
-                        <p class="card-text fs-6 text-dark mx-auto ms-3">
-                            Lorem ipsum dolor sit amet consectetur. Pellentesque faucibus
-                            mi feugiat tristique purus penatibus mauris nam libero. Non
-                            aliquam varius at amet lorem lobortis netus vulputate. Semper
-                            purus turpis vitae nunc urna sodales mauris. Vulputate sit est
-                            pharetra velit eget.
-                        </p>
-                        <div class="col-md-12 d-flex py-4 w-100">
-                            <button
-                                type="submit"
-                                class="btn btn-primary text-light rounded-4 fs-4 fw-semibold px-5 py-2 m-auto"
-                            >
-                                Apply Job
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title text-dark fw-bold fs-3 m-3">Jobs Name</h5>
-                        <p class="card-text fs-6 text-dark mx-auto ms-3">
-                            Lorem ipsum dolor sit amet consectetur. Pellentesque faucibus
-                            mi feugiat tristique purus penatibus mauris nam libero. Non
-                            aliquam varius at amet lorem lobortis netus vulputate. Semper
-                            purus turpis vitae nunc urna sodales mauris. Vulputate sit est
-                            pharetra velit eget.
-                        </p>
-                        <div class="col-md-12 d-flex py-4 w-100">
-                            <button
-                                type="submit"
-                                class="btn btn-primary text-light rounded-4 fs-4 fw-semibold px-5 py-2 m-auto"
-                            >
-                                Apply Job
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title text-dark fw-bold fs-3 m-3">Jobs Name</h5>
-                        <p class="card-text fs-6 text-dark mx-auto ms-3">
-                            Lorem ipsum dolor sit amet consectetur. Pellentesque faucibus
-                            mi feugiat tristique purus penatibus mauris nam libero. Non
-                            aliquam varius at amet lorem lobortis netus vulputate. Semper
-                            purus turpis vitae nunc urna sodales mauris. Vulputate sit est
-                            pharetra velit eget.
-                        </p>
-                        <div class="col-md-12 d-flex py-4 w-100">
-                            <button
-                                type="submit"
-                                class="btn btn-primary text-light rounded-4 fs-4 fw-semibold px-5 py-2 m-auto"
-                            >
-                                Apply Job
-                            </button>
-                        </div>
-                    </div>
+
+                    @endforeach
                     <h5 class="ms-3 mb-3 fs-3 fw-bold">
                         If you dont Found your jobs , click
                         <a href="#" class="text-primary"> here </a>

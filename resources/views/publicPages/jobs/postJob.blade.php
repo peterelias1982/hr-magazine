@@ -24,7 +24,8 @@
 
             <div class="row d-flex mb-5 bg-light">
                 <div class="col-xl-12 col-md-12 col-sm-12 py-5 px-md-5 px-1 g-0">
-                    <form>
+                    <form action="{{route('jobs.store')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="card-block justify-content-center row gy-5">
                             <div class="col-12">
                                 <label
@@ -36,10 +37,14 @@
                                     type="text"
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="firstName"
-                                    name="firstName"
-                                    value="Job Title"
+                                    name="title"
+                                    value="{{old('title')}}"
                                 />
+                                @error('title')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
                             </div>
+
 
                             <div class="col-12">
                                 <label
@@ -50,13 +55,17 @@
                                 <select
                                     class="form-select text-muted border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="country"
-                                    aria-label="Default select example"
+                                    aria-label="Default select example" name="category_id"
                                 >
                                     <option selected>Please Select</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    @foreach ($jobCategory as $Category )
+                                    <option value="{{$Category->id}}" @selected($Category->id==old('category_id')) > {{$Category->category}}</option>
+                                    @endforeach
+
                                 </select>
+                                @error('category_id')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
                             </div>
 
                             <div class="col-12">
@@ -68,13 +77,18 @@
                                 <select
                                     class="form-select text-muted border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="country"
-                                    aria-label="Default select example"
+                                    aria-label="Default select example" name="careerLevel"
                                 >
-                                    <option selected>Career Level</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option value="" >Career Level</option>
+                                    @foreach ($levels as $level)
+                                    <option value="{{$level->value}}"  @selected($level->value==old('careerLevel'))>{{$level->value}}</option>
+
+                                    @endforeach
+
                                 </select>
+                                @error('careerLevel')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
                             </div>
 
                             <div class="col-12">
@@ -87,9 +101,12 @@
                                     type="text"
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="companyName"
-                                    name="companyName"
-                                    value="Company Name"
+                                    name="company"
+                                    value="{{old('company')}}"
                                 />
+                                @error('company')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
                             </div>
 
                             <div class="col-12">
@@ -102,10 +119,14 @@
                                     type="date"
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="companyName"
-                                    name="companyName"
-                                    value=""
+                                    name="deadline"
+                                    value="{{old('deadline')}}"
                                     placeholder="Deadline"
                                 />
+                                @error('deadline')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
+
                             </div>
 
                             <div class="col-12">
@@ -118,9 +139,13 @@
                                     type="number"
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="companyName"
-                                    name="companyName"
+                                    name="streetNo"
                                     placeholder="Street Number"
+                                    value="{{old('streetNo')}}"
                                 />
+                                @error('streetNo')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
                             </div>
 
                             <div class="col-12">
@@ -132,9 +157,12 @@
                                 <input
                                     type="text"
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
-                                    name="companyName"
-                                    value="Street Number"
+                                    name="streetName"
+                                    value="{{old('streetName')}}"
                                 />
+                                @error('streetName')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
                             </div>
                             <div class="col-12">
                                 <label
@@ -147,8 +175,11 @@
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="city"
                                     name="city"
-                                    value="City"
+                                    value="{{old('city')}}"
                                 />
+                                @error('city')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
                             </div>
                             <div class="col-12">
                                 <label
@@ -160,9 +191,12 @@
                                     type="text"
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="companyName"
-                                    name="companyName"
-                                    value="Street Number"
+                                    name="state"
+                                    value="{{old('state')}}"
                                 />
+                                @error('state')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
                             </div>
 
                             <div class="col-12">
@@ -175,9 +209,12 @@
                                     type="text"
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="companyName"
-                                    name="companyName"
-                                    value="Street Number"
+                                    name="postalCode"
+                                    value="{{old('postalCode')}}"
                                 />
+                                @error('postalCode')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
                             </div>
 
                             <div class="col-12">
@@ -190,9 +227,12 @@
                                     type="text"
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="companyName"
-                                    name="companyName"
-                                    value="Street Number"
+                                    name="country"
+                                    value="{{old('country')}}"
                                 />
+                                @error('country')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
                             </div>
 
                             <div class="col-12">
@@ -206,8 +246,12 @@
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="email"
                                     name="email"
-                                    value="Amged S. El-Hawrani@gmail.com"
+                                    value="{{old('email')}}"
                                 />
+                                @error('email')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
+                            </div>
                             </div>
                             <div class="col-12">
                                 <label
@@ -219,11 +263,12 @@
                                     type="text"
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="jobTitle"
-                                    name="jobTitle"
-                                    value="Industry"
+                                    name="about_company"
                                     rows="12"
-                                >
-                                </textarea>
+                                >{{old('about_company')}}</textarea>
+                            @error('about_company')
+                            <p style="color: red"> {{$message}}</p>
+                        @enderror
                             </div>
                             <div class="col-12">
                                 <label
@@ -235,21 +280,13 @@
                                     type="text"
                                     class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                     id="jobTitle"
-                                    name="jobTitle"
+                                    name="content"
                                     value="Industry"
                                     rows="12"
-                                >
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi minima assumenda itaque. Rem eum ut quibusdam iusto consequatur quam possimus sit expedita, a, praesentium voluptates explicabo corrupti ad facilis aliquid. Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat odio neque tempore quia a fuga dolores necessitatibus, quo, amet officiis natus magnam cupiditate accusantium debitis excepturi laborum sunt labore architecto.
-Error tenetur id, quaerat quo quis voluptas ullam rem eos aperiam molestiae minus possimus soluta nesciunt sed vero amet unde eum. Nulla accusantium illum cum, recusandae dolor soluta id fuga.
-Sit, ut libero quas aspernatur fugiat velit! Sit autem placeat sequi quisquam. Necessitatibus ad architecto laudantium iusto assumenda dolore ea aspernatur nam ipsam. Mollitia, possimus fugit accusantium unde laboriosam quidem!
-Earum iste quae, beatae sapiente magni repellat pariatur nihil, voluptate dolorum debitis nesciunt, eos deserunt. Quis molestiae, architecto voluptas, sapiente dignissimos suscipit reiciendis officia obcaecati, temporibus deleniti quibusdam voluptatibus aspernatur.
-Itaque quasi voluptatibus nesciunt accusantium repellat beatae, culpa delectus vitae fugit reprehenderit quidem in temporibus consectetur minus, odio iusto eum illum, nulla ad consequuntur natus molestias. Tempore iste cumque in.
-Enim voluptatum harum quidem molestiae, sint velit. Ad, praesentium perspiciatis! Ea eius sit maiores atque repellat dolore. Nobis aspernatur assumenda ratione quod, repudiandae nulla quisquam facere tempore molestias minima non?
-Enim neque eius tempora consequuntur nulla rem debitis esse eum, ratione, expedita quae odit iure! Eius alias iste fugit autem tempora quas veniam facilis! Vel voluptatibus laudantium eos eligendi accusantium.
-Numquam dolorum minus tempore alias minima, impedit ipsa libero sunt exercitationem dolore culpa, reprehenderit beatae inventore repellendus quis doloribus soluta est at expedita vel omnis obcaecati. Ducimus, rerum. Debitis, exercitationem?
-Cupiditate pariatur vero optio? Ipsum ea, tempora est earum consequatur hic, at maiores, laborum iste optio cupiditate accusantium illo atque labore veniam facere temporibus quasi quod ratione quas iure! Error?
-Consequuntur animi ducimus nesciunt ex aliquam, unde eveniet laudantium excepturi eligendi molestiae, necessitatibus odio, quaerat nulla. Fugiat quis laboriosam error quibusdam. Adipisci omnis quaerat magni impedit animi voluptate porro ea.</textarea
-                                >
+                                >{{old('content')}}</textarea >
+                                @error('content')
+                                <p style="color: red"> {{$message}}</p>
+                            @enderror
                             </div>
 
                             <div class="col-12">
@@ -258,11 +295,16 @@ Consequuntur animi ducimus nesciunt ex aliquam, unde eveniet laudantium exceptur
                                 <label
                                     class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
                                 >
-                                    <input type="file" class="d-none" placeholder="" />
-                                    Upload Image
-                                </label>
+                                    <input type="file" class="d-none" placeholder=""  name="image" />
 
+                                    Upload Image
+
+                                </label>
+                                @error('image')
+                                <p style="color: red" class="ms-4 mt-2"> {{$message}}</p>
+                            @enderror
                                 <h6 class="ms-4 mt-2 text-muted">PDF, PNG, JPG (5 MB)</h6>
+
                             </div>
 
                             <div class="col-md-12 d-flex py-4 w-100">
