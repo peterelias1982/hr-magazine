@@ -3,8 +3,10 @@
 
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\PublicArticleController;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 
 Auth::routes();
@@ -29,6 +31,14 @@ Route::get('authors/{author}', [PublicArticleController::class, 'authorSingle'])
 Route::get('/home', function () {
     return view('publicPages.home');
 })->name('index');
+
+Route::get('/aboutUs', function () {
+    return view('publicPages.about',compact('admins'));
+})->name('aboutUs');
+
+Route::get('/contactUs', function () {
+    return view('publicPages.contactUs');
+})->name('contactUs');
 
 // requires authentication
 Route::group(['middleware' => 'auth'], function () {

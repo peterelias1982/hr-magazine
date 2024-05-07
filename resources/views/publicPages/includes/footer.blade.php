@@ -87,7 +87,7 @@
                         </li>
                         <li class="mb-5">
                             <a
-                                href="#"
+                                href="{{ route('aboutUs') }}"
                                 class="text-light link-underline link-underline-opacity-0"
                             >About us</a
                             >
@@ -119,7 +119,7 @@
                         </li>
                         <li class="mb-5">
                             <a
-                                href="#"
+                                href="{{ route('contactUs') }}"
                                 class="text-light link-underline link-underline-opacity-0"
                             >Contact us</a
                             >
