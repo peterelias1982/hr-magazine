@@ -3,8 +3,11 @@
 
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\PublicArticleController;
+use App\Http\Middleware\CheckEmployerMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\EventController;
 
 
 Auth::routes();
@@ -26,15 +29,47 @@ Route::group(['prefix' => "articles", "controller" => PublicArticleController::c
 Route::get('category/{category}/article/{article}', [PublicArticleController::class, 'articleSingle'])->name('articleSingle');
 Route::get('authors/{author}', [PublicArticleController::class, 'authorSingle'])->name('authorSingle');
 
-Route::get('/home', function () {
-    return view('publicPages.home');
-})->name('index');
+// events
+Route::group(['prefix' => "events", "controller" => EventController::class, "as" => "event."], function () {
+    Route::get("allEvents","allEvents")->name('allEvents');
+    Route::get("eventCalender","eventCalender")->name('eventCalender');
+    Route::get("singleEvent/{slug}","singleEvent")->name('singleEvent');
+});
+
+// jobs
+Route::group(['prefix' => "jobs", "controller" => JobController::class, "as" => "jobs."], function () {
+    Route::get("postJob","create")->name('create')->middleware(CheckEmployerMiddleware::class);
+    Route::post("postJob","store")->name('store')->middleware(CheckEmployerMiddleware::class);
+    Route::get("jobsPosted","index")->name('jobsPosted')->middleware(CheckEmployerMiddleware::class);
+    Route::get("jobDetails/{slug}","show")->name('jobDetails');
+    Route::get("browseJobs","browseJobs")->name('browseJobs');
+});
 
 // requires authentication
 Route::group(['middleware' => 'auth'], function () {
     Route::post('comments/', [CommentsController::class, 'store'])->name('comments.store');
     Route::put('comments/{id}', [CommentsController::class, 'update'])->name('comments.update');
     Route::delete('comments/{id}', [CommentsController::class, 'destroy'])->name('comments.destroy');
+});
+
+Route::get('/home', function () {
+    return view('publicPages.home');
+})->name('index');
+
+Route::get('/about', function () {
+    return view('publicPages.about');
+})->name('about');
+
+Route::get('/contactUs', function () {
+    return view('publicPages.home');
+})->name('contactUs');
+
+Route::get('jobOpportunities', function () {
+    return view('publicPages.jobs.jobOpportunitiesAndCareerResource');
+})->name('jobOpportunities');
+
+Route::fallback(function () {
+    redirect()->route('index');
 });
 
 
