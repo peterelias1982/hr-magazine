@@ -1,17 +1,13 @@
 <?php
 
-
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\PublicArticleController;
+use App\Http\Controllers\PublicEmployer;
 use App\Http\Middleware\CheckEmployerMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\EventController;
-
-Route::fallback(function () {
-    return view('publicPages.404');
-});
 
 Auth::routes();
 
@@ -32,6 +28,7 @@ Route::group(['prefix' => "articles", "controller" => PublicArticleController::c
 Route::get('category/{category}/article/{article}', [PublicArticleController::class, 'articleSingle'])->name('articleSingle');
 Route::get('authors/{author}', [PublicArticleController::class, 'authorSingle'])->name('authorSingle');
 
+
 // events
 Route::group(['prefix' => "events", "controller" => EventController::class, "as" => "event."], function () {
     Route::get("allEvents","allEvents")->name('allEvents');
@@ -46,6 +43,14 @@ Route::group(['prefix' => "jobs", "controller" => JobController::class, "as" => 
     Route::get("jobsPosted","index")->name('jobsPosted')->middleware(CheckEmployerMiddleware::class);
     Route::get("jobDetails/{slug}","show")->name('jobDetails');
     Route::get("browseJobs","browseJobs")->name('browseJobs');
+});
+
+// employers routes
+Route::group(['prefix' => "employers", "controller" => PublicEmployer::class, "as" => "employers."], function () {
+    Route::get("employerProfile/{slug}", "show")->name('show');
+    Route::get("editEmployerProfile/{slug}", "edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
+    Route::put("update/{slug}", "update")->name('update')->middleware(CheckEmployerMiddleware::class);
+    Route::get("deleteAccount/{slug}","destroy")->name('destroy')->middleware(CheckEmployerMiddleware::class);;
 });
 
 // requires authentication
@@ -72,7 +77,6 @@ Route::get('jobOpportunities', function () {
 })->name('jobOpportunities');
 
 Route::fallback(function () {
-    redirect()->route('index');
+    return redirect()->route('index');
 });
-
 
