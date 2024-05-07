@@ -31,13 +31,9 @@
                     alt="User-Profile-Image"
                 />
                 <a
-                    href="profile-employer-account.html"
-                    class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2 d-block active"
-                >Summary</a>
-                <a
                     href="profile-employer.html"
                     class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2 d-block"
-                >Profile Details</a>
+                >Profile</a>
                 <a
                     href="send-job.html"
                     class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2 d-block"

@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Traits\Common;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
-use Illuminate\Http\Request;
 use App\Http\Requests\UpdateEmployerRequest;
 
 
@@ -14,40 +15,13 @@ class PublicEmployer extends Controller
     use Common;
 
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(string $slug)
     {
         try {
-            $user = User::where("slug", $slug)
-                ->whereHas('employerUser', function ($query) {
-                    $query->whereNotNull('companyName');
-                })
-                ->first();
+            $user = User::where("slug", $slug)->first();
+
             $linkedin = $user ? $user->socialMedia()->where('mediaName', 'linkedin')->first() : null;
             $linkedinUrl = $linkedin ? $linkedin->pivot->value : null;
 
@@ -68,14 +42,21 @@ class PublicEmployer extends Controller
      */
     public function edit(string $slug)
     {
-        $user = User::where("slug", $slug)
-            ->whereHas('employerUser', function ($query) {
-                $query->whereNotNull('companyName');
-            })
-            ->first();
-        $linkedin = $user ? $user->socialMedia()->where('mediaName', 'linkedin')->first() : null;
-        $linkedinUrl = $linkedin ? $linkedin->pivot->value : null;
-        return view('publicPages.users.employers.editEmployerProfile', compact('user', 'linkedin', 'linkedinUrl'));
+        try {
+            $user = User::where("slug", $slug)->first();
+
+            if (Gate::denies('isOwner', ['userId' => $user->id])) {
+                throw new UnauthorizedException("Unauthorized");
+            }
+
+            $linkedin = $user ? $user->socialMedia()->where('mediaName', 'linkedin')->first() : null;
+            $linkedinUrl = $linkedin ? $linkedin->pivot->value : null;
+            return view('publicPages.users.employers.editEmployerProfile', compact('user', 'linkedin', 'linkedinUrl'));
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['error' => ['Error: ' . $exception->getMessage()]])]);
+        }
     }
 
     /**
@@ -84,24 +65,32 @@ class PublicEmployer extends Controller
     public function update(UpdateEmployerRequest $request, $slug)
     {
         try {
+            $user = User::where("slug", $slug)->first();
+
+            if (Gate::denies('isOwner', ['userId' => $user->id])) {
+                throw new UnauthorizedException("Unauthorized");
+            }
+
             $data = $request->validated();
+
             if ($request->hasFile('image')) {
                 $fileName = $this->uploadFile($request->image, 'assets/images/users');
                 $data['image'] = $fileName;
-                // unlink("assets/images/users/" . $request->oldImageUser);
+                if (($data['oldImageUser'] ?? false) && !str_starts_with($data['oldImageUser'], 'default' . DIRECTORY_SEPARATOR)) {
+                    $this->deleteFile(public_path('assets/images/users/' . $data['oldImageUser']));
+                }
             }
             if ($request->hasFile('logo')) {
                 $fileName = $this->uploadFile($request->logo, 'assets/images/employers');
                 $data['logo'] = $fileName;
-                // unlink("assets/images/employers/" . $request->oldImageLogo);
+                if ($data['oldImageLogo'] ?? false) {
+                    $this->deleteFile(public_path("assets/images/employers/" . $request->oldImageLogo));
+                }
             }
-            $user = User::where("slug", $slug)
-                ->whereHas('employerUser', function ($query) {
-                    $query->whereNotNull('companyName');
-                })
-                ->first();
+            $user = User::where("slug", $slug)->first();
 
             $linkedinUrl = isset($request->linkedin) ? $request->linkedin : null;
+
             if ($user) {
                 $linkedin = $user->socialMedia()->where('mediaName', 'linkedin')->first();
 
@@ -132,12 +121,19 @@ class PublicEmployer extends Controller
     public function destroy(User $user, $slug): \Illuminate\Http\RedirectResponse
     {
         try {
-            $user = User::where("slug", $slug)
-                ->whereHas('employerUser', function ($query) {
-                    $query->whereNotNull('companyName');
-                })
-                ->first()
-                ->delete();
+            $user = User::where("slug", $slug)->first();
+
+            if (Gate::denies('isOwner', ['userId' => $user->id])) {
+                throw new UnauthorizedException("Unauthorized");
+            }
+
+            if (!str_starts_with($user->image, 'default' . DIRECTORY_SEPARATOR)) {
+                $this->deleteFile(public_path("assets/images/employers/" . $user->image));
+            }
+
+            $this->deleteFile(public_path("assets/images/employers/". $user->employerUser->logo));
+
+            $user->delete();
 
             return redirect()
                 ->route('index')

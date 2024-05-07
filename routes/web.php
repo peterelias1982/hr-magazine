@@ -47,16 +47,10 @@ Route::group(['prefix' => "jobs", "controller" => JobController::class, "as" => 
 
 // employers routes
 Route::group(['prefix' => "employers", "controller" => PublicEmployer::class, "as" => "employers."], function () {
-    Route::get('employerProfile', function () {
-        return view('publicPages.users.employers.employerProfile');
-    })->name('employerProfile');
-    Route::get('editEmployerProfile', function () {
-        return view('publicPages.users.employers.editEmployerProfile');
-    })->name('editEmployerProfile');
     Route::get("employerProfile/{slug}", "show")->name('show');
-    Route::get("editEmployerProfile/{slug}", "edit")->name('edit');
-    Route::put("update/{slug}", "update")->name('update');
-    Route::get("deleteAccount/{slug}","destroy")->name('destroy');
+    Route::get("editEmployerProfile/{slug}", "edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
+    Route::put("update/{slug}", "update")->name('update')->middleware(CheckEmployerMiddleware::class);
+    Route::get("deleteAccount/{slug}","destroy")->name('destroy')->middleware(CheckEmployerMiddleware::class);;
 });
 
 // requires authentication
