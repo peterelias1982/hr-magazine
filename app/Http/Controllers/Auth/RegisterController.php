@@ -7,27 +7,17 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\Common;
+
+use App\Traits\Files;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
 
+    use Common;
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
+
     protected $redirectTo = '/home';
 
     /**
@@ -68,5 +58,27 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+
+        if ($data['image'] ?? false) {
+            $image = $this->uploadFile($data['image'], 'assets/images/users');
+            if (($data['oldImage'] ?? false) && !str_starts_with($data['oldImage'], 'default' . DIRECTORY_SEPARATOR)) {
+                $this->deleteFile(public_path('assets/images/users/' . $data['oldImage']));
+            }
+        } elseif ($data['oldImage'] ?? false) {
+            $image = $data['oldImage'];
+        } else {
+            $allImages = RegisterController::getFilesFromDir(public_path('assets/images/users/default'));
+            $image = fake()->randomElement($allImages);
+
+            $imageArray = explode('-', $image);
+            $imageArray[0] = $data['gender'];
+            $image = implode('', $imageArray);
+
+            $image = 'default' . DIRECTORY_SEPARATOR . $image;
+        }
+
+        $userData['image'] = $image;
+
     }
 }
