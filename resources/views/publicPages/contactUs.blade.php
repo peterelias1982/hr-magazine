@@ -14,7 +14,8 @@
             </div>
             <!-- form -->
             <div class="row py-5 px-md-5 px-1 g-0">
-                <form>
+                <form action="{{ route('storeContact') }}" method="POST">
+                    @csrf
                     <div class="row gy-5">
                         <div class="col-12">
                             <label
@@ -31,7 +32,11 @@
                                         name="firstName"
                                         placeholder="First Name"
                                     />
+                                    @error('firstName')
+                                {{ $message }}
+                            @enderror
                                 </div>
+                                
                                 <div class="col-md-6 pt-lg-0 pt-md-0 pt-sm-5">
                                     <input
                                         type="text"
@@ -40,7 +45,13 @@
                                         name="secondName"
                                         placeholder="Second Name"
                                     />
+                                    @error('secondName')
+                                    {{ $message }}
+                                @enderror
                                 </div>
+                                @error('secondName')
+                                {{ $message }}
+                            @enderror
                             </div>
                         </div>
                         <div class="col-12">
@@ -56,6 +67,9 @@
                                 name="email"
                                 placeholder="Email Address"
                             />
+                            @error('email')
+                            {{ $message }}
+                        @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -70,6 +84,9 @@
                                 name="phone"
                                 placeholder="Phone Number"
                             />
+                            @error('phone')
+                            {{ $message }}
+                        @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -82,7 +99,11 @@
                                 id="message"
                                 placeholder="Write Your Message"
                                 style="height: 379px"
+                                name="message"
                             ></textarea>
+                            @error('message')
+                            {{ $message }}
+                        @enderror
                         </div>
                         <div class="col-md-12 d-flex py-4 w-100">
                             <button

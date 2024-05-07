@@ -2,12 +2,14 @@
 
 
 use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobController;
 use App\Http\Controllers\PublicArticleController;
 use App\Http\Middleware\CheckEmployerMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\JobController;
-use App\Http\Controllers\EventController;
+
 
 
 Auth::routes();
@@ -52,17 +54,26 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('comments/{id}', [CommentsController::class, 'destroy'])->name('comments.destroy');
 });
 
-Route::get('/home', function () {
-    return view('publicPages.home');
-})->name('index');
+Route::get('/home', [HomeController::class, 'index'])->name('index');
+
+Route::get('/contactUs', [HomeController::class, 'contactUs'])->name('contactUs');
+
+Route::post('/storeContact', [HomeController::class, 'storeContact'])->name('storeContact');
+
+
+
+Route::get('/afterContactUs', function () {
+    return view('publicPages.afterContactUs');
+})->name('afterContactUs');
+
+    
 
 Route::get('/about', function () {
     return view('publicPages.about');
 })->name('about');
 
-Route::get('/contactUs', function () {
-    return view('publicPages.home');
-})->name('contactUs');
+
+
 
 Route::get('jobOpportunities', function () {
     return view('publicPages.jobs.jobOpportunitiesAndCareerResource');

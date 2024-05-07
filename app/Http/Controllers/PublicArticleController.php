@@ -188,6 +188,8 @@ class PublicArticleController extends Controller
             ->latest()
             ->get();
 
+            
+
         return view('publicPages.articles.workPlaceCultureAndWellBeing', compact('mentalHealthInTheWorkplaces', 'wellnessPrograms', 'hrDiversities', 'workplaceCultures'));
     }
 
