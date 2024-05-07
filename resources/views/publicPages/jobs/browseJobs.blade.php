@@ -31,58 +31,6 @@
                         <div class="col my-4">
                             <h2 class="fw-bold">
                                 Available Jobs
-                                <span class="float-end">
-                      Sort By:
-                      <span class="dropdown">
-                        <button
-                            type="button"
-                            class="bg-light border-0 text-muted dropdown-toggle"
-                            data-bs-toggle="dropdown"
-                        >
-                          Publish Date
-                        </button>
-                        <ul
-                            class="dropdown-menu dropdown-menu-dark bg-light"
-                            aria-labelledby="navbarDropdownBrowseJobsDate"
-                        >
-                          <li>
-                            <a
-                                class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                href="#"
-                            >All</a
-                            >
-                          </li>
-                          <li>
-                            <a
-                                class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark border-bottom text-dark"
-                                href="#"
-                            >Today</a
-                            >
-                          </li>
-                          <li>
-                            <a
-                                class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark border-bottom text-dark"
-                                href="#"
-                            >This Week</a
-                            >
-                          </li>
-                          <li>
-                            <a
-                                class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark border-bottom text-dark"
-                                href="#"
-                            >This Month</a
-                            >
-                          </li>
-                          <li>
-                            <a
-                                class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark border-bottom text-dark"
-                                href="#"
-                            >This Year</a
-                            >
-                          </li>
-                        </ul>
-                      </span>
-                    </span>
                             </h2>
                         </div>
                     </nav>
@@ -109,8 +57,7 @@
                                 id="browseJobs"
                             >
                                 <div class="row justify-content-between w-100">
-                                      <form action="{{route('jobs.browseJobs')}}" method="GET" id="filter">
-                                        @csrf
+                                    <form action="{{route('jobs.browseJobs')}}" method="GET" id="filter">
                                     </form>
                                     <div
                                         class="col-md-5 d-flex align-items-center  bg-white rounded-4 border border-dark mt-2 px-2"
@@ -122,7 +69,7 @@
                                             style="max-width: 56px; aspect-ratio: 1"
                                         />
                                         <input
-                                            type="text" form="filter" name="search" 
+                                            type="text" form="filter" name="search"
                                             class="form-control border-0 fw-bold fs-2 opacity-50 flex-grow-1"
                                             placeholder=" Search..."
                                         />
@@ -134,9 +81,9 @@
                                             />
                                         </button>
                                     </div>
-                                  
+
                                     <ul class="col-lg-6 col-xl-4 navbar-nav ps-4 me-0">
-                                       
+
                                         <li class="nav-item dropdown me-3">
                                             <a
                                                 class="nav-link text-white dropdown-toggle fs-3 fw-bold"
@@ -388,6 +335,7 @@
                                                         All
                                                     </label>
                                                 </li>
+                                                @foreach($categories as $cat)
                                                 <li class="px-2">
                                                     <label
                                                         class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
@@ -398,124 +346,13 @@
                                                             class="form-check-input"
                                                             id="checkbox1"
                                                             name="optcheckbox2[]"
-                                                             value="Arts"
-                                                             form="filter"
-                                                        />
-                                                        Arts
-                                                    </label>
-                                                </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox2[]"
-                                                            value="Education & study & training"
+                                                            value="{{$cat->category}}"
                                                             form="filter"
                                                         />
-                                                        Education & study & training
+                                                        {{$cat->category}}
                                                     </label>
                                                 </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox2[]"
-                                                            value="Business"
-                                                            form="filter"
-                                                        />
-                                                        Business
-                                                    </label>
-                                                </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox2[]"
-                                                            value="Sales"
-                                                            form="filter"
-                                                        />
-                                                        Sales
-                                                    </label>
-                                                </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox2[]"
-                                                            value="Communications"
-                                                            form="filter"
-                                                        />
-                                                        Communications
-                                                    </label>
-                                                </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox2[]"
-                                                            value="Finance"
-                                                            form="filter"
-                                                        />
-                                                        Finance
-                                                    </label>
-                                                </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox2[]"
-                                                            value="Legal"
-                                                            form="filter"
-                                                        />
-                                                        Legal
-                                                    </label>
-                                                </li>
-                                                <li class="px-2">
-                                                    <label
-                                                        class="dropdown-item border border-start-0 border-top-0 border-end-0 border-dark text-dark"
-                                                        href="#"
-                                                    >
-                                                        <input
-                                                            type="checkbox"
-                                                            class="form-check-input"
-                                                            id="checkbox1"
-                                                            name="optcheckbox2[]"
-                                                            value="Technology"
-                                                            form="filter"
-                                                        />
-                                                        Technology
-                                                    </label>
-                                                </li>
+                                                @endforeach
                                             </ul>
                                         </li>
                                     </ul>
@@ -526,23 +363,23 @@
                 </div>
 
                 <div class="col">
-                   @foreach ($jobs as $job)
-                   <div class="card-body">
-                    <h5 class="card-title text-dark fw-bold fs-3 m-3">{{$job->title}}</h5>
-                    <p class="card-text fs-6 text-dark mx-auto ms-3">
-                       {{$job->content}}
-                    </p>
-                    <div class="col-md-12 d-flex py-4 w-100">
-                        <button
-                            type="submit"
-                            class="btn btn-primary text-light rounded-4 fs-4 fw-semibold px-5 py-2 m-auto"
-                        >
-                            Apply Job
-                        </button>
-                    </div>
-                </div>
-             
-                   @endforeach
+                    @foreach ($jobs as $job)
+                        <div class="card-body">
+                            <h5 class="card-title text-dark fw-bold fs-3 m-3">{{$job->title}}</h5>
+                            <p class="card-text fs-6 text-dark mx-auto ms-3">
+                                {{Str::limit($job->content, 300)}}
+                            </p>
+                            <div class="col-md-12 d-flex py-4 w-100">
+                                <a
+                                    href="{{route('jobs.jobDetails', $job->jobSlug)}}"
+                                    class="btn btn-primary text-light rounded-4 fs-4 fw-semibold px-5 py-2 m-auto"
+                                >
+                                    Read more
+                                </a>
+                            </div>
+                        </div>
+
+                    @endforeach
                     <h5 class="ms-3 mb-3 fs-3 fw-bold">
                         If you dont Found your jobs , click
                         <a href="#" class="text-primary"> here </a>

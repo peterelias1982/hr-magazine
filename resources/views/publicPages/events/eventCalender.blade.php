@@ -90,7 +90,7 @@
     <!-- Script tag for static event data -->
     <script>
         const events = {
-         @foreach ( $events_calender as $key=> $events_calender_events)      
+         @foreach ( $events_calender as $key=> $events_calender_events)
              {{(int) date_format(date_create($key)  ,'m')}}:  {
                 // October
                 {{(int) date_format(date_create($key)  ,'Y')}}: {
@@ -100,19 +100,16 @@
                         {
                             eventName: "{{$event->title}} ",
                             eventLocation: "{{$event->streetNo}},{{$event->streetName}},{{$event->city}}, {{$event->country}} ",
-                            eventDate: "{{ date_format(date_create($event->fromDate),'d M Y')}} at 1:00 pm",
-                            eventContent: `{{$event->description}}`,
-                            eventUrl: "{{$event->googleMapLink}}",
+                            eventDate: "{{ date_format(date_create($event->fromDate),'d M Y')}}",
+                            eventContent: `{{Str::limit($event->description, 300)}}`,
+                            eventUrl: "{{route('event.singleEvent', $event->slug)}}",
                         },
                         @endforeach
-
-
-                      
                     ],
                     @endforeach
                 },
-            }, 
-           
+            },
+
          @endforeach
         };
     </script>

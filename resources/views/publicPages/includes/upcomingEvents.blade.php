@@ -9,7 +9,7 @@
         <div
             class="row justify-content-between pt-5 mb-3 align-items-center mw-100 mx-auto"
         >
-            <h3 class="fs-5 fw-bold col-auto">{{$events[0]->title}}</h3>
+            <h3 class="fs-5 fw-bold col-auto">{{isset($events[0])? $events[0]->title:''}}</h3>
         </div>
         <div class="row ps-4">
       <span class="row align-items-center mw-100 mb-4">
@@ -21,7 +21,7 @@
           />
         </div>
         <span class="fw-bold col-9"
-        >{{ date_format(date_create($events[0]->fromDate),'M d Y')}} at 1:00 PM</span
+        >{{isset($events[0])? date_format(date_create($events[0]->fromDate),'M d Y') : ''}} </span
         >
       </span>
             <span class="row align-items-center mw-100 mb-4">
@@ -33,20 +33,23 @@
           />
         </div>
         <span class="fw-bold col-9" class="fw-bold"
-        >{{$events[0]->streetNo}},{{$events[0]->streetName}},{{$events[0]->city}}, {{$events[0]->country}}</span
+        >@isset($events[0]){{$events[0]->streetNo}},{{$events[0]->streetName}},{{$events[0]->city}}, {{$events[0]->country}}@endisset</span
         >
       </span>
         </div>
         <p class="col-lg-12 px-1 fw-bold">
-            {{$events[0]->description}}
+            @isset($events[0])
+            {{Str::limit($events[0]->description, 300)}}
+            @endisset
         </p>
         <div class="event-btn d-flex justify-content-end mb-4">
+            @isset($events[0])
             <a href="{{route('event.singleEvent',[$events[0]->slug])}}"
                 class="d-inline-block bg-dark text-decoration-none text-light border rounded-5 px-3 py-2"
-            >Learn More</a
-            >
+            >Learn More</a>
+            @endisset
         </div>
-    </article>       
+    </article>
         <!-- end of event card -->
     </div>
     <div
@@ -95,7 +98,7 @@
                   </span>
                     </div>
                     <p class="col-lg-12 px-1 fw-bold">
-                        {{$events[$i]->description}}
+                        {{Str::limit($events[$i]->description, 280)}}
                     </p>
                     <div class="event-btn d-flex justify-content-end mb-4">
                         <a href="{{route('event.singleEvent',$events[$i]->slug)}}"
@@ -105,10 +108,10 @@
                     </div>
                 </article>
             </div>
-            
+
               @endfor
-         
-                
+
+
             </div>
             <div class="arrow-container d-flex justify-content-between">
                 <a class="previous_btn"
