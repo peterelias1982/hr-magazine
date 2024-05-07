@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -27,7 +28,7 @@ class JobDetailFactory extends Factory
             'postalCode' => fake()->postcode(),
             'country' => fake()->country(),
             "image" => 'testJob.jpg',
-            "deadline" => fake()->date(),
+            "deadline" => Carbon::now()->addDays(fake()->numberBetween(1, 10))->toDateString(),
             "email" => fake()->email(),
             "careerLevel" => fake()->randomElement(["entry level", "intermediate level", "expert level"]),
             "content" => fake()->text(1500),

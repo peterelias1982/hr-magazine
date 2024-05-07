@@ -148,14 +148,13 @@ function generateEventCard(event) {
     class="responsive-card card bg-white text-dark mx-auto my-4 border-0 rounded-4"
   >
     <div class="card-body">
-      <h5 class="event-name card-title fw-bold fs-3 mt-5 ms-5 mb-4">
+      <h5 class="event-name card-title fw-bold fs-3 mt-5 mb-4 mx-2">
         ${event.eventName}
       </h5>
-      <div class="d-flex align-items-center mt-2 mb-5">
+      <div class="d-flex align-items-center mt-2 mb-5 mx-2">
         <span class="eventdate-eventtime fw-semibold fs-5"
-          >${event.eventDate}</span
-        >
-        <span class="location fw-bold">${event.eventLocation}</span>
+          >${event.eventDate}</span>
+        <span class="location fw-bold ms-5">🗺 ${event.eventLocation}</span>
       </div>
       <p class="card-text fw-semibold fs-5 mt-2 px-2">
         ${event.eventContent}

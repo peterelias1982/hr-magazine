@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Enums\AdminPosition;
 use App\Models\Admin;
+use App\Models\Employer;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -56,6 +57,16 @@ class AppServiceProvider extends ServiceProvider
             $admin = Admin::where('user_id', $user->id)->first();
 
             if(!$admin) {
+                return false;
+            }
+
+            return true;
+        });
+
+        Gate::define('isEmployer', function (User $user) {
+            $employer = Employer::where('user_id', $user->id)->first();
+
+            if(!$employer) {
                 return false;
             }
 
