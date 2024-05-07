@@ -1,24 +1,27 @@
+<?php use Carbon\Carbon;
+
+?>
 @extends('publicPages.layouts.main')
 
 @section('publicPagesContent')
     <div class="container-fluid bg-light pt-3 px-lg-5 px-md-3 px-2">
         <div class="row bg-dark px-lg-5 px-md-3 px-1 py-4 mb-3">
-            <h3 class="fw-bold fs-2 text-white py-4">Upcoming Event Page</h3>
+            <h3 class="fw-bold fs-2 text-white py-4">Upcoming event Page</h3>
             <div
                 class="position-relative overflow-hidden mx-auto mb-3"
                 style="height: 695px"
             >
                 <img
-                    src="{{asset('publicPages/images/event-page.png')}}"
+                    src="{{asset('assets/images/events/' . $events[0]->image)}}"
                     class="rounded image-center"
-                    alt="..."
+                    alt="{{$events[0]->title}}"
                 />
             </div>
         </div>
         <div class="row bg-light mb-3 flex-nowrap overflow-auto mt-5">
             <div class="row g-0">
                 <div class="col">
-                    <h2 class="fw-bold mt-5 ms-3">Events Name</h2>
+                    <h2 class="fw-bold mt-5 ms-3">{{$events[0]->title}}</h2>
                     <div class="row align-items-center">
                         <div class="col-auto ms-2">
                             <svg
@@ -39,7 +42,8 @@
                         </div>
                         <div class="col mt-4">
                             <p class="mb-0 fw-bold text-danger">
-                                May 25, 2024 at 1:00 PM - May 28, 2024 at 1:00 PM
+                                {{ date_format(date_create($events[0]->fromDate),'M d Y')}} -
+                                {{ date_format(date_create($events[0]->toDate),'M d Y')}}
                             </p>
                         </div>
                     </div>
@@ -60,7 +64,9 @@
                         </div>
                         <div class="col mt-4">
                             <p class="mb-0 fw-bold text-danger">
-                                May 25, 2024 at 1:00 PM - May 28, 2024 at 1:00 PM
+                                {{$events[0]->streetNo}},{{$events[0]->streetName}},{{$events[0]->city}}
+                                , {{$events[0]->country}}
+
                             </p>
                         </div>
                     </div>
@@ -68,60 +74,7 @@
 
                 <div class="mt-4">
                     <p class="fw-bold py-2 px-3">
-                        Lorem ipsum dolor sit amet consectetur. Augue et rhoncus sed
-                        enim pretium egestas platea. Euismod est sed pellentesque
-                        condimentum amet mattis praesent ultricies enim. Ipsum justo non
-                        vestibulum diam fermentum porta. Lorem mi sem vitae proin
-                        ridiculus sed maecenas. Dui lorem viverra ornare commodo rutrum
-                        tempor rhoncus aenean donec. Orci eu ut pellentesque amet sit
-                        nibh semper. Viverra felis cursus sed vehicula sit egestas urna
-                        risus aliquet. Erat netus odio orci velit arcu venenatis purus.
-                        Tortor neque consectetur aliquam erat. Id consectetur vivamus
-                        pellentesque donec in sed. faucibus eleifend sagittis ac rhoncus
-                        fermentum dui urna.
-                        <br/>
-                        Aliquam a elementum non nec aliquet. Aliquet facilisi pretium in
-                        mattis placerat. Elit tempor gravida tincidunt sit iaculis
-                        aenean cras aliquam. Nunc ultrices et cursus eget orci mi non
-                        luctus sodales. Amet commodo nunc at ornare eros. Tincidunt
-                        ligula dictum viverra rutrum eget mauris adipiscing. A felis
-                        nulla quis tellus aliquet pulvinar sed. Faucibus netus diam
-                        pharetra dapibus nunc et consectetur ultrices porta. Lorem sem
-                        semper eget iaculis mi malesuada augue risus. Justo velit tellus
-                        dolor aliquam aliquam morbi ac. Duis nunc proin scelerisque
-                        odio.
-                        <br/>
-                        Ipsum varius sed eu eget nulla. Pretium facilisi semper donec
-                        accumsan feugiat lectus volutpat proin faucibus. Sed id orci
-                        vitae tortor odio eu fermentum nulla sem. Nibh molestie mi
-                        ornare tincidunt volutpat rutrum. Nunc ultricies dictum mauris
-                        libero sed mi vitae libero at. Eros vel et magna vestibulum at
-                        neque sem urna. Nisi nunc velit amet leo dignissim. Pulvinar sit
-                        id adipiscing in amet. Sit ligula fames felis in nibh donec
-                        pellentesque. Mauris mauris faucibus elementum volutpat aliquet
-                        sed posuere pharetra. Nec lacinia aliquam ullamcorper vitae et
-                        blandit. Massa dignissim non faucibus consectetur. Adipiscing
-                        urna tincidunt quis scelerisque leo quisque diam. Urna
-                        suspendisse nunc pellentesque cursus venenatis.
-                        <br/>
-                        Vel orci mauris bibendum lorem commodo. Risus est cum integer
-                        venenatis sed. Dui bibendum et nam dictum vestibulum lacus quis
-                        ut massa. Ultricies pharetra eleifend vitae aliquet odio nulla.
-                        Ultrices nulla massa viverra mauris. Ut iaculis nec dui sit
-                        mauris nulla sed quis. Lectus laoreet malesuada praesent nam
-                        neque turpis urna. Vitae gravida non diam dolor risus nulla
-                        integer aliquet adipiscing.
-                        <br/>
-                        Suscipit ac ullamcorper scelerisque suspendisse commodo arcu
-                        integer volutpat lobortis. Dolor nibh aliquam gravida penatibus
-                        scelerisque integer elit. Purus ac rhoncus arcu orci elementum
-                        et tempus nunc nisl. Donec orci etiam suspendisse interdum nisl
-                        hendrerit. Maecenas lectus est at vestibulum sed imperdiet sed.
-                        Sagittis interdum interdum cursus risus sit tempor. Eleifend
-                        cras scelerisque sed enim. Convallis dui sit risus metus tortor
-                        ullamcorper enim nisl. Ut dictum donec urna tincidunt nulla nibh
-                        malesuada. Amet venenatis a viverra risus nulla fames varius
-                        congue. Nibh pharetra adipiscing posuere cursus. Ac a a et.
+                        {{$events[0]->description}}
                     </p>
                 </div>
                 <!--cards Caousel-->
@@ -138,7 +91,8 @@
                         >
                             <!-- The slideshow/carousel -->
                             <div class="carousel-inner">
-                                <div class="carousel-item active">
+                                @foreach($journeyToExcellences as $article)
+                                <div class="carousel-item {{$loop->first? 'active':''}}">
                                     <div
                                         class="card bg-light text-dark mx-auto my-1 border-0"
                                     >
@@ -152,7 +106,7 @@
                                                     style="max-width: 218px; aspect-ratio: 1"
                                                 >
                                                     <img
-                                                        src="{{asset('publicPages/images/av1-p7.jpg')}}"
+                                                        src="{{asset('assets/images/users/'.$article->author->userAuthor->image)}}"
                                                         class="rounded-circle border-light image-center"
                                                         alt="Profile Image"
                                                     />
@@ -161,173 +115,18 @@
                                             <div class="card-body col-md-9 col-12">
                                                 <div>
                                                     <h5 class="card-title fw-bold fs-3">
-                                                        Amged S. El-Hawrani
+                                                        {{$article->author->userAuthor->firstName}} {{$article->author->userAuthor->secondName}}
                                                     </h5>
                                                     <p class="carousel-p card-text fw-medium fs-5">
-                                                        Lorem ipsum dolor sit amet consectetur.
-                                                        Pellentesque faucibus mi feugiat tristique purus
-                                                        penatibus mauris nam libero. Non aliquam varius
-                                                        at amet lorem lobortis netus vulputate. Semper
-                                                        purus turpis vitae nunc urna sodales mauris.
-                                                        Vulputate sit est pharetra velit eget.
+                                                        {{Str::limit($article->content, 300)}}
+                                                        <a href="{{ route('articleSingle', ['category' => $article->articleCategory->slug, 'article' => $article->slug]) }}" class="fw-bold text-dark text-decoration-none">Read more</a>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="carousel-item">
-                                    <div
-                                        class="card bg-light text-dark mx-auto my-1 border-0"
-                                    >
-                                        <div
-                                            class="row align-items-center mx-2 justify-content-center"
-                                        >
-                                            <!-- Card Content -->
-                                            <div class="col-md-3 col-12">
-                                                <div
-                                                    class="position-relative overflow-hidden"
-                                                    style="max-width: 218px; aspect-ratio: 1"
-                                                >
-                                                    <img
-                                                        src="{{asset('publicPages/images/team 5.png')}}"
-                                                        class="rounded-circle border-light image-center"
-                                                        alt="Profile Image"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div class="card-body col-md-9 col-12">
-                                                <div>
-                                                    <h5 class="card-title fw-bold fs-3">
-                                                        Amged S. El-Hawrani
-                                                    </h5>
-                                                    <p class="carousel-p card-text fw-medium fs-5">
-                                                        Lorem ipsum dolor sit amet consectetur.
-                                                        Pellentesque faucibus mi feugiat tristique purus
-                                                        penatibus mauris nam libero. Non aliquam varius
-                                                        at amet lorem lobortis netus vulputate. Semper
-                                                        purus turpis vitae nunc urna sodales mauris.
-                                                        Vulputate sit est pharetra velit eget.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div
-                                        class="card bg-light text-dark mx-auto my-1 border-0"
-                                    >
-                                        <div
-                                            class="row align-items-center mx-2 justify-content-center"
-                                        >
-                                            <!-- Card Content -->
-                                            <div class="col-md-3 col-12">
-                                                <div
-                                                    class="position-relative overflow-hidden"
-                                                    style="max-width: 218px; aspect-ratio: 1"
-                                                >
-                                                    <img
-                                                        src="{{asset('publicPages/images/av6-p7.jpg')}}"
-                                                        class="rounded-circle border-light image-center"
-                                                        alt="Profile Image"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div class="card-body col-md-9 col-12">
-                                                <div>
-                                                    <h5 class="card-title fw-bold fs-3">
-                                                        Amged S. El-Hawrani
-                                                    </h5>
-                                                    <p class="carousel-p card-text fw-medium fs-5">
-                                                        Lorem ipsum dolor sit amet consectetur.
-                                                        Pellentesque faucibus mi feugiat tristique purus
-                                                        penatibus mauris nam libero. Non aliquam varius
-                                                        at amet lorem lobortis netus vulputate. Semper
-                                                        purus turpis vitae nunc urna sodales mauris.
-                                                        Vulputate sit est pharetra velit eget.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div
-                                        class="card bg-light text-dark mx-auto my-1 border-0"
-                                    >
-                                        <div
-                                            class="row align-items-center mx-2 justify-content-center"
-                                        >
-                                            <!-- Card Content -->
-                                            <div class="col-md-3 col-12">
-                                                <div
-                                                    class="position-relative overflow-hidden"
-                                                    style="max-width: 218px; aspect-ratio: 1"
-                                                >
-                                                    <img
-                                                        src="{{asset('publicPages/images/team 3.png')}}"
-                                                        class="rounded-circle border-light image-center"
-                                                        alt="Profile Image"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div class="card-body col-md-9 col-12">
-                                                <div>
-                                                    <h5 class="card-title fw-bold fs-3">
-                                                        Amged S. El-Hawrani
-                                                    </h5>
-                                                    <p class="carousel-p card-text fw-medium fs-5">
-                                                        Lorem ipsum dolor sit amet consectetur.
-                                                        Pellentesque faucibus mi feugiat tristique purus
-                                                        penatibus mauris nam libero. Non aliquam varius
-                                                        at amet lorem lobortis netus vulputate. Semper
-                                                        purus turpis vitae nunc urna sodales mauris.
-                                                        Vulputate sit est pharetra velit eget.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="carousel-item">
-                                    <div
-                                        class="card bg-light text-dark mx-auto my-1 border-0"
-                                    >
-                                        <div
-                                            class="row align-items-center mx-2 justify-content-center"
-                                        >
-                                            <!-- Card Content -->
-                                            <div class="col-md-3 col-12">
-                                                <div
-                                                    class="position-relative overflow-hidden"
-                                                    style="max-width: 218px; aspect-ratio: 1"
-                                                >
-                                                    <img
-                                                        src="{{asset('publicPages/images/av4-p7.jpg')}}"
-                                                        class="rounded-circle border-light image-center"
-                                                        alt="Profile Image"
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div class="card-body col-md-9 col-12">
-                                                <div>
-                                                    <h5 class="card-title fw-bold fs-3">
-                                                        Amged S. El-Hawrani
-                                                    </h5>
-                                                    <p class="carousel-p card-text fw-medium fs-5">
-                                                        Lorem ipsum dolor sit amet consectetur.
-                                                        Pellentesque faucibus mi feugiat tristique purus
-                                                        penatibus mauris nam libero. Non aliquam varius
-                                                        at amet lorem lobortis netus vulputate. Semper
-                                                        purus turpis vitae nunc urna sodales mauris.
-                                                        Vulputate sit est pharetra velit eget.
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @endforeach
                                 <!-- Left and right controls/icons with inline styling for custom arrow appearance -->
                                 <button
                                     class="carousel-control-prev"
@@ -373,7 +172,7 @@
                     <div
                         class="text-center bg-primary text-white py-4 mt-5 mb-0 fs-2 fw-bold"
                     >
-                        Events Agenda
+                        events Agenda
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered border-dark text-center">
@@ -381,36 +180,41 @@
                             <col style="width: 12.5%"/>
                             <col style="width: 12.5%"/>
                             <col style="width: 25%"/>
-                            <thead>
-                            <tr>
-                                <th colspan="4" class="bg-white fs-2 fw-bold">Day 1</th>
-                            </tr>
-                            <tr class="fs-2">
-                                <th class="bg-primary" rowspan="2">Agenda</th>
-                                <th colspan="2">Time</th>
-                                <th rowspan="2">Speakers</th>
-                            </tr>
-                            </thead>
-                            <tbody class="fs-3 fw-medium">
-                            <tr>
-                                <td class="bg-primary"></td>
-                                <td>From</td>
-                                <td>To</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td class="bg-primary">Agenda</td>
-                                <td>1:30 pm</td>
-                                <td>3:30 pm</td>
-                                <td>Speakers Name</td>
-                            </tr>
-                            <tr>
-                                <td class="bg-primary">Agenda</td>
-                                <td>4:00 pm</td>
-                                <td>6:00 pm</td>
-                                <td>Speakers Name</td>
-                            </tr>
-                            </tbody>
+                            @php
+                                $currentDayNumber = 0;
+                            @endphp
+                            @foreach ($events as $event)
+                                @if($currentDayNumber != $event->dayNumber)
+                                    @php
+                                        $currentDayNumber = $event->dayNumber;
+                                    @endphp
+                                    <thead>
+                                    <tr>
+                                        <th colspan="4" class="bg-white fs-2 fw-bold">Day {{$event->dayNumber}}</th>
+                                    </tr>
+                                    <tr class="fs-2">
+                                        <th class="bg-primary" rowspan="2">Agenda</th>
+                                        <th colspan="2">Time</th>
+                                        <th rowspan="2">Speakers</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="fs-3 fw-medium">
+                                    <tr>
+                                        <td class="bg-primary"></td>
+                                        <td>From</td>
+                                        <td>To</td>
+                                        <td></td>
+                                    </tr>
+
+                                    @endif
+                                    <tr>
+                                        <td class="bg-primary">{{$event->topic}}</td>
+                                        <td>{{Carbon::createFromFormat('H:i:s', $event->fromTime)->format('g:i A')}} </td>
+                                        <td>{{Carbon::createFromFormat('H:i:s', $event->toTime)->format('g:i A')}} </td>
+                                        <td>{{$event->speaker}} </td>
+                                    </tr>
+                                    @endforeach
+                                    </tbody>
                         </table>
                     </div>
                 </div>
@@ -418,12 +222,13 @@
                     <div
                         class="text-center bg-primary text-white py-4 mt-5 mb-0 fs-2 fw-bold"
                     >
-                        Events Location
+                        events Location
                     </div>
                     <div class="d-flex justify-content-center">
-                        {!! $map1 = <<<MAP
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13715.228008206717!2d31.4393061992627!3d30.75192228381106!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f78d65443c8c09%3A0xc1f61ff25eed8e82!2sDyarb%20Negm%2C%20Dairab%20Negm%2C%20Diyarb%20Negm%2C%20Al-Sharqia%20Governorate!5e0!3m2!1sen!2seg!4v1713910706463!5m2!1sen!2seg" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-    MAP !!}
+                        <iframe
+                            src="{{$event->googleMapLink}}"
+                            width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>

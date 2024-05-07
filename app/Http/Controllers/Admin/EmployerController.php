@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Traits\Common;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Traits\Common;
 use App\Models\Employer;
 use Illuminate\Http\Request;
 use App\Traits\ResetPassword;
@@ -24,7 +24,7 @@ class EmployerController extends Controller
     {
         $users = DB::table('employers')
             ->join('users', 'users.id', '=', 'employers.user_id');
-
+            
         $request = Request();
         if ($search = $request->name) {
             $users->where('users.firstName', "LIKE", "%$search%");
