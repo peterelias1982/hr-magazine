@@ -15,6 +15,7 @@ class ArticleComment extends Model
         'content',
         'parentComment',
         'article_id',
+        'category_id',
     ];
 
 

@@ -105,7 +105,8 @@
             <div class="col-xl-10 col-md-9 col-sm-12">
                 <h4 class="fw-bold mt-5 pb-2">{{$articleData->firstName}} {{$articleData->secondName}}</h4>
                 <p class="fs-4 fw-semibold mt-2 pb-2">
-                    {{$articleData->description}}
+                    {{Str::limit($articleData->description, 260)}}...
+                    <a href="{{route('authorSingle', $articleData->userSlug)}}" class="text-decoration-none text-dark fw-bold">Read more</a>
                 </p>
             </div>
         </div>
