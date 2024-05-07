@@ -32,7 +32,7 @@ class PublicEmployer extends Controller
             return view('publicPages.users.employers.employerProfile', compact('user', 'linkedin', 'linkedinUrl'));
         } catch (\Throwable $exception) {
             return redirect()
-                ->route('employers.employerProfile')
+                ->route('index')
                 ->with(['messages' => json_encode(['error' => ['Error showing admin: ' . $exception->getMessage()]])]);
         }
     }

@@ -31,22 +31,28 @@
                     alt="User-Profile-Image"
                 />
                 <a
-                    href="profile-employer.html"
+                    href="{{route('employers.show', $user->slug)}}"
                     class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2 d-block"
                 >Profile</a>
                 <a
-                    href="send-job.html"
+                    href="{{route('jobs.jobsPosted')}}"
                     class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2 d-block"
                 >Posted Jobs</a>
                 <a
-                    href="#"
+                    href="{{route('jobs.create')}}"
                     class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2 d-block"
                 >Post Job</a>
-                <a
-                    href="#"
+                @auth
+                @can('isOwner', ['userId' => $user?->id])
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <a
+                    href="javascript:document.getElementById('logout-form').submit();"
                     class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2 d-block"
-                >Logout</a
-                >
+                    >Logout</a>
+                </form>
+                @endcan
+                @endauth
             </div>
         </div>
     </div>
