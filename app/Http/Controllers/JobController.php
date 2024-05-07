@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\CareerLevel;
-use App\Models\Employer;
 use Carbon\Carbon;
 use App\Traits\Common;
+use App\Models\Employer;
 use App\Models\JobDetail;
+use App\Enums\CareerLevel;
 use App\Models\JobCategory;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreJobsRequest;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
@@ -21,7 +21,6 @@ class JobController extends Controller
     {
         try {
             $employer = Employer::where('user_id', Auth::user()->id)->first();
-
             if (!$employer) {
                 throw new ResourceNotFoundException("Not Found");
             }
@@ -88,6 +87,22 @@ class JobController extends Controller
                 ->with(['messages' => json_encode(['error' => [' Job: ' . $exception->getMessage()]])]);
         }
 
+    }
+    function edit ($slug){
+        try{
+            $job=JobDetail::where("slug",$slug)->first();
+            if (!$job) {
+                throw new ResourceNotFoundException('Job is not found');
+            }
+            $levels = CareerLevel::cases();
+            $jobCategory = JobCategory::get();
+            return view("publicPages.jobs.editJobs",compact("levels","jobCategory","job"));
+        }
+        catch (\Throwable $exception) {
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['error' => [' Job: ' . $exception->getMessage()]])]);
+        }
     }
 
     function browseJobs()
