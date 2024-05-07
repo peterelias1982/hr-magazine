@@ -1,5 +1,7 @@
 <?php
 
+
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\PublicArticleController;
 use App\Models\JobCategory;
 use Illuminate\Support\Facades\Auth;
@@ -55,5 +57,11 @@ Route::get('test', function () {
    return view('publicPages.jobs.jobOpportunitiesAndCareerResource');
 });
 
+// requires authentication
+Route::group(['middleware' => 'auth'], function () {
+    Route::post('comments/', [CommentsController::class, 'store'])->name('comments.store');
+    Route::put('comments/{id}', [CommentsController::class, 'update'])->name('comments.update');
+    Route::delete('comments/{id}', [CommentsController::class, 'destroy'])->name('comments.destroy');
+});
 
 
