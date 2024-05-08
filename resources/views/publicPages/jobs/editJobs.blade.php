@@ -24,8 +24,9 @@
 
             <div class="row d-flex mb-5 bg-light">
                 <div class="col-xl-12 col-md-12 col-sm-12 py-5 px-md-5 px-1 g-0">
-                    <form action="{{route('jobs.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{route('jobs.update',[$job->slug])}}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @method('PUT')
                         <div class="card-block justify-content-center row gy-5">
                             <div class="col-12">
                                 <label
@@ -291,7 +292,7 @@
 
 
                             <div class="col-12">
-                                <input type="hidden" value="{{$job->image}}">
+                                <input type="hidden" value="{{$job->image}}" name="oldimage">
                                 <h2 class="text-primary fw-bold ms-4">Post image*</h2>
                                 <h6 class="ms-4 text-muted">Please include an image</h6>
                                 <label
@@ -314,7 +315,7 @@
                                     class="btn btn-primary text-light fs-5 fw-semibold rounded-4 py-3 px-5 m-auto"
                                     type="submit"
                                 >
-                                    Post
+                                    Update
                                 </button>
                             </div>
                         </div>

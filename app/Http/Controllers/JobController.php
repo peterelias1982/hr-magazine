@@ -3,16 +3,18 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\User;
 use App\Traits\Common;
-use App\Models\Employer;
 use App\Models\Employer;
 use App\Models\JobDetail;
 use App\Enums\CareerLevel;
-use App\Enums\CareerLevel;
 use App\Models\JobCategory;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreJobsRequest;
+use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class JobController extends Controller
@@ -23,10 +25,12 @@ class JobController extends Controller
     {
         try {
             $employer = Employer::where('user_id', Auth::user()->id)->first();
+
             if (!$employer) {
                 throw new ResourceNotFoundException("Not Found");
             }
 
+            $user = User::where('id', Auth::user()->id)->first();
             $jobs = JobDetail::where("employer_id", $employer->id)->get();
 
             $jobApplied = DB::table('job_applieds')
@@ -54,15 +58,7 @@ class JobController extends Controller
     function store(StoreJobsRequest $request)
     {
         try {
-            $employer = Employer::where('user_id', Auth::user()->id)->first();
-
-            if (!$employer) {
-                throw new ResourceNotFoundException("Not Found");
-            }
-
-            $data = $request->except('_token');
-            $data['image'] = $this->uploadFile($data['image'], 'assets/images/jobs');
-            $data["employer_id"] = $employer->id;
+            $data=$this->prepareData($request);
             JobDetail::create($data);
             return redirect()
                 ->route('jobs.jobsPosted')
@@ -96,6 +92,9 @@ class JobController extends Controller
             if (!$job) {
                 throw new ResourceNotFoundException('Job is not found');
             }
+            if (Gate::denies('isOwner', ['userId' => $job->Employer->user_id])) {
+                throw new UnauthorizedException("Unauthorized");
+            }
             $levels = CareerLevel::cases();
             $jobCategory = JobCategory::get();
             return view("publicPages.jobs.editJobs",compact("levels","jobCategory","job"));
@@ -107,6 +106,28 @@ class JobController extends Controller
         }
     }
 
+    function update(Request $request,$slug){
+       try{
+        $job=JobDetail::where("slug",$slug)->first();
+        if (!$job) {
+            throw new ResourceNotFoundException('Job is not found');
+        }
+        if (Gate::denies('isOwner', ['userId' => $job->Employer->user_id])) {
+            throw new UnauthorizedException("Unauthorized");
+        }
+        
+        $data=$this->prepareData($request);
+        $job->update($data);
+        return redirect()
+        ->route('jobs.jobsPosted')
+        ->with(['messages' =>  json_encode(['success' => ['job update Successfully']])]);
+    } catch (\Throwable $exception) {
+        return redirect()
+            ->back()
+            ->with(['messages' => json_encode(['error' => [' Job: ' . $exception->getMessage()]])]);
+    }
+        
+    }
     function browseJobs()
     {
         $request = Request();
@@ -148,6 +169,20 @@ class JobController extends Controller
             }
         }
         return $jobs;
+    }
+    function prepareData($request){
+        $employer = Employer::where('user_id', Auth::user()->id)->first();
+        if (!$employer) {
+            throw new ResourceNotFoundException("Not Found");
+        }
+        $data = $request->except('_token');
+        if(isset($data['image'])){
+        $data['image'] = $this->uploadFile($data['image'], 'assets/images/jobs');}
+        else{
+            $data["image"]=$data['oldimage'];
+        }
+        $data["employer_id"] = $employer->id;
+        return $data;
     }
 
 

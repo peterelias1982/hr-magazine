@@ -1,20 +1,14 @@
 <?php
 
-use App\Http\Controllers\CommentsController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\JobController;
-use App\Http\Controllers\PublicArticleController;
-use App\Http\Controllers\PublicEmployer;
-use App\Http\Middleware\CheckEmployerMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PublicEmployer;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Middleware\CheckEmployerMiddleware;
 use App\Http\Controllers\PublicArticleController;
-
 
 Auth::routes();
 
@@ -46,11 +40,13 @@ Route::group(['prefix' => "events", "controller" => EventController::class, "as"
 // jobs
 Route::group(['prefix' => "jobs", "controller" => JobController::class, "as" => "jobs."], function () {
     Route::get("postJob","create")->name('create')->middleware(CheckEmployerMiddleware::class);
-    Route::post("postJob","store")->name('store');
+    Route::post("postJob","store")->name('store')->middleware(CheckEmployerMiddleware::class);
     Route::get("jobsPosted","index")->name('jobsPosted');
     Route::get("jobDetails/{slug}","show")->name('jobDetails');
     Route::get("browseJobs","browseJobs")->name('browseJobs');
-    Route::get("edit/{slug}","edit")->name('edit');
+    Route::get("edit/{slug}","edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
+    Route::put("update/{slug}","update")->name('update')->middleware(CheckEmployerMiddleware::class);
+
 
 });
 
