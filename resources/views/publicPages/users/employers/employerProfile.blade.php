@@ -44,7 +44,7 @@
                 </div>
                 <div class="block border border-dark border rounded-4 mt-4 mx-4">
                     <div class="row">
-                        <div class="col-xl-9 col-md-9 col-sm-9">
+                        <div class="col-12">
                             <h3 class="px-3 pt-3 pb-2 fw-bold">Second Name</h3>
                             <h6 class="px-3 pb-2 text-muted">@isset($user)
                                     {{$user->secondName}}
@@ -54,7 +54,7 @@
                 </div>
                 <div class="block border border-dark border rounded-4 mt-4 mx-4">
                     <div class="row">
-                        <div class="col-xl-9 col-md-9 col-sm-9">
+                        <div class="col-12">
                             <h3 class="px-3 pt-3 pb-2 fw-bold">Gender</h3>
                             <h6 class="px-3 pb-2 text-muted">@isset($user)
                                     {{$user->gender}}
@@ -64,7 +64,7 @@
                 </div>
                 <div class="block border border-dark border rounded-4 mt-4 mx-4">
                     <div class="row">
-                        <div class="col-xl-9 col-md-9 col-sm-9">
+                        <div class="col-12">
                             <h3 class="px-3 pt-3 pb-2 fw-bold">Email</h3>
                             <h6 class="px-3 pb-2 text-muted">@isset($user)
                                     {{$user->email}}
@@ -74,7 +74,7 @@
                 </div>
                 <div class="block border border-dark border rounded-4 mt-4 mx-4">
                     <div class="row">
-                        <div class="col-xl-9 col-md-9 col-sm-9">
+                        <div class="col-12">
                             <h3 class="px-3 pt-3 pb-2 fw-bold">Linkedin</h3>
                             @if(isset($linkedinUrl))
                                 <a class="px-3 pb-4 text-muted" href="{{ $linkedinUrl }}">
@@ -89,7 +89,7 @@
                 </div>
                 <div class="block border border-dark border rounded-4 mt-4 mx-4">
                     <div class="row">
-                        <div class="col-xl-9 col-md-9 col-sm-9">
+                        <div class="col-12">
                             <h3 class="px-3 pt-3 pb-2 fw-bold">Personal Phone Number</h3>
                             <h6 class="px-3 pb-2 text-muted">@isset($user)
                                     {{$user->mobile}}
@@ -100,7 +100,7 @@
                 </div>
                 <div class="block border border-dark border rounded-4 mt-4 mx-4">
                     <div class="row">
-                        <div class="col-xl-9 col-md-9 col-sm-9">
+                        <div class="col-12">
                             <h3 class="px-3 pt-3 pb-2 fw-bold">Position</h3>
                             <h6 class="px-3 pb-2 text-muted">
                                 @isset($user)
@@ -113,7 +113,7 @@
                 </div>
                 <div class="block border border-dark border rounded-4 mt-4 mx-4">
                     <div class="row">
-                        <div class="col-xl-9 col-md-9 col-sm-9">
+                        <div class="col-12">
                             <h3 class="px-3 pt-3 pb-2 fw-bold">Company Name</h3>
                             <h6 class="px-3 pb-2 text-muted">
                                 @isset($user)
@@ -126,7 +126,7 @@
                 </div>
                 <div class="block border border-dark border rounded-4 mt-4 mx-4">
                     <div class="row">
-                        <div class="col-xl-9 col-md-9 col-sm-9">
+                        <div class="col-12">
                             <h3 class="px-3 pt-3 pb-2 fw-bold">Company Phone Number</h3>
                             <h6 class="px-3 pb-2 text-muted">
                                 @isset($user)
@@ -139,7 +139,7 @@
                 </div>
                 <div class="block border border-dark border rounded-4 mt-4 mx-4">
                     <div class="row">
-                        <div class="col-xl-9 col-md-9 col-sm-9">
+                        <div class="col-12">
                             <h3 class="px-3 pt-3 pb-2 fw-bold">Company Address</h3>
                             <h6 class="px-3 pb-2 text-muted">
                                 @isset($user)
@@ -152,7 +152,7 @@
                 </div>
                 <div class="block border border-dark border rounded-4 mt-4 mx-4">
                     <div class="row">
-                        <div class="col-xl-9 col-md-9 col-sm-9">
+                        <div class="col-12">
                             <h3 class="px-3 pt-3 pb-2 fw-bold">About Company</h3>
                             <p class="px-3 pb-2 text-muted">
                                 @isset($user)
@@ -166,11 +166,11 @@
                 <!-- Adding Delete Employer Account -->
                 @auth
                     @can('isOwner', ['userId' => $user?->id])
-                <div class="btn-wrapper">
+                <div class="btn-wrapper my-5">
                     <form action="@isset($user) {{route('employers.destroy', $user->slug)}} @endisset" method="GET">
                         <button type="submit" class="btn  mx-4 p-2  fs-3 fw-bold text-primary"
                                 onclick="alert('Are you sure you want to delete account?')"><i class="icon-trash"></i>
-                            Delete Account
+                            ⚠️Delete Account
                         </button>
                     </form>
                 </div>

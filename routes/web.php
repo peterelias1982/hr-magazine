@@ -55,9 +55,16 @@ Route::group(['prefix' => "employers", "controller" => PublicEmployer::class, "a
 
 // requires authentication
 Route::group(['middleware' => 'auth'], function () {
+    // comments
     Route::post('comments/', [CommentsController::class, 'store'])->name('comments.store');
     Route::put('comments/{id}', [CommentsController::class, 'update'])->name('comments.update');
     Route::delete('comments/{id}', [CommentsController::class, 'destroy'])->name('comments.destroy');
+
+    Route::get('profile', function () {
+       if(\App\Models\Employer::where('user_id', Auth::user()->id)->first()) {
+           return redirect()->route('employers.show', Auth::user()->slug);
+       }
+    })->name('profile');
 });
 
 Route::get('/home', function () {

@@ -26,7 +26,7 @@
                     ></button>
                 </div>
                 <img
-                    src="{{asset('publicPages/images/employer.png')}}"
+                    src="{{asset('assets/images/users/' . $user->image)}}"
                     class="img-fluid rounded-circle m-4"
                     alt="User-Profile-Image"
                 />
@@ -44,13 +44,11 @@
                 >Post Job</a>
                 @auth
                 @can('isOwner', ['userId' => $user?->id])
-                <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                    @csrf
                     <a
                     href="javascript:document.getElementById('logout-form').submit();"
                     class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2 d-block"
                     >Logout</a>
-                </form>
+
                 @endcan
                 @endauth
             </div>

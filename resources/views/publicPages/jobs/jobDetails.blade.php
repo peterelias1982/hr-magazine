@@ -29,14 +29,14 @@
                     <span class="col-5">Email to Apply:</span><span class="text-dark col-7">{{$jobDetails->email}}</span>
                 </h3>
                 <h3 class="text-primary fs-3 fw-bold row">
-                    <span class="col-5">Address:</span><span class="text-dark col-7">{{$jobDetails->streetNo}} - 
+                    <span class="col-5">Address:</span><span class="text-dark col-7">{{$jobDetails->streetNo}} -
                         {{$jobDetails->streetName}} - {{$jobDetails->city}} - {{$jobDetails->country}} </span>
                 </h3>
             </div>
 
             <div class="col-lg-6">
                 <h3 class="text-primary fs-3 fw-bold row">
-                    <span class="col-5">Published by:</span><span class="text-dark col-7"><a href="#">
+                    <span class="col-5">Published by:</span><span class="text-dark col-7"><a href="{{route('employers.show', $jobDetails->Employer->userEmployer->slug)}}">
                     {{$jobDetails->Employer->userEmployer->firstName}} {{$jobDetails->Employer->userEmployer->secondName}}</a></span>
                 </h3>
             </div>
@@ -47,10 +47,10 @@
 
                     <h3 class="fs-3 text-danger fw-bold py-5">Job Description:</h3>
                     <p class="fw-semibold">
-                       
-                        {{$jobDetails->content}} 
+
+                        {{$jobDetails->content}}
                     </p>
-                    
+
 
 
 
