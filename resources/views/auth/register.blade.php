@@ -23,7 +23,7 @@
                     </a>
                 </div>
                 <div class="col-6">
-                    <a href="{{ URL::current() }}?user=employer#employerForm">
+                    <a href="{{ URL::current() }}?user=employer">
                         <button
                             class="btn-employer btn btn-dark text-white rounded-0 w-100 fs-2 fw-bold py-5"
                         >
@@ -34,7 +34,8 @@
             </div>
 
             <div class="row py-5 px-md-5 px-1 g-0" id="user">
-                <form>
+                <form action="{{route('register')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="row gy-5 ">
                         <div class="col-12">
                             <label
@@ -47,7 +48,11 @@
                                 id="firstName"
                                 name="firstName"
                                 placeholder="First Name"
+                                value="{{old('firstName')}}"
                             />
+                            @error('firstName')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -61,7 +66,11 @@
                                 id="secondName"
                                 name="secondName"
                                 placeholder="Second Name"
+                                value="{{old('secondName')}}"
                             />
+                            @error('secondName')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -75,7 +84,11 @@
                                 id="email"
                                 name="email"
                                 placeholder="Email Address"
+                                value="{{old('email')}}"
                             />
+                            @error('email')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -83,12 +96,16 @@
                                 class="form-label mb-3 text-primary fw-bold fs-3"
                             >Password*</label>
                             <input
-                                type="text"
+                                type="password"
                                 class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                 id="password"
                                 name="password"
                                 placeholder="Password"
+                                value="{{old('password')}}"
                             />
+                            @error('password')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -97,12 +114,16 @@
                             >Confirm Password*</label
                             >
                             <input
-                                type="text"
+                                type="password"
                                 class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                 id="confirm-password"
-                                name="confirm-password"
+                                name="password_confirmation"
                                 placeholder="Confirm Password"
+                                value="{{old('password_confirmation')}}"
                             />
+                            @error('password_confirmation')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -114,9 +135,13 @@
                                 type="text"
                                 class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                 id="phone"
-                                name="phone"
+                                name="mobile"
                                 placeholder="Phone Number"
+                                value="{{old('mobile')}}"
                             />
+                            @error('mobile')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -127,10 +152,13 @@
                                     id="country"
                                     name="gender" aria-label="Default select example">
                                 <option selected>Please Select</option>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
+                                <option value="{{\App\Enums\Gender::Male->value}}">Male</option>
+                                <option value="{{\App\Enums\Gender::Female->value}}">Female</option>
                             </select>
-                            <small class="ps-5 fs-4 text-muted">Please Selecte your gender</small>
+                            <small class="ps-5 fs-4 text-muted">Please Select your gender</small>
+                            @error('gender')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -144,7 +172,11 @@
                                 id="position"
                                 name="position"
                                 placeholder="Position"
+                                value="{{old('position')}}"
                             />
+                            @error('position')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <h2 class="text-primary fw-bold ms-4 fs-3">Profile Picture</h2>
@@ -152,9 +184,14 @@
                             <label
                                 class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
                             >
-                                <input type="file" class="d-none" placeholder=""/>
+                                <input type="file" class="d-none" placeholder="" name="image"
+                                       value="{{old('image')}}"
+                                />
                                 Upload Image
                             </label>
+                            @error('image')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
 
                             <h6 class="ms-4 mt-2 text-muted">PDF, PNG, JPG (5 MB)</h6>
                         </div>
@@ -211,15 +248,14 @@
                             </button>
                         </div>
                     </div>
-
                 </form>
             </div>
             <div class="row py-5 px-md-5 px-1 g-0" id="employer">
-                <form>
+                <form action="{{route('register')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="row gy-5">
-
+                        <input type="hidden" name="user" value="employer">
                         <h2 class="text-primary fw-bold">User Information</h2>
-
                         <div class="col-12">
                             <label
                                 for="firstName"
@@ -231,7 +267,11 @@
                                 id="firstName"
                                 name="firstName"
                                 placeholder="First Name"
+                                value="{{old('firstName')}}"
                             />
+                            @error('firstName')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -245,7 +285,11 @@
                                 id="secondName"
                                 name="secondName"
                                 placeholder="Second Name"
+                                value="{{old('secondName')}}"
                             />
+                            @error('secondName')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -259,7 +303,11 @@
                                 id="email"
                                 name="email"
                                 placeholder="Email Address"
+                                value="{{old('email')}}"
                             />
+                            @error('email')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -267,12 +315,16 @@
                                 class="form-label mb-3 text-primary fw-bold fs-3"
                             >Password*</label>
                             <input
-                                type="text"
+                                type="password"
                                 class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                 id="password"
                                 name="password"
                                 placeholder="Password"
+                                value="{{old('password')}}"
                             />
+                            @error('password')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -281,12 +333,16 @@
                             >Confirm Password*</label
                             >
                             <input
-                                type="text"
+                                type="password"
                                 class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                 id="confirm-password"
-                                name="confirm-password"
+                                name="password_confirmation"
                                 placeholder="Confirm Password"
+                                value="{{old('password_confirmation')}}"
                             />
+                            @error('password_confirmation')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -298,9 +354,13 @@
                                 type="text"
                                 class="form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                 id="phone"
-                                name="phone"
+                                name="mobile"
                                 placeholder="Phone Number"
+                                value="{{old('mobile')}}"
                             />
+                            @error('mobile')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -311,10 +371,13 @@
                                     id="country"
                                     name="gender" aria-label="Default select example">
                                 <option selected>Please Select</option>
-                                <option value="1">Male</option>
-                                <option value="2">Female</option>
+                                <option value="{{\App\Enums\Gender::Male->value}}">Male</option>
+                                <option value="{{\App\Enums\Gender::Female->value}}">Female</option>
                             </select>
                             <small class="ps-5 fs-4 text-muted">Please Selecte your gender</small>
+                            @error('gender')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -328,7 +391,11 @@
                                 id="position"
                                 name="position"
                                 placeholder="Position"
+                                value="{{old('position')}}"
                             />
+                            @error('position')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <h2 class="text-primary fw-bold ms-4 fs-3">Profile Picture</h2>
@@ -336,12 +403,18 @@
                             <label
                                 class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
                             >
-                                <input type="file" class="d-none" placeholder=""/>
+                                <input type="file" class="d-none" placeholder="" name="image"
+                                       value="{{old('image')}}"
+                                />
                                 Upload Image
                             </label>
-
                             <h6 class="ms-4 mt-2 text-muted">PDF, PNG, JPG (5 MB)</h6>
+                            @error('image')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
+
                         </div>
+
                         <hr>
                         <h2 class="text-primary fw-bold">Company Information</h2>
                         <div class="col-12">
@@ -355,7 +428,12 @@
                                 id="companyName"
                                 name="companyName"
                                 placeholder="Company Name"
+                                value="{{old('companyName')}}"
                             />
+                            @error('companyName')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
+
                         </div>
                         <div class="col-12">
                             <label
@@ -368,7 +446,11 @@
                                 id="address"
                                 name="address"
                                 placeholder="Address"
+                                value="{{old('address')}}"
                             />
+                            @error('address')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -381,7 +463,11 @@
                                 id="phone"
                                 name="phone"
                                 placeholder=" Company Phone Number"
+                                value="{{old('phone')}}"
                             />
+                            @error('phone')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -393,10 +479,13 @@
                                 type="text"
                                 class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                 id="jobTitle"
-                                name="jobTitle"
-                                value="Industry"
+                                name="about_company"
+                                value="{{old('about_company')}}"
                                 rows="12"
                             ></textarea>
+                            @error('about_company')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <h2 class="text-primary fw-bold ms-4 fs-3">Company Logo</h2>
@@ -404,7 +493,7 @@
                             <label
                                 class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
                             >
-                                <input type="file" class="d-none" placeholder=""/>
+                                <input type="file" class="d-none" placeholder="" name="logo"/>
                                 Upload Image
                             </label>
 
@@ -474,9 +563,9 @@
         const user = document.getElementById('user');
         const employer = document.getElementById('employer');
 
-        const hash = window.location.hash;
+        const params = new URLSearchParams(window.location.search);
 
-        if(hash === '#employerForm'){
+        if (params.get('user') === 'employer') {
             user.classList.add('d-none');
             employer.classList.remove('d-none');
         } else {

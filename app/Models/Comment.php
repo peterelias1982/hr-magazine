@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class JobApplied extends Model
+class Comment extends Model
 {
     use HasFactory;
-
     protected $fillable = [
-        "jobDetail_id",
-        "jobSeeker_id"
-    ];    
+        'comment',
+        'name',
+        "user_id",
+    ];
 }

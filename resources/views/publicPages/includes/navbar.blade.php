@@ -60,26 +60,29 @@
                         class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
                         aria-labelledby="accountDropdown"
                     >
-
-                        <li>
-                            <a class="dropdown-item text-white" href="{{route('login')}}">Login</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item text-white" href="{{route('register')}}">Register</a>
-                        </li>
-                        @can('viewAdminDashboard')
+                        @guest
                             <li>
-                                <a class="dropdown-item text-white" href="{{route('admin.admins.index')}}">Admin Dashboard</a>
+                                <a class="dropdown-item text-white" href="{{ route('login') }}">Login</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item text-white" href="{{route('register')}}">Register</a>
                             </li>
                         @else
+                            @can('viewAdminDashboard')
+                                <li>
+                                    <a class="dropdown-item text-white" href="{{route('admin.admins.index')}}">Admin
+                                        Dashboard</a>
+                                </li>
+                            @else
+                                <li>
+                                    <a class="dropdown-item text-white" href="{{route('profile')}}">Profile</a>
+                                </li>
+                            @endcan
                             <li>
-                                <a class="dropdown-item text-white" href="{{route('profile.index')}}">Profile</a>
+                                <a class="dropdown-item text-white"
+                                   href="javascript:document.getElementById('logout-form').submit();">Logout</a>
                             </li>
-                        @endcan
-                        <li>
-                            <a class="dropdown-item text-white"
-                               href="javascript:document.getElementById('logout-form').submit();">Logout</a>
-                        </li>
+                        @endguest
                     </ul>
                 </div>
             </div>
@@ -166,7 +169,7 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item me-3">
-                        <a class="nav-link text-white" href="#">Home</a>
+                        <a class="nav-link text-white" href="{{ route('index') }}">Home</a>
                     </li>
                     <li class="nav-item dropdown me-3">
                         <a
@@ -184,44 +187,44 @@
                             aria-labelledby="navbarDropdownArticles"
                         >
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{ route('articles.industryInsights1') }}"
                                 >Industry News and Updates</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{ route('articles.industryInsights2') }}"
                                 >Trends and Insights</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{ route('articles.industryInsights3') }}"
                                 >Global HR Perspectives</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{ route('articles.professionalDevelopment2') }}"
                                 >Expert Interviews</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{ route('articles.professionalDevelopment2') }}"
                                 >Professionals Spotlights</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{ route('articles.professionalDevelopment3') }}"
                                 >Training and Development</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#">Authors</a>
+                                <a class="dropdown-item text-white" href="{{ route('articles.professionalDevelopment3') }}">Authors</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown me-3">
                         <a
                             class="nav-link text-white dropdown-toggle"
-                            href="#"
+                            href="{{ route('articles.ladiesInHR') }}"
                             id="navbarDropdownLadiesInHR"
                             role="button"
                             data-bs-toggle="dropdown"
@@ -234,12 +237,12 @@
                             aria-labelledby="navbarDropdownLadiesInHR"
                         >
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{ route('articles.ladiesInHR') }}"
                                 >Case Studies</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{ route('articles.ladiesInHR') }}"
                                 >Journey to Excellence</a
                                 >
                             </li>
@@ -248,7 +251,7 @@
                     <li class="nav-item dropdown me-3">
                         <a
                             class="nav-link text-white dropdown-toggle"
-                            href="#"
+                            href=""
                             id="navbarDropdownWorkplaceCulture"
                             role="button"
                             data-bs-toggle="dropdown"
@@ -261,22 +264,22 @@
                             aria-labelledby="navbarDropdownWorkplaceCulture"
                         >
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{ route('articles.workPlaceCultureAndWellBeing') }}"
                                 >Workplace Culture</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{ route('articles.workPlaceCultureAndWellBeing') }}"
                                 >Wellness Programs</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{ route('articles.workPlaceCultureAndWellBeing') }}"
                                 >Mental Health in the Workplace</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{ route('articles.workPlaceCultureAndWellBeing') }}"
                                 >Diversity, Equity and Inclusion (DEI)</a
                                 >
                             </li>
@@ -298,24 +301,19 @@
                             aria-labelledby="navbarDropdownEvents"
                         >
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{route('event.allEvents')}}"
                                 >Upcoming Events</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="#"
+                                <a class="dropdown-item text-white" href="{{route('event.eventCalender')}}"
                                 >Event Calendar</a
-                                >
-                            </li>
-                            <li>
-                                <a class="dropdown-item text-white" href="#"
-                                >Latest Events</a
                                 >
                             </li>
                         </ul>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link text-white" href="#">Community</a>
+                        <a class="nav-link text-white" href="{{ route('contactUs') }}">Contact Us</a>
                     </li>
                     <li class="nav-item dropdown me-3">
                         <a
@@ -333,14 +331,12 @@
                             aria-labelledby="navbarDropdownCareers"
                         >
                             <li>
-                                <a class="dropdown-item text-white" href="#"
-                                >Browse Jobs</a
-                                >
+                                <a class="dropdown-item text-white" href="{{ route('jobs.browseJobs') }}"
+                                >Browse Jobs</a>
                             </li>
                             <li>
                                 <a class="dropdown-item text-white" href="#"
-                                >For Employers</a
-                                >
+                                >For Employers</a>
                             </li>
                         </ul>
                     </li>
@@ -368,14 +364,29 @@
                     class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
                     aria-labelledby="accountDropdown"
                 >
-                    <li><a class="dropdown-item text-white" href="#">Login</a></li>
-                    <li>
-                        <a class="dropdown-item text-white" href="#">Register</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item text-white" href="#">Profile</a>
-                    </li>
-                    <li><a class="dropdown-item text-white" href="#">Logout</a></li>
+                    @guest
+                        <li>
+                            <a class="dropdown-item text-white" href="{{ route('login') }}">Login</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-white" href="{{route('register')}}">Register</a>
+                        </li>
+                    @else
+                        @can('viewAdminDashboard')
+                            <li>
+                                <a class="dropdown-item text-white" href="{{route('admin.admins.index')}}">Admin
+                                    Dashboard</a>
+                            </li>
+                        @else
+                            <li>
+                                <a class="dropdown-item text-white" href="{{route('profile')}}">Profile</a>
+                            </li>
+                        @endcan
+                        <li>
+                            <a class="dropdown-item text-white"
+                               href="javascript:document.getElementById('logout-form').submit();">Logout</a>
+                        </li>
+                    @endguest
                 </ul>
             </div>
 
