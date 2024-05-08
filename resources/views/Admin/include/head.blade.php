@@ -40,7 +40,7 @@
     <!-- inject:css -->
     <link rel="stylesheet" href="{{asset('admin/css/vertical-layout-light/style.css')}}" />
     <link rel="stylesheet" href="{{asset('admin/css/vertical-layout-light/style2.css')}}" />
-    <link rel="stylesheet" href="{{asset('admin/css/custom-add-article.css')}}" />
+    <link rel="stylesheet" href="{{ asset('admin/css/custom-add-article.css') }}" />
 
     <link
       rel="stylesheet"

@@ -75,7 +75,7 @@
                                 </li>
                             @else
                                 <li>
-                                    <a class="dropdown-item text-white" href="#">Profile</a>
+                                    <a class="dropdown-item text-white" href="{{route('profile')}}">Profile</a>
                                 </li>
                             @endcan
                             <li>
