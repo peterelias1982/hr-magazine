@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\CareerLevel;
 use App\Models\Employer;
+use App\Models\User;
 use Carbon\Carbon;
 use App\Traits\Common;
 use App\Models\JobDetail;
@@ -21,6 +22,7 @@ class JobController extends Controller
     {
         try {
             $employer = Employer::where('user_id', Auth::user()->id)->first();
+            $user = User::where('id', Auth::user()->id)->first();
 
             if (!$employer) {
                 throw new ResourceNotFoundException("Not Found");
@@ -34,7 +36,7 @@ class JobController extends Controller
                 ->where("job_details.employer_id", $employer->id)
                 ->join('users', 'job_seekers.user_id', '=', 'users.id')->get();
 
-            return view('publicPages.jobs.jobsPosted', compact('jobs', "jobApplied"));
+            return view('publicPages.jobs.jobsPosted', compact('jobs', "jobApplied", 'user'));
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('index')
