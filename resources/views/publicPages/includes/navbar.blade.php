@@ -332,13 +332,11 @@
                         >
                             <li>
                                 <a class="dropdown-item text-white" href="{{ route('jobs.browseJobs') }}"
-                                >Browse Jobs</a
-                                >
+                                >Browse Jobs</a>
                             </li>
                             <li>
                                 <a class="dropdown-item text-white" href="#"
-                                >For Employers</a
-                                >
+                                >For Employers</a>
                             </li>
                         </ul>
                     </li>
@@ -366,14 +364,29 @@
                     class="dropdown-menu dropdown-menu-dark dropdown-menu-end"
                     aria-labelledby="accountDropdown"
                 >
-                    <li><a class="dropdown-item text-white" href="#">Login</a></li>
-                    <li>
-                        <a class="dropdown-item text-white" href="#">Register</a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item text-white" href="#">Profile</a>
-                    </li>
-                    <li><a class="dropdown-item text-white" href="#">Logout</a></li>
+                    @guest
+                        <li>
+                            <a class="dropdown-item text-white" href="{{ route('login') }}">Login</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item text-white" href="{{route('register')}}">Register</a>
+                        </li>
+                    @else
+                        @can('viewAdminDashboard')
+                            <li>
+                                <a class="dropdown-item text-white" href="{{route('admin.admins.index')}}">Admin
+                                    Dashboard</a>
+                            </li>
+                        @else
+                            <li>
+                                <a class="dropdown-item text-white" href="{{route('profile')}}">Profile</a>
+                            </li>
+                        @endcan
+                        <li>
+                            <a class="dropdown-item text-white"
+                               href="javascript:document.getElementById('logout-form').submit();">Logout</a>
+                        </li>
+                    @endguest
                 </ul>
             </div>
 
