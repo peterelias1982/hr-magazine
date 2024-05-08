@@ -514,7 +514,7 @@
             @endforeach
         </div>
 
-{{--        @include('publicPages.includes.upcomingEvents')--}}
+       @include('publicPages.includes.upcomingEvents')
     </div>
     <!--end of content-->
 @endsection

@@ -318,7 +318,7 @@
                         </ul>
                     </li>
                     <li class="nav-item me-3">
-                        <a class="nav-link text-white" href="#">Community</a>
+                        <a class="nav-link text-white" href="{{ route('contactUs') }}">Contact Us</a>
                     </li>
                     <li class="nav-item dropdown me-3">
                         <a
