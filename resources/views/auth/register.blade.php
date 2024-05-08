@@ -66,7 +66,7 @@
                                 id="secondName"
                                 name="secondName"
                                 placeholder="Second Name"
-                                value="{{old('secondName')}}
+                                value="{{old('secondName')}}"
                             />
                              @error('secondName')
                             <p class="text-primary"><small>{{$message}}</small></p>
@@ -84,7 +84,7 @@
                                 id="email"
                                 name="email"
                                 placeholder="Email Address"
-                                 value="{{old('email')}}
+                                 value="{{old('email')}}"
                             />
                              @error('email')
                             <p class="text-primary"><small>{{$message}}</small></p>
@@ -101,7 +101,7 @@
                                 id="password"
                                 name="password"
                                 placeholder="Password"
-                               value="{{old('password')}}
+                               value="{{old('password')}}"
                             />
                              @error('password')
                             <p class="text-primary"><small>{{$message}}</small></p>
@@ -119,7 +119,7 @@
                                 id="confirm-password"
                                 name="password_confirmation"
                                 placeholder="Confirm Password"
-                            value="{{old('password_confirmation')}}
+                            value="{{old('password_confirmation')}}"
                             />
                              @error('password_confirmation')
                             <p class="text-primary"><small>{{$message}}</small></p>
@@ -137,7 +137,7 @@
                                 id="phone"
                                 name="mobile"
                                 placeholder="Phone Number"
-                             value="{{old('mobile')}}
+                             value="{{old('mobile')}}"
                             />
                              @error('mobile')
                             <p class="text-primary"><small>{{$message}}</small></p>
@@ -155,7 +155,7 @@
                                 <option value="{{\App\Enums\Gender::Male->value}}">Male</option>
                                 <option value="{{\App\Enums\Gender::Female->value}}">Female</option>
                             </select>
-                            <small class="ps-5 fs-4 text-muted">Please Selecte your gender</small>
+                            <small class="ps-5 fs-4 text-muted">Please Select your gender</small>
                         </div>
                         <div class="col-12">
                             <label
@@ -169,7 +169,7 @@
                                 id="position"
                                 name="position"
                                 placeholder="Position"
-                              value="{{old('position')}}
+                              value="{{old('position')}}"
                             />
                              @error('position')
                             <p class="text-primary"><small>{{$message}}</small></p>
@@ -182,13 +182,13 @@
                                 class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
                             >
                                 <input type="file" class="d-none" placeholder="" name="image"
-                                  value="{{old('image')}}
+                                  value="{{old('image')}}"
                             />
-                             @error('image')
-                            <p class="text-primary"><small>{{$message}}</small></p>
-                            @enderror
                                 Upload Image
                             </label>
+                            @error('image')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
 
                             <h6 class="ms-4 mt-2 text-muted">PDF, PNG, JPG (5 MB)</h6>
                         </div>
@@ -281,7 +281,7 @@
                                 id="secondName"
                                 name="secondName"
                                 placeholder="Second Name"
-                              value="{{old('secondName')}}
+                              value="{{old('secondName')}}"
                             />
                              @error('secondName')
                             <p class="text-primary"><small>{{$message}}</small></p>
@@ -299,7 +299,7 @@
                                 id="email"
                                 name="email"
                                 placeholder="Email Address"
-                             value="{{old('email')}}
+                             value="{{old('email')}}"
                             />
                              @error('email')
                             <p class="text-primary"><small>{{$message}}</small></p>
@@ -316,7 +316,7 @@
                                 id="password"
                                 name="password"
                                 placeholder="Password"
-                              value="{{old('password')}}
+                              value="{{old('password')}}"
                             />
                              @error('password')
                             <p class="text-primary"><small>{{$message}}</small></p>
@@ -334,7 +334,7 @@
                                 id="confirm-password"
                                 name="password_confirmation"
                                 placeholder="Confirm Password"
-                               value="{{old('password_confirmation')}}
+                               value="{{old('password_confirmation')}}"
                             />
                              @error('password_confirmation')
                             <p class="text-primary"><small>{{$message}}</small></p>
@@ -352,7 +352,7 @@
                                 id="phone"
                                 name="mobile"
                                 placeholder="Phone Number"
-                              value="{{old('mobile')}}
+                              value="{{old('mobile')}}"
                             />
                              @error('mobile')
                             <p class="text-primary"><small>{{$message}}</small></p>
@@ -384,7 +384,7 @@
                                 id="position"
                                 name="position"
                                 placeholder="Position"
-                               value="{{old('position')}}
+                               value="{{old('position')}}"
                             />
                              @error('position')
                             <p class="text-primary"><small>{{$message}}</small></p>
@@ -397,15 +397,15 @@
                                 class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
                             >
                                 <input type="file" class="d-none" placeholder="" name="image"
-                                   value="{{old('image')}}
+                                   value="{{old('image')}}"
                             />
-                             @error('image')
-                            <p class="text-primary"><small>{{$message}}</small></p>
-                            @enderror
                                 Upload Image
                             </label>
-
                             <h6 class="ms-4 mt-2 text-muted">PDF, PNG, JPG (5 MB)</h6>
+                            @error('image')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
+
                         </div>
 
                         <hr>
@@ -421,7 +421,11 @@
                                 id="companyName"
                                 name="companyName"
                                 placeholder="Company Name"
+                                value="{{old('companyName')}}"
                             />
+                            @error('companyName')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
 
                         </div>
                         <div class="col-12">
@@ -435,7 +439,11 @@
                                 id="address"
                                 name="address"
                                 placeholder="Address"
+                                value="{{old('address')}}"
                             />
+                            @error('address')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -448,7 +456,11 @@
                                 id="phone"
                                 name="phone"
                                 placeholder=" Company Phone Number"
+                                value="{{old('phone')}}"
                             />
+                            @error('phone')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -461,9 +473,12 @@
                                 class="col-6 form-control border border-dark border-3 rounded-4 py-4 ps-5 fs-4"
                                 id="jobTitle"
                                 name="about_company"
-                                value="Industry"
+                                value="{{old('about_company')}}"
                                 rows="12"
                             ></textarea>
+                            @error('about_company')
+                            <p class="text-primary"><small>{{$message}}</small></p>
+                            @enderror
                         </div>
                         <div class="col-12">
                             <h2 class="text-primary fw-bold ms-4 fs-3">Company Logo</h2>
