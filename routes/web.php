@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\PublicEmployer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
@@ -8,7 +8,6 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\CommentsController;
 use App\Http\Middleware\CheckEmployerMiddleware;
 use App\Http\Controllers\PublicArticleController;
-
 
 Auth::routes();
 
@@ -29,6 +28,7 @@ Route::group(['prefix' => "articles", "controller" => PublicArticleController::c
 Route::get('category/{category}/article/{article}', [PublicArticleController::class, 'articleSingle'])->name('articleSingle');
 Route::get('authors/{author}', [PublicArticleController::class, 'authorSingle'])->name('authorSingle');
 
+
 // events
 Route::group(['prefix' => "events", "controller" => EventController::class, "as" => "event."], function () {
     Route::get("allEvents","allEvents")->name('allEvents');
@@ -39,19 +39,34 @@ Route::group(['prefix' => "events", "controller" => EventController::class, "as"
 // jobs
 Route::group(['prefix' => "jobs", "controller" => JobController::class, "as" => "jobs."], function () {
     Route::get("postJob","create")->name('create')->middleware(CheckEmployerMiddleware::class);
-    Route::post("postJob","store")->name('store');
+    Route::post("postJob","store")->name('store')->middleware(CheckEmployerMiddleware::class);
     Route::get("jobsPosted","index")->name('jobsPosted');
     Route::get("jobDetails/{slug}","show")->name('jobDetails');
     Route::get("browseJobs","browseJobs")->name('browseJobs');
-    Route::get("edit/{slug}","edit")->name('edit');
+    Route::get("edit/{slug}","edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
 
+});
+
+// employers routes
+Route::group(['prefix' => "employers", "controller" => PublicEmployer::class, "as" => "employers."], function () {
+    Route::get("employerProfile/{slug}", "show")->name('show');
+    Route::get("editEmployerProfile/{slug}", "edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
+    Route::put("update/{slug}", "update")->name('update')->middleware(CheckEmployerMiddleware::class);
+    Route::get("deleteAccount/{slug}","destroy")->name('destroy')->middleware(CheckEmployerMiddleware::class);;
 });
 
 // requires authentication
 Route::group(['middleware' => 'auth'], function () {
+    // comments
     Route::post('comments/', [CommentsController::class, 'store'])->name('comments.store');
     Route::put('comments/{id}', [CommentsController::class, 'update'])->name('comments.update');
     Route::delete('comments/{id}', [CommentsController::class, 'destroy'])->name('comments.destroy');
+
+    Route::get('profile', function () {
+       if(\App\Models\Employer::where('user_id', Auth::user()->id)->first()) {
+           return redirect()->route('employers.show', Auth::user()->slug);
+       }
+    })->name('profile');
 });
 
 Route::get('/home', function () {
@@ -71,7 +86,6 @@ Route::get('jobOpportunities', function () {
 })->name('jobOpportunities');
 
 Route::fallback(function () {
-    redirect()->route('index');
+    return redirect()->route('index');
 });
-
 

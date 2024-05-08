@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CareerLevel;
+use App\Models\Employer;
+use App\Models\User;
 use Carbon\Carbon;
 use App\Traits\Common;
-use App\Models\Employer;
 use App\Models\JobDetail;
-use App\Enums\CareerLevel;
 use App\Models\JobCategory;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreJobsRequest;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
 class JobController extends Controller
@@ -21,9 +24,12 @@ class JobController extends Controller
     {
         try {
             $employer = Employer::where('user_id', Auth::user()->id)->first();
+
             if (!$employer) {
                 throw new ResourceNotFoundException("Not Found");
             }
+
+            $user = User::where('id', Auth::user()->id)->first();
 
             $jobs = JobDetail::where("employer_id", $employer->id)->get();
 
@@ -33,7 +39,7 @@ class JobController extends Controller
                 ->where("job_details.employer_id", $employer->id)
                 ->join('users', 'job_seekers.user_id', '=', 'users.id')->get();
 
-            return view('publicPages.jobs.jobsPosted', compact('jobs', "jobApplied"));
+            return view('publicPages.jobs.jobsPosted', compact('jobs', "jobApplied", 'user'));
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('index')
@@ -88,17 +94,24 @@ class JobController extends Controller
         }
 
     }
-    function edit ($slug){
-        try{
-            $job=JobDetail::where("slug",$slug)->first();
+
+    function edit($slug)
+    {
+        try {
+            $job = JobDetail::where("slug", $slug)->first();
             if (!$job) {
                 throw new ResourceNotFoundException('Job is not found');
             }
+
+            if (Gate::denies('isOwner', ['userId' => $job->Employer->user_id])) {
+                throw new UnauthorizedException("Unauthorized");
+            }
+
+
             $levels = CareerLevel::cases();
             $jobCategory = JobCategory::get();
-            return view("publicPages.jobs.editJobs",compact("levels","jobCategory","job"));
-        }
-        catch (\Throwable $exception) {
+            return view("publicPages.jobs.editJobs", compact("levels", "jobCategory", "job"));
+        } catch (\Throwable $exception) {
             return redirect()
                 ->back()
                 ->with(['messages' => json_encode(['error' => [' Job: ' . $exception->getMessage()]])]);
