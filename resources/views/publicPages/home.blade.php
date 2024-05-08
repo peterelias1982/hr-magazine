@@ -40,7 +40,11 @@
                         ></button>
                     </div>
                     <div class="carousel-inner rounded-3 border-light">
+
                         <div class="carousel-item active">
+
+
+
                             <div class="card">
                                 <img
                                     src="{{asset('publicPages/images/carousel-1.jpg')}}"
@@ -51,10 +55,12 @@
                                     <p class="fw-semibold">
                                         Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                                         Neque, pellentesque dictum posuere id diam rutrum.
+
                                     </p>
                                 </div>
                             </div>
                         </div>
+
                         <div class="carousel-item">
                             <div class="card">
                                 <img
@@ -133,11 +139,14 @@
                 </h3>
                 <div class="overflow-hidden" style="height: 533px">
                     <div class="animation px-2 py-3 rounded-1">
+                       @foreach ($news as $new)
+
+
                         <div
                             class="card border-0 bg-white border-primary"
                             onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
+                            onmouseout="resumeAnimation()">
+
                             <div class="row g-0">
                                 <div
                                     class="col-3 d-flex flex-column justify-content-center"
@@ -147,7 +156,7 @@
                                         style="height: 66px"
                                     >
                                         <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
+                                            src="{{asset('assets/images/articles/' . $new->image)}}"
                                             class="rounded-start image-center"
                                             alt="..."
                                         />
@@ -159,11 +168,10 @@
                                             class="card-text me-1 d-flex flex-column justify-content-between"
                                         >
                           <span class="text-dark">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
+                            {{Str::limit($new->content, 100)}}....
                           </span>
                                             <a
-                                                href="#"
+                                                href="{{route('articleSingle', [$new->articleCategory->slug, $new->slug])}}"
                                                 class="btn btn-danger text-white rounded-5 end-0 align-self-end"
                                             >Read more</a
                                             >
@@ -172,318 +180,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="card border-0 bg-white border-primary"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-dark">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="card border-0 bg-white border-primary"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-dark">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="card border-0 bg-white border-primary"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-dark">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="card border-0 bg-white border-primary"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-dark">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="card border-0 bg-white border-primary"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-dark">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="card border-0 bg-white border-primary"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-dark">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="card border-0 bg-white border-primary"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-dark">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="card border-0 bg-white border-primary"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-dark">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
+                    </div>
+
+
                     </div>
                 </div>
             </div>
@@ -504,12 +204,16 @@
               "
                 >
                     <div class="animation px-2 py-3 rounded-1">
+                        @foreach ($recommends as $recommend)
+
+
                         <div
                             class="card border-0 bg-dark"
                             onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
+                            onmouseout="resumeAnimation()">
+
                             <div class="row g-0">
+
                                 <div
                                     class="col-3 d-flex flex-column justify-content-center"
                                 >
@@ -518,7 +222,7 @@
                                         style="height: 66px"
                                     >
                                         <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
+                                            src="{{asset('assets/images/articles/' . $recommend->image)}}"
                                             class="rounded-start image-center"
                                             alt="..."
                                         />
@@ -530,11 +234,10 @@
                                             class="card-text me-1 d-flex flex-column justify-content-between"
                                         >
                           <span class="text-white">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
+                            {{Str::limit($recommend->content, 100)}}....
                           </span>
                                             <a
-                                                href="#"
+                                                href="{{route('articleSingle', [$recommend->articleCategory->slug, $recommend->slug])}}"
                                                 class="btn btn-danger text-white rounded-5 end-0 align-self-end"
                                             >Read more</a
                                             >
@@ -543,201 +246,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="card border-0 bg-dark"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-white">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="card border-0 bg-dark"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-white">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="card border-0 bg-dark"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-white">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="card border-0 bg-dark"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-white">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="card border-0 bg-dark"
-                            onmouseover="stopAnimation()"
-                            onmouseout="resumeAnimation()"
-                        >
-                            <div class="row g-0">
-                                <div
-                                    class="col-3 d-flex flex-column justify-content-center"
-                                >
-                                    <div
-                                        class="position-relative overflow-hidden"
-                                        style="height: 66px"
-                                    >
-                                        <img
-                                            src="{{asset('publicPages/images/rectangle4.jpg')}}"
-                                            class="rounded-start image-center"
-                                            alt="..."
-                                        />
-                                    </div>
-                                </div>
-                                <div class="col-9">
-                                    <div class="card-body">
-                                        <p
-                                            class="card-text me-1 d-flex flex-column justify-content-between"
-                                        >
-                          <span class="text-white">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit. Neque, pellentesque dictum posuere....
-                          </span>
-                                            <a
-                                                href="#"
-                                                class="btn btn-danger text-white rounded-5 end-0 align-self-end"
-                                            >Read more</a
-                                            >
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -774,6 +283,9 @@
             </div>
         </div>
         <div class="row bg-primary mb-3">
+            @foreach ($professionalsSpotlights->take(1) as $article)
+
+
             <div class="card border-0 bg-primary">
                 <div class="row g-0 justify-content-between">
                     <div class="col-lg-9 col-md-8 order-md-1 order-sm-2">
@@ -782,9 +294,8 @@
                                 Professional Advice
                             </h3>
                             <p class="text-white fs-4">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                Neque, pellentesque dictum posuere id diam rutrum....
-                                <a href="#" class="text-white text-decoration-none fw-bold">
+                                {{Str::limit($article->content, 200)}}....
+                                <a href="{{route('articleSingle', [$article->articleCategory->slug, $article->slug])}}" class="text-white text-decoration-none fw-bold">
                                     Read more</a
                                 >
                             </p>
@@ -796,17 +307,18 @@
                             style="aspect-ratio: 1"
                         >
                             <img
-                                src="{{asset('publicPages/images/professional1.jpg')}}"
-                                alt=""
+                                src="{{asset('assets/images/users/' . $article->author->userAuthor->image)}}"
+                                alt="Profile picture"
                                 class="image-center rounded-circle p-3"
                             />
                         </div>
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
 
-{{--        @include('publicPages.includes.upcomingEvents')--}}
+       @include('publicPages.includes.upcomingEvents')
     </div>
     <!--end of content-->
 @endsection

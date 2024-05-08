@@ -80,9 +80,7 @@
                           alt="Calender icon"
                       />
                     </div>
-                    <span class="fw-bold col-9"
-                    >{{ date_format(date_create($events[$i]->fromDate),'M d Y')}} at 1:00 PM</span
-                    >
+                    <span class="fw-bold col-9">{{ date_format(date_create($events[$i]->fromDate),'M d Y')}}</span>
                   </span>
                         <span class="row align-items-center mw-100 mb-4">
                     <div class="col-1 col-md-auto px-0">
