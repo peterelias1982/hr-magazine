@@ -310,11 +310,6 @@
                                 >Event Calendar</a
                                 >
                             </li>
-                            <li>
-                                <a class="dropdown-item text-white" href="#"
-                                >Latest Events</a
-                                >
-                            </li>
                         </ul>
                     </li>
                     <li class="nav-item me-3">

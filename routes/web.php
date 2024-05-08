@@ -56,23 +56,18 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('/home', [HomeController::class, 'index'])->name('index');
 
+// contact us
 Route::get('/contactUs', [HomeController::class, 'contactUs'])->name('contactUs');
-
 Route::post('/storeContact', [HomeController::class, 'storeContact'])->name('storeContact');
-
-
-
 Route::get('/afterContactUs', function () {
     return view('publicPages.afterContactUs');
 })->name('afterContactUs');
 
-    
+
 
 Route::get('/about', function () {
     return view('publicPages.about');
 })->name('about');
-
-
 
 
 Route::get('jobOpportunities', function () {
@@ -80,7 +75,7 @@ Route::get('jobOpportunities', function () {
 })->name('jobOpportunities');
 
 Route::fallback(function () {
-    redirect()->route('index');
+    return redirect()->route('index');
 });
 
 
