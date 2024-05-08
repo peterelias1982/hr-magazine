@@ -55,7 +55,7 @@
 
 
                     <div class="pb-5 w-100 justify-content-md-start mt-5">
-                        <a href="#">
+                        <a href="{{route('jobs.jobApply',[$jobDetails->id])}}">
                             <button
                                 class="btn btn-primary text-light fs-5 fw-semibold rounded-4 py-3 px-5"
                             >

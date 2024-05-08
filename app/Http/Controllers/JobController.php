@@ -7,8 +7,11 @@ use App\Models\User;
 use App\Traits\Common;
 use App\Models\Employer;
 use App\Models\JobDetail;
+use App\Models\JobSeeker;
 use App\Enums\CareerLevel;
+use App\Models\JobApplied;
 use App\Models\JobCategory;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -141,6 +144,33 @@ class JobController extends Controller
         $categories = JobCategory::get();
 
         return view('publicPages.jobs.browseJobs', compact('jobs', 'categories'));
+    }
+    function jobApply($id){
+        try{
+            $jobSeeker = JobSeeker::where('user_id', Auth::user()->id)->first();
+
+                if (!$jobSeeker) {
+                    throw new ResourceNotFoundException("Not User");
+                }
+            $jobApply=JobApplied::where('jobDetail_id' , $id)->where('jobSeeker_id' , $jobSeeker->id)->first();
+            if($jobApply){
+                return redirect()
+                ->back()
+                ->with(['messages' =>  json_encode(['success' => ['job Apply Done Before']])]);
+            }
+            DB::table('job_applieds')->insert([
+                    'jobDetail_id' => $id,
+                    'jobSeeker_id' => $jobSeeker->id,
+            ]);
+        return redirect()
+            ->back()
+            ->with(['messages' =>  json_encode(['success' => ['job Apply Successfully']])]);
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['error' => [' Apply: ' . $exception->getMessage()]])]);
+        }
+
     }
 
     function search($request)

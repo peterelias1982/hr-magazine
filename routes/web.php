@@ -48,6 +48,7 @@ Route::group(['prefix' => "jobs", "controller" => JobController::class, "as" => 
     Route::get("edit/{slug}","edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
     Route::get("edit/{slug}","edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
     Route::put("update/{slug}","update")->name('update')->middleware(CheckEmployerMiddleware::class);
+    Route::get("jobApply/{id}","jobApply")->name('jobApply');
 
 
 });
