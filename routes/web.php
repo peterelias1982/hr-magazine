@@ -41,9 +41,11 @@ Route::group(['prefix' => "events", "controller" => EventController::class, "as"
 Route::group(['prefix' => "jobs", "controller" => JobController::class, "as" => "jobs."], function () {
     Route::get("postJob","create")->name('create')->middleware(CheckEmployerMiddleware::class);
     Route::post("postJob","store")->name('store')->middleware(CheckEmployerMiddleware::class);
+    Route::post("postJob","store")->name('store')->middleware(CheckEmployerMiddleware::class);
     Route::get("jobsPosted","index")->name('jobsPosted');
     Route::get("jobDetails/{slug}","show")->name('jobDetails');
     Route::get("browseJobs","browseJobs")->name('browseJobs');
+    Route::get("edit/{slug}","edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
     Route::get("edit/{slug}","edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
     Route::put("update/{slug}","update")->name('update')->middleware(CheckEmployerMiddleware::class);
 

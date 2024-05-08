@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Traits\Common;
-use App\Models\Employer;
 use App\Models\JobDetail;
-use App\Enums\CareerLevel;
 use App\Models\JobCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -86,9 +84,11 @@ class JobController extends Controller
         }
 
     }
-    function edit ($slug){
-        try{
-            $job=JobDetail::where("slug",$slug)->first();
+
+    function edit($slug)
+    {
+        try {
+            $job = JobDetail::where("slug", $slug)->first();
             if (!$job) {
                 throw new ResourceNotFoundException('Job is not found');
             }
@@ -97,9 +97,8 @@ class JobController extends Controller
             }
             $levels = CareerLevel::cases();
             $jobCategory = JobCategory::get();
-            return view("publicPages.jobs.editJobs",compact("levels","jobCategory","job"));
-        }
-        catch (\Throwable $exception) {
+            return view("publicPages.jobs.editJobs", compact("levels", "jobCategory", "job"));
+        } catch (\Throwable $exception) {
             return redirect()
                 ->back()
                 ->with(['messages' => json_encode(['error' => [' Job: ' . $exception->getMessage()]])]);
