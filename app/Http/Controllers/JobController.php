@@ -9,11 +9,11 @@ use App\Models\Employer;
 use App\Models\JobDetail;
 use App\Enums\CareerLevel;
 use App\Models\JobCategory;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreJobsRequest;
+use App\Http\Requests\UpdateJobsRequest;
 use Illuminate\Validation\UnauthorizedException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 
@@ -107,7 +107,7 @@ class JobController extends Controller
         }
     }
 
-    function update(Request $request,$slug){
+    function update(UpdateJobsRequest $request,$slug){
        try{
         $job=JobDetail::where("slug",$slug)->first();
         if (!$job) {
