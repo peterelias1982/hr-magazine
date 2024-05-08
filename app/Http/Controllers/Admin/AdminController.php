@@ -168,7 +168,7 @@ class AdminController extends Controller
 
             $imageArray = explode('-', $image);
             $imageArray[0] = $data['gender'];
-            $image = implode('', $imageArray);
+            $image = implode('-', $imageArray);
 
             $image = 'default' . DIRECTORY_SEPARATOR . $image;
         }
