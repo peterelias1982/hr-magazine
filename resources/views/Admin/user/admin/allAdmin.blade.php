@@ -82,7 +82,7 @@
                                     <tr>
                                         <td class="py-1">
                                             <img
-                                                src="{{ asset('assets/images/users/'.$admin->userAdmin->image)}}"
+                                                src="{{asset('assets/images/users/'.$admin->userAdmin->image)}}"
                                                 alt="image"
                                                 class="img-fluid rounded-circle"
                                             />

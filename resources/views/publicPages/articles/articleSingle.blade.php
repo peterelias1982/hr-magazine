@@ -36,8 +36,9 @@
                     {{$paragraphs[0]}}
                 </p>
                 <h2 class="fs-1">{{$articleData->title}}</h2>
-                <p> 
+                <p> @if($paragraphs[1] ?? false)
                     {{$paragraphs[1]}}
+                    @endif
                 </p>
                 @if($categoryData->hasYoutubeLink)
                      <!-- video -->

@@ -40,6 +40,9 @@
                                 value="{{$user->firstName}}"
                                 placeholder="First Name"
                             />
+                            @error('firstName')
+                        <small><code>{{ $message }}</code></small>
+                        @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -55,6 +58,9 @@
                                 value="{{$user->secondName}}"
                                 placeholder="Second Name"
                             />
+                            @error('secondName')
+                        <small><code>{{ $message }}</code></small>
+                        @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -71,6 +77,9 @@
                                   value="{{$user->email}}"
                                 placeholder="Email Address"
                             />
+                            @error('email')
+                        <small><code>{{ $message }}</code></small>
+                        @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -86,6 +95,9 @@
                                 value="{{$user->mobile}}"
                                 placeholder="Phone Number"
                             />
+                            @error('mobile')
+                        <small><code>{{ $message }}</code></small>
+                        @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -100,6 +112,9 @@
                                     <option value="{{\App\Enums\Gender::Female->value}}" @selected($user->gender === \App\Enums\Gender::Female->value)>Female</option>
                             </select>
                             <small class="ps-5 fs-4 text-muted">Please Selecte your gender</small>
+                            @error('gender')
+                        <small><code>{{ $message }}</code></small>
+                        @enderror
                         </div>
                         <div class="col-12">
                             <label
@@ -115,6 +130,9 @@
                                 value="{{$user->position}}"
                                 placeholder="Position"
                             />
+                            @error('position')
+                        <small><code>{{ $message }}</code></small>
+                        @enderror
                         </div>
                         <div class="col-12">
                             <h2 class="text-primary fw-bold ms-4 fs-3">Profile Picture</h2>
@@ -128,6 +146,9 @@
                             </label>
                            
                             <h6 class="ms-4 mt-2 text-muted">PNG, JPG (5 MB)</h6>
+                            @error('image')
+                        <small><code>{{ $message }}</code></small>
+                        @enderror
                         </div>
  <img
                                                     src="{{asset('assets/images/users/'.$user->image)}}"

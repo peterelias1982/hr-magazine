@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateUserProfile;
 use App\Models\JobSeeker;
 use App\Models\User;
 use App\Traits\Common;
@@ -18,15 +19,25 @@ class UserProfileController extends Controller
      */
     public function index()
     {
+        try{
         $user_id = Auth()->user()->id;
         $user = DB::table('users')
             ->leftJoin('job_seekers', 'users.id', '=', 'job_seekers.user_id')
-            ->leftJoin('user_media', 'users.id', '=', 'user_media.user_id')
             ->where('users.id', $user_id)
             ->first();
-
-        // return dd($user);
-        return view('publicPages\users\users\userProfile', compact('user'));
+            $media = DB::table('users')
+            ->leftJoin('user_media', 'users.id', '=', 'user_media.user_id')
+            ->where('users.id', $user_id)
+            ->where('social_id',1)
+            ->first();
+       // return dd($user);
+        return view('publicPages\users\users\userProfile', compact('user','media'));
+          }  catch (\Throwable $exception) {
+            return redirect()
+                ->route('index')
+                ->with(['messages' => json_encode(['error' => ['Error showing job seeker: ' . $exception->getMessage()]])]);
+        }
+    
     }
     /* download file*/
     public function download(string $file)
@@ -38,7 +49,7 @@ class UserProfileController extends Controller
             return response()->download($filePath, $file);
         } else {
             // File not found
-            return redirect()->back();
+            return redirect()->back()->with(['messages' => json_encode(['error' => ['Error cv not found' ]])]);;
         }
     }
     /* upload file*/
@@ -84,13 +95,18 @@ class UserProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $slug)
+    public function update(UpdateUserProfile $request, string $slug)
     {
+        try {
         $data = $this->prepareData($request->all());
         $user = User::where('slug', $slug)->first();
         $user->update($data);
         return redirect()->route('profile.index')->with(['messages' => json_encode(['success' => ['your profile data updated Successfully']])]);
+    }catch (\Throwable $exception) {
+        return redirect()
+            ->back()->with(['messages' => json_encode(['error' => ['Error updating your profile: ' . $exception->getMessage()]])]);
     }
+}
     private function prepareData(array $data)
     {
         $userData = [
@@ -100,7 +116,7 @@ class UserProfileController extends Controller
             'email' => $data['email'],
             'mobile' => $data['mobile'],
             'position' => $data['position'],
-            // 'active' => isset($data['active']),
+            
         ];
 
         if ($data['image'] ?? false) {

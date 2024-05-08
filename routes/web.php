@@ -4,8 +4,10 @@ use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JobController;
+use App\Http\Controllers\JobSeekerPuplicController;
 use App\Http\Controllers\PublicArticleController;
 use App\Http\Controllers\PublicEmployer;
+use App\Http\Controllers\UserProfileController;
 use App\Http\Middleware\CheckEmployerMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -15,14 +17,13 @@ Auth::routes();
 Route::group(['prefix' => 'job', "controller" => JobSeekerPuplicController::class, "as" => "jobSeeker."], function () {
 
     Route::get('{job}/jobseeker/{jobseeker}', 'index')->name('index');
-    // Route::get('{slug}', 'edit')->name('edit');
+    
 });
 
 Route::group(['prefix' => 'profile', "controller" => UserProfileController::class, "as" => "profile."], function () {
-    Route::get('/', 'index')->name('index');
+    Route::get('/me', 'index')->name('index');
     Route::get('/edit/{slug}', 'edit')->name('edit');
     Route::put('/update/{slug}', 'update')->name('update');
-
     Route::get('download/{file}', 'download')->name('download');
     Route::post('upload/', 'upload')->name('upload');
 });

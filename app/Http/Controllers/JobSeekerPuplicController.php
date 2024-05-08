@@ -19,14 +19,17 @@ class JobSeekerPuplicController extends Controller
         try{
         $user=DB::table('job_seekers')
         ->join('users', 'users.id', '=', 'job_seekers.user_id')
-        ->leftJoin('user_media','user_media.user_id', '=', 'job_seekers.user_id')
+        ->where('users.slug', $jobseeker)
+        ->first();
+        $jobs=JobDetail::where('slug',$job)->first();
+        $media=DB::table('users')
+        ->leftJoin('user_media','user_media.user_id', '=', 'users.id')
         ->where('users.slug', $jobseeker)
         ->where('user_media.social_id', 1)
         ->first();
-        $jobs=JobDetail::where('slug',$job)->first();
         
         //return dd($size);
-         return view('publicPages\users\users\profileJobSeeker',compact('user','jobs'));} 
+         return view('publicPages\users\users\profileJobSeeker',compact('user','jobs','media'));} 
          catch (\Throwable $exception) {
             return redirect()
                 ->route('index')

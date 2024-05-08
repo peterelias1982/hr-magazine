@@ -52,9 +52,9 @@
                         <div class="mb-3">
                             <a
                                 class="px-3 pb-4 text-muted"
-                                href="{{$user?->value}}"
+                                href=" {{$media?->value}}"
                             >
-                            {{$user?->value}}
+                            {{$media?->value}}
                             </a>
                         </div>
                     </div>

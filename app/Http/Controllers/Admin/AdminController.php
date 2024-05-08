@@ -29,6 +29,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $admins = $this->searchWith($request);
+        return dd($admins);
 
         return view('Admin.user.admin.allAdmin', compact('admins'));
 
