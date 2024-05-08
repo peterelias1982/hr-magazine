@@ -31,7 +31,7 @@
                 eget.
             </p>
             <div class="col-md-12 d-flex py-4 w-100 justify-content-center">
-                <a href="#">
+                <a href="{{ route('jobs.browseJobs') }}">
                     <button
                         class="btn btn-primary text-light fs-5 fw-semibold rounded-4 py-3 px-5"
                     >
@@ -62,7 +62,8 @@
                 eget.
             </p>
             <div class="col-md-12 d-flex py-4 w-100 justify-content-center">
-                <a href="#">
+                {{-- <a href="{{ route('admin.jobSeekers.update') }}"> --}}
+                    
                     <button
                         class="btn btn-primary text-light fs-5 fw-semibold rounded-4 py-3 px-5"
                     >
@@ -94,7 +95,7 @@
                 eget.
             </p>
             <div class="col-md-12 d-flex py-4 w-100 justify-content-center">
-                <a href="#">
+                <a href="{{ route('jobs.create') }}">
                     <button
                         class="btn btn-primary text-light fs-5 fw-semibold rounded-4 py-3 px-5"
                     >

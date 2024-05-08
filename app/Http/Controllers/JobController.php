@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Traits\Common;
 use App\Models\Employer;
+use App\Models\Employer;
 use App\Models\JobDetail;
+use App\Enums\CareerLevel;
 use App\Enums\CareerLevel;
 use App\Models\JobCategory;
 use Illuminate\Support\Facades\DB;
@@ -33,7 +35,7 @@ class JobController extends Controller
                 ->where("job_details.employer_id", $employer->id)
                 ->join('users', 'job_seekers.user_id', '=', 'users.id')->get();
 
-            return view('publicPages.jobs.jobsPosted', compact('jobs', "jobApplied"));
+            return view('publicPages.jobs.jobsPosted', compact('jobs', "jobApplied", 'user'));
         } catch (\Throwable $exception) {
             return redirect()
                 ->route('index')

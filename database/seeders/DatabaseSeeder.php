@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\Author;
+use App\Models\Contact;
 use App\Models\Employer;
 use App\Models\JobCategory;
 use App\Models\JobDetail;
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
         Author::factory(5)->create();
         Employer::factory(5)->create();
         JobSeeker::factory(5)->create();
+        // Contact::factory(5)->create();
 
 
         for ($i = 1; $i <= 20; $i++) {
