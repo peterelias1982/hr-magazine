@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center justify-content-between">
-                    <a href="#"><i class="ti-home me-3 text-white"></i></a>
+                    <a href="{{route('index')}}"><i class="ti-home me-3 text-white"></i></a>
                 </div>
             </div>
         </div>

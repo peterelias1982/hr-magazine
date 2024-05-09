@@ -96,7 +96,7 @@
     </div>
 
     <!--cards Caousel-->
-    <div class="row bg-white my-3 pb-3">
+    <div class="row bg-white my-3 pb-3" id="journey-to-exellence">
         <div class="col-12 bg-white px-4 pt-3 text-dark">
             <h3 class="fw-bold fs-2">Journey to Excellence</h3>
         </div>
@@ -151,7 +151,7 @@
     </div>
     <!--End of card carousel-->
     <!--column of article Cards section -->
-    <div class="row bg-dark">
+    <div class="row bg-dark" id="case-studies">
         <div class="col-12 bg-primary p-5 text-white">
             <h3 class="fw-bold fs-2">HR Case Studies</h3>
         </div>

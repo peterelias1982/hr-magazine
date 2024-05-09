@@ -20,7 +20,7 @@ Route::group(['prefix' => 'job', "controller" => JobSeekerPuplicController::clas
     
 });
 
-Route::group(['prefix' => 'profile', "controller" => UserProfileController::class, "as" => "profile."], function () {
+Route::group(['prefix' => 'users', "controller" => UserProfileController::class, "as" => "profile."], function () {
     Route::get('/me', 'index')->name('index');
     Route::get('/edit/{slug}', 'edit')->name('edit');
     Route::put('/update/{slug}', 'update')->name('update');
@@ -80,6 +80,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('profile', function () {
        if(\App\Models\Employer::where('user_id', Auth::user()->id)->first()) {
            return redirect()->route('employers.show', Auth::user()->slug);
+       }else{
+        return redirect()->route('profile.index');
        }
     })->name('profile');
 });

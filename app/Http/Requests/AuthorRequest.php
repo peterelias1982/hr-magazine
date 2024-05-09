@@ -39,7 +39,7 @@ class AuthorRequest extends FormRequest
             'position' => ['required', new NotIn(AdminPosition::class)],
             'approved' => 'sometimes',
             'bio' => 'sometimes',
-            'email' => "sometimes|email|unique:users,email,{$this->slug},slug",
+            'email' => "nullable|email|unique:users,email,{$this->slug},slug",
         ];
 
     }

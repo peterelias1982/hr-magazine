@@ -66,7 +66,7 @@
         {{--    end of user comment    --}}
         @foreach($comments as $comment)
             {{--  comment   --}}
-            <div class="row d-flex mx-3 {{$comment->is_deleted? 'deleted':''}}">
+            <div class="row d-flex mx-3 bg-dark {{$comment->is_deleted? 'deleted':''}}">
                 <div class="col-xl-2 col-md-3 col-sm-12">
                     <div class="mt-5 ms-3 rounded-circle-small">
                         <img

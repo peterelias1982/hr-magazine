@@ -75,7 +75,7 @@
                                 </li>
                             @else
                                 <li>
-                                    <a class="dropdown-item text-white" href="{{route('profile.index')}}">Profile</a>
+                                    <a class="dropdown-item text-white" href="{{route('profile')}}">Profile</a>
                                 </li>
                             @endcan
                             <li>
@@ -237,12 +237,12 @@
                             aria-labelledby="navbarDropdownLadiesInHR"
                         >
                             <li>
-                                <a class="dropdown-item text-white" href="{{ route('articles.ladiesInHR') }}"
+                                <a class="dropdown-item text-white" href="{{ route('articles.ladiesInHR') }}#case-studies"
                                 >Case Studies</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="{{ route('articles.ladiesInHR') }}"
+                                <a class="dropdown-item text-white" href="{{ route('articles.ladiesInHR') }}#journey-to-exellence"
                                 >Journey to Excellence</a
                                 >
                             </li>

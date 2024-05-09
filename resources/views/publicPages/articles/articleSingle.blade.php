@@ -36,9 +36,9 @@
                     {{$paragraphs[0]}}
                 </p>
                 <h2 class="fs-1">{{$articleData->title}}</h2>
-                <p> @if($paragraphs[1] ?? false)
-                    {{$paragraphs[1]}}
-                    @endif
+                <p> 
+                {{$paragraphs[1]??''}}
+                   
                 </p>
                 @if($categoryData->hasYoutubeLink)
                      <!-- video -->
@@ -50,7 +50,7 @@
                                     <img
                                         src="{{asset('assets/images/articles/'.$articleData->image)}}"
                                         alt="Default Video Image"
-                                        class="embed-cover"
+                                        class="embed-cover image-center"
                                     />
                                     <!-- Iframe for Video -->
                                     <iframe

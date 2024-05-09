@@ -12,7 +12,7 @@
                         <img
                             src="{{asset('assets/images/articles/' . (isset($expertInterviews[0])? $expertInterviews[0]->image: ''))}}"
                             alt="{{isset($expertInterviews[0])? $expertInterviews[0]->title:''}}"
-                            class="embed-cover"
+                            class="embed-cover image-center"
                         />
                         <!-- Iframe for Video -->
                         <iframe
