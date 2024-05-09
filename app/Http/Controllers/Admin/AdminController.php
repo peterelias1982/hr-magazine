@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\AdminRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -30,6 +31,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $admins = $this->searchWith($request);
+       // return dd($admins);
 
         return view('Admin.user.admin.allAdmin', compact('admins'));
 
@@ -211,9 +213,4 @@ class AdminController extends Controller
 
         return User::whereIn('id', $ids)->get();
     }
-
-
 }
-
-
-

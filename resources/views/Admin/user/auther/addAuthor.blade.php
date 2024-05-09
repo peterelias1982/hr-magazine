@@ -26,6 +26,7 @@
                                 <small><code>{{ $message }}</code></small>
                                 @enderror
                             </div>
+                           
                             <div class="form-group">
                                 <label for="mobile" class="form-label">Mobile</label>
                                 <input type="text" class="form-control" id="mobile" placeholder="Mobile"

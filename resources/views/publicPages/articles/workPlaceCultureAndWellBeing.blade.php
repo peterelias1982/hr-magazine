@@ -1,7 +1,7 @@
 @extends('publicPages.layouts.main')
 
 @section('publicPagesContent')
-    <div class="bg-light py-5 mb-5">
+    <div class="bg-light py-5 mb-5" id="workplace-culture">
         <div class="container-fluid">
             <h2 class="ps-4 fw-bold">HRs Workplace Culture and Programmes</h2>
             <!-- video -->
@@ -137,7 +137,7 @@
             <!-- end section 1 Workplace Culture-->
 
             <!-- section 2 Diversity, Equity, and Inclusion (DEI)-->
-            <div class="row gx-md-5 gx-0 m-auto py-5">
+            <div class="row gx-md-5 gx-0 m-auto py-5" id="DEI">
                 <!-- carousel 2-->
                 <div class="col">
                     <div
@@ -226,7 +226,7 @@
             <!-- end section 2 Diversity, Equity, and Inclusion (DEI)-->
 
             <!-- section 3 Wellness Programs-->
-            <div class="row gx-md-5 gx-0 m-auto py-5">
+            <div class="row gx-md-5 gx-0 m-auto py-5" id="wellness-programs">
                 <!-- carousel 3-->
                 <div class="col">
                     <div
@@ -315,7 +315,7 @@
             <!-- end section 3 Wellness Programs -->
 
             <!-- section 4 Mental Health in the Workplace-->
-            <div class="row gx-md-5 gx-0 m-auto py-5">
+            <div class="row gx-md-5 gx-0 m-auto py-5" id="mental-health-in-workplace">
                 <!-- carousel 4-->
                 <div class="col">
                     <div

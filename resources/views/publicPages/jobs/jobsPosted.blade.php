@@ -64,6 +64,7 @@
                 <h2 class="text-primary fw-bold mt-5 ms-4">Find CVs</h2>
                 @foreach ($jobApplied as $jobapply)
                 <div class="block border border-dark border rounded-4 mt-4 mx-4">
+                    <a href="{{route('profile.index', $jobapply->slug)}}" class="text-decoration-none text-dark">
                     <div class="row d-flex justify-content-center">
                         <div class="col-xl-2 col-md-3 ">
                             <div class="my-3 ms-3">
@@ -80,6 +81,7 @@
 
                         </div>
                     </div>
+                    </a>
                 </div>
                 @endforeach
 

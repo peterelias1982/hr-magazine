@@ -152,7 +152,7 @@
         </div>
         <!--End of card carousel-->
         <!--column of article Cards section -->
-        <div class="row bg-light">
+        <div class="row bg-light" id="authors">
             <div class="col-12 bg-primary p-md-5 p-1 text-white">
                 <h3 class="fw-bold fs-2">Authors</h3>
             </div>

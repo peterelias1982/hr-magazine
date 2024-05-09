@@ -3,7 +3,7 @@
 @section('publicPagesContent')
     <div class="container-fluid">
         <!--the video player-->
-        <div class="row bg-light px-md-3 px-1 py-4">
+        <div class="row bg-light px-md-3 px-1 py-4" id="expert-interviews">
             <h3 class="fw-bold fs-card-xl mb-3">Expert Interviews</h3>
             <div class="col">
                 <div class="card bg-light text-white mx-md-3 mx-1 border-light">
@@ -12,7 +12,7 @@
                         <img
                             src="{{asset('assets/images/articles/' . (isset($expertInterviews[0])? $expertInterviews[0]->image: ''))}}"
                             alt="{{isset($expertInterviews[0])? $expertInterviews[0]->title:''}}"
-                            class="embed-cover"
+                            class="embed-cover image-center"
                         />
                         <!-- Iframe for Video -->
                         <iframe
@@ -211,7 +211,7 @@
 
         <!-----------End of mini videos scroller---------------->
         <!--cards Caousel-->
-        <div class="row bg-primary my-3 pb-3">
+        <div class="row bg-primary my-3 pb-3" id="professional-spotlights">
             <div class="col-12 bg-primary px-4 pt-3 text-dark">
                 <h3 class="fw-bold fs-2">Professional Advice</h3>
             </div>

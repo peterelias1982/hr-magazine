@@ -36,12 +36,13 @@
                     {{$paragraphs[0]}}
                 </p>
                 <h2 class="fs-1">{{$articleData->title}}</h2>
-                <p>
-                    {{$paragraphs[1]??''}}
+                <p> 
+                {{$paragraphs[1]??''}}
+                   
                 </p>
                 @if($categoryData->hasYoutubeLink)
-                    <!-- video -->
-                    <div class="row m-auto g-0 pb-3">
+                     <!-- video -->
+                     <div class="row m-auto g-0 pb-3">
                         <div class="col">
                             <div class="card bg-light text-white border-light">
                                 <div class="ratio ratio-16x9">
@@ -49,7 +50,7 @@
                                     <img
                                         src="{{asset('assets/images/articles/'.$articleData->image)}}"
                                         alt="Default Video Image"
-                                        class="embed-cover"
+                                        class="embed-cover image-center"
                                     />
                                     <!-- Iframe for Video -->
                                     <iframe

@@ -45,13 +45,13 @@
   border: 3px solid #0d0d0d;
 }
 
-*::-webkit-scrollbar {
+body >*::-webkit-scrollbar {
   display: none;
 }
 
-* {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+body >* {
+  -ms-overflow-style: none; /* IE and Edge /
+  scrollbar-width: none; / Firefox */
 }
 /***********************/
 /*Extra Font sizes*/
