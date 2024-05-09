@@ -4,7 +4,7 @@
 <!-- start of content -->
 <div class="container-fluid">
     <!--the video player-->
-    <div class="row bg-light px-md-3 px-1 py-4">
+    <div class="row bg-light px-md-3 px-1 py-4" id="ladies-interviews">
         <h3 class="fw-bold fs-card-xl mb-3">Ladies Interviews</h3>
         <div class="col">
             <div class="card bg-light text-white mx-md-3 border-light">

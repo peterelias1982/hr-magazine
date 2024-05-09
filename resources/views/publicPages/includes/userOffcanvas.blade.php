@@ -32,22 +32,20 @@
                     style="aspect-ratio: 1"
                 />
                 <a
-                    href="profile-users-account.html"
-                    class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2 d-block"
-                >Summary</a
-                >
-                <a
-                    href="profile-users.html"
+                    href="{{route('profile.index', $user->slug)}}"
                     class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item active pb-2 d-block"
 
-                >Profile Details</a>
+                >Profile</a>
 
-                <a
-                    href="#"
-                    class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2 d-block"
+                @auth
+                    @can('isOwner', ['userId' => $user->userId])
+                        <a
+                            href="javascript:document.getElementById('logout-form').submit();"
+                            class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2 d-block"
+                        >Logout</a>
 
-                >Logout</a
-                >
+                    @endcan
+                @endauth
             </div>
         </div>
     </div>

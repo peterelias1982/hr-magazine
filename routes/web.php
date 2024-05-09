@@ -17,15 +17,7 @@ Auth::routes();
 Route::group(['prefix' => 'job', "controller" => JobSeekerPuplicController::class, "as" => "jobSeeker."], function () {
 
     Route::get('{job}/jobseeker/{jobseeker}', 'index')->name('index');
-    
-});
 
-Route::group(['prefix' => 'users', "controller" => UserProfileController::class, "as" => "profile."], function () {
-    Route::get('/me', 'index')->name('index');
-    Route::get('/edit/{slug}', 'edit')->name('edit');
-    Route::put('/update/{slug}', 'update')->name('update');
-    Route::get('download/{file}', 'download')->name('download');
-    Route::post('upload/', 'upload')->name('upload');
 });
 
 // article routes
@@ -48,18 +40,18 @@ Route::get('authors/{author}', [PublicArticleController::class, 'authorSingle'])
 
 // events
 Route::group(['prefix' => "events", "controller" => EventController::class, "as" => "event."], function () {
-    Route::get("allEvents","allEvents")->name('allEvents');
-    Route::get("eventCalender","eventCalender")->name('eventCalender');
-    Route::get("singleEvent/{slug}","singleEvent")->name('singleEvent');
+    Route::get("allEvents", "allEvents")->name('allEvents');
+    Route::get("eventCalender", "eventCalender")->name('eventCalender');
+    Route::get("singleEvent/{slug}", "singleEvent")->name('singleEvent');
 });
 
 // jobs
 Route::group(['prefix' => "jobs", "controller" => JobController::class, "as" => "jobs."], function () {
-    Route::get("postJob","create")->name('create')->middleware(CheckEmployerMiddleware::class);
-    Route::post("postJob","store")->name('store')->middleware(CheckEmployerMiddleware::class);
-    Route::get("jobsPosted","index")->name('jobsPosted')->middleware(CheckEmployerMiddleware::class);
-    Route::get("jobDetails/{slug}","show")->name('jobDetails');
-    Route::get("browseJobs","browseJobs")->name('browseJobs');
+    Route::get("postJob", "create")->name('create')->middleware(CheckEmployerMiddleware::class);
+    Route::post("postJob", "store")->name('store')->middleware(CheckEmployerMiddleware::class);
+    Route::get("jobsPosted", "index")->name('jobsPosted')->middleware(CheckEmployerMiddleware::class);
+    Route::get("jobDetails/{slug}", "show")->name('jobDetails');
+    Route::get("browseJobs", "browseJobs")->name('browseJobs');
 });
 
 // employers routes
@@ -67,7 +59,17 @@ Route::group(['prefix' => "employers", "controller" => PublicEmployer::class, "a
     Route::get("employerProfile/{slug}", "show")->name('show');
     Route::get("editEmployerProfile/{slug}", "edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
     Route::put("update/{slug}", "update")->name('update')->middleware(CheckEmployerMiddleware::class);
-    Route::get("deleteAccount/{slug}","destroy")->name('destroy')->middleware(CheckEmployerMiddleware::class);;
+    Route::get("deleteAccount/{slug}", "destroy")->name('destroy')->middleware(CheckEmployerMiddleware::class);;
+});
+
+// users
+Route::group(['prefix' => 'users', "controller" => UserProfileController::class, "as" => "profile."], function () {
+    Route::get('userProfile/{slug}', 'show')->name('index');
+    Route::get('/edit/{slug}', 'edit')->name('edit');
+    Route::put('/update/{slug}', 'update')->name('update');
+    Route::get('download/{file}', 'download')->name('download');
+    Route::post('upload/', 'upload')->name('upload');
+    Route::delete('deleted/{slug}', 'destroy')->name('destroy');
 });
 
 // requires authentication
@@ -78,11 +80,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('comments/{id}', [CommentsController::class, 'destroy'])->name('comments.destroy');
 
     Route::get('profile', function () {
-       if(\App\Models\Employer::where('user_id', Auth::user()->id)->first()) {
-           return redirect()->route('employers.show', Auth::user()->slug);
-       }else{
-        return redirect()->route('profile.index');
-       }
+        if (\App\Models\Employer::where('user_id', Auth::user()->id)->first()) {
+            return redirect()->route('employers.show', Auth::user()->slug);
+        } else {
+            return redirect()->route('profile.index', Auth::user()->slug);
+        }
     })->name('profile');
 });
 
@@ -94,7 +96,6 @@ Route::post('/storeContact', [HomeController::class, 'storeContact'])->name('sto
 Route::get('/afterContactUs', function () {
     return view('publicPages.afterContactUs');
 })->name('afterContactUs');
-
 
 
 Route::get('/about', function () {

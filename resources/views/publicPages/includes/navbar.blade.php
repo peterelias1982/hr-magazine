@@ -202,12 +202,12 @@
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="{{ route('articles.professionalDevelopment2') }}"
+                                <a class="dropdown-item text-white" href="{{ route('articles.professionalDevelopment2') }}#expert-interviews"
                                 >Expert Interviews</a
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="{{ route('articles.professionalDevelopment2') }}"
+                                <a class="dropdown-item text-white" href="{{ route('articles.professionalDevelopment2') }}#professional-spotlights"
                                 >Professionals Spotlights</a
                                 >
                             </li>
@@ -217,7 +217,7 @@
                                 >
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="{{ route('articles.professionalDevelopment3') }}">Authors</a>
+                                <a class="dropdown-item text-white" href="{{ route('articles.professionalDevelopment3') }}#authors">Authors</a>
                             </li>
                         </ul>
                     </li>
@@ -236,6 +236,10 @@
                             class="dropdown-menu dropdown-menu-dark"
                             aria-labelledby="navbarDropdownLadiesInHR"
                         >
+                            <li>
+                                <a class="dropdown-item text-white" href="{{ route('articles.ladiesInHR') }}#ladies-interviews"
+                                >Ladies Interviews</a>
+                            </li>
                             <li>
                                 <a class="dropdown-item text-white" href="{{ route('articles.ladiesInHR') }}#case-studies"
                                 >Case Studies</a
@@ -264,24 +268,20 @@
                             aria-labelledby="navbarDropdownWorkplaceCulture"
                         >
                             <li>
-                                <a class="dropdown-item text-white" href="{{ route('articles.workPlaceCultureAndWellBeing') }}"
-                                >Workplace Culture</a
-                                >
+                                <a class="dropdown-item text-white" href="{{ route('articles.workPlaceCultureAndWellBeing') }}#workplace-culture"
+                                >Workplace Culture</a>
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="{{ route('articles.workPlaceCultureAndWellBeing') }}"
-                                >Wellness Programs</a
-                                >
+                                <a class="dropdown-item text-white" href="{{ route('articles.workPlaceCultureAndWellBeing') }}#wellness-programs"
+                                >Wellness Programs</a>
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="{{ route('articles.workPlaceCultureAndWellBeing') }}"
-                                >Mental Health in the Workplace</a
-                                >
+                                <a class="dropdown-item text-white" href="{{ route('articles.workPlaceCultureAndWellBeing') }}#mental-health-in-workplace"
+                                >Mental Health in the Workplace</a>
                             </li>
                             <li>
-                                <a class="dropdown-item text-white" href="{{ route('articles.workPlaceCultureAndWellBeing') }}"
-                                >Diversity, Equity and Inclusion (DEI)</a
-                                >
+                                <a class="dropdown-item text-white" href="{{ route('articles.workPlaceCultureAndWellBeing') }}#DEI"
+                                >Diversity, Equity and Inclusion (DEI)</a>
                             </li>
                         </ul>
                     </li>
@@ -388,258 +388,6 @@
                         </li>
                     @endguest
                 </ul>
-            </div>
-
-            <!--search box-->
-            <div class="dropdown">
-                <div class="ms-auto dropdown">
-                    <a
-                        class="nav-link mt-1"
-                        href="#"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                    >
-                        <img
-                            src="{{asset('publicPages/images/search-icon-black-circle.svg')}}"
-                            alt="Search"
-                            class="img-fluid mt-2"
-                        />
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end search-menu bg-dark">
-                        <li>
-                            <div
-                                class="d-flex align-items-center bg-white rounded-pill border border-dark px-2"
-                                style="height: 53px"
-                            >
-                                <button type="button" class="btn p-0 ms-2">
-                                    <img
-                                        src="{{asset('publicPages/images/search-icon.svg')}}"
-                                        alt="Search"
-                                        class="m-1 me-2"
-                                        style="max-width: 30px; aspect-ratio: 1"
-                                    />
-                                </button>
-                                <input
-                                    type="text"
-                                    class="flex-grow-1 border-0 form-control fs-4"
-                                    placeholder=" Search..."
-                                    style="max-width: 500px; width: calc(100vw - 170px)"
-                                />
-                                <button type="button" class="btn p-0 ms-2">
-                                    <img
-                                        src="{{asset('publicPages/images/close-icon.svg')}}"
-                                        alt="Close"
-                                        style="max-width: 30px; aspect-ratio: 1"
-                                    />
-                                </button>
-                            </div>
-                        </li>
-                        <div class="row mt-3">
-                            <div class="col-md-5 border-end">
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                            onclick="search('industry-news-and-trends', this)"
-                                        />
-                                        Industry News & Trends
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Trends & Insights
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Global HR Prespectives
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Feature Articles
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Expert Interviews
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Professional Spotlight
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Training & Development
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Ladies Case Studies
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Ladies Interviews
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Journey to Excellence
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Legal Corner
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Workplace Culture
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Diversity, Equality & Inclusion
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Wellness Programs
-                                    </label>
-                                </div>
-                                <div
-                                    class="form-control pb-2 border-bottom bg-dark border-0 text-white rounded-0"
-                                >
-                                    <label for="" class="form-check-label">
-                                        <input
-                                            type="checkbox"
-                                            name=""
-                                            id=""
-                                            class="form-check-input"
-                                        />
-                                        Mental Health in Workplace
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-7" id="search-container">
-
-                            </div>
-                        </div>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
