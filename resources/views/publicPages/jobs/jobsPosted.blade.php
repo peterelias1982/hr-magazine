@@ -25,6 +25,9 @@
                 <h2 class="text-primary fw-bold mt-5 ms-4">Jobs Posted</h2>
               @foreach ($jobs as $job)
               <div class="block border border-dark border rounded-4 mt-4 mx-4">
+                <form action="{{route('jobs.edit',[$job->slug])}}" method="GET" id="editForm">
+                    @csrf
+                </form>
                 <div class="row">
                     <div class="col-xl-9 col-md-9 col-sm-9">
                         <h3 class="px-3 pt-4 pb-2 fw-bold">
@@ -36,8 +39,9 @@
                             <span class="fw-normal"> {{ date_format(date_create($job->created_at),'M d Y')}} </span>
                         </h3>
                     </div>
+                    
                     <div class="col-xl-3 col-md-3 col-sm-3">
-                        <button
+                        <button form="editForm"
                             class="bg-light border-0 text-danger fw-semibold fs-2 mt-5 me-4 float-end"
                             href="#"
                         >

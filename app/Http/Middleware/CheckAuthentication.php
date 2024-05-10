@@ -15,6 +15,12 @@ class CheckAuthentication
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if(!auth()->check()) {
+            return  redirect()
+                ->route('login')
+                ->with('status', 'You have to login in before applying');
+        }
+
         return $next($request);
     }
 }
