@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -268,7 +268,8 @@
             {{--  end of comment  --}}
             @foreach($comment->replies as $reply)
                 {{--   reply   --}}
-                <div class="row d-flex justify-content-center mx-3 {{($comment->is_deleted || $reply->is_deleted)? 'deleted':''}}">
+                <div
+                    class="row d-flex justify-content-center mx-3 {{($comment->is_deleted || $reply->is_deleted)? 'deleted':''}}">
                     <div class="col-xl-2 col-md-3 col-sm-10">
                         <div class="mt-5 ms-3 rounded-circle-small">
                             <img
@@ -318,7 +319,8 @@
                                                     Edit
                                                 </li>
                                                 <li class="btn py-2 d-block">
-                                                    <form action="{{route('comments.destroy', $reply->commentId)}}" method="POST" id="delete-{{$reply->commentId}}">
+                                                    <form action="{{route('comments.destroy', $reply->commentId)}}"
+                                                          method="POST" id="delete-{{$reply->commentId}}">
                                                         @csrf
                                                         @method('delete')
                                                         <button type="submit"

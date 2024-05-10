@@ -82,23 +82,23 @@
                                     <tr>
                                         <td class="py-1">
                                             <img
-                                                src="{{ asset('assets/images/users/'.$admin->userAdmin->image)}}"
+                                                src="{{asset('assets/images/users/'.$admin->image)}}"
                                                 alt="image"
                                                 class="img-fluid rounded-circle"
                                             />
                                         </td>
                                         <td>
                                             <a
-                                                href="{{route('admin.admins.show', $admin->userAdmin->slug)}}"
+                                                href="{{route('admin.admins.show', $admin->slug)}}"
                                                 class="link-primary text-decoration-none"
                                             >
-                                                {{$admin->userAdmin->firstName}} {{$admin->userAdmin->secondName}}
+                                                {{$admin->firstName}} {{$admin->secondName}}
                                             </a>
                                         </td>
-                                        <td>{{ $admin->userAdmin->email }}</td>
-                                        <td>{{ $admin->userAdmin->mobile }}</td>
-                                        <td>{{ $admin->userAdmin->position }}</td>
-                                        <td>{{$admin->userAdmin->active? '✔️':'❌'}}</td>
+                                        <td>{{ $admin->email }}</td>
+                                        <td>{{ $admin->mobile }}</td>
+                                        <td>{{ $admin->position }}</td>
+                                        <td>{{$admin->active? '✔️':'❌'}}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

@@ -10,9 +10,11 @@ use App\Models\Admin;
 use App\Traits\Common;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\AdminRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
@@ -29,6 +31,7 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         $admins = $this->searchWith($request);
+       // return dd($admins);
 
         return view('Admin.user.admin.allAdmin', compact('admins'));
 
@@ -185,9 +188,8 @@ class AdminController extends Controller
         $active = $request->has('status') && $request->get('status') === 'active';
         $blocked = $request->has('status') && $request->get('status') === 'blocked';
 
-        $query = Admin::query()
-            ->with('userAdmin')
-            ->leftJoin('users', 'users.id', '=', 'admins.user_id');
+        $query = DB::table('admins')
+            ->join('users', 'users.id', '=', 'admins.user_id');
 
         if ($firstName) {
             $query->where('users.firstName', 'LIKE', "%{$firstName}%");
@@ -205,11 +207,10 @@ class AdminController extends Controller
             $query->where('users.active', 0);
         }
 
-        return $query->select('admins.*')->paginate(25)->appends(['firstName' => $firstName, 'email' => $email]);
+        $ids = $query->select('users.id')
+            ->get()
+            ->pluck('id');
+
+        return User::whereIn('id', $ids)->get();
     }
-
-
 }
-
-
-

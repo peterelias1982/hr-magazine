@@ -66,7 +66,7 @@
                         <p class="mb-1 mt-3 font-weight-semibold">{{Auth::user()->firstName}} {{Auth::user()->secondName}}</p>
                         <p class="fw-light text-muted mb-0">{{Auth::user()->email}}</p>
                     </div>
-                    <a class="dropdown-item">
+                    <a class="dropdown-item" href="{{route('admin.admins.show',Auth::user()->slug)}}">
                         <i class="dropdown-item-icon mdi mdi-account-outline text-primary me-2"></i>
                         My Profile
                     </a>

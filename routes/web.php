@@ -1,16 +1,19 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\JobController;
+use App\Http\Controllers\PublicArticleController;
+use App\Http\Controllers\PublicEmployer;
+use App\Http\Controllers\UserProfileController;
+use App\Http\Middleware\CheckEmployerMiddleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\JobController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PublicEmployer;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\CommentsController;
-use App\Http\Middleware\CheckEmployerMiddleware;
-use App\Http\Controllers\PublicArticleController;
+
 
 Auth::routes();
+
 
 // article routes
 Route::group(['prefix' => "articles", "controller" => PublicArticleController::class, "as" => "articles."], function () {
@@ -32,9 +35,9 @@ Route::get('authors/{author}', [PublicArticleController::class, 'authorSingle'])
 
 // events
 Route::group(['prefix' => "events", "controller" => EventController::class, "as" => "event."], function () {
-    Route::get("allEvents","allEvents")->name('allEvents');
-    Route::get("eventCalender","eventCalender")->name('eventCalender');
-    Route::get("singleEvent/{slug}","singleEvent")->name('singleEvent');
+    Route::get("allEvents", "allEvents")->name('allEvents');
+    Route::get("eventCalender", "eventCalender")->name('eventCalender');
+    Route::get("singleEvent/{slug}", "singleEvent")->name('singleEvent');
 });
 
 // jobs
@@ -48,9 +51,7 @@ Route::group(['prefix' => "jobs", "controller" => JobController::class, "as" => 
     Route::get("edit/{slug}","edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
     Route::get("edit/{slug}","edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
     Route::put("update/{slug}","update")->name('update')->middleware(CheckEmployerMiddleware::class);
-    Route::get("jobApply/{id}","jobApply")->name('jobApply');
-
-
+    Route::get("jobApply/{id}","jobApply")->name('jobApply')->middleware(\App\Http\Middleware\CheckAuthentication::class);
 });
 
 // employers routes
@@ -58,7 +59,17 @@ Route::group(['prefix' => "employers", "controller" => PublicEmployer::class, "a
     Route::get("employerProfile/{slug}", "show")->name('show');
     Route::get("editEmployerProfile/{slug}", "edit")->name('edit')->middleware(CheckEmployerMiddleware::class);
     Route::put("update/{slug}", "update")->name('update')->middleware(CheckEmployerMiddleware::class);
-    Route::get("deleteAccount/{slug}","destroy")->name('destroy')->middleware(CheckEmployerMiddleware::class);;
+    Route::get("deleteAccount/{slug}", "destroy")->name('destroy')->middleware(CheckEmployerMiddleware::class);;
+});
+
+// users
+Route::group(['prefix' => 'users', "controller" => UserProfileController::class, "as" => "profile."], function () {
+    Route::get('userProfile/{slug}', 'show')->name('index');
+    Route::get('/edit/{slug}', 'edit')->name('edit');
+    Route::put('/update/{slug}', 'update')->name('update');
+    Route::get('download/{file}', 'download')->name('download');
+    Route::post('upload/', 'upload')->name('upload');
+    Route::delete('deleted/{slug}', 'destroy')->name('destroy');
 });
 
 // requires authentication
@@ -69,9 +80,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('comments/{id}', [CommentsController::class, 'destroy'])->name('comments.destroy');
 
     Route::get('profile', function () {
-       if(\App\Models\Employer::where('user_id', Auth::user()->id)->first()) {
-           return redirect()->route('employers.show', Auth::user()->slug);
-       }
+        if (\App\Models\Employer::where('user_id', Auth::user()->id)->first()) {
+            return redirect()->route('employers.show', Auth::user()->slug);
+        } else {
+            return redirect()->route('profile.index', Auth::user()->slug);
+        }
     })->name('profile');
 });
 
@@ -83,7 +96,6 @@ Route::post('/storeContact', [HomeController::class, 'storeContact'])->name('sto
 Route::get('/afterContactUs', function () {
     return view('publicPages.afterContactUs');
 })->name('afterContactUs');
-
 
 
 Route::get('/about', function () {

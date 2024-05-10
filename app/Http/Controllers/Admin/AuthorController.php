@@ -178,7 +178,7 @@ class AuthorController extends Controller
             'mobile' => $data['mobile'],
             'position' => $data['position'],
             'active' => isset($data['active']),
-            'email' => $data['email'],
+            'email' => $data['email']?? null,
         ];
 
         if ($data['image'] ?? false) {

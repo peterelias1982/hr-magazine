@@ -46,7 +46,7 @@
                                 ></button>
                             </div>
                             <img
-                                src="{{asset('publicPages/images/profile.jpeg')}}"
+                                src="{{asset('assets/images/users/'.$user->image)}}"
                                 class="img-fluid rounded-circle m-4"
                                 alt="User-Profile-Image"
                                 style="aspect-ratio: 1;"
@@ -54,13 +54,13 @@
                             <p
                                 class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2"
                                 style="min-width: 250px"
-                            >Ahmed S.El-Hawrani</p
+                            >{{$user->firstName}} {{$user->secondName}}</p
                             >
                             <p
                                 href="profile-employer.html"
                                 class="text-decoration-none mx-auto fw-bold fs-1 offcanvas-item pb-2"
                                 style="min-width: 250px"
-                            >012345678910</p
+                            >{{$user->mobile}}</p
                             >
                         </div>
                     </div>
@@ -70,44 +70,47 @@
                 <div class="card-block justify-content-center">
                     <div class="block border border-dark border rounded-4 mt-5 mx-4">
                         <h3 class="px-3 pt-3 pb-2 fw-bold">Job Title</h3>
-                        <h6 class="px-3 pb-2 text-muted">Job Title</h6>
+                        <h6 class="px-3 pb-2 text-muted">{{$jobs->title}}</h6>
                     </div>
                     <div class="block border border-dark border rounded-4 mt-4 mx-4">
                         <h3 class="px-3 pt-3 pb-2 fw-bold">Email</h3>
                         <h6 class="px-3 pb-2 text-muted">
-                            Amged S.El-Hawrani@gmail.com
+                        {{$user->email}}
                         </h6>
                     </div>
                     <div class="block border border-dark border rounded-4 mt-4 mx-4">
                         <h3 class="px-3 pt-3 pb-2 fw-bold">Gender</h3>
-                        <h6 class="px-3 pb-2 text-muted">Male</h6>
+                        <h6 class="px-3 pb-2 text-muted">{{$user->gender}}</h6>
                     </div>
                     <div class="block border border-dark border rounded-4 mt-4 mx-4">
                         <h3 class="px-3 pt-3 pb-2 fw-bold">Position</h3>
-                        <h6 class="px-3 pb-2 text-muted">Position</h6>
+                        <h6 class="px-3 pb-2 text-muted">{{$user->position}}</h6>
                     </div>
                     <div class="block border border-dark border rounded-4 mt-4 mx-4">
                         <h3 class="px-3 pt-3 pb-2 fw-bold">Linkedin</h3>
                         <div class="mb-3">
                             <a
                                 class="px-3 pb-4 text-muted"
-                                href="https://www.linkedin.com/in/amged-bekhet-87a34024/?originalSubdomain=egs"
+                                href="{{$media?->value}}"
                             >
-                                https://www.linkedin.com/in/amged-bekhet-87a34024/?originalSubdomain=eg
+                                {{$media?->value}}
                             </a>
                         </div>
                     </div>
+                    @if($user->cv)
                     <div>
                         <h2 class="text-primary fw-bold mt-5 ms-4">Resume</h2>
                         <h6 class="ms-4 text-muted">Found More Information in C.V</h6>
-                        <button
+                        <a href="{{route('profile.download',[$user->cv])}}"><button
+                        
                             type="button"
                             class="btn btn-outline-dark fw-bold ms-3 px-3 py-3 fs-4 rounded-4"
                         >
                             Download Resume
-                        </button>
-                        <h6 class="ms-4 mt-2 text-muted">PDF, PNG, JPG (5 MB)</h6>
+                        </button></a>
+                        <h6 class="ms-4 mt-2 text-muted">{{$user->cv}}  </h6>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

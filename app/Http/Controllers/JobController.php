@@ -61,7 +61,7 @@ class JobController extends Controller
     function store(StoreJobsRequest $request)
     {
         try {
-            $data=$this->prepareData($request);
+            $data = $this->prepareData($request);
             JobDetail::create($data);
             return redirect()
                 ->route('jobs.jobsPosted')
@@ -110,28 +110,30 @@ class JobController extends Controller
         }
     }
 
-    function update(UpdateJobsRequest $request,$slug){
-       try{
-        $job=JobDetail::where("slug",$slug)->first();
-        if (!$job) {
-            throw new ResourceNotFoundException('Job is not found');
+    function update(UpdateJobsRequest $request, $slug)
+    {
+        try {
+            $job = JobDetail::where("slug", $slug)->first();
+            if (!$job) {
+                throw new ResourceNotFoundException('Job is not found');
+            }
+            if (Gate::denies('isOwner', ['userId' => $job->Employer->user_id])) {
+                throw new UnauthorizedException("Unauthorized");
+            }
+
+            $data = $this->prepareData($request);
+            $job->update($data);
+            return redirect()
+                ->route('jobs.jobsPosted')
+                ->with(['messages' => json_encode(['success' => ['job update Successfully']])]);
+        } catch (\Throwable $exception) {
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['error' => [' Job: ' . $exception->getMessage()]])]);
         }
-        if (Gate::denies('isOwner', ['userId' => $job->Employer->user_id])) {
-            throw new UnauthorizedException("Unauthorized");
-        }
-        
-        $data=$this->prepareData($request);
-        $job->update($data);
-        return redirect()
-        ->route('jobs.jobsPosted')
-        ->with(['messages' =>  json_encode(['success' => ['job update Successfully']])]);
-    } catch (\Throwable $exception) {
-        return redirect()
-            ->back()
-            ->with(['messages' => json_encode(['error' => [' Job: ' . $exception->getMessage()]])]);
+
     }
-        
-    }
+
     function browseJobs()
     {
         $request = Request();
@@ -145,26 +147,29 @@ class JobController extends Controller
 
         return view('publicPages.jobs.browseJobs', compact('jobs', 'categories'));
     }
-    function jobApply($id){
-        try{
+
+    function jobApply($id)
+    {
+        try {
             $jobSeeker = JobSeeker::where('user_id', Auth::user()->id)->first();
 
-                if (!$jobSeeker) {
-                    throw new ResourceNotFoundException("Not User");
-                }
-            $jobApply=JobApplied::where('jobDetail_id' , $id)->where('jobSeeker_id' , $jobSeeker->id)->first();
-            if($jobApply){
+            if (!$jobSeeker) {
+                throw new ResourceNotFoundException("Not User");
+            }
+
+            $jobApply = JobApplied::where('jobDetail_id', $id)->where('jobSeeker_id', $jobSeeker->id)->first();
+            if ($jobApply) {
                 return redirect()
-                ->back()
-                ->with(['messages' =>  json_encode(['success' => ['job Apply Done Before']])]);
+                    ->back()
+                    ->with(['messages' => json_encode(['success' => ['job Apply Done Before']])]);
             }
             DB::table('job_applieds')->insert([
-                    'jobDetail_id' => $id,
-                    'jobSeeker_id' => $jobSeeker->id,
+                'jobDetail_id' => $id,
+                'jobSeeker_id' => $jobSeeker->id,
             ]);
-        return redirect()
-            ->back()
-            ->with(['messages' =>  json_encode(['success' => ['job Apply Successfully']])]);
+            return redirect()
+                ->back()
+                ->with(['messages' => json_encode(['success' => ['job Apply Successfully']])]);
         } catch (\Throwable $exception) {
             return redirect()
                 ->back()
@@ -201,16 +206,18 @@ class JobController extends Controller
         }
         return $jobs;
     }
-    function prepareData($request){
+
+    function prepareData($request)
+    {
         $employer = Employer::where('user_id', Auth::user()->id)->first();
         if (!$employer) {
             throw new ResourceNotFoundException("Not Found");
         }
         $data = $request->except('_token');
-        if(isset($data['image'])){
-        $data['image'] = $this->uploadFile($data['image'], 'assets/images/jobs');}
-        else{
-            $data["image"]=$data['oldimage'];
+        if (isset($data['image'])) {
+            $data['image'] = $this->uploadFile($data['image'], 'assets/images/jobs');
+        } else {
+            $data["image"] = $data['oldimage'];
         }
         $data["employer_id"] = $employer->id;
         return $data;

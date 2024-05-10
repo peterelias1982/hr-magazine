@@ -25,7 +25,7 @@
                         onclick="alert('Are you sure you want to delete?')"><i class="icon-trash"></i> Delete User
                 </button>
 
-                <<button type="submit"   class="btn btn-sm btn-primary text-white me-0" form="resetPassword"
+                <button type="submit"   class="btn btn-sm btn-primary text-white me-0" form="resetPassword"
                 ><i class="icon-key"></i> Reset Password
                 </button>
             </div>
